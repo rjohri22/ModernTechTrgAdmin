@@ -23,3 +23,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::post('/store_profile', [App\Http\Controllers\HomeController::class, 'store_profile'])->name('store_profile');
 Route::post('/store_education', [App\Http\Controllers\HomeController::class, 'store_education'])->name('store_education');
+Route::post('/store_work', [App\Http\Controllers\HomeController::class, 'store_work'])->name('store_work');
+Route::post('/store_language', [App\Http\Controllers\HomeController::class, 'store_language'])->name('store_language');
+Route::post('/store_certificate', [App\Http\Controllers\HomeController::class, 'store_certificate'])->name('store_certificate');
+Route::post('/store_links', [App\Http\Controllers\HomeController::class, 'store_links'])->name('store_links');
