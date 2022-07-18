@@ -17,7 +17,8 @@
   <!-- <link rel="stylesheet" href="../assets/css/demo/style.css"> -->
   <!-- End layout styles -->
   <!-- <link rel="shortcut icon" href="../assets/images/favicon.png" /> -->
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <link href="{{ url('assets/css/demo/style.css') }}" rel="stylesheet" type="text/css" />
 
   <link href="{{ url('assets/images/slidebar/sidebar-bg.jpg') }}" rel="stylesheet" type="text/css" />
@@ -116,9 +117,10 @@
       <header class="mdc-top-app-bar">
         <div class="mdc-top-app-bar__row">
           <div class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-            <a href="/index">
+          
             <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button sidebar-toggler">menu</button>
-            <span class="mdc-top-app-bar__title">Moder Technology</span>
+            <a href="/index">
+            <span class="mdc-top-app-bar__title">Modern Technology</span>
 </a>
           </div>
           <div class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end mdc-top-app-bar__section-right">
