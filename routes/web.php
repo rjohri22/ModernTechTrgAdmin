@@ -23,6 +23,12 @@ Route::get('/index',function(){
     return view('index');
 });
 
+Route::get('/jobSeeker',function(){
+    return view('jobSeeker');
+});
+
+
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
