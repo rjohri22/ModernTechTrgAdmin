@@ -11,7 +11,7 @@
               <h5 class="card-title">JobSeeker</h5>
              <div class="row">
                 <div class="container">
-                    <table class="table">
+                    <!-- <table class="table">
                         <tr>
                             <td>First Name</td>
                             <td>Last Name</td>
@@ -30,7 +30,29 @@
                             
                             <td><button class="btn btn-info">View</button></td>
                         </tr>
-                    </table>
+                    </table> -->
+
+            <div class="mb-3 mt-3">
+             <label for="email" class="form-label">View All Job Seeker</label>
+             <button class="form-control btn btn-info" >JobSeeker List</button>
+        </div>
+        <div class="mb-3 mt-3">
+             <label for="email" class="form-label">JobSeeker Name</label>
+             <select class="form-control">
+              <option>Pratibha</option>
+              <option>Ankit</option>
+              <option>Deepak</option>
+             </select>
+        </div>
+
+
+
+
+
+
+
+
+
              </div>
             </div>
           </div>
