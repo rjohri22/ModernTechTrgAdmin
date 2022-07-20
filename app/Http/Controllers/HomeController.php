@@ -30,7 +30,45 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user_id = Auth::user()->id;
+        $basic_information = User::where('id', $user_id)->count();
+        $education = Employee_educations::where('user_id', $user_id)->count();
+        $work = Employee_works::where('user_id', $user_id)->count();
+        $language = Employee_languages::where('user_id', $user_id)->count();
+        $certificate = Employee_cirtificates::where('user_id', $user_id)->count();
+        $link = Employee_sociallinks::where('user_id', $user_id)->count();
+        
+        $filled_modules = 0;
+        $total_modules = 6;
+        if($basic_information > 0){
+            $filled_modules++;
+        }
+        if($education > 0){
+            $filled_modules++;
+        }
+        if($work > 0){
+            $filled_modules++;
+        }
+        if($language > 0){
+            $filled_modules++;
+        }
+        if($certificate > 0){
+            $filled_modules++;
+        }
+        if($link > 0){
+            $filled_modules++;
+        }
+
+        $data['profile_completion'] = ($filled_modules/$total_modules)*100;
+
+        // echo "Basic Information -->".$basic_information;
+        // echo "Basic education -->".$education;
+        // echo "Basic work -->".$work;
+        // echo "Basic language -->".$language;
+        // echo "Basic certificate -->".$certificate;
+        // echo "Basic link -->".$link;
+        // die();
+        return view('home',$data);
     }
 
     public function profile(){
