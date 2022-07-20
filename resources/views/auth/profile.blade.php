@@ -68,10 +68,14 @@
 											<div class="row">
 												<div class="col-sm-4">
 													<div class="form-group">
+														<div class="image-placeholder">
+															<center>
+																@if ($user->profile_pic != null)
+																<img src="{{URL::asset('public/images/profile/'.$user->profile_pic)}}" style="width: 200px">
+																@endif
+															</center>
+														</div>
 														<label>{{('Profile Image')}}</label>
-														<!-- <img src="https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg" style="width: 100%"> -->
-														<!-- <br> -->
-														<!-- <br> -->
 														<input type="file" name="profile_url" id="profile_image" class="form-control profile_image">
 														<input type="hidden" name="pre_profile_image" id="pre_profile_image" value="{{$user->profile_pic}}">
 													</div>
@@ -190,8 +194,16 @@
 												</div>
 												<div class="col-sm-4">
 													<label>Resume Attachment</label>
-													<input type="file" name="resume_attachment" id="resume_attachment" class="form-control">
-													<input type="hidden" name="pre_resume_attachment" id="pre_resume_attachment" value="{{$user->resume_attachment}}">
+
+													<div class="input-group mb-3">
+													  <input type="file" name="resume_attachment" id="resume_attachment" class="form-control">
+													  <input type="hidden" name="pre_resume_attachment" id="pre_resume_attachment" value="{{$user->resume_attachment}}">
+														  <div class="input-group-append resume-placeholder">
+														  	@if ($user->resume_attachment != null)
+														    <a href="{{URL::asset('public/images/resume/'.$user->resume_attachment)}}" download><span class="input-group-text bg-primary" style="color: white">+</span></a>
+														    @endif
+														  </div>
+													</div>													
 												</div>
 											</div>
 											<br>
@@ -691,6 +703,17 @@
 		        success:function(data){
 		        	var converted = JSON.parse(data);
 		        	if(converted.status == '1'){
+		        		var image = converted.data.profile_pic;
+		        		var resume = converted.data.resume_attachment;
+		        		var html = `<center><img src="{{URL::asset('public/images/profile')}}/${image}" style="width: 200px"></center>`;
+		        		
+		        		var html2 = `<a href="{{URL::asset('public/images/resume')}}/${resume}" download><span class="input-group-text bg-primary" style="color: white">+</span></a>`;
+		        		
+
+		        		$('.image-placeholder').html(html);
+		        		$('.resume-placeholder').html(html2);
+
+
 		        		stepper.next();
 		        	}else{
 		        		alert('Something Wents Wrong');
