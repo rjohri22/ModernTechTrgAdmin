@@ -84,9 +84,9 @@ class HomeController extends Controller
         $user_id = Auth::user()->id;
         $query  = User::where('id', $user_id)->update($update_arr);
         if($query){
-            $res = array('status' => '1', 'message'=>'success');
+            $res = array('status' => '1', 'message'=>'success', 'data' => $update_arr);
         }else{
-            $res = array('status' => '0', 'message'=>'failed');
+            $res = array('status' => '0', 'message'=>'failed', 'data' => []);
         }
         echo json_encode($res);
     }
