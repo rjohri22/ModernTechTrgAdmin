@@ -8,13 +8,17 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                    @if (session('status'))
+                    @if (session('is_login'))
                         <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                            {{ ('Successfully Login') }}
                         </div>
                     @endif
-
-                    {{ __('You are logged in!') }}
+                    <h5>Profile Completion ({{round($profile_completion)}}%)</h5>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{round($profile_completion)}}%"></div>
+                    </div>
+                    <br>
+                    <a class="btn btn-primary" href="{{ route('profile') }}">Setup Profile</a>
                 </div>
             </div>
         </div>

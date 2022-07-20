@@ -1,5 +1,22 @@
 @extends('layouts.app')
 @section('content')
+<style>
+	.bootstrap-tagsinput{
+		width:100%;
+	}
+
+	.bootstrap-tagsinput .tag {
+      margin-right: 2px;
+      color: white !important;
+      background-color: #22c5bc;
+      padding: 0.2rem;
+	  
+    }
+</style>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+
 <div class="container">
 	<div class="row justify-content-center">
 		<div class="col-md-12">
@@ -167,7 +184,7 @@
 													</select>
 												</div>
 												<div class="col-sm-4">
-													<label>Desired Jop Title</label>
+													<label>Desired Job Title</label>
 													<input type="text" name="desired_job_title" id="desired_job_title" class="form-control" value="{{$user->desired_job_title}}">
 												</div>
 												<div class="col-sm-4">
@@ -210,7 +227,9 @@
 											<div class="row">
 												<div class="col-sm-12">
 													<label>{{('Skill')}}</label>
-													<input type="text" name="skills" id="skills" class="form-control" value="{{$user->skills}}">
+													<input type="text" name="skills" data-role="tagsinput"  id="skills" class="form-control w-75" value="{{$user->skills}}" style="color:blue;">
+
+													<!-- <input type="text" name="skills" id="skills" class="form-control" value="{{$user->skills}}"> -->
 												</div>
 											</div>
 											<br>
@@ -247,7 +266,14 @@
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label>{{('Level')}}</label>
-															<input type="text" id="edu_level" class="form-control">
+															<select id="edu_level" class="form-control" >
+															<option value="" >Select</option>
+  															<option value="HSC">HSC</option>
+															<option value="SSC">SSC</option>
+															<option value="Bachelors">Bachelors</option>
+															<option value="Masters">Masters</option>
+															</select>
+															<!-- <input type="text" id="edu_level" class="form-control"> -->
 														</div>
 													</div>
 													<div class="col-sm-3">
@@ -258,7 +284,7 @@
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
-															<label>{{('Field Name')}}</label>
+															<label>{{('Course Specialization')}}</label>
 															<input type="text" id="edu_field" class="form-control">
 														</div>
 													</div>
@@ -307,7 +333,7 @@
 															<tr>
 																<th>{{('Level')}}</th>
 																<th>{{('Institude Name')}}</th>
-																<th>{{('Field Name')}}</th>
+																<th>{{('Course Specialization')}}</th>
 																<th>{{('Country')}}</th>
 																<th>{{('State')}}</th>
 																<th>{{('City')}}</th>
