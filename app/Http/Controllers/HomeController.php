@@ -146,24 +146,28 @@ class HomeController extends Controller
         }
         $user_id = Auth::user()->id;
         $data = array();
-        for($i=0; $i< count($institude_name); $i++){
-            if($request->input('insert_update')[$i] == 0){
-                $data[] = array(
-                    'user_id' => $user_id,
-                    'level' => $request->input('level')[$i],
-                    'institute_name' => $institude_name[$i],
-                    'field_name' => $request->input('field')[$i],
-                    'country' => $request->input('country')[$i],
-                    'state' => $request->input('state')[$i],
-                    'city' => $request->input('city')[$i],
-                    'period_from' => $request->input('from')[$i],
-                    'period_to' => $request->input('to')[$i],
-                );
+        if(count((array)$institude_name) > 0){
+            for($i=0; $i< count($institude_name); $i++){
+                if($request->input('insert_update')[$i] == 0){
+                    $data[] = array(
+                        'user_id' => $user_id,
+                        'level' => $request->input('level')[$i],
+                        'institute_name' => $institude_name[$i],
+                        'field_name' => $request->input('field')[$i],
+                        'country' => $request->input('country')[$i],
+                        'state' => $request->input('state')[$i],
+                        'city' => $request->input('city')[$i],
+                        'period_from' => $request->input('from')[$i],
+                        'period_to' => $request->input('to')[$i],
+                    );
+                }
             }
-        }
-        $query = Employee_educations::insert($data);
-        if($query){
-            $res = array('status' => '1', 'message'=>'success');
+            $query = Employee_educations::insert($data);
+            if($query){
+                $res = array('status' => '1', 'message'=>'success');
+            }else{
+                $res = array('status' => '0', 'message'=>'failed');
+            }
         }else{
             $res = array('status' => '0', 'message'=>'failed');
         }
@@ -189,24 +193,28 @@ class HomeController extends Controller
 
         $user_id = Auth::user()->id;
         $data = array();
-        for($i=0; $i< count($compnay); $i++){
-            if($request->input('insert_update')[$i] == 0){
-                $data[] = array(
-                    'user_id' => $user_id,
-                    'title' => $request->input('work_title')[$i],
-                    'company' => $compnay[$i],
-                    'country' => $request->input('work_country')[$i],
-                    'state' => $request->input('work_state')[$i],
-                    'city' => $request->input('work_city')[$i],
-                    'period_from' => $request->input('work_from')[$i],
-                    'period_to' => $request->input('work_to')[$i],
-                    'description' => $request->input('work_description')[$i],
-                );
+        if(count((array)$compnay) > 0){
+            for($i=0; $i< count($compnay); $i++){
+                if($request->input('insert_update')[$i] == 0){
+                    $data[] = array(
+                        'user_id' => $user_id,
+                        'title' => $request->input('work_title')[$i],
+                        'company' => $compnay[$i],
+                        'country' => $request->input('work_country')[$i],
+                        'state' => $request->input('work_state')[$i],
+                        'city' => $request->input('work_city')[$i],
+                        'period_from' => $request->input('work_from')[$i],
+                        'period_to' => $request->input('work_to')[$i],
+                        'description' => $request->input('work_description')[$i],
+                    );
+                }
             }
-        }
-        $query = Employee_works::insert($data);
-        if($query){
-            $res = array('status' => '1', 'message'=>'success');
+            $query = Employee_works::insert($data);
+            if($query){
+                $res = array('status' => '1', 'message'=>'success');
+            }else{
+                $res = array('status' => '0', 'message'=>'failed');
+            }
         }else{
             $res = array('status' => '0', 'message'=>'failed');
         }
@@ -231,18 +239,22 @@ class HomeController extends Controller
         }
         $user_id = Auth::user()->id;
         $data = array();
-        for($i=0; $i< count($title); $i++){
-            if($request->input('insert_update')[$i] == 0){
-                $data[] = array(
-                    'user_id' => $user_id,
-                    'title' => $title[$i],
-                    'proficiency' => $request->input('language_profiency')[$i],
-                );
+        if(count((array)$title) > 0){
+            for($i=0; $i< count($title); $i++){
+                if($request->input('insert_update')[$i] == 0){
+                    $data[] = array(
+                        'user_id' => $user_id,
+                        'title' => $title[$i],
+                        'proficiency' => $request->input('language_profiency')[$i],
+                    );
+                }
             }
-        }
-        $query = Employee_languages::insert($data);
-        if($query){
-            $res = array('status' => '1', 'message'=>'success');
+            $query = Employee_languages::insert($data);
+            if($query){
+                $res = array('status' => '1', 'message'=>'success');
+            }else{
+                $res = array('status' => '0', 'message'=>'failed');
+            }
         }else{
             $res = array('status' => '0', 'message'=>'failed');
         }
@@ -267,21 +279,25 @@ class HomeController extends Controller
         }
         $user_id = Auth::user()->id;
         $data = array();
-        for($i=0; $i< count($title); $i++){
-            if($request->input('insert_update')[$i] == 0){
-                $data[] = array(
-                    'user_id' => $user_id,
-                    'title' => $title[$i],
-                    'institute_name' => $request->input('certificate_institude')[$i],
-                    'period_from' => $request->input('certificate_from')[$i],
-                    'period_to' => $request->input('certificate_to')[$i],
-                    'description' => $request->input('certificate_description')[$i],
-                );
+        if(count((array)$title) > 0){
+            for($i=0; $i< count($title); $i++){
+                if($request->input('insert_update')[$i] == 0){
+                    $data[] = array(
+                        'user_id' => $user_id,
+                        'title' => $title[$i],
+                        'institute_name' => $request->input('certificate_institude')[$i],
+                        'period_from' => $request->input('certificate_from')[$i],
+                        'period_to' => $request->input('certificate_to')[$i],
+                        'description' => $request->input('certificate_description')[$i],
+                    );
+                }
             }
-        }
-        $query = Employee_cirtificates::insert($data);
-        if($query){
-            $res = array('status' => '1', 'message'=>'success');
+            $query = Employee_cirtificates::insert($data);
+            if($query){
+                $res = array('status' => '1', 'message'=>'success');
+            }else{
+                $res = array('status' => '0', 'message'=>'failed');
+            }
         }else{
             $res = array('status' => '0', 'message'=>'failed');
         }
@@ -306,18 +322,22 @@ class HomeController extends Controller
         }
         $user_id = Auth::user()->id;
         $data = array();
-        for($i=0; $i< count($title); $i++){
-            if($request->input('insert_update')[$i] == 0){
-                $data[] = array(
-                    'user_id' => $user_id,
-                    'title' => $title[$i],
-                    'link' => $request->input('link_link')[$i],
-                );
+        if(count((array)$title) > 0){
+            for($i=0; $i< count($title); $i++){
+                if($request->input('insert_update')[$i] == 0){
+                    $data[] = array(
+                        'user_id' => $user_id,
+                        'title' => $title[$i],
+                        'link' => $request->input('link_link')[$i],
+                    );
+                }
             }
-        }
-        $query = Employee_sociallinks::insert($data);
-        if($query){
-            $res = array('status' => '1', 'message'=>'success');
+            $query = Employee_sociallinks::insert($data);
+            if($query){
+                $res = array('status' => '1', 'message'=>'success');
+            }else{
+                $res = array('status' => '0', 'message'=>'failed');
+            }
         }else{
             $res = array('status' => '0', 'message'=>'failed');
         }
