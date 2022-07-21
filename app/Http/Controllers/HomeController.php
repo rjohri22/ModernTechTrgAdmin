@@ -60,7 +60,6 @@ class HomeController extends Controller
         }
 
         $data['profile_completion'] = ($filled_modules/$total_modules)*100;
-
         // echo "Basic Information -->".$basic_information;
         // echo "Basic education -->".$education;
         // echo "Basic work -->".$work;
@@ -79,6 +78,10 @@ class HomeController extends Controller
         $data['language'] = Employee_languages::where('user_id', $user_id)->get();
         $data['certificate'] = Employee_cirtificates::where('user_id', $user_id)->get();
         $data['links'] = Employee_sociallinks::where('user_id', $user_id)->get();
+
+        $ip = $_SERVER['REMOTE_ADDR'];
+        // $ip = '39.48.206.112';
+        $data['location'] = json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
         return view('auth/profile',$data);
     }
 

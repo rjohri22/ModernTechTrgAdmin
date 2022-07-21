@@ -135,19 +135,19 @@
 												<div class="col-sm-3">
 													<div class="form-group">
 														<label>{{'Country'}}</label>
-														<input type="text" name="country" id="country" class="form-control country" value="{{$user->country}}">
+														<input type="text" name="country" id="country" class="form-control country" value="{{($user->country) ? $user->country : $location->geoplugin_countryName}}">
 													</div>
 												</div>
 												<div class="col-sm-3">
 													<div class="form-group">
 														<label>{{'State'}}</label>
-														<input type="text" name="state" id="state" class="form-control city" value="{{$user->state}}">
+														<input type="text" name="state" id="state" class="form-control city" value="{{($user->state) ? $user->state : $location->geoplugin_region}}">
 													</div>
 												</div>
 												<div class="col-sm-3">
 													<div class="form-group">
 														<label>{{'City'}}</label>
-														<input type="text" name="city" id="city" class="form-control city" value="{{$user->city}}">
+														<input type="text" name="city" id="city" class="form-control city" value="{{($user->city) ? $user->city : $location->geoplugin_city}}">
 													</div>
 												</div>
 												<div class="col-sm-3">
@@ -291,7 +291,7 @@
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label>{{('Country')}}</label>
-															<input type="text" id="edu_country" class="form-control">
+															<input type="text" id="edu_country" class="form-control" value="{{$location->geoplugin_countryName}}">
 														</div>
 													</div>
 												</div>
@@ -300,13 +300,13 @@
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label>{{('State')}}</label>
-															<input type="text" id="edu_state" class="form-control">
+															<input type="text" id="edu_state" class="form-control" value="{{$location->geoplugin_region}}">
 														</div>
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label>{{('City')}}</label>
-															<input type="text" id="edu_city" class="form-control">
+															<input type="text" id="edu_city" class="form-control" value="{{$location->geoplugin_city}}">
 														</div>
 													</div>
 													<div class="col-sm-2">
@@ -410,19 +410,19 @@
 													<div class="col-sm-4">
 														<div class="form-group">
 															<label>{{'Country'}}</label>
-															<input type="text" id="work_country" class="form-control">
+															<input type="text" id="work_country" class="form-control" value="{{$location->geoplugin_countryName}}">
 														</div>
 													</div>
 													<div class="col-sm-4">
 														<div class="form-group">
 															<label>{{'State'}}</label>
-															<input type="text" id="work_state" class="form-control">
+															<input type="text" id="work_state" class="form-control" value="{{$location->geoplugin_regionName}}">
 														</div>
 													</div>
 													<div class="col-sm-4">
 														<div class="form-group">
 															<label>{{'City'}}</label>
-															<input type="text" id="work_city" class="form-control">
+															<input type="text" id="work_city" class="form-control" value="{{$location->geoplugin_city}}">
 														</div>
 													</div>
 												</div>
