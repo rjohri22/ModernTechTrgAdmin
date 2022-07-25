@@ -25,10 +25,14 @@ class JobapplicationsController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
-        $data['job_applications'] = Job_applications::get();
+        $fetch = Job_applications::join('oppertunities', 'oppertunities.id', '=', 'job_applications.oppertunity_id')
+                ->join('users','users.id','=','job_applications.jobseeker_id')
+                ->get(['job_applications.*', 'users.name as user_name','oppertunities.title as oppertunity']);
+
+        $data['job_applications'] = $fetch;
         return view('admin/job_applications/index',$data);
     }
 

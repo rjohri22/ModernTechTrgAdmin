@@ -51,6 +51,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/job_applications/view/{id}', [Admin\JobapplicationsController::class, 'view'])->name('admin.view_job_applications');
     
     Route::post('/job_applications/store_application', [Admin\JobapplicationsController::class, 'store_application'])->name('admin.store_application');
-    Route::post('/job_applications/update_application/{$id}', [Admin\JobapplicationsController::class, 'update_application'])->name('admin.update_application');
-    Route::get('/job_applications/delete_application/{$id}', [Admin\JobapplicationsController::class, 'delete_application'])->name('admin.delete_application');
+    Route::post('/job_applications/update_application/{id}', [Admin\JobapplicationsController::class, 'update_application'])->name('admin.update_application');
+    
+    Route::get('/job_applications/delete_application/{id}', [Admin\JobapplicationsController::class, 'delete_application'])->name('admin.delete_application');
 });

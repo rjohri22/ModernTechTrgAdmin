@@ -15,7 +15,7 @@
 			</tr>
 			<tr>
 				<th>Company</th>
-				<td>{{$oppertunity->company_id}}</td>
+				<td>{{$oppertunity->company_name}}</td>
 			</tr>
 			<tr>
 				<th>Min Salary</th>
