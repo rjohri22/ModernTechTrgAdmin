@@ -84,7 +84,15 @@
                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                   </div>
                   <div class="pull-right">
-                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                    <a class="btn btn-default btn-flat" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                   </div>
                 </li>
               </ul>
@@ -115,13 +123,18 @@
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">MAIN NAVIGATION</li>
           <li>
-            <a href="#">
+            <a href="{{route('dashboard')}}">
               <i class="fa fa-th"></i> <span>Dashbaord</span>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="{{route('admin.oppertunities')}}">
               <i class="fa fa-th"></i> <span>Oppertiunity</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('admin.job_applications')}}">
+              <i class="fa fa-th"></i> <span>Job Applications</span>
             </a>
           </li>
           <li>
@@ -153,6 +166,25 @@
       </section>
       <!-- Main content -->
       <section class="content">
+        @if ($errors->any())
+        <div class="container">
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        @endif
+
+        @if ($message = Session::get('success'))
+        <div class="container">
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        </div>
+        @endif
         @yield('content')
       </section>
       <!-- /.content -->
@@ -194,5 +226,13 @@
   <script src="{{ url('assets/adminpanel1/') }}/dist/js/pages/dashboard.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="{{ url('assets/adminpanel1/') }}/dist/js/demo.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+      $('[data-toggle="popover"]').popover({
+        html : true,
+      })
+    })
+  </script>
 </body>
 </html>
