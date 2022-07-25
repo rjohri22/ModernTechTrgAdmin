@@ -15,17 +15,31 @@ class Companies extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('country');
-            $table->string('state');
-            $table->string('city');
-            $table->string('address');
-            $table->string('description');
-            $table->string('logo');
-            $table->string('company_type');
-            $table->integer('status');
+            $table->string('name')->nullable();
+            $table->string('country')->nullable();
+            $table->string('state')->nullable();
+            $table->string('city')->nullable();
+            $table->string('address')->nullable();
+            $table->string('description')->nullable();
+            $table->string('logo')->nullable();
+            $table->string('company_type')->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
+
+        DB::table('companies')->insert(
+            array(
+                'name' => 'Modern tech',
+                'country' => 'india',
+                'state' => "",
+                'city' => "",
+                'address' => "",
+                'description' => 1,
+                'logo' => "",
+                'company_type' => "1",
+                'status' => "1",
+            )
+        );
     }
 
     /**

@@ -76,6 +76,7 @@ class OppertunitiesController extends Controller
             'status'            => $request->input('status'),
             'summery'           => $request->input('summery'),
             'description'       => $request->input('description'),
+            'modified_by'       => 1,
         );
 
         $query = Oppertunities::insert($update_arr);

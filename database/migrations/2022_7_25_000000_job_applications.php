@@ -15,16 +15,16 @@ class JobApplications extends Migration
     {
         Schema::create('job_applications', function (Blueprint $table) {
             $table->id();
-            $table->integer('oppertunity_id');
-            $table->integer('jobseeker_id');
-            $table->integer('hod_id');
-            $table->string('js_interview_datetime');
-            $table->dateTime('company_interview_datetime');
-            $table->integer('offer_salary');
-            $table->date('joining_date');
-            $table->string('jobseeker_remarks');
-            $table->integer('offer_letter_status');
-            $table->integer('status');
+            $table->integer('oppertunity_id')->nullable();
+            $table->integer('jobseeker_id')->nullable();
+            $table->integer('hod_id')->nullable();
+            $table->string('js_interview_datetime')->nullable();
+            $table->dateTime('company_interview_datetime')->nullable();
+            $table->integer('offer_salary')->nullable();
+            $table->date('joining_date')->nullable();
+            $table->string('jobseeker_remarks')->nullable();
+            $table->integer('offer_letter_status')->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

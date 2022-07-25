@@ -15,20 +15,20 @@ class Oppertunities extends Migration
     {
         Schema::create('oppertunities', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->integer('company_id');
-            $table->integer('min_salary');
-            $table->integer('max_salary');
-            $table->integer('salary_type');
-            $table->integer('job_type');
-            $table->integer('work_type');
-            $table->string('summery');
-            $table->string('description');
-            $table->date('expires_on');
-            $table->integer('no_of_positions');
-            $table->integer('urgent_hiring');
-            $table->date('modified_by');
-            $table->integer('status');
+            $table->string('title')->nullable();
+            $table->integer('company_id')->nullable();
+            $table->integer('min_salary')->nullable();
+            $table->integer('max_salary')->nullable();
+            $table->integer('salary_type')->nullable();
+            $table->integer('job_type')->nullable();
+            $table->integer('work_type')->nullable();
+            $table->string('summery')->nullable();
+            $table->string('description')->nullable();
+            $table->date('expires_on')->nullable();
+            $table->integer('no_of_positions')->nullable();
+            $table->integer('urgent_hiring')->nullable();
+            $table->integer('modified_by')->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }
