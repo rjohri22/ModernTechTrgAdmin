@@ -21,6 +21,18 @@
                     <a class="btn btn-primary" href="{{ route('profile') }}">Setup Profile</a>
                 </div>
             </div>
+            @foreach($Oppertunities as $oppertunity)
+            <br>
+            <div class="card">
+                <div class="card-body">
+                    <h6>{{$oppertunity->title}}</h6>
+                    <p>{{$oppertunity->summery}}</p>
+                    <p><strong>Salary</strong><br>{{$oppertunity->min_salary}} - {{($oppertunity->max_salary) ? $oppertunity->max_salary : 0}}</p>
+                    <br>
+                    <a class="btn btn-primary" href="{{ route('apply_job',$oppertunity->id) }}">Apply</a>
+                </div>
+            </div> 
+            @endforeach
         </div>
     </div>
 </div>

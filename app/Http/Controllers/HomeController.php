@@ -9,7 +9,10 @@ use App\Models\Employee_works;
 use App\Models\Employee_languages;
 use App\Models\Employee_cirtificates;
 use App\Models\Employee_sociallinks;
+use App\Models\Job_applications;
+use App\Models\Admin\Oppertunities;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 class HomeController extends Controller
 {
@@ -60,6 +63,7 @@ class HomeController extends Controller
         }
 
         $data['profile_completion'] = ($filled_modules/$total_modules)*100;
+        $data['Oppertunities'] = Oppertunities::get();
         // echo "Basic Information -->".$basic_information;
         // echo "Basic education -->".$education;
         // echo "Basic work -->".$work;
@@ -346,13 +350,42 @@ class HomeController extends Controller
         }
         echo json_encode($res);
     }
+
+    public function apply_job($id){
+        $data['oppertunity'] = Oppertunities::where('id', $id)->first();
+        return view('apply_job',$data);
+    }
+
+    public function thankyou(){
+        return view('thankyou');
+    }
+
+    public function store_apply_job($id, Request $request){
+        $dates = $request->input('dates');
+        $imp_date = implode(",",$dates);
+        $user_id = Auth::user()->id;
+        $update_arr = array(
+            'oppertunity_id'           => $id,
+            'jobseeker_id'             => $user_id,
+            'hod_id'                   => 0,
+            'js_interview_datetime'    => $imp_date,
+            'status'                   => 0,
+        );
+
+        $query = Job_applications::insert($update_arr);
+        return redirect()->route('thankyou')
+        ->with('success','oppertunity created successfully.');
+    }
+
     public function loginverification(){
         $user_id = Auth::user()->id;
         $user = User::where('id',$user_id)->first();
         if($user->group_id == 1){
+            Session::put('admin_login', 1);
             return redirect('/admin/dashboard');
         }
         else{
+            Session::put('admin_login', 0);
             return redirect('/home');
         }
     }
