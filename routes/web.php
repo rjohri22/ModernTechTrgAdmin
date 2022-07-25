@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers;
+use App\Http\Controllers\Admin;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +29,8 @@ Route::post('/store_work', [App\Http\Controllers\HomeController::class, 'store_w
 Route::post('/store_language', [App\Http\Controllers\HomeController::class, 'store_language'])->name('store_language');
 Route::post('/store_certificate', [App\Http\Controllers\HomeController::class, 'store_certificate'])->name('store_certificate');
 Route::post('/store_links', [App\Http\Controllers\HomeController::class, 'store_links'])->name('store_links');
+Route::get('/loginverification', [App\Http\Controllers\HomeController::class, 'loginverification'])->name('loginverification');
+
+Route::prefix('admin')->group(function () {
+    Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard');
+});

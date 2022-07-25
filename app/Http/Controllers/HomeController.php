@@ -346,4 +346,14 @@ class HomeController extends Controller
         }
         echo json_encode($res);
     }
+    public function loginverification(){
+        $user_id = Auth::user()->id;
+        $user = User::where('id',$user_id)->first();
+        if($user->group_id == 1){
+            return redirect('/admin/dashboard');
+        }
+        else{
+            return redirect('/home');
+        }
+    }
 }
