@@ -24,8 +24,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        echo 'Dashbaord Admin Panel';
-        // return view('home',$data);
+        return view('admin.dashbaord');
     }
 
 }
