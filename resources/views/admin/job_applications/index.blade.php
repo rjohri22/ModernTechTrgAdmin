@@ -28,10 +28,10 @@
 		    @foreach($job_applications as $ja) 
 		    <tr>
 		      <th scope="row">{{$counter}}</th>
-		      <td>{{$ja->oppertunity_id}}</td>
-		      <td>{{$ja->jobseeker_id}}</td>
+		      <td>{{$ja->oppertunity}}</td>
+		      <td>{{$ja->user_name}}</td>
 		      <td>{{$ja->js_interview_datetime}}</td>
-		      <td>{{$ja->company_interview_datetime}}</td>
+		      <td>{{date('Y-m-d',strtotime($ja->company_interview_datetime))}}</td>
 		      <td>{{$ja->offer_salary}}</td>
 		      <td>{{$ja->joining_date}}</td>
 		      <td>

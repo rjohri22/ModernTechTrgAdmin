@@ -27,8 +27,10 @@ class OppertunitiesController extends Controller
     }
     
     public function index()
-    {
-        $data['oppertunities'] = Oppertunities::get();
+    {   
+        $fetch = Oppertunities::join('companies', 'companies.id', '=', 'oppertunities.company_id')
+                ->get(['oppertunities.*', 'companies.name as company_name']);
+        $data['oppertunities'] = $fetch;
         return view('admin/oppertunities/index',$data);
     }
 
@@ -47,7 +49,9 @@ class OppertunitiesController extends Controller
 
     public function view($id)
     {
-        $data['oppertunity'] = Oppertunities::where('id', $id)->first();
+        $fetch = Oppertunities::join('companies', 'companies.id', '=', 'oppertunities.company_id')
+                ->get(['oppertunities.*', 'companies.name as company_name'])->where('id',$id)->first();
+        $data['oppertunity'] = $fetch;
         return view('admin/oppertunities/view',$data);
     }
 
@@ -72,6 +76,7 @@ class OppertunitiesController extends Controller
             'status'            => $request->input('status'),
             'summery'           => $request->input('summery'),
             'description'       => $request->input('description'),
+            'modified_by'       => 1,
         );
 
         $query = Oppertunities::insert($update_arr);
