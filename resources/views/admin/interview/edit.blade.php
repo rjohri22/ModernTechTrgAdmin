@@ -8,7 +8,7 @@
 	</div>
 	<div class="box-body">
 		
-		<form action="{{route('admin.update_application',$job_application->id)}}" method="post">
+		<form action="{{route('admin.update_interview',$job_application->id)}}" method="post">
 			@csrf
 			<div class="row">
 				<div class="col-sm-3">
@@ -20,7 +20,7 @@
 				</div>
 				<div class="col-sm-3">
 					<label>interview Date</label>
-					<input type="date" name="interview_date" class="form-control" value="{{$job_application->company_interview_datetime}}">
+					<input type="date" name="interview_date" class="form-control" value="{{date('Y-m-d',strtotime($job_application->company_interview_datetime))}}">
 				</div>
 				<div class="col-sm-3">
 					<label>Joining Date</label>

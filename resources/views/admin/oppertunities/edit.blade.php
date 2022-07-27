@@ -1,13 +1,11 @@
 @extends('admin.layout.master')
 @section('content')
 
-<div class="card container mt-2" style="background: white">
-	<br>
-
-	<div class="card-header">
+<div class="box box-primary container mt-2" style="background: white">
+	<div class="box-header">
 		<h3>Add Oppertunities</h3>
 	</div>
-	<div class="card-body">
+	<div class="box-body">
 		
 		<form action="{{route('admin.update_oppertunity',$oppertunity->id)}}" method="post">
 			@csrf

@@ -5,11 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Admin\AdminBaseController;
 use Illuminate\Http\Request;
-use App\Models\Job_applications;
-use App\Models\Admin\Companies;
+use App\Models\User;
+use App\Models\Employee_educations;
+use App\Models\Employee_works;
+use App\Models\Employee_languages;
+use App\Models\Employee_cirtificates;
+use App\Models\Employee_sociallinks;
 use Illuminate\Support\Facades\Auth;
 
-class JobapplicationsController extends AdminBaseController
+class JobSeekerController extends AdminBaseController
 {
     /**
      * Create a new controller instance.
@@ -32,13 +36,10 @@ class JobapplicationsController extends AdminBaseController
         if(!$this->check_role()){
             return redirect()->route('home');
         };
+        $fetch = User::where('group_id','!=',1)->orwhere('group_id',null)->get();
 
-        $fetch = Job_applications::join('oppertunities', 'oppertunities.id', '=', 'job_applications.oppertunity_id')
-                ->join('users','users.id','=','job_applications.jobseeker_id')
-                ->get(['job_applications.*', 'users.name as user_name','oppertunities.title as oppertunity']);
-
-        $data['job_applications'] = $fetch;
-        return view('admin/job_applications/index',$data);
+        $data['job_seeker'] = $fetch;
+        return view('admin/job_seekers/index',$data);
     }
 
     
@@ -50,7 +51,7 @@ class JobapplicationsController extends AdminBaseController
         };
         $data['companies'] = Companies::where('status','1')->get();
         $data['job_application'] = Job_applications::where('id', $id)->first();
-        return view('admin/job_applications/edit',$data);
+        return view('admin/job_seekers/edit',$data);
     }
 
     public function view($id)
@@ -58,11 +59,17 @@ class JobapplicationsController extends AdminBaseController
         if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $data['oppertunity'] = Job_applications::where('id', $id)->first();
-        return view('admin/job_applications/view',$data);
+
+        $data['user'] = User::where('id', $id)->first();
+        $data['education'] = Employee_educations::where('user_id', $id)->get();
+        $data['works'] = Employee_works::where('user_id', $id)->get();
+        $data['language'] = Employee_languages::where('user_id', $id)->get();
+        $data['certificate'] = Employee_cirtificates::where('user_id', $id)->get();
+        $data['links'] = Employee_sociallinks::where('user_id', $id)->get();
+        return view('admin/job_seekers/view',$data);
     }
 
-    public function store_application(Request $request)
+    public function store_job_seeker(Request $request)
     {
         if(!$this->check_role()){
             return redirect()->route('home');
@@ -93,7 +100,7 @@ class JobapplicationsController extends AdminBaseController
         ->with('success','oppertunity created successfully.');
     }
 
-    public function update_application($id, Request $request)
+    public function update_job_seeker($id, Request $request)
     {
         if(!$this->check_role()){
             return redirect()->route('home');
@@ -112,12 +119,12 @@ class JobapplicationsController extends AdminBaseController
         ->with('success','oppertunity Updated successfully.');
     }
 
-    public function delete_application($id){
+    public function delete_job_seeker($id){
         if(!$this->check_role()){
             return redirect()->route('home');
         };
-        Job_applications::where('id',$id)->delete(); 
-        return redirect()->route('admin.job_applications')
-        ->with('success','Oppertunity Deleted successfully.');
+        User::where('id',$id)->delete(); 
+        return redirect()->route('admin.job_seeker')
+        ->with('success','User Deleted Successfully.');
     }
 }

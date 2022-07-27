@@ -54,4 +54,23 @@ Route::prefix('admin')->group(function () {
     Route::post('/job_applications/update_application/{id}', [Admin\JobapplicationsController::class, 'update_application'])->name('admin.update_application');
     
     Route::get('/job_applications/delete_application/{id}', [Admin\JobapplicationsController::class, 'delete_application'])->name('admin.delete_application');
+
+
+    Route::get('/job_seeker', [Admin\JobSeekerController::class, 'index'])->name('admin.job_seeker');
+    Route::get('/job_seeker/add', [Admin\JobSeekerController::class, 'add'])->name('admin.add_job_seeker');
+    Route::get('/job_seeker/edit/{id}', [Admin\JobSeekerController::class, 'edit'])->name('admin.edit_job_seeker');
+    Route::get('/job_seeker/view/{id}', [Admin\JobSeekerController::class, 'view'])->name('admin.view_job_seeker');
+    
+    Route::post('/job_seeker/store_job_seeker', [Admin\JobSeekerController::class, 'store_job_seeker'])->name('admin.store_job_seeker');
+    Route::post('/job_seeker/update_job_seeker/{id}', [Admin\JobSeekerController::class, 'update_job_seeker'])->name('admin.update_job_seeker');
+    
+    Route::get('/job_seeker/delete_job_seeker/{id}', [Admin\JobSeekerController::class, 'delete_job_seeker'])->name('admin.delete_job_seeker');
+
+    
+    Route::get('/interview', [Admin\InterviewController::class, 'index'])->name('admin.interview');
+    Route::get('/interview/edit/{id}', [Admin\InterviewController::class, 'edit'])->name('admin.edit_interview');
+
+    Route::post('/interview/update_interview/{id}', [Admin\InterviewController::class, 'update_interview'])->name('admin.update_interview');
+    
+    Route::get('/interview/delete_interview/{id}', [Admin\InterviewController::class, 'delete_interview'])->name('admin.delete_interview');
 });

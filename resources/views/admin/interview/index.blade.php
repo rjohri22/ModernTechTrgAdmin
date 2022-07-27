@@ -1,6 +1,29 @@
 @extends('admin.layout.master')
 @section('content')
 
+<div class="box box-primary container mt-2">
+	<div class="box-header with-border">
+		<b>Filter</b>
+	</div>
+	<div class="box-body">
+		<form class="form" action="#" method="get">
+			<div class="row">
+				<div class="col-sm-4">
+					<label>Interview</label>
+					<select class="form-control" name="interview">
+						<option value="">All Interview</option>
+						<option value="past">Past Interview</option>
+						<option value="today">Today Interview</option>
+						<option value="upcoming">Upcoming Interview</option>
+					</select>
+				</div>
+				<div class="col-sm-4">
+					<button class="btn btn-primary" type="submit" style="margin-top: 24px">Submit</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
 <div class="box box-primary container mt-2" style="background: white">
 	<div class="box-header">
 		<h3>Job Applications</h3>
@@ -53,8 +76,8 @@
 		      
 		      <td>
 		      	<!-- <a href="{{route('admin.view_job_applications',$ja->id)}}" class="btn btn-primary btn-sm">View</a> -->
-		      	<a href="{{route('admin.edit_job_applications',$ja->id)}}" class="btn btn-info btn-sm">Edit</a>
-		      	<button type="button" class="btn btn-sm btn-danger" data-toggle="popover" data-placement="left" data-trigger="focus" title="Delete Oppertunity" data-html="true" data-content="<b>Are You Sure ?</b><hr><a href='{{route('admin.delete_application',$ja->id)}}' class='btn btn-success btn-sm'>I am Sure</a>&nbsp;<a class='btn btn-danger btn-sm'>No</a>">Delete</button>
+		      	<a href="{{route('admin.edit_interview',$ja->id)}}" class="btn btn-info btn-sm">Edit</a>
+		      	<button type="button" class="btn btn-sm btn-danger" data-toggle="popover" data-placement="left" data-trigger="focus" title="Delete Oppertunity" data-html="true" data-content="<b>Are You Sure ?</b><hr><a href='{{route('admin.delete_interview',$ja->id)}}' class='btn btn-success btn-sm'>I am Sure</a>&nbsp;<a class='btn btn-danger btn-sm'>No</a>">Delete</button>
 
 		      </td>
 		    </tr>

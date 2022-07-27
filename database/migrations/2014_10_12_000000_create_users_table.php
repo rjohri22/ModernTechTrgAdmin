@@ -39,6 +39,7 @@ class CreateUsersTable extends Migration
             $table->integer('desired_salary')->nullable();
             $table->string('desired_period')->nullable();
             $table->string('desired_jobtype')->nullable();
+            $table->string('profile_pic')->nullable();
             $table->string('resume_attachment')->nullable();
             $table->string('password');
             $table->integer('group_id')->nullable();
