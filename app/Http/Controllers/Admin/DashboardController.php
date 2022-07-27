@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\AdminBaseController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -9,21 +10,22 @@ use Illuminate\Support\Facades\Auth;
 use Session;
 
 
-class DashboardController extends Controller
+class DashboardController extends AdminBaseController
 {
     /**
      * Create a new controller instance.
      *
      * @return void
      */
+   
     public function __construct()
     {
+        
         $this->middleware('auth');
         // echo Session::get('admin_login');
-        // die(); 
-        if (Session::get('admin_login') != 1) {
-            return redirect('/home');
-        }
+        // die();
+        // $user_id = Auth::user()->id;
+
     }
 
     /**
@@ -33,6 +35,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        if(!$this->check_role()){
+             return redirect()->route('home');
+        };
         return view('admin.dashbaord');
     }
 

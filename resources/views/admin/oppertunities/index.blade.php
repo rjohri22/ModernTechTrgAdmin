@@ -1,13 +1,17 @@
 @extends('admin.layout.master')
 @section('content')
 
-<div class="card container mt-2" style="background: white">
+<div class="box box-primary container mt-2" style="background: white">
 	<br>
-	<div class="card-header">
-		<a href="{{route('admin.add_oppertunities')}}" class="btn btn-primary" style="float: right">Add Oppertunity</a>
+	<div class="box-header with-border">
+		<a href="{{route('admin.add_oppertunities')}}" class="btn btn-primary" style="float: right;">Add Oppertunity</a>
 		<h3>Oppertunities</h3>
+		<span class="label label-primary">Total Job Applied</span>
+      	<span class="label label-warning">Total Shortlisted</span>
+      	<span class="label label-info">Total Onboarding</span>
+      	<span class="label label-success">Total Hired</span>
 	</div>
-	<div class="card-body">
+	<div class="box-body">
 		<table class="table table-sm">
 		  <thead>
 		    <tr>
@@ -21,6 +25,7 @@
 		      <th scope="col">Expires On</th>
 		      <th scope="col">No Of Position</th>
 		      <th scope="col">Urgent Hirign</th>
+		      <th scope="col">Summery</th>
 		      <th scope="col">Actions</th>
 		    </tr>
 		  </thead>
@@ -68,6 +73,13 @@
 		      <td>{{$oppertunity->expires_on}}</td>
 		      <td>{{$oppertunity->no_of_positions}}</td>
 		      <td>{{($oppertunity->urgent_hiring) ? "Yes": " No "}}</td>
+		      <td>
+		      	<span class="label label-primary">0</span>
+		      	<span class="label label-warning">0</span>
+		      	<span class="label label-info">0</span>
+		      	<span class="label label-success">0</span>
+			      
+			  </td>
 		      <td>
 		      	<a href="{{route('admin.view_oppertunities',$oppertunity->id)}}" class="btn btn-primary btn-sm">View</a>
 		      	<a href="{{route('admin.edit_oppertunities',$oppertunity->id)}}" class="btn btn-info btn-sm">Edit</a>

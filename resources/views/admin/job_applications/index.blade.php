@@ -1,12 +1,11 @@
 @extends('admin.layout.master')
 @section('content')
 
-<div class="card container mt-2" style="background: white">
-	<br>
-	<div class="card-header">
+<div class="box box-primary container mt-2" style="background: white">
+	<div class="box-header">
 		<h3>Job Applications</h3>
 	</div>
-	<div class="card-body">
+	<div class="box-body">
 		<table class="table table-sm">
 		  <thead>
 		    <tr>
@@ -42,7 +41,7 @@
 				@elseif($ja->status =='2')
 				    Reject
 				@elseif($ja->status =='3')
-					Interviewed
+					Interview
 				@elseif($ja->status =='4')
 					Onboarding
 				@elseif($ja->status =='5')

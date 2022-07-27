@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\AdminBaseController;
 use Illuminate\Http\Request;
 use App\Models\Job_applications;
 use App\Models\Admin\Companies;
 use Illuminate\Support\Facades\Auth;
 
-class JobapplicationsController extends Controller
+class JobapplicationsController extends AdminBaseController
 {
     /**
      * Create a new controller instance.
@@ -28,6 +29,10 @@ class JobapplicationsController extends Controller
 
     public function index()
     {
+        if(!$this->check_role()){
+            return redirect()->route('home');
+        };
+
         $fetch = Job_applications::join('oppertunities', 'oppertunities.id', '=', 'job_applications.oppertunity_id')
                 ->join('users','users.id','=','job_applications.jobseeker_id')
                 ->get(['job_applications.*', 'users.name as user_name','oppertunities.title as oppertunity']);
@@ -40,6 +45,9 @@ class JobapplicationsController extends Controller
 
     public function edit($id)
     {
+        if(!$this->check_role()){
+            return redirect()->route('home');
+        };
         $data['companies'] = Companies::where('status','1')->get();
         $data['job_application'] = Job_applications::where('id', $id)->first();
         return view('admin/job_applications/edit',$data);
@@ -47,12 +55,18 @@ class JobapplicationsController extends Controller
 
     public function view($id)
     {
+        if(!$this->check_role()){
+            return redirect()->route('home');
+        };
         $data['oppertunity'] = Job_applications::where('id', $id)->first();
         return view('admin/job_applications/view',$data);
     }
 
     public function store_application(Request $request)
     {
+        if(!$this->check_role()){
+            return redirect()->route('home');
+        };
 
         $validated = $request->validate([
             'title' => 'required|max:255',
@@ -81,7 +95,9 @@ class JobapplicationsController extends Controller
 
     public function update_application($id, Request $request)
     {
-
+        if(!$this->check_role()){
+            return redirect()->route('home');
+        };
         $update_arr = array(
             'hod_id'         => $request->input('hod'),
             'company_interview_datetime'       => $request->input('interview_date'),
@@ -97,6 +113,9 @@ class JobapplicationsController extends Controller
     }
 
     public function delete_application($id){
+        if(!$this->check_role()){
+            return redirect()->route('home');
+        };
         Job_applications::where('id',$id)->delete(); 
         return redirect()->route('admin.job_applications')
         ->with('success','Oppertunity Deleted successfully.');

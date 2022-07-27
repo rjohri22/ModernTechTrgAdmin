@@ -64,6 +64,7 @@ class HomeController extends Controller
 
         $data['profile_completion'] = ($filled_modules/$total_modules)*100;
         $data['Oppertunities'] = Oppertunities::get();
+        $data['products'] = Job_applications::where('jobseeker_id', $user_id)->pluck('oppertunity_id')->toArray();
         // echo "Basic Information -->".$basic_information;
         // echo "Basic education -->".$education;
         // echo "Basic work -->".$work;

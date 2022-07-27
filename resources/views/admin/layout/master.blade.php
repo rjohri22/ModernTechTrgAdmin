@@ -138,13 +138,13 @@
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="{{route('admin.job_seeker')}}">
               <i class="fa fa-th"></i> <span>Job Seeker</span>
             </a>
           </li>
           <li>
-            <a href="#">
-              <i class="fa fa-th"></i> <span>Admin User</span>
+            <a href="{{route('admin.interview')}}">
+              <i class="fa fa-th"></i> <span>Interview</span>
             </a>
           </li>
         </ul>

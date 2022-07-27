@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -29,7 +30,12 @@
                     <p>{{$oppertunity->summery}}</p>
                     <p><strong>Salary</strong><br>{{$oppertunity->min_salary}} - {{($oppertunity->max_salary) ? $oppertunity->max_salary : 0}}</p>
                     <br>
+                    @if(in_array($oppertunity->id, $products))
+                    <a class="btn btn-success" href="javascript:void()" style="opacity: 0.5">Applied</a>
+                    @else
                     <a class="btn btn-primary" href="{{ route('apply_job',$oppertunity->id) }}">Apply</a>
+                    @endif
+
                 </div>
             </div> 
             @endforeach
