@@ -68,6 +68,11 @@ Route::prefix('admin')->group(function () {
 
     
     Route::get('/interview', [Admin\InterviewController::class, 'index'])->name('admin.interview');
+    Route::post('/interview', [Admin\InterviewController::class, 'index'])->name('admin.interview_post');
+    
+
+
+
     Route::get('/interview/edit/{id}', [Admin\InterviewController::class, 'edit'])->name('admin.edit_interview');
 
     Route::post('/interview/update_interview/{id}', [Admin\InterviewController::class, 'update_interview'])->name('admin.update_interview');
