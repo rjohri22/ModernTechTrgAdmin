@@ -1,6 +1,8 @@
 @extends('admin.layout.master')
 @section('content')
-
+@php
+use App\Models\Job_applications;
+@endphp
 <div class="box box-primary container mt-2" style="background: white">
 	<br>
 	<div class="box-header with-border">
@@ -8,6 +10,8 @@
 		<h3>Oppertunities</h3>
 		<span class="label label-primary">Total Job Applied</span>
       	<span class="label label-warning">Total Shortlisted</span>
+      	<span class="label label-danger">Total Rejected</span>
+      	<span class="label label-default">Total Interview</span>
       	<span class="label label-info">Total Onboarding</span>
       	<span class="label label-success">Total Hired</span>
 	</div>
@@ -73,11 +77,21 @@
 		      <td>{{$oppertunity->expires_on}}</td>
 		      <td>{{$oppertunity->no_of_positions}}</td>
 		      <td>{{($oppertunity->urgent_hiring) ? "Yes": " No "}}</td>
+		      @php
+		      	$total_applied = Job_applications::where('status','0')->where('oppertunity_id',$oppertunity->id)->count();
+		      	$total_shorlist = Job_applications::where('status','1')->where('oppertunity_id',$oppertunity->id)->count();
+		      	$total_reject = Job_applications::where('status','2')->where('oppertunity_id',$oppertunity->id)->count();
+		      	$total_interview = Job_applications::where('status','3')->where('oppertunity_id',$oppertunity->id)->count();
+		      	$total_on_boarding = Job_applications::where('status','4')->where('oppertunity_id',$oppertunity->id)->count();
+		      	$total_hiring = Job_applications::where('status','5')->where('oppertunity_id',$oppertunity->id)->count();
+		      @endphp
 		      <td>
-		      	<span class="label label-primary">0</span>
-		      	<span class="label label-warning">0</span>
-		      	<span class="label label-info">0</span>
-		      	<span class="label label-success">0</span>
+		      	<span class="label label-primary">{{$total_applied}}</span>
+		      	<span class="label label-warning">{{$total_shorlist}}</span>
+		      	<span class="label label-danger">{{$total_reject}}</span>
+		      	<span class="label label-default">{{$total_interview}}</span>
+		      	<span class="label label-info">{{$total_on_boarding}}</span>
+		      	<span class="label label-success">{{$total_hiring}}</span>
 			      
 			  </td>
 		      <td>

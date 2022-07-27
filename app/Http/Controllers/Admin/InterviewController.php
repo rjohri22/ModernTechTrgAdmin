@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Job_applications;
 use App\Models\Admin\Companies;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class InterviewController extends AdminBaseController
 {
@@ -27,26 +28,35 @@ class InterviewController extends AdminBaseController
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         if(!$this->check_role()){
             return redirect()->route('home');
-        };
+        };  
+
+        $input = $request->all(); 
 
         $fetch = Job_applications::join('oppertunities', 'oppertunities.id', '=', 'job_applications.oppertunity_id')
-                ->join('users','users.id','=','job_applications.jobseeker_id')->where('job_applications.status',3)
-                ->get(['job_applications.*', 'users.name as user_name','oppertunities.title as oppertunity']);
-        // $filter = Input::get('interview');
-        // dd($filter)
-        // if(!$filters) {
-        //         $query = $query->where('self', '<>', true);
-        //     } else {
-        //         $query = $query->orWhere('self', true);
-        //     }
+                ->join('users','users.id','=','job_applications.jobseeker_id')->where('job_applications.status',3);
+
+        if($input){
+            $filter = $request->input('interview');
+            if($filter == 'past'){
+                $fetch = $fetch->where(DB::raw('DATE_FORMAT(company_interview_datetime, "%Y-%m-%d")'),'<',$filter);
+            }
+            if($filter == 'today'){
+                $fetch = $fetch->where(DB::raw('DATE_FORMAT(company_interview_datetime, "%Y-%m-%d")'),'=',$filter);
+            }
+            if($filter == 'upcoming'){
+                $fetch = $fetch->where(DB::raw('DATE_FORMAT(company_interview_datetime, "%Y-%m-%d")'),'>',$filter);
+            }
+        }
+
+        $fetch = $fetch->get(['job_applications.*', 'users.name as user_name','oppertunities.title as oppertunity']);
+
         $data['job_applications'] = $fetch;
         return view('admin/interview/index',$data);
     }
-
     
 
     public function edit($id)
@@ -104,6 +114,7 @@ class InterviewController extends AdminBaseController
             'offer_salary'    => $request->input('offer_salary'),
             'offer_letter_status'   => $request->input('offer_letter'),
             'status'   => $request->input('status'),
+            'interview_feebacks'   => $request->input('interview_feedback'),
         );
 
         $query  = Job_applications::where('id', $id)->update($update_arr);

@@ -6,14 +6,15 @@
 		<b>Filter</b>
 	</div>
 	<div class="box-body">
-		<form class="form" action="#" method="get">
+		<form class="form" action="{{route('admin.interview_post')}}" method="post">
+			@csrf
 			<div class="row">
 				<div class="col-sm-4">
 					<label>Interview</label>
 					<select class="form-control" name="interview">
 						<option value="">All Interview</option>
-						<option value="past">Past Interview</option>
-						<option value="today">Today Interview</option>
+						<option value="past" >Past Interview</option>
+						<option value="today" >Today Interview</option>
 						<option value="upcoming">Upcoming Interview</option>
 					</select>
 				</div>
@@ -40,6 +41,7 @@
 		      <th scope="col">Offer Salary</th>
 		      <th scope="col">Joining date</th>
 		      <th scope="col">Status</th>
+		      <th scope="col">interview Status</th>
 		      <th scope="col">Actions</th>
 		    </tr>
 		  </thead>
@@ -57,7 +59,15 @@
 		      <td>{{$ja->offer_salary}}</td>
 		      <td>{{$ja->joining_date}}</td>
 		      <td>
-		      	@if($ja->status =='0')
+		      	<select class="form-control">
+		      		<option value="0" {{($ja->status ==0) ? "selected" : ""}}>Pending</option>
+		      		<option value="1" {{($ja->status ==1) ? "selected" : ""}}>Shortlisted</option>
+		      		<option value="2" {{($ja->status ==2) ? "selected" : ""}}>Reject</option>
+		      		<option value="3" {{($ja->status ==3) ? "selected" : ""}}>Interview</option>
+		      		<option value="4" {{($ja->status ==4) ? "selected" : ""}}>Onboarding</option>
+		      		<option value="5" {{($ja->status ==5) ? "selected" : ""}}>Hiring</option>
+		      	</select>
+		      	<!-- @if($ja->status =='0')
 		      		Pending
 				@elseif($ja->status =='1')
 				    Shortlist
@@ -71,8 +81,16 @@
 				 	Hiring
 			 	@else
 			 		<i>Not Speicified</i>       
-				@endif
+				@endif -->
 		      </td>
+		      <td>
+		      	@if($ja->interview_feebacks != null)
+		      		<span class='label label-success'>Taken</span>
+				@elseif($ja->interview_feebacks == null)
+				    <span class='label label-warning'>Pedning</span>
+			 	@else
+			 		<i>Not Speicified</i>       
+				@endif
 		      
 		      <td>
 		      	<!-- <a href="{{route('admin.view_job_applications',$ja->id)}}" class="btn btn-primary btn-sm">View</a> -->

@@ -44,7 +44,7 @@
 				</div>
 				<div class="col-sm-3">
 					<label>Status</label>
-					<select class="form-control" name="status">
+					<select class="form-control" name="status" readonly="true">
 						<option value="">Select Status</option>
 						<option value="0" {{($job_application->status == 0) ? 'selected' : ''}}>Pending</option>
 						<option value="1" {{($job_application->status == 1) ? 'selected' : ''}}>Shorlist</option>
@@ -54,7 +54,13 @@
 						<option value="5" {{($job_application->status == 5) ? 'selected' : ''}}>Hiring</option>
 					</select>
 				</div>
-				
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-12">
+					<label>Interview Feedbacks</label>
+					<textarea class="form-control" rows="7" name="interview_feedback">{{$job_application->interview_feebacks}}</textarea>
+				</div>				
 			</div>
 			<br>
 			<div class="row">
