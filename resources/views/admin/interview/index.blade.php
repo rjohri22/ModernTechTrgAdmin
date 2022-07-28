@@ -27,7 +27,7 @@
 </div>
 <div class="box box-primary container mt-2" style="background: white">
 	<div class="box-header">
-		<h3>Job Applications</h3>
+		<h3>Job Applications (Interview)</h3>
 	</div>
 	<div class="box-body">
 		<table class="table table-sm">
@@ -52,14 +52,14 @@
 		    @foreach($job_applications as $ja) 
 		    <tr>
 		      <th scope="row">{{$counter}}</th>
-		      <td>{{$ja->oppertunity}}</td>
-		      <td>{{$ja->user_name}}</td>
-		      <td>{{$ja->js_interview_datetime}}</td>
-		      <td>{{date('Y-m-d',strtotime($ja->company_interview_datetime))}}</td>
-		      <td>{{$ja->offer_salary}}</td>
-		      <td>{{$ja->joining_date}}</td>
+		      <td class="oppertunity">{{$ja->oppertunity}}</td>
+		      <td class="user_name">{{$ja->user_name}}</td>
+		      <td class="js_interview">{{$ja->js_interview_datetime}}</td>
+		      <td class="compnay_interview">{{($ja->company_interview_datetime != null) ? date('Y-m-d',strtotime($ja->company_interview_datetime)) : ""}}</td>
+		      <td class="offer_salary">{{$ja->offer_salary}}</td>
+		      <td class="joining_date">{{$ja->joining_date}}</td>
 		      <td>
-		      	<select class="form-control">
+		      	<select class="form-control status-change" id="" data-id="{{$ja->id}}">
 		      		<option value="0" {{($ja->status ==0) ? "selected" : ""}}>Pending</option>
 		      		<option value="1" {{($ja->status ==1) ? "selected" : ""}}>Shortlisted</option>
 		      		<option value="2" {{($ja->status ==2) ? "selected" : ""}}>Reject</option>
@@ -67,21 +67,6 @@
 		      		<option value="4" {{($ja->status ==4) ? "selected" : ""}}>Onboarding</option>
 		      		<option value="5" {{($ja->status ==5) ? "selected" : ""}}>Hiring</option>
 		      	</select>
-		      	<!-- @if($ja->status =='0')
-		      		Pending
-				@elseif($ja->status =='1')
-				    Shortlist
-				@elseif($ja->status =='2')
-				    Reject
-				@elseif($ja->status =='3')
-					Interview
-				@elseif($ja->status =='4')
-					Onboarding
-				@elseif($ja->status =='5')
-				 	Hiring
-			 	@else
-			 		<i>Not Speicified</i>       
-				@endif -->
 		      </td>
 		      <td>
 		      	@if($ja->interview_feebacks != null)
@@ -108,5 +93,43 @@
 	</div>
 </div>
 
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(document).on('change','.status-change',function(){
+			var status = $(this).val();
+			var id = $(this).attr('data-id');
+
+			if(status == 4){
+				var offer_salary = $(this).parent().parent().find('.offer_salary').text();
+				var joining_date = $(this).parent().parent().find('.joining_date').text();
+				if(offer_salary == '' || joining_date == ''){
+					alert('please Enter Offer Salart And Joining Date');
+					$(this).val('3');
+					return false;
+				}
+			}
+			$.ajax({
+			  type: "POST",
+			  url: "{{route('admin.change_status')}}",
+			  cache: false,
+			  data : {
+			  	"id" : id,
+			  	"status" : status,
+			  	"_token":"{{ csrf_token() }}"
+			  },
+			  dataType: "json",
+			  success: function(response){
+			  	if(response.status == 1){
+			  		location.reload();
+			  	}else{
+			  		alert('something wents wrongs');
+			  		location.reload();
+			  	}
+			  }
+			});
+		});
+	});
+</script>
 
 @endsection

@@ -20,7 +20,7 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
               <div class="inner">
-                <h3>150</h3>
+                <h3>{{$total_oppertunity}}</h3>
                 <p>Total Oppertiunity</p>
               </div>
               <div class="icon">
@@ -33,7 +33,7 @@
             <!-- small box -->
             <div class="small-box bg-green">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3>{{$total_jobseeker}}</h3>
                 <p>Total Jobseeker</p>
               </div>
               <div class="icon">
@@ -46,7 +46,7 @@
             <!-- small box -->
             <div class="small-box bg-yellow">
               <div class="inner">
-                <h3>44</h3>
+                <h3>{{$total_applications}}</h3>
                 <p>Total Applications</p>
               </div>
               <div class="icon">

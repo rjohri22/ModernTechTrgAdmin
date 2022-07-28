@@ -27,17 +27,36 @@ class JobapplicationsController extends AdminBaseController
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index($status)
     {
         if(!$this->check_role()){
             return redirect()->route('home');
         };
 
-        $fetch = Job_applications::join('oppertunities', 'oppertunities.id', '=', 'job_applications.oppertunity_id')
-                ->join('users','users.id','=','job_applications.jobseeker_id')
-                ->get(['job_applications.*', 'users.name as user_name','oppertunities.title as oppertunity']);
+        $application_status = null;
+        if($status == 'pending'){
+            $application_status = 0;
+        }else if($status == 'shortlist'){
+            $application_status = 1;
+        }else if($status == 'reject'){
+            $application_status = 2;
+        }else if($status == 'interview'){
+            $application_status = 3;
+        }else if($status == 'onboarding'){
+            $application_status = 4;
+        }else if($status == 'hiring'){
+            $application_status = 5;
+        }
 
+        $fetch = Job_applications::join('oppertunities', 'oppertunities.id', '=', 'job_applications.oppertunity_id')
+                ->join('users','users.id','=','job_applications.jobseeker_id');
+
+        if($application_status != null){
+            $fetch = $fetch->where('job_applications.status',$application_status);
+        }
+        $fetch = $fetch->get(['job_applications.*', 'users.name as user_name','oppertunities.title as oppertunity']);
         $data['job_applications'] = $fetch;
+        $data['application_status'] = $status;
         return view('admin/job_applications/index',$data);
     }
 
@@ -89,7 +108,7 @@ class JobapplicationsController extends AdminBaseController
         );
 
         $query = Job_applications::insert($update_arr);
-        return redirect()->route('admin.job_applications')
+        return redirect()->route('admin.job_applications','all')
         ->with('success','oppertunity created successfully.');
     }
 
@@ -108,7 +127,7 @@ class JobapplicationsController extends AdminBaseController
         );
 
         $query  = Job_applications::where('id', $id)->update($update_arr);
-        return redirect()->route('admin.job_applications')
+        return redirect()->route('admin.job_applications','all')
         ->with('success','oppertunity Updated successfully.');
     }
 

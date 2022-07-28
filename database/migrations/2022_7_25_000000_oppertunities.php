@@ -22,8 +22,8 @@ class Oppertunities extends Migration
             $table->integer('salary_type')->nullable();
             $table->integer('job_type')->nullable();
             $table->integer('work_type')->nullable();
-            $table->string('summery')->nullable();
-            $table->string('description')->nullable();
+            $table->text('summery')->nullable();
+            $table->text('description')->nullable();
             $table->date('expires_on')->nullable();
             $table->integer('no_of_positions')->nullable();
             $table->integer('urgent_hiring')->nullable();
