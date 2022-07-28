@@ -29,6 +29,9 @@
   <link rel="stylesheet" href="{{ url('assets/adminpanel1/') }}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+  <script src="{{ url('assets/adminpanel1/') }}/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="{{ url('assets/adminpanel1/') }}/bower_components/jquery-ui/jquery-ui.min.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
@@ -52,31 +55,15 @@
             <li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="{{ url('assets/adminpanel1/') }}/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                <span class="hidden-xs">Alexander Pierce</span>
+                <span class="hidden-xs"> {{ Auth::user()->name }}</span>
               </a>
               <ul class="dropdown-menu">
                 <!-- User image -->
                 <li class="user-header">
                   <img src="{{ url('assets/adminpanel1/') }}/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                   <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                   {{ Auth::user()->name }}
                   </p>
-                </li>
-                <!-- Menu Body -->
-                <li class="user-body">
-                  <div class="row">
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Followers</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Sales</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Friends</a>
-                    </div>
-                  </div>
-                <!-- /.row -->
                 </li>
                 <!-- Menu Footer-->
                 <li class="user-footer">
@@ -115,7 +102,7 @@
             <img src="{{ url('assets/adminpanel1/') }}/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
-            <p>Alexander Pierce</p>
+            <p> {{ Auth::user()->name }}</p>
             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
           </div>
         </div>
@@ -127,26 +114,47 @@
               <i class="fa fa-th"></i> <span>Dashbaord</span>
             </a>
           </li>
-          <li>
-            <a href="{{route('admin.oppertunities')}}">
-              <i class="fa fa-th"></i> <span>Oppertiunity</span>
+
+          <li class="treeview" style="height: auto;">
+            <a href="#">
+              <i class="fa fa-share"></i> <span>Recruitment</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
             </a>
-          </li>
-          <li>
-            <a href="{{route('admin.job_applications')}}">
-              <i class="fa fa-th"></i> <span>Job Applications</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{route('admin.job_seeker')}}">
-              <i class="fa fa-th"></i> <span>Job Seeker</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{route('admin.interview')}}">
-              <i class="fa fa-th"></i> <span>Interview</span>
-            </a>
-          </li>
+            <ul class="treeview-menu" style="display: none;">
+              <li>
+                <a href="{{route('admin.job_seeker')}}">
+                  <i class="fa fa-circle-o"></i> <span>Job Seeker</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{route('admin.oppertunities')}}">
+                  <i class="fa fa-circle-o"></i> <span>Oppertiunity</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{route('admin.job_applications','all')}}">
+                  <i class="fa fa-circle-o"></i> <span>Job Applications</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{route('admin.interview')}}">
+                  <i class="fa fa-circle-o"></i> <span>Interview</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{route('admin.job_applications','onboarding')}}">
+                  <i class="fa fa-circle-o"></i> <span>Onboarding</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{route('admin.job_applications','hiring')}}">
+                  <i class="fa fa-circle-o"></i> <span>Hiring</span>
+                </a>
+              </li>
+            </ul>
+          </li>          
         </ul>
       </section>
       <!-- /.sidebar -->
@@ -155,14 +163,13 @@
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-        <h1>
+        <!-- <h1>
           Dashboard
-          <small>Control panel</small>
-        </h1>
-        <ol class="breadcrumb">
+        </h1> -->
+        <!-- <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
           <li class="active">Dashboard</li>
-        </ol>
+        </ol> -->
       </section>
       <!-- Main content -->
       <section class="content">
@@ -190,9 +197,9 @@
       <!-- /.content -->
     </div>
   <!-- jQuery 3 -->
-  <script src="{{ url('assets/adminpanel1/') }}/bower_components/jquery/dist/jquery.min.js"></script>
+  
   <!-- jQuery UI 1.11.4 -->
-  <script src="{{ url('assets/adminpanel1/') }}/bower_components/jquery-ui/jquery-ui.min.js"></script>
+  
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   <script>
   $.widget.bridge('uibutton', $.ui.button);

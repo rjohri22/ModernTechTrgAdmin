@@ -45,7 +45,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/oppertunities/delete_oppertunity/{id}', [Admin\OppertunitiesController::class, 'delete_oppertunity'])->name('admin.delete_oppertunity');
 
 
-    Route::get('/job_applications', [Admin\JobapplicationsController::class, 'index'])->name('admin.job_applications');
+    Route::get('/job_applications/{status}', [Admin\JobapplicationsController::class, 'index'])->name('admin.job_applications');
     Route::get('/job_applications/add', [Admin\JobapplicationsController::class, 'add'])->name('admin.add_job_applications');
     Route::get('/job_applications/edit/{id}', [Admin\JobapplicationsController::class, 'edit'])->name('admin.edit_job_applications');
     Route::get('/job_applications/view/{id}', [Admin\JobapplicationsController::class, 'view'])->name('admin.view_job_applications');
@@ -78,4 +78,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/interview/update_interview/{id}', [Admin\InterviewController::class, 'update_interview'])->name('admin.update_interview');
     
     Route::get('/interview/delete_interview/{id}', [Admin\InterviewController::class, 'delete_interview'])->name('admin.delete_interview');
+
+
+    Route::post('/change_status', [Admin\DashboardController::class, 'change_status'])->name('admin.change_status');
 });
