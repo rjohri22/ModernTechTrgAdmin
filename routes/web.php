@@ -32,6 +32,7 @@ Route::post('/store_links', [App\Http\Controllers\HomeController::class, 'store_
 Route::get('/loginverification', [App\Http\Controllers\HomeController::class, 'loginverification'])->name('loginverification');
 Route::get('/apply_job/{id}', [App\Http\Controllers\HomeController::class, 'apply_job'])->name('apply_job');
 Route::post('/store_apply_job/{id}', [App\Http\Controllers\HomeController::class, 'store_apply_job'])->name('store_apply_job');
+Route::get('/my_jobs', [App\Http\Controllers\HomeController::class, 'myjobs'])->name('myjobs');
 Route::get('/thankyou', [App\Http\Controllers\HomeController::class, 'thankyou'])->name('thankyou');
 
 Route::prefix('admin')->group(function () {
@@ -69,16 +70,24 @@ Route::prefix('admin')->group(function () {
     
     Route::get('/interview', [Admin\InterviewController::class, 'index'])->name('admin.interview');
     Route::post('/interview', [Admin\InterviewController::class, 'index'])->name('admin.interview_post');
-    
-
-
-
     Route::get('/interview/edit/{id}', [Admin\InterviewController::class, 'edit'])->name('admin.edit_interview');
-
     Route::post('/interview/update_interview/{id}', [Admin\InterviewController::class, 'update_interview'])->name('admin.update_interview');
-    
     Route::get('/interview/delete_interview/{id}', [Admin\InterviewController::class, 'delete_interview'])->name('admin.delete_interview');
-
-
     Route::post('/change_status', [Admin\DashboardController::class, 'change_status'])->name('admin.change_status');
+
+
+
+    Route::get('/groups', [Admin\GroupController::class, 'index'])->name('admin.groups');
+    Route::get('/groups/add', [Admin\GroupController::class, 'add'])->name('admin.group_add');
+    Route::get('/groups/edit/{id}', [Admin\GroupController::class, 'edit'])->name('admin.group_edit');
+    Route::post('/groups/store', [Admin\GroupController::class, 'store'])->name('admin.group_store');
+    Route::post('/groups/update/{id}', [Admin\GroupController::class, 'update'])->name('admin.group_update');
+    Route::get('/groups/delete/{id}', [Admin\GroupController::class, 'delete'])->name('admin.group_delete');
+
+    Route::get('/designations', [Admin\DesignationController::class, 'index'])->name('admin.designations');
+    Route::get('/designations/add', [Admin\DesignationController::class, 'add'])->name('admin.designation_add');
+    Route::get('/designations/edit/{id}', [Admin\DesignationController::class, 'edit'])->name('admin.designation_edit');
+    Route::post('/designations/store', [Admin\DesignationController::class, 'store'])->name('admin.designation_store');
+    Route::post('/designations/update/{id}', [Admin\DesignationController::class, 'update'])->name('admin.designation_update');
+    Route::get('/designations/delete/{id}', [Admin\DesignationController::class, 'delete'])->name('admin.designation_delete');
 });

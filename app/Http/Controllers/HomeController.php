@@ -353,6 +353,8 @@ class HomeController extends Controller
     }
 
     public function apply_job($id){
+        $user_id = Auth::user()->id;
+        $data['products'] = Job_applications::where('jobseeker_id', $user_id)->pluck('oppertunity_id')->toArray();
         $data['oppertunity'] = Oppertunities::where('id', $id)->first();
         return view('apply_job',$data);
     }
@@ -389,5 +391,11 @@ class HomeController extends Controller
             Session::put('admin_login', 0);
             return redirect('/home');
         }
+    }
+
+    public function myjobs(){
+        $user_id = Auth::user()->id;
+        $data['jobs'] = Job_applications::where('jobseeker_id', $user_id)->get();
+        return view('jobs/myjob',$data);
     }
 }

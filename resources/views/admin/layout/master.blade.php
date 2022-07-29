@@ -192,7 +192,7 @@
             </a>
             <ul class="treeview-menu" style="display: none;">
               <li>
-                <a href="{{route('admin.job_seeker')}}">
+                <a href="{{route('admin.groups')}}">
                   <i class="fa fa-circle-o"></i> <span>Groups</span>
                 </a>
               </li>
@@ -202,7 +202,7 @@
                 </a>
               </li>
               <li>
-                <a href="{{route('admin.job_applications','all')}}">
+                <a href="{{route('admin.designations','all')}}">
                   <i class="fa fa-circle-o"></i> <span>Designations</span>
                 </a>
               </li>
