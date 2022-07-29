@@ -109,6 +109,7 @@
 					return false;
 				}
 			}
+			$('#overlay').show();
 			$.ajax({
 			  type: "POST",
 			  url: "{{route('admin.change_status')}}",
@@ -121,9 +122,11 @@
 			  dataType: "json",
 			  success: function(response){
 			  	if(response.status == 1){
+			  		$('#overlay').hide();
 			  		location.reload();
 			  	}else{
 			  		alert('something wents wrongs');
+			  		$('#overlay').hide();
 			  		location.reload();
 			  	}
 			  }
