@@ -32,8 +32,35 @@
 
   <script src="{{ url('assets/adminpanel1/') }}/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="{{ url('assets/adminpanel1/') }}/bower_components/jquery-ui/jquery-ui.min.js"></script>
+  <style type="text/css">
+    #overlay {
+      position: fixed; /* Sit on top of the page content */
+      display: none; /* Hidden by default */
+      width: 100%; /* Full width (cover the whole page) */
+      height: 100%; /* Full height (cover the whole page) */
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+      z-index: 100; /* Specify a stack order in case you're using a different order for other elements */
+      cursor: pointer; /* Add a pointer on hover */
+    }
+
+    #overlay h3{
+      position: absolute;
+      color: white;
+      top: 50%;
+      /* z-index: 9999999999999; */
+      left: 50%;
+    }
+  </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+  <div id="overlay">
+    <h3>Loading Please Wait ...</h3>
+    <i class="fa fa-refresh fa-spin"></i>
+  </div>
   <div class="wrapper">
     <header class="main-header">
       <!-- Logo -->
@@ -151,6 +178,32 @@
               <li>
                 <a href="{{route('admin.job_applications','hiring')}}">
                   <i class="fa fa-circle-o"></i> <span>Hiring</span>
+                </a>
+              </li>
+            </ul>
+          </li> 
+
+          <li class="treeview" style="height: auto;">
+            <a href="#">
+              <i class="fa fa-share"></i> <span>Master</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu" style="display: none;">
+              <li>
+                <a href="{{route('admin.job_seeker')}}">
+                  <i class="fa fa-circle-o"></i> <span>Groups</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{route('admin.oppertunities')}}">
+                  <i class="fa fa-circle-o"></i> <span>Departments</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{route('admin.job_applications','all')}}">
+                  <i class="fa fa-circle-o"></i> <span>Designations</span>
                 </a>
               </li>
             </ul>
