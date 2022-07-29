@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row">
         <div class="col-sm-8">
@@ -76,19 +77,21 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
-            <form action="{{route('store_apply_job',$oppertunity->id)}}" method="post" id="application_form">
-                @csrf
-                <h4>Submit your Job Application</h4>
-                <div class="input-group mb-3">
-                    <input type="date" class="form-control" id="chosen_date">
-                    <span class="input-group-text btn btn-primary" id="add_dates">+</span>
-                </div>
-                <div class="row" id="dates_area">
-                </div>
-                <button class="btn btn-success" type="Submit" id="submit_application">Submit your Application</button>
-            </form>
-        </div>
+         @if(!in_array($oppertunity->id, $products))
+            <div class="col-sm-4">
+                <form action="{{route('store_apply_job',$oppertunity->id)}}" method="post" id="application_form">
+                    @csrf
+                    <h4>Submit your Job Application</h4>
+                    <div class="input-group mb-3">
+                        <input type="date" class="form-control" id="chosen_date">
+                        <span class="input-group-text btn btn-primary" id="add_dates">+</span>
+                    </div>
+                    <div class="row" id="dates_area">
+                    </div>
+                    <button class="btn btn-success" type="Submit" id="submit_application">Submit your Application</button>
+                </form>
+            </div>
+         @endif
     </div>
 </div>
 
