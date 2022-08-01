@@ -15,20 +15,20 @@ class Oppertunities extends Migration
     {
         Schema::create('oppertunities', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
-            $table->integer('company_id')->nullable();
-            $table->integer('min_salary')->nullable();
-            $table->integer('max_salary')->nullable();
-            $table->integer('salary_type')->nullable();
-            $table->integer('job_type')->nullable();
-            $table->integer('work_type')->nullable();
+            $table->string('title',500)->nullable();
+            $table->integer('company_id',false)->nullable();
+            $table->integer('min_salary',false)->nullable();
+            $table->integer('max_salary',false)->nullable();
+            $table->tinyInteger('salary_type',false, true)->nullable()->comment('1 => MOnthly, 2=> Yearly, 3=> daily');
+            $table->tinyInteger('job_type',false, true)->nullable()->comment('1 => Internship, 2=> Fresher, 3=> Experienced');
+            $table->tinyInteger('work_type',false, true)->nullable()->comment('1 => Part Time, 2=> Full Time');
             $table->text('summery')->nullable();
             $table->text('description')->nullable();
             $table->date('expires_on')->nullable();
-            $table->integer('no_of_positions')->nullable();
-            $table->integer('urgent_hiring')->nullable();
-            $table->integer('modified_by')->nullable();
-            $table->integer('status')->nullable();
+            $table->integer('no_of_positions',false)->nullable();
+            $table->tinyInteger('urgent_hiring',false, true)->nullable()->comment('0 => No, 1=> Yes');
+            $table->integer('modified_by',false)->nullable();
+            $table->tinyInteger('status',false, true)->nullable()->comment('1 => Open, 0 => Closed');
             $table->timestamps();
         });
     }

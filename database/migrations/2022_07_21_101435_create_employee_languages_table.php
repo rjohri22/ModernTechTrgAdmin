@@ -16,8 +16,8 @@ class CreateEmployeeLanguagesTable extends Migration
         Schema::create('employee_languages', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->nullable();
-            $table->string('title')->nullable();
-            $table->string('proficiency')->nullable();
+            $table->string('title',100)->nullable();
+            $table->string('proficiency',100)->nullable();
             $table->timestamps();
         });
     }

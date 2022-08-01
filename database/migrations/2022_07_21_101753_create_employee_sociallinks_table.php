@@ -16,8 +16,8 @@ class CreateEmployeeSociallinksTable extends Migration
         Schema::create('employee_sociallinks', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->nullable();
-            $table->string('title')->nullable();
-            $table->string('link')->nullable();
+            $table->string('title',100)->nullable();
+            $table->string('link',255)->nullable();
             $table->timestamps();
         });
     }

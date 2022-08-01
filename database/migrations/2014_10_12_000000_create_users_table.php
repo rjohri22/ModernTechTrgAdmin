@@ -14,35 +14,36 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
+            // $table->id();
+            $table->increments('id');
+            $table->string('name',100);
+            $table->string('first_name',100)->nullable();
+            $table->string('last_name',100)->nullable();
             $table->text('headline')->nullable();
             $table->text('summery')->nullable();
             $table->text('addition_information')->nullable();
-            $table->string('email')->unique();
-            $table->string('phone')->nullable();
-            $table->string('address')->nullable();
-            $table->string('address_primary')->nullable();
-            $table->string('address_secondary')->nullable();
-            $table->string('country')->nullable();
-            $table->string('state')->nullable();
-            $table->string('city')->nullable();
-            $table->string('postal_code')->nullable();
-            $table->integer('email_verified')->nullable();
+            $table->string('email',100)->unique();
+            $table->string('phone',100)->nullable();
+            $table->string('address',100)->nullable();
+            $table->string('address_primary',100)->nullable();
+            $table->string('address_secondary',100)->nullable();
+            $table->string('country',100)->nullable();
+            $table->string('state',100)->nullable();
+            $table->string('city',100)->nullable();
+            $table->string('postal_code',50)->nullable();
+            $table->tinyInteger('email_verified', false, true)->default(0)->index()->comment('0 => UnVerified, 1 => Verified');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('skills')->nullable();
-            $table->integer('resume_type')->nullable();
-            $table->integer('status')->nullable();
-            $table->string('desired_job_title')->nullable();
-            $table->integer('desired_salary')->nullable();
-            $table->string('desired_period')->nullable();
-            $table->string('desired_jobtype')->nullable();
-            $table->string('profile_pic')->nullable();
-            $table->string('resume_attachment')->nullable();
-            $table->string('password');
-            $table->integer('group_id')->nullable();
+            $table->string('skills',255)->nullable();
+            $table->tinyInteger('resume_type', false, true)->default(0)->index()->comment('1 => Private, 0=> Public');
+            $table->tinyInteger('status', false, true)->default(0)->index()->comment('1=> Active, 0 => Inactive');
+            $table->string('desired_job_title',255)->nullable();
+            $table->integer('desired_salary',false)->nullable()->index();
+            $table->string('desired_period',20)->nullable();
+            $table->string('desired_jobtype',20)->nullable();
+            $table->string('profile_pic',255)->nullable();
+            $table->string('resume_attachment',255)->nullable();
+            $table->string('password',255);
+            $table->integer('group_id',false)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
@@ -64,7 +65,7 @@ class CreateUsersTable extends Migration
                 'state' => "",
                 'city' => "",
                 'postal_code' => "",
-                'email_verified' => 1,
+                'email_verified' => '1',
                 'skills' => "",
                 'resume_type' => "1",
                 'status' => "1",

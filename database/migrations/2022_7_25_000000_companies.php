@@ -15,15 +15,15 @@ class Companies extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('country')->nullable();
-            $table->string('state')->nullable();
-            $table->string('city')->nullable();
-            $table->string('address')->nullable();
-            $table->string('description')->nullable();
-            $table->string('logo')->nullable();
-            $table->string('company_type')->nullable();
-            $table->integer('status')->nullable();
+            $table->string('name',255)->nullable();
+            $table->string('country',100)->nullable();
+            $table->string('state',100)->nullable();
+            $table->string('city',100)->nullable();
+            $table->string('address',150)->nullable();
+            $table->string('description',300)->nullable();
+            $table->string('logo',255)->nullable();
+            $table->string('company_type',10)->nullable();
+            $table->tinyInteger('status',false, true)->default(0)->nullable()->comment('0 => Inactive, 1 => Active');
             $table->timestamps();
         });
 

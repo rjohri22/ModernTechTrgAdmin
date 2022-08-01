@@ -15,10 +15,10 @@ class CreateEmployeeAwardTable extends Migration
     {
         Schema::create('employee_award', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->nullable();
-            $table->string('title')->nullable();
+            $table->integer('user_id',false)->nullable();
+            $table->string('title',255)->nullable();
             $table->date('award_date')->nullable();
-            $table->string('description')->nullable();
+            $table->string('description',300)->nullable();
             $table->timestamps();
         });
     }
