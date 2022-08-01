@@ -9,15 +9,11 @@ class CreateDesignationsTable extends Migration
     public function up()
     {
         Schema::create('designations', function (Blueprint $table) {
-
-		$table->increments(id);
-		$table->string('title')->nullable()->default('NULL');
-		$table->string('description',500)->nullable()->default('NULL');
-		$table->tinyInteger('active',1)->default('0');
-		$table->datetime('created_at')->nullable()->default('NULL');
-		$table->datetime('updated_at')->nullable()->default('NULL');
-		$table->primary('id');
-
+            $table->id();
+            $table->string('title',255)->nullable();
+    		$table->string('description',500)->nullable();
+    		$table->tinyInteger('active',false, true)->default(0)->comment('0 => Inactive, 1 => Active');
+    		$table->timestamps();
         });
     }
 

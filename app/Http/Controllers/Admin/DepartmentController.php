@@ -37,7 +37,7 @@ class DepartmentController extends AdminBaseController
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $data['designation'] = Departments::where('id',$id)->first();
+        $data['department'] = Departments::where('id',$id)->first();
         return view('admin/departments/edit',$data);
     }
 
@@ -51,12 +51,13 @@ class DepartmentController extends AdminBaseController
 
         $insert_arr = array(
             'title'       => $request->input('title'),
+            'hod_id'       => $request->input('hod'),
             'description'    => $request->input('description'),
             'active'    => $request->input('active')
         );
 
         $query = Departments::insert($insert_arr);
-        return redirect()->route('admin.designations')
+        return redirect()->route('admin.departments')
         ->with('success','Designation created successfully.');
     }
 
@@ -67,12 +68,13 @@ class DepartmentController extends AdminBaseController
 
          $update_arr = array(
             'title'       => $request->input('title'),
+            'hod_id'       => $request->input('hod'),
             'description'    => $request->input('description'),
             'active'    => $request->input('active')
         );
 
         $query  = Departments::where('id', $id)->update($update_arr);
-        return redirect()->route('admin.designations')
+        return redirect()->route('admin.departments')
         ->with('success','Designation Updated successfully.');
     }
 
@@ -81,7 +83,7 @@ class DepartmentController extends AdminBaseController
             return redirect()->route('home');
         };
         Departments::where('id',$id)->delete(); 
-        return redirect()->route('admin.designations')
+        return redirect()->route('admin.departments')
         ->with('success','Designation Deleted successfully.');
     }
 

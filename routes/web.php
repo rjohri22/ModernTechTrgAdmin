@@ -21,6 +21,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::post('/store_profile', [App\Http\Controllers\HomeController::class, 'store_profile'])->name('store_profile');
@@ -90,4 +91,11 @@ Route::prefix('admin')->group(function () {
     Route::post('/designations/store', [Admin\DesignationController::class, 'store'])->name('admin.designation_store');
     Route::post('/designations/update/{id}', [Admin\DesignationController::class, 'update'])->name('admin.designation_update');
     Route::get('/designations/delete/{id}', [Admin\DesignationController::class, 'delete'])->name('admin.designation_delete');
+
+    Route::get('/departments', [Admin\DepartmentController::class, 'index'])->name('admin.departments');
+    Route::get('/departments/add', [Admin\DepartmentController::class, 'add'])->name('admin.department_add');
+    Route::get('/departments/edit/{id}', [Admin\DepartmentController::class, 'edit'])->name('admin.department_edit');
+    Route::post('/departments/store', [Admin\DepartmentController::class, 'store'])->name('admin.department_store');
+    Route::post('/departments/update/{id}', [Admin\DepartmentController::class, 'update'])->name('admin.department_update');
+    Route::get('/departments/delete/{id}', [Admin\DepartmentController::class, 'delete'])->name('admin.department_delete');
 });

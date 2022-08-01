@@ -9,16 +9,12 @@ class CreateDepartmentsTable extends Migration
     public function up()
     {
         Schema::create('departments', function (Blueprint $table) {
-
-		$table->integer('id',11)->unsigned();
-		$table->string('title')->nullable()->default('NULL');
-		$table->string('description',500)->nullable()->default('NULL');
-		$table->integer('hod_id',11)->nullable()->default('NULL');
-		$table->tinyInteger('active',1)->default('0');
-		$table->datetime('created_at')->nullable()->default('NULL');
-		$table->datetime('updated_at')->nullable()->default('NULL');
-		$table->primary('id');
-
+            $table->id();
+    		$table->string('title',255)->nullable();
+    		$table->string('description',500)->nullable();
+    		$table->integer('hod_id',false)->nullable();
+    		$table->tinyInteger('active',false, true)->default('0')->comment('0 => Inactive, 1 => Active');
+    		$table->timestamps();
         });
     }
 
