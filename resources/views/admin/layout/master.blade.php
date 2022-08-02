@@ -206,6 +206,21 @@
                   <i class="fa fa-circle-o"></i> <span>Designations</span>
                 </a>
               </li>
+              <li>
+                <a href="{{route('admin.states','all')}}">
+                  <i class="fa fa-circle-o"></i> <span>States</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{route('admin.cities','all')}}">
+                  <i class="fa fa-circle-o"></i> <span>Cities</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{route('admin.busniess','all')}}">
+                  <i class="fa fa-circle-o"></i> <span>Business</span>
+                </a>
+              </li>
             </ul>
           </li>          
         </ul>
@@ -282,10 +297,6 @@
   <script src="{{ url('assets/adminpanel1/') }}/bower_components/fastclick/lib/fastclick.js"></script>
   <!-- AdminLTE App -->
   <script src="{{ url('assets/adminpanel1/') }}/dist/js/adminlte.min.js"></script>
-  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <script src="{{ url('assets/adminpanel1/') }}/dist/js/pages/dashboard.js"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="{{ url('assets/adminpanel1/') }}/dist/js/demo.js"></script>
 
   <script type="text/javascript">
     $(function () {
@@ -294,5 +305,6 @@
       })
     })
   </script>
+  @yield('footer')
 </body>
 </html>
