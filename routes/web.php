@@ -37,6 +37,7 @@ Route::get('/my_jobs', [App\Http\Controllers\HomeController::class, 'myjobs'])->
 Route::get('/thankyou', [App\Http\Controllers\HomeController::class, 'thankyou'])->name('thankyou');
 
 Route::prefix('admin')->group(function () {
+    Route::get('/', [Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/oppertunities', [Admin\OppertunitiesController::class, 'index'])->name('admin.oppertunities');
     Route::get('/oppertunities/add', [Admin\OppertunitiesController::class, 'add'])->name('admin.add_oppertunities');
@@ -98,4 +99,28 @@ Route::prefix('admin')->group(function () {
     Route::post('/departments/store', [Admin\DepartmentController::class, 'store'])->name('admin.department_store');
     Route::post('/departments/update/{id}', [Admin\DepartmentController::class, 'update'])->name('admin.department_update');
     Route::get('/departments/delete/{id}', [Admin\DepartmentController::class, 'delete'])->name('admin.department_delete');
+
+    Route::get('/states', [Admin\StatesController::class, 'index'])->name('admin.states');
+    Route::get('/states/add', [Admin\StatesController::class, 'add'])->name('admin.states_add');
+    Route::get('/states/edit/{id}', [Admin\StatesController::class, 'edit'])->name('admin.states_edit');
+    Route::post('/states/store', [Admin\StatesController::class, 'store'])->name('admin.states_store');
+    Route::post('/states/update/{id}', [Admin\StatesController::class, 'update'])->name('admin.states_update');
+    Route::get('/states/delete/{id}', [Admin\StatesController::class, 'delete'])->name('admin.states_delete');
+
+    Route::get('/cities', [Admin\CitiesController::class, 'index'])->name('admin.cities');
+    Route::get('/cities/add', [Admin\CitiesController::class, 'add'])->name('admin.cities_add');
+    Route::get('/cities/edit/{id}', [Admin\CitiesController::class, 'edit'])->name('admin.cities_edit');
+    Route::post('/cities/store', [Admin\CitiesController::class, 'store'])->name('admin.cities_store');
+    Route::post('/cities/update/{id}', [Admin\CitiesController::class, 'update'])->name('admin.cities_update');
+    Route::get('/cities/delete/{id}', [Admin\CitiesController::class, 'delete'])->name('admin.cities_delete');
+    Route::post('/cities/states', [Admin\CitiesController::class, 'states'])->name('admin.cities_states');
+
+    Route::get('/busniess', [Admin\BusniessController::class, 'index'])->name('admin.busniess');
+    Route::get('/busniess/add', [Admin\BusniessController::class, 'add'])->name('admin.busniess_add');
+    Route::get('/busniess/edit/{id}', [Admin\BusniessController::class, 'edit'])->name('admin.busniess_edit');
+    Route::post('/busniess/store', [Admin\BusniessController::class, 'store'])->name('admin.busniess_store');
+    Route::post('/busniess/update/{id}', [Admin\BusniessController::class, 'update'])->name('admin.busniess_update');
+    Route::get('/busniess/delete/{id}', [Admin\BusniessController::class, 'delete'])->name('admin.busniess_delete');
+
 });
+
