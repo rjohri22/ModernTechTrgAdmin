@@ -39,6 +39,7 @@ class BusniessController extends AdminBaseController
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
+        $data['countries'] = Countries::get();
         $data['busniess'] = Companies::where('id',$id)->first();
         return view('admin/busniess/edit',$data);
     }
@@ -49,18 +50,22 @@ class BusniessController extends AdminBaseController
         };
         $validated = $request->validate([
             'title' => 'required|max:255',
+            'address' => 'required|max:255',
         ]);
 
         $insert_arr = array(
-            'title'       => $request->input('title'),
-            'hod_id'       => $request->input('hod'),
+            'name'       => $request->input('title'),
+            'country'       => $request->input('country'),
+            'state'    => $request->input('state'),
+            'city'    => $request->input('city'),
+            'address'    => $request->input('address'),
             'description'    => $request->input('description'),
-            'active'    => $request->input('active')
+            'status'    => $request->input('status'),
         );
 
         $query = Companies::insert($insert_arr);
         return redirect()->route('admin.busniess')
-        ->with('success','Designation created successfully.');
+        ->with('success','Busniess created successfully.');
     }
 
     public function update($id, Request $request){
@@ -69,15 +74,18 @@ class BusniessController extends AdminBaseController
         };
 
          $update_arr = array(
-            'title'       => $request->input('title'),
-            'hod_id'       => $request->input('hod'),
+            'name'       => $request->input('title'),
+            'country'       => $request->input('country'),
+            'state'    => $request->input('state'),
+            'city'    => $request->input('city'),
+            'address'    => $request->input('address'),
             'description'    => $request->input('description'),
-            'active'    => $request->input('active')
+            'status'    => $request->input('status'),
         );
 
         $query  = Companies::where('id', $id)->update($update_arr);
         return redirect()->route('admin.busniess')
-        ->with('success','Designation Updated successfully.');
+        ->with('success','Busniess Updated successfully.');
     }
 
     public function delete($id){
@@ -86,7 +94,7 @@ class BusniessController extends AdminBaseController
         };
         Companies::where('id',$id)->delete(); 
         return redirect()->route('admin.busniess')
-        ->with('success','Designation Deleted successfully.');
+        ->with('success','Busniess Deleted successfully.');
     }
 
 }

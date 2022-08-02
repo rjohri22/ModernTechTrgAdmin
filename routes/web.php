@@ -114,6 +114,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/cities/update/{id}', [Admin\CitiesController::class, 'update'])->name('admin.cities_update');
     Route::get('/cities/delete/{id}', [Admin\CitiesController::class, 'delete'])->name('admin.cities_delete');
     Route::post('/cities/states', [Admin\CitiesController::class, 'states'])->name('admin.cities_states');
+    Route::post('/cities/lists', [Admin\CitiesController::class, 'cities'])->name('admin.cities_list');
 
     Route::get('/busniess', [Admin\BusniessController::class, 'index'])->name('admin.busniess');
     Route::get('/busniess/add', [Admin\BusniessController::class, 'add'])->name('admin.busniess_add');
@@ -121,6 +122,10 @@ Route::prefix('admin')->group(function () {
     Route::post('/busniess/store', [Admin\BusniessController::class, 'store'])->name('admin.busniess_store');
     Route::post('/busniess/update/{id}', [Admin\BusniessController::class, 'update'])->name('admin.busniess_update');
     Route::get('/busniess/delete/{id}', [Admin\BusniessController::class, 'delete'])->name('admin.busniess_delete');
+
+
+    Route::get('/settings/emailsmtp', [Admin\SettingController::class, 'emailsmpt'])->name('admin.setting.emailsmtp');
+
 
 });
 
