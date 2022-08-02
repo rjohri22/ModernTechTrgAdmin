@@ -103,5 +103,15 @@ class CitiesController extends AdminBaseController
         return response()->json($data);
 
     }
+    public function cities(Request $request){
+        $data['codestatus'] = true;
+        $data['html'] = '';
+        $cities = Cities::where('state_id',$request->id)->get();
+        foreach($cities as $city){
+            $data['html'] .= "<option value='".$city->id."'>".$city->name."</option>";
+        }
+        return response()->json($data);
+
+    }
 
 }
