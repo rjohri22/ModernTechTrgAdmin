@@ -13,11 +13,13 @@ class Busniess extends Migration
      */
     public function up()
     {
-        Schema::create('bands', function (Blueprint $table) {
+        Schema::create('bends', function (Blueprint $table) {
             $table->id();
     		$table->string('name',255)->nullable();
     		$table->tinyInteger('band_type',false, true)->default('0')->comment('1 => Businness Specific, 2 => Country Specific');
+            $table->integer('level')->nullable();
     		$table->tinyInteger('status',false, true)->default('0')->comment('0 => Inactive, 1 => Active');
+            $table->integer('parent_id')->nullable();
     		$table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class Busniess extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bands');
+        Schema::dropIfExists('bends');
     }
 }
