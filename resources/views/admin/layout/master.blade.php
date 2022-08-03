@@ -151,6 +151,11 @@
             </a>
             <ul class="treeview-menu" style="display: none;">
               <li>
+                <a href="{{route('admin.bends')}}">
+                  <i class="fa fa-circle-o"></i> <span>Bends</span>
+                </a>
+              </li>
+              <li>
                 <a href="{{route('admin.job_seeker')}}">
                   <i class="fa fa-circle-o"></i> <span>Job Seeker</span>
                 </a>

@@ -123,6 +123,13 @@ Route::prefix('admin')->group(function () {
     Route::post('/busniess/update/{id}', [Admin\BusniessController::class, 'update'])->name('admin.busniess_update');
     Route::get('/busniess/delete/{id}', [Admin\BusniessController::class, 'delete'])->name('admin.busniess_delete');
 
+     Route::get('/bends', [Admin\BendController::class, 'index'])->name('admin.bends');
+    Route::get('/bend/add', [Admin\BendController::class, 'add'])->name('admin.bend_add');
+    Route::get('/bend/edit/{id}', [Admin\BendController::class, 'edit'])->name('admin.bend_edit');
+    Route::post('/bend/store', [Admin\BendController::class, 'store'])->name('admin.bend_store');
+    Route::post('/bend/update/{id}', [Admin\BendController::class, 'update'])->name('admin.bend_update');
+    Route::get('/bend/delete/{id}', [Admin\BendController::class, 'delete'])->name('admin.bend_delete');
+
 
     Route::get('/settings/emailsmtp', [Admin\SettingController::class, 'emailsmpt'])->name('admin.setting.emailsmtp');
 
