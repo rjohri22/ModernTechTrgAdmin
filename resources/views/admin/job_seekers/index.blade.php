@@ -3,8 +3,8 @@
 
 <div class="box box-primary container mt-2" style="background: white">
 	<div class="box-header">
-		<!-- <a href="{{route('admin.add_oppertunities')}}" class="btn btn-primary" style="float: right">Add Oppertunity</a> -->
-		<h3>Job Seekers</h3>
+		<a href="{{route('admin.add_job_seeker')}}" class="btn btn-primary" style="float: right">Add Employee</a>
+		<h3>Employess</h3>
 	</div>
 	<div class="box-body">
 		<table class="table table-sm">
@@ -16,9 +16,8 @@
 		      <th scope="col">Email</th>
 		      <th scope="col">Phone</th>
 		      <th scope="col">Address</th>
+		      <th scope="col">Bend</th>
 		      <th scope="col">Country</th>
-		      <th scope="col">State</th>
-		      <th scope="col">City</th>
 		      <th scope="col">Actions</th>
 		    </tr>
 		  </thead>
@@ -34,11 +33,11 @@
 		      <td>{{$job_seek->email}}</td>
 		      <td>{{$job_seek->phone}}</td>
 		      <td>{{$job_seek->address_primary}}</td>
-		      <td>{{$job_seek->country}}</td>
-		      <td>{{$job_seek->state}}</td>
-		      <td>{{$job_seek->city}}</td>
+		      <td>{{$job_seek->bend_name}}</td>
+		      <td>{{$job_seek->country_name}}</td>
 		      <td>
 		      	<a href="{{route('admin.view_job_seeker',$job_seek->id)}}" class="btn btn-primary btn-sm">View</a>
+		      	<a href="{{route('admin.edit_job_seeker',$job_seek->id)}}" class="btn btn-primary btn-sm">Edit</a>
 		      	<!-- <a href="{{route('admin.edit_oppertunities',$job_seek->id)}}" class="btn btn-info btn-sm">Edit</a> -->
 		      	<button type="button" class="btn btn-sm btn-danger" data-toggle="popover" data-placement="left" data-trigger="focus" title="Delete Oppertunity" data-html="true" data-content="<b>Are You Sure ?</b><hr><a href='{{route('admin.delete_job_seeker',$job_seek->id)}}' class='btn btn-success btn-sm'>I am Sure</a>&nbsp;<a class='btn btn-danger btn-sm'>No</a>">Delete</button>
 

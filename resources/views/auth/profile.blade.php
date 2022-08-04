@@ -749,13 +749,13 @@
 		 			console.log('Submitted');
 		 		});
 
-		 		var counter = '{{$counter}}';
 		 		var work_counter = '{{$work_counter}}';
 		 		var language_counter = '{{$language_counter}}';
 		 		var certificate_counter = '{{$certificate_counter}}';
 		 		var links_counter = '{{$links_counter}}';
 
 
+		 		var counter = '{{$counter}}';
 		 		$('#educations_add').click(function(){
 		 			var level = $('#edu_level').val();
 		 			var institude = $('#edu_institude').val();
