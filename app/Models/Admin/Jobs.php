@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Bend extends Authenticatable
+class Jobs extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -18,14 +18,24 @@ class Bend extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'band_type',
-        'special',
-        'level',
-        'status',
-        'address',
-        'parent_id',
+        'title',
+        'company_id',
+        'country_id',
+        'state_id',
+        'city_id',
+        'min_salary',
+        'max_salary',
+        'salary_type',
+        'job_type',
+        'work_type',
+        'summery',
+        'description',
+        'expires_on',
+        'no_of_positions',
+        'urgent_hiring',
         'created_at',
         'updated_at',
+        'modified_by',
+        'status',
     ];
 }
