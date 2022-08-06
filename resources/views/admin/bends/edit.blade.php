@@ -15,17 +15,26 @@
 					<label>Title</label>
 					<input type="text" name="title" class="form-control" value="{{$bend->name}}">
 				</div>
+				@if($special_view == 1)
+					<input type="hidden" name="bend_type" id="bend_id" value="{{$bend->band_type}}">
+				@else
 				<div class="col-sm-4">
 					<label>Bend TYpe</label>
 					<select class="form-control" name="bend_type" id="bend_type">
-						<option value="1" @if ($bend->bend_type == 1) selected @endif>Business Specific</option>
-						<option value="2" @if ($bend->bend_type == 2) selected @endif>Country Specific</option>
+						<option value="1" @if ($bend->band_type == 1) selected @endif>Business Specific</option>
+						<option value="2" @if ($bend->band_type == 2) selected @endif>Country Specific</option>
 					</select>
 				</div>
+				@endif
+				@if($special_view == 1)
+				<input type="hidden" name="level" id="level" value="{{$bend->level}}">
+				@else
 				<div class="col-sm-4">
 					<label>Level</label>
 					<input type="number" name="level" class="form-control" value="{{$bend->level}}">
 				</div>
+				@endif
+
 			</div>
 			<br>
 			<div class="row">
@@ -51,6 +60,18 @@
 						<option value="0" @if ($bend->status == 0) selected @endif>Inactive</option>
 					</select>
 				</div>
+
+				@if($special_view == 1)
+					<input type="hidden" name="special" id="special" value="{{$bend->special}}">
+				@else
+				<div class="col-sm-4">
+					<label>Access For Final Approval</label>
+					<select class="form-control" name="special">
+						<option value="1" @if ($bend->special == 1) selected @endif>Yes</option>
+						<option value="0" @if ($bend->special == 0) selected @endif>No</option>
+					</select>
+				</div>
+				@endif
 			</div>
 			
 			<br>

@@ -5,35 +5,47 @@
 	<br>
 
 	<div class="box-header">
-		<h3>Add Oppertunities</h3>
+		<h3>Jobs</h3>
 	</div>
 	<div class="box-body">
 		<table class="table table-bordered">
 			<tr>
 				<th style="width: 50%">Title</th>
-				<td style="width: 50%">{{$oppertunity->title}}</td>
+				<td style="width: 50%">{{$job->title}}</td>
 			</tr>
-			<!-- <tr>
+			<tr>
 				<th>Company</th>
-				<td>{{$oppertunity->company_name}}</td>
-			</tr> -->
+				<td>{{$job->company_name}}</td>
+			</tr>
+			<tr>
+				<th>Country</th>
+				<td>{{$job->country_name}}</td>
+			</tr>
+			<tr>
+				<th>State</th>
+				<td>{{$job->state_name}}</td>
+			</tr>
+			<tr>
+				<th>City</th>
+				<td>{{$job->city_name}}</td>
+			</tr>
 			<tr>
 				<th>Min Salary</th>
-				<td>{{$oppertunity->min_salary}}</td>
+				<td>{{$job->min_salary}}</td>
 			</tr>
 			<tr>
 				<th>Max Salary</th>
-				<td>{{$oppertunity->max_salary}}</td>
+				<td>{{$job->max_salary}}</td>
 			</tr>
 			<tr>
 				<th>Salary Type</th>
 				<td>
 
-					@if($oppertunity->salary_type =='1')
+					@if($job->salary_type =='1')
 			      		Monthly
-					@elseif($oppertunity->salary_type =='2')
+					@elseif($job->salary_type =='2')
 					    Yearly
-					@elseif($oppertunity->salary_type =='3')
+					@elseif($job->salary_type =='3')
 					    Daily
 					@else
 					 	<i>Not Specified</i>       
@@ -44,11 +56,11 @@
 			<tr>
 				<th>Job Type</th>
 				<td>
-					@if($oppertunity->job_type =='1')
+					@if($job->job_type =='1')
 			      		Internship
-					@elseif($oppertunity->job_type =='2')
+					@elseif($job->job_type =='2')
 					    Fresher
-					@elseif($oppertunity->job_type =='3')
+					@elseif($job->job_type =='3')
 					    Experienced
 					@else
 					 	<i>Not Specified</i>       
@@ -58,9 +70,9 @@
 			<tr>
 				<th>Work Type</th>
 				<td>
-					@if($oppertunity->work_type =='1')
+					@if($job->work_type =='1')
 			      		Part Time
-					@elseif($oppertunity->work_type =='2')
+					@elseif($job->work_type =='2')
 					    Full Time
 					@else
 					 	<i>Not Specified</i>       
@@ -69,31 +81,31 @@
 			</tr>
 			<tr>
 				<th>Summery</th>
-				<td>{{$oppertunity->summery}}</td>
+				<td>{{$job->summery}}</td>
 			</tr>
 			<tr>
 				<th>Description</th>
-				<td>{{$oppertunity->description}}</td>
+				<td>{{$job->description}}</td>
 			</tr>
 			<tr>
 				<th>Expires on</th>
-				<td>{{$oppertunity->expires_on}}</td>
+				<td>{{$job->expires_on}}</td>
 			</tr>
 			<tr>
 				<th>No Of Postions</th>
-				<td>{{$oppertunity->no_of_positions}}</td>
+				<td>{{$job->no_of_positions}}</td>
 			</tr>
 			<tr>
 				<th>urgent Hiring</th>
-				<td>{{($oppertunity->urgent_hiring == 1) ? "Yes" : "No"}}</td>
+				<td>{{($job->urgent_hiring == 1) ? "Yes" : "No"}}</td>
 			</tr>
 			<tr>
 				<th>Status</th>
-				<td>{{($oppertunity->status == 1) ? "Open" : "Closed"}}</td>
+				<td>{{($job->status == 1) ? "Approved" : "Pending"}}</td>
 			</tr>
 		</table>
 
-		<a href="{{route('admin.oppertunities')}}" class="btn btn-primary">Back to list</a>
+		<a href="{{route('admin.jobs')}}" class="btn btn-primary">Back to list</a>
 		
 	</div>
 </div>

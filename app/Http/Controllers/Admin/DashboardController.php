@@ -42,6 +42,8 @@ class DashboardController extends AdminBaseController
         if(!$this->check_role()){
              return redirect()->route('home');
         };
+        // $user_id = Auth::user()->id;
+        // $data['login_detail'] = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
         $data['total_oppertunity'] = Oppertunities::count();
         $data['total_jobseeker'] = User::where('group_id', 2)->count();
         $data['total_applications'] = Job_applications::count();

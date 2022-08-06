@@ -116,7 +116,7 @@ class JobSeekerController extends AdminBaseController
             'last_name' => $request->input('last_name'),
             'name' => $request->input('first_name'),
             'email' => $request->input('email'),
-            'group_id' => 2,
+            'group_id' => 1,
             'phone' => $request->input('phone'),
             'address' => $request->input('address'),
             'password' => Hash::make($request->input('password')),

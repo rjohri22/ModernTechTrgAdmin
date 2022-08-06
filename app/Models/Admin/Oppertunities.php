@@ -20,6 +20,7 @@ class Oppertunities extends Authenticatable
     protected $fillable = [
         'title',
         'company_id',
+        'bend_id',
         'min_salary',
         'max_salary',
         'salary_type',

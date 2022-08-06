@@ -56,6 +56,11 @@
     }
   </style>
 </head>
+@php
+  use App\Models\User;
+  $user_id = Auth::user()->id;
+  $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
+@endphp
 <body class="hold-transition skin-blue sidebar-mini">
   <div id="overlay">
     <h3>Loading Please Wait ...</h3>
@@ -157,15 +162,44 @@
               </li>
               <li>
                 <a href="{{route('admin.job_seeker')}}">
-                  <i class="fa fa-circle-o"></i> <span>Job Seeker</span>
+                  <i class="fa fa-circle-o"></i> <span>Employees</span>
                 </a>
               </li>
               <li>
+                <a href="{{route('admin.business_locations')}}">
+                  <i class="fa fa-circle-o"></i> <span>Business Location</span>
+                </a>
+              </li>
+              <!-- <li>
+                <a href="{{route('admin.job_seeker')}}">
+                  <i class="fa fa-circle-o"></i> <span>Bend Country</span>
+                </a>
+              </li> -->
+              
+              <li>
+                <a href="{{route('admin.oppertunities')}}">
+                  <i class="fa fa-circle-o"></i> <span>Job Description</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="{{route('admin.jobs')}}">
+                  <i class="fa fa-circle-o"></i> <span>Jobs</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="{{route('admin.job_seeker')}}">
+                  <i class="fa fa-circle-o"></i> <span>Approved Jobs</span>
+                </a>
+              </li>
+
+              <!-- <li>
                 <a href="{{route('admin.oppertunities')}}">
                   <i class="fa fa-circle-o"></i> <span>Oppertiunity</span>
                 </a>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a href="{{route('admin.job_applications','all')}}">
                   <i class="fa fa-circle-o"></i> <span>Job Applications</span>
                 </a>
@@ -184,7 +218,7 @@
                 <a href="{{route('admin.job_applications','hiring')}}">
                   <i class="fa fa-circle-o"></i> <span>Hiring</span>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </li> 
 

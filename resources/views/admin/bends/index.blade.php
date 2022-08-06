@@ -22,7 +22,8 @@
 		  	@php
 			{{$counter = 1;}}
 			@endphp
-		    @foreach($bends as $b) 
+		    @foreach($bends as $b)
+
 		    <tr>
 		      <th scope="row">{{$counter}}</th>
 		      <td class="oppertunity">{{$b->name}}</td>

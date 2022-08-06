@@ -15,11 +15,11 @@
 					<input type="text" name="title" class="form-control">
 				</div>
 				<div class="col-sm-3">
-					<label>Company</label>
-					<select name="company" class="form-control">
-						<option value="">Select Company</option>
-						@foreach($companies as $company)
-							<option value="{{$company->id}}">{{$company->name}}</option>
+					<label>Bend</label>
+					<select name="bend_id" class="form-control">
+						<option value="">Select Bend</option>
+						@foreach($bends as $bend)
+							<option value="{{$bend->id}}">{{$bend->name}}</option>
 						@endforeach
 					</select>
 				</div>

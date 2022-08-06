@@ -8,12 +8,12 @@ use App\Models\Job_applications;
 	<div class="box-header with-border">
 		<a href="{{route('admin.add_oppertunities')}}" class="btn btn-primary" style="float: right;">Add Oppertunity</a>
 		<h3>Oppertunities</h3>
-		<span class="label label-primary">Total Job Applied</span>
+		<!-- <span class="label label-primary">Total Job Applied</span>
       	<span class="label label-warning">Total Shortlisted</span>
       	<span class="label label-danger">Total Rejected</span>
       	<span class="label label-default">Total Interview</span>
       	<span class="label label-info">Total Onboarding</span>
-      	<span class="label label-success">Total Hired</span>
+      	<span class="label label-success">Total Hired</span> -->
 	</div>
 	<div class="box-body">
 		<table class="table table-sm">
@@ -21,7 +21,7 @@ use App\Models\Job_applications;
 		    <tr>
 		      <th scope="col">#</th>
 		      <th scope="col">Title</th>
-		      <th scope="col">Company</th>
+		      <!-- <th scope="col">Company</th> -->
 		      <th scope="col">Salary</th>
 		      <th scope="col">Salary Type</th>
 		      <th scope="col">Work Type</th>
@@ -29,7 +29,7 @@ use App\Models\Job_applications;
 		      <th scope="col">Expires On</th>
 		      <th scope="col">No Of Position</th>
 		      <th scope="col">Urgent Hirign</th>
-		      <th scope="col">Summery</th>
+		      <!-- <th scope="col">Summery</th> -->
 		      <th scope="col">Actions</th>
 		    </tr>
 		  </thead>
@@ -38,10 +38,11 @@ use App\Models\Job_applications;
 			{{$counter = 1;}}
 			@endphp
 		    @foreach($oppertunities as $oppertunity) 
+		   	
 		    <tr>
 		      <th scope="row">{{$counter}}</th>
 		      <td>{{$oppertunity->title}}</td>
-		      <td>{{$oppertunity->company_name}}</td>
+		      <!-- <td>{{$oppertunity->company_name}}</td> -->
 		      <td>{{($oppertunity->min_salary) ? $oppertunity->min_salary : 0}} To {{($oppertunity->max_salary) ? $oppertunity->max_salary : 0}}</td>
 		      <td>
 		      	@if($oppertunity->salary_type =='1')
@@ -85,7 +86,7 @@ use App\Models\Job_applications;
 		      	$total_on_boarding = Job_applications::where('status','4')->where('oppertunity_id',$oppertunity->id)->count();
 		      	$total_hiring = Job_applications::where('status','5')->where('oppertunity_id',$oppertunity->id)->count();
 		      @endphp
-		      <td>
+		     <!--  <td>
 		      	<span class="label label-primary">{{$total_applied}}</span>
 		      	<span class="label label-warning">{{$total_shorlist}}</span>
 		      	<span class="label label-danger">{{$total_reject}}</span>
@@ -93,7 +94,7 @@ use App\Models\Job_applications;
 		      	<span class="label label-info">{{$total_on_boarding}}</span>
 		      	<span class="label label-success">{{$total_hiring}}</span>
 			      
-			  </td>
+			  </td> -->
 		      <td>
 		      	<a href="{{route('admin.view_oppertunities',$oppertunity->id)}}" class="btn btn-primary btn-sm">View</a>
 		      	<a href="{{route('admin.edit_oppertunities',$oppertunity->id)}}" class="btn btn-info btn-sm">Edit</a>
@@ -101,6 +102,7 @@ use App\Models\Job_applications;
 
 		      </td>
 		    </tr>
+		    
 		    @php
 			{{$counter++;}}
 			@endphp

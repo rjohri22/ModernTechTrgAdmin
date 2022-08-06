@@ -39,6 +39,7 @@ Route::get('/thankyou', [App\Http\Controllers\HomeController::class, 'thankyou']
 Route::prefix('admin')->group(function () {
     Route::get('/', [Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard');
+    
     Route::get('/oppertunities', [Admin\OppertunitiesController::class, 'index'])->name('admin.oppertunities');
     Route::get('/oppertunities/add', [Admin\OppertunitiesController::class, 'add'])->name('admin.add_oppertunities');
     Route::get('/oppertunities/edit/{id}', [Admin\OppertunitiesController::class, 'edit'])->name('admin.edit_oppertunities');
@@ -140,13 +141,32 @@ Route::prefix('admin')->group(function () {
     Route::post('/busniess/update/{id}', [Admin\BusniessController::class, 'update'])->name('admin.busniess_update');
     Route::get('/busniess/delete/{id}', [Admin\BusniessController::class, 'delete'])->name('admin.busniess_delete');
 
-     Route::get('/bends', [Admin\BendController::class, 'index'])->name('admin.bends');
+    Route::get('/bends', [Admin\BendController::class, 'index'])->name('admin.bends');
     Route::get('/bend/add', [Admin\BendController::class, 'add'])->name('admin.bend_add');
     Route::get('/bend/edit/{id}', [Admin\BendController::class, 'edit'])->name('admin.bend_edit');
     Route::post('/bend/store', [Admin\BendController::class, 'store'])->name('admin.bend_store');
     Route::post('/bend/update/{id}', [Admin\BendController::class, 'update'])->name('admin.bend_update');
     Route::get('/bend/delete/{id}', [Admin\BendController::class, 'delete'])->name('admin.bend_delete');
 
+    Route::get('/business_location', [Admin\BusinessLocationController::class, 'index'])->name('admin.business_locations');
+    Route::get('/business_location/add', [Admin\BusinessLocationController::class, 'add'])->name('admin.business_location_add');
+    Route::get('/business_location/edit/{id}', [Admin\BusinessLocationController::class, 'edit'])->name('admin.business_location_edit');
+    Route::post('/business_location/store', [Admin\BusinessLocationController::class, 'store'])->name('admin.business_location_store');
+    Route::post('/business_location/update/{id}', [Admin\BusinessLocationController::class, 'update'])->name('admin.business_location_update');
+    Route::get('/business_location/delete/{id}', [Admin\BusinessLocationController::class, 'delete'])->name('admin.business_location_delete');
+
+
+    Route::get('/jobs', [Admin\JobController::class, 'index'])->name('admin.jobs');
+    Route::get('/jobs/add', [Admin\JobController::class, 'add'])->name('admin.add_job');
+    Route::get('/jobs/edit/{id}', [Admin\JobController::class, 'edit'])->name('admin.edit_job');
+    Route::get('/jobs/view/{id}', [Admin\JobController::class, 'view'])->name('admin.view_job');
+    Route::post('/jobs/store_oppertunity', [Admin\JobController::class, 'store'])->name('admin.store_job');
+    Route::post('/jobs/update_oppertunity/{id}', [Admin\JobController::class, 'update'])->name('admin.update_job');
+    Route::get('/jobs/delete_oppertunity/{id}', [Admin\JobController::class, 'delete'])->name('admin.delete_job');
+    Route::get('/jobs/job_approved_manager/{id}', [Admin\JobController::class, 'job_approved_manager'])->name('admin.job_approved_manager');
+    Route::get('/jobs/job_approved_hr/{id}', [Admin\JobController::class, 'job_approved_hr'])->name('admin.job_approved_hr');
+    Route::post('/jobs/load_country', [Admin\JobController::class, 'load_country'])->name('admin.load_country');
+    Route::post('/jobs/load_states', [Admin\JobController::class, 'load_states'])->name('admin.load_states');
 
     Route::get('/settings/emailsmtp', [Admin\SettingController::class, 'emailsmpt'])->name('admin.setting.emailsmtp');
 

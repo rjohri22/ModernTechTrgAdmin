@@ -5,70 +5,49 @@
 <div class="box box-primary container mt-2" style="background: white">
 
 	<div class="box-header">
-		<h3>Add Bend</h3>
+		<h3>Edit Busniess</h3>
 	</div>
 	<div class="box-body">
 		
-		<form action="{{route('admin.bend_store')}}" method="post">
+		<form action="{{route('admin.business_location_update',$business_location->id)}}" method="post">
 			@csrf
 			<div class="row">
-				<div class="col-sm-4">
-					<label>Title</label>
-					<input type="text" name="title" class="form-control">
-				</div>
-				@if($special_view == 1)
-					<input type="hidden" name="bend_type" id="bend_id" value="2">
-				@else
-				<div class="col-sm-4">
-					<label>Bend TYpe</label>
-					<select class="form-control" name="bend_type" id="bend_type">
-						<option value="1">Business Specific</option>
-						<option value="2">Country Specific</option>
+				<div class="col-sm-3">
+					<label>Company</label>
+					<select class="form-control" name="company_id" id="company_id">
+						@foreach ($companies as $company)
+						<option value="{{ $company->id }}" @if ($company->id == $business_location->company_id) selected @endif >{{ $company->name }}</option>
+						@endforeach
 					</select>
 				</div>
-				@endif
-				@if($special_view == 1)
-					<input type="hidden" name="level" id="level" value="{{($login_details->level > 0) ? $login_details->level-1 : 0}}">
-				@else
-				<div class="col-sm-4">
-					<label>Level</label>
-					<input type="number" name="level" class="form-control">
-				</div>
-				@endif
-			</div>
-			<br>
-			<div class="row">
 
 				<div class="col-sm-4">
-					<label>Report Bend</label>
-					<select class="form-control" name="bend_report[]" multiple>
-						<option value="">Select Report Bend</option>
-						 @foreach($bends as $b) 
-						 <option value="{{$b->id}}">{{$b->name}}</option>
-						 @endforeach					
+					<label>Country</label>
+					<select class="form-control" name="country_id" id="country">
+						@foreach ($countries as $country)
+						<option value="{{ $country->id }}" @if ($country->id == $business_location->country_id) selected @endif >{{ $country->name }}</option>
+						@endforeach
+					</select>
+				</div>
+				<div class="col-sm-4">
+					<label>State</label>
+					<select class="form-control" name="state_id" id="state">
+					</select>
+				</div>
+				<div class="col-sm-4">
+					<label>City</label>
+					<select class="form-control" name="city" id="cities" >
 					</select>
 				</div>
 				
 				<div class="col-sm-4">
 					<label>Active</label>
 					<select class="form-control" name="status">
-						<option value="1">Active</option>
-						<option value="0">Inactive</option>
+						<option value="1" @if ($business_location->status == 1) selected @endif >Active</option>
+						<option value="0" @if ($business_location->status == 0) selected @endif >Inactive</option>
 					</select>
 				</div>
-				@if($special_view == 1)
-					<input type="hidden" name="special" id="special" value="0">
-				@else
-				<div class="col-sm-4">
-					<label>Access For Final Approval</label>
-					<select class="form-control" name="special">
-						<option value="1">Yes</option>
-						<option value="0">No</option>
-					</select>
-				</div>
-				@endif
 			</div>
-			
 			<br>
 			<div class="row">
 				<div class="col-sm-12">
@@ -82,8 +61,6 @@
 
 
 @endsection
-
-
 @section('footer')
 <script>
 	$(document).ready(function(){
@@ -104,6 +81,7 @@
 				data: {id:id},
 				success: function(data) {
 					$('#state').html(data.html);
+					$('#state').val({{$business_location->state_id}});
 					loadcity();
 				}
 			});
@@ -126,6 +104,7 @@
 				data: {id:id},
 				success: function(data) {
 					$('#cities').html(data.html);
+					$('#cities').val({{$business_location->city}});
 				}
 			});
 
