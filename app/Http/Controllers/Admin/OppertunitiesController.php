@@ -41,21 +41,24 @@ class OppertunitiesController extends AdminBaseController
        
         $data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
         
-        $login_bend_id = $login_details->id;
-        
-        // $data['children']  = BendAssign::join('bends','bends.id','=','bend_assigns.child_id')->where('bend_assigns.parent_id',$login_bend_id)->get()->pluck('child_id');
-        $data['childern'] = BendAssign::where('parent_id',$login_bend_id)->get()->pluck('child_id');
-        $data['childern'][] = $login_bend_id;
-
         $fetch = DB::table('oppertunities')
             ->select(DB::raw("oppertunities.*, pb.name as company_name"))
             ->leftJoin('companies as pb','pb.id','=','oppertunities.company_id');
             // ->leftJoin('bends as fl','fl.id','=','oppertunities.modified_by');
             // ->where('fl.id',$login_bend_id)
-
-        if($data['login_details']->level < 7){
-            $fetch = $fetch->wherein('oppertunities.bend_id',$data['childern']);
+        $data['children'] = [];
+        if(!empty($login_details)){
+            $login_bend_id = $login_details->id;
+            $data['childern'] = BendAssign::where('parent_id',$login_bend_id)->get()->pluck('child_id');
+            $data['childern'][] = $login_bend_id;
+            if($data['login_details']->level < 7){
+                $fetch = $fetch->wherein('oppertunities.bend_id',$data['childern']);
+            }
         }
+        
+        // $data['children']  = BendAssign::join('bends','bends.id','=','bend_assigns.child_id')->where('bend_assigns.parent_id',$login_bend_id)->get()->pluck('child_id');
+
+
         $fetch = $fetch->get();
 
         // dd($fetch);
@@ -78,8 +81,11 @@ class OppertunitiesController extends AdminBaseController
          $data['companies'] = Companies::where('status','1')->get();
          $user_id = Auth::user()->id;
         $data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
+        $data['bends'] = [];
+        if(!empty($login_details)){
+            $data['bends'] = Bend::where('level','<=',$login_details->level)->get();
+        }
 
-        $data['bends'] = Bend::where('level','<=',$login_details->level)->get();
          // $data['bends'] = Bend::get();
         return view('admin/oppertunities/add',$data);
     }
@@ -93,8 +99,10 @@ class OppertunitiesController extends AdminBaseController
         $data['oppertunity'] = Oppertunities::where('id', $id)->first();
         $user_id = Auth::user()->id;
         $data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
-
-        $data['bends'] = Bend::where('level','<=',$login_details->level)->get();
+        $data['bends'] = [];
+        if(!empty($login_details)){
+            $data['bends'] = Bend::where('level','<=',$login_details->level)->get();
+        }
         return view('admin/oppertunities/edit',$data);
     }
 
