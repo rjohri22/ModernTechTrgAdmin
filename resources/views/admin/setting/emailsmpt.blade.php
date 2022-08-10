@@ -11,27 +11,27 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<label>SMTP Host</label>
-					<input type="text" name="smtp_host" id="smtp_host" class="form-control">
+					<input type="text" name="smtp_host" id="smtp_host" value="{{ $smtp->smtp_host}}" class="form-control">
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-4">
 					<label>Username</label>
-					<input class="form-control" name="username" id="username">
+					<input class="form-control" name="username" value="{{ $smtp->smtp_username}}" id="username">
 </input>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-4">
 					<label>Password</label>
-					<input class="form-control" name="password" id="password">
+					<input class="form-control" name="password" value="{{ $smtp->smtp_password}}" id="password">
 </input>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-4">
 					<label>SMTP Port</label>
-					<input class="form-control" name="smtp_port" id="smtp_port">
+					<input class="form-control" name="smtp_port" value="{{ $smtp->smtp_port}}" id="smtp_port">
 </input>
 				</div>
 			</div>
@@ -39,26 +39,18 @@
 				<div class="col-sm-4">
 					<label>Mail Encryption </label>
 					<select class="form-control" name="mail_encryption" id="mail_encryption">
-						<option value="TLS">TLS</option>
-						<option value="SSL">SSL</option>
-						<option value="Null">Null</option>
+						<option value="TLS" @if ($smtp->smtp_mail_encryption == 'TLS') selected @endif >TLS</option>
+						<option value="SSL" @if ($smtp->smtp_mail_encryption == 'SSL') selected @endif >SSL</option>
 					</select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-4">
 					<label> Mail From Name</label>
-					<input class="form-control" name="mail_from_name" id="mail_from_name">
+					<input class="form-control" value="{{ $smtp->smtp_mail_from_name}}" name="mail_from_name" id="mail_from_name">
 </input>
 				</div>
 			</div>
-			<!-- <div class="row">
-				<div class="col-sm-4">
-					<label> Date</label>
-					<input class="form-control" type="date" name="mail_from_name" id="mail_from_name">
-</input>
-				</div>
-			</div> -->
 			<br>
 			<div class="row">
 				<div class="col-sm-12">

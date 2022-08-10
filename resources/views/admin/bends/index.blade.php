@@ -27,7 +27,16 @@
 		    <tr>
 		      <th scope="row">{{$counter}}</th>
 		      <td class="oppertunity">{{$b->name}}</td>
-		      <td class="oppertunity">{{($b->band_type == 1) ? "Business Specific" : "Country Specific"}}</td>
+		      <td class="oppertunity">
+				@if($b->band_type == 1)
+					Business Specific
+				@elseif($b->band_type == 2)
+					Country Specific
+		      	@else
+					All
+				@endif
+			
+    		  </td>
 		      <td class="oppertunity">{{$b->level}}</td>
 		      <td class="oppertunity">
 		      	@if($b->status == 1)

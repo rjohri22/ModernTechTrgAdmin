@@ -21,6 +21,7 @@
 				<div class="col-sm-4">
 					<label>Bend TYpe</label>
 					<select class="form-control" name="bend_type" id="bend_type">
+						<option value="0" @if ($bend->band_type == 0) selected @endif>All</option>
 						<option value="1" @if ($bend->band_type == 1) selected @endif>Business Specific</option>
 						<option value="2" @if ($bend->band_type == 2) selected @endif>Country Specific</option>
 					</select>
