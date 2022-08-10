@@ -33,6 +33,8 @@ class Jobs extends Migration
             $table->integer('modified_by',false)->nullable();
             $table->tinyInteger('status',false, true)->nullable()->comment('1 => Approved, 0 => Pending For Approval');
             $table->timestamps();
+            $table->integer('approved_manager',false)->nullable();
+            $table->integer('approved_hr',false)->nullable();
         });
     }
 

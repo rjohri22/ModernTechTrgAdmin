@@ -19,6 +19,7 @@ class Busniess extends Migration
     		$table->tinyInteger('band_type',false, true)->default('0')->comment('1 => Businness Specific, 2 => Country Specific');
             $table->integer('level')->nullable();
     		$table->tinyInteger('status',false, true)->default('0')->comment('0 => Inactive, 1 => Active');
+            $table->tinyInteger('special',false, true)->default('0')->comment('0 => not hr, 1 => Is Hr');
             $table->integer('parent_id')->nullable();
     		$table->timestamps();
         });

@@ -39,19 +39,23 @@ class JobController extends AdminBaseController
         };
 
         $user_id = Auth::user()->id;
-        $data['login_details'] = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
-        $childres = BendAssign::where('parent_id',$data['login_details']->id)->get()->pluck('child_id');
-        $childres[] = $data['login_details']->id;
-
         $fetch = Jobs::join('companies', 'companies.id', '=', 'jobs.company_id')
         ->join('countries','countries.id','=','jobs.country_id')
         ->join('states','states.id','=','jobs.state_id')
         ->join('cities','cities.id','=','jobs.city_id')
         ->join('users','users.id','=','jobs.modified_by');
-        if($data['login_details']->special == 0){
-            $fetch = $fetch->wherein('users.bend_id',$childres);
-        }else{
-           $fetch = $fetch->where('jobs.approved_manager','!=',null); 
+
+        $data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
+
+        if(!empty($login_details)){
+            $childres = BendAssign::where('parent_id',$data['login_details']->id)->get()->pluck('child_id');
+            $childres[] = $data['login_details']->id;
+
+            if($data['login_details']->special == 0){
+                $fetch = $fetch->wherein('users.bend_id',$childres);
+            }else{
+               $fetch = $fetch->where('jobs.approved_manager','!=',null); 
+            }
         }
 
         $fetch = $fetch->get(['jobs.*', 'companies.name as company_name', 'countries.name as country_name','states.name as state_name','cities.name as city_name','users.first_name']);
