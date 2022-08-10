@@ -22,6 +22,7 @@
 				<div class="col-sm-4">
 					<label>Band Type</label>
 					<select class="form-control" name="bend_type" id="bend_type">
+						<option value="0">All</option>
 						<option value="1">Business Specific</option>
 						<option value="2">Country Specific</option>
 					</select>

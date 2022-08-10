@@ -94,7 +94,7 @@ use App\Models\Job_applications;
 			      	<td>Pending</td>
 			      	@endif
 		      @endif
-		      @if($login_details->special == 1)
+		      @if($login_details->name == 'HR Management')
 		      	<td>
 		      		@if($job->approved_hr != null)
 		      		Approved By Hr

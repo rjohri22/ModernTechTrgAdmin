@@ -64,10 +64,10 @@ class BendController extends AdminBaseController
     }
 
     public function edit($id){
-    	if(!$this->check_role()){
+        if(!$this->check_role()){
             return redirect()->route('home');
         };
-         $user_id = Auth::user()->id;
+        $user_id = Auth::user()->id;
         $data['login_details'] = $login_detail = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
         $data['special_view'] = 0;
         if($login_detail->band_type == '2' && ($login_detail->level == '3' || $login_detail->level == '4')){

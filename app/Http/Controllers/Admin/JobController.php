@@ -51,13 +51,13 @@ class JobController extends AdminBaseController
             $childres = BendAssign::where('parent_id',$data['login_details']->id)->get()->pluck('child_id');
             $childres[] = $data['login_details']->id;
 
-            if($data['login_details']->special == 0){
+            if($data['login_details']->name == 'HR Management'){
                 $fetch = $fetch->wherein('users.bend_id',$childres);
             }else{
                $fetch = $fetch->where('jobs.approved_manager','!=',null); 
             }
         }
-
+        $fetch = $fetch->where('jobs.is_deleted','=',0);
         $fetch = $fetch->get(['jobs.*', 'companies.name as company_name', 'countries.name as country_name','states.name as state_name','cities.name as city_name','users.first_name']);
         $data['jobs'] = $fetch;
         return view('admin/jobs/index',$data);
@@ -179,7 +179,11 @@ class JobController extends AdminBaseController
         if(!$this->check_role()){
             return redirect()->route('home');
         };
-        Jobs::where('id',$id)->delete(); 
+        $update_arr = array(
+            'is_deleted'       => 1
+        );
+        $query  = jobs::where('id', $id)->update($update_arr);
+        // Jobs::where('id',$id)->delete(); 
         return redirect()->route('admin.jobs')
         ->with('success','Job Deleted successfully.');
     }

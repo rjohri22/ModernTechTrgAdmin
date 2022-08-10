@@ -21,7 +21,8 @@ class SettingController extends AdminBaseController
             return redirect()->route('home');
         };
 
-        return view('admin/setting/emailsmpt');
+        $data['smtp']  = settings::where('id', 1)->first();
+        return view('admin/setting/emailsmpt',$data);
     }
 
     public function store_setting(Request $request)
@@ -41,15 +42,15 @@ class SettingController extends AdminBaseController
 
         $update_arr = array(
             'smtp_host' => $request->input('smtp_host'),
-            'username' => $request->input('username'),
-            'mail_encryption' => $request->input('mail_encryption'),
+            'smtp_username' => $request->input('username'),
+            'smtp_mail_encryption' => $request->input('mail_encryption'),
             'smtp_port' => $request->input('smtp_port'),
-            'password' => Hash::make($request->input('password')),
-            'mail_from_name' => $request->input('mail_from_name'),
+            'smtp_password' => $request->input('password'),
+            'smtp_mail_from_name' => $request->input('mail_from_name'),
             
         );
 
-        $query  = settings::where('id', $id)->update($update_arr);
+        $query  = settings::where('id', 1)->update($update_arr);
         return redirect()->route('admin.setting.emailsmtp')
         ->with('success','oppertunity created successfully.');
     }
