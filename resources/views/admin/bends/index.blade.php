@@ -2,7 +2,7 @@
 @section('content')
 <div class="box box-primary container mt-2" style="background: white">
 	<div class="box-header with-border">
-		<a href="{{route('admin.bend_add')}}" class="btn btn-primary" style="float: right;">Add Bend</a>
+		<a href="{{route('admin.bend_add')}}" class="btn btn-primary" style="float: right;">Add Band</a>
 		<h3>Bends</h3>
 	</div>
 	<div class="box-body">
@@ -11,7 +11,7 @@
 		    <tr>
 		      <th scope="col" style="width: 10%">#</th>
 		      <th scope="col" style="width: 10%">Title</th>
-		      <th scope="col" style="width: 10%">Bend Type</th>
+		      <th scope="col" style="width: 10%">Band Type</th>
 		      <th scope="col" style="width: 10%">Level</th>
 		      <th scope="col" style="width: 10%">Status</th>
 		      <th scope="col" style="width: 10%">Report To</th>

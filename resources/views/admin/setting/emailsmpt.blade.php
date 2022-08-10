@@ -6,37 +6,59 @@
 		<h3>Email SMTP Setting</h3>
 	</div>
 	<div class="box-body">
-	<form action="{{route('admin.cities_store')}}" method="post">
+	<form action="{{route('admin.store_setting')}}" method="post">
 			@csrf
 			<div class="row">
 				<div class="col-sm-4">
-					<label>Name</label>
-					<input type="text" name="name" class="form-control">
+					<label>SMTP Host</label>
+					<input type="text" name="smtp_host" id="smtp_host" class="form-control">
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-4">
-					<label>Country</label>
-					<select class="form-control" name="country" id="country">
+					<label>Username</label>
+					<input class="form-control" name="username" id="username">
+</input>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<label>Password</label>
+					<input class="form-control" name="password" id="password">
+</input>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<label>SMTP Port</label>
+					<input class="form-control" name="smtp_port" id="smtp_port">
+</input>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<label>Mail Encryption </label>
+					<select class="form-control" name="mail_encryption" id="mail_encryption">
+						<option value="TLS">TLS</option>
+						<option value="SSL">SSL</option>
+						<option value="Null">Null</option>
 					</select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-4">
-					<label>State</label>
-					<select class="form-control" name="state" id="state">
-					</select>
+					<label> Mail From Name</label>
+					<input class="form-control" name="mail_from_name" id="mail_from_name">
+</input>
 				</div>
 			</div>
-			<div class="row">
+			<!-- <div class="row">
 				<div class="col-sm-4">
-					<label>Statue</label>
-					<select class="form-control" name="statue">
-						<option value="1">Active</option>
-						<option value="0">Inactive</option>
-					</select>
+					<label> Date</label>
+					<input class="form-control" type="date" name="mail_from_name" id="mail_from_name">
+</input>
 				</div>
-			</div>
+			</div> -->
 			<br>
 			<div class="row">
 				<div class="col-sm-12">

@@ -155,21 +155,21 @@
               </span>
             </a>
             <ul class="treeview-menu" style="display: none;">
-              <li>
+              <!-- <li>
                 <a href="{{route('admin.bends')}}">
-                  <i class="fa fa-circle-o"></i> <span>Bends</span>
+                  <i class="fa fa-circle-o"></i> <span>Bands</span>
                 </a>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a href="{{route('admin.job_seeker')}}">
                   <i class="fa fa-circle-o"></i> <span>Employees</span>
                 </a>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a href="{{route('admin.business_locations')}}">
                   <i class="fa fa-circle-o"></i> <span>Business Location</span>
                 </a>
-              </li>
+              </li> -->
               <!-- <li>
                 <a href="{{route('admin.job_seeker')}}">
                   <i class="fa fa-circle-o"></i> <span>Bend Country</span>
@@ -276,7 +276,22 @@
                 </a>
               </li>
             </ul>
-          </li>          
+          </li>     
+          <li>
+                <a href="{{route('admin.bends')}}">
+                  <i class="fa fa-circle-o"></i> <span>Bands</span>
+                </a>
+              </li>     
+              <li>
+                <a href="{{route('admin.job_seeker')}}">
+                  <i class="fa fa-circle-o"></i> <span>Employees</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{route('admin.business_locations')}}">
+                  <i class="fa fa-circle-o"></i> <span>Business Location</span>
+                </a>
+              </li>
         </ul>
       </section>
       <!-- /.sidebar -->

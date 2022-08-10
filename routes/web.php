@@ -169,6 +169,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/jobs/load_states', [Admin\JobController::class, 'load_states'])->name('admin.load_states');
 
     Route::get('/settings/emailsmtp', [Admin\SettingController::class, 'emailsmpt'])->name('admin.setting.emailsmtp');
+    Route::post('/settings/emailsmtp/store_setting', [Admin\SettingController::class, 'store_setting'])->name('admin.store_setting');
 
 
 });
