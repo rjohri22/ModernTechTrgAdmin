@@ -21,7 +21,7 @@
             <div class="small-box bg-aqua">
               <div class="inner">
                 <h3>{{$total_oppertunity}}</h3>
-                <p>Total Oppertiunity</p>
+                <p>Total Opportunity</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>

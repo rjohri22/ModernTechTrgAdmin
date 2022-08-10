@@ -6,7 +6,7 @@ use App\Models\Job_applications;
 <div class="box box-primary container mt-2" style="background: white">
 	<br>
 	<div class="box-header with-border">
-		<a href="{{route('admin.add_oppertunities')}}" class="btn btn-primary" style="float: right;">Add Oppertunity</a>
+		<a href="{{route('admin.add_oppertunities')}}" class="btn btn-primary" style="float: right;">Add Opportunity</a>
 		<h3>Oppertunities</h3>
 		<!-- <span class="label label-primary">Total Job Applied</span>
       	<span class="label label-warning">Total Shortlisted</span>

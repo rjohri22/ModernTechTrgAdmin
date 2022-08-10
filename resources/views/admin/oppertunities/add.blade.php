@@ -15,9 +15,9 @@
 					<input type="text" name="title" class="form-control">
 				</div>
 				<div class="col-sm-3">
-					<label>Bend</label>
+					<label>Band</label>
 					<select name="bend_id" class="form-control">
-						<option value="">Select Bend</option>
+						<option value="">Select Band</option>
 						@foreach($bends as $bend)
 							<option value="{{$bend->id}}">{{$bend->name}}</option>
 						@endforeach
@@ -105,7 +105,7 @@
 			<br>
 			<div class="row">
 				<div class="col-sm-12">
-					<button class="btn btn-primary" type="submit" style="float: right">Add Oppertiunity</button>
+					<button class="btn btn-primary" type="submit" style="float: right">Add Opportunity</button>
 				</div>
 			</div>
 		</form>

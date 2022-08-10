@@ -20,7 +20,7 @@
 					<input type="hidden" name="bend_type" id="bend_id" value="2">
 				@else
 				<div class="col-sm-4">
-					<label>Bend TYpe</label>
+					<label>Band Type</label>
 					<select class="form-control" name="bend_type" id="bend_type">
 						<option value="1">Business Specific</option>
 						<option value="2">Country Specific</option>
@@ -40,7 +40,7 @@
 			<div class="row">
 
 				<div class="col-sm-4">
-					<label>Report Bend</label>
+					<label>Report Band</label>
 					<select class="form-control" name="bend_report[]" multiple>
 						<option value="">Select Report Bend</option>
 						 @foreach($bends as $b) 
