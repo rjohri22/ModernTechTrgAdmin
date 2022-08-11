@@ -83,9 +83,14 @@ class JobController extends AdminBaseController
         };
         $data['countries'] = Countries::get();
         $data['job'] = jobs::where('id',$id)->first();
-        $data['companies'] = Companies::where('status','1')->get();
-        $data['oppertunity'] = Oppertunities::where('id', $id)->first();
-        return view('admin/jobs/edit',$data);
+        if($data['job']->approved_hr == null){
+            $data['companies'] = Companies::where('status','1')->get();
+            $data['oppertunity'] = Oppertunities::where('id', $id)->first();
+            return view('admin/jobs/edit',$data);
+        }
+        else{
+            return redirect()->route('admin.jobs');
+        }
     }
 
     public function view($id)
