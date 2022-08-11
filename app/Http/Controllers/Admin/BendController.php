@@ -42,7 +42,11 @@ class BendController extends AdminBaseController
 
 
     public function permission(){
-        return view('admin/bends/permission');
+        
+        $data['permissions'] = DB::table('modules')
+                                ->join('options','options.module_id','=','modules.id')
+                                ->where('modules.active',1)->get();
+        return view('admin/bends/permission',$data);
     }
     
     public function add(){
