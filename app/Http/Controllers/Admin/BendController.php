@@ -39,6 +39,11 @@ class BendController extends AdminBaseController
 
         return view('admin/bends/index',$data);
     }
+
+
+    public function permission(){
+        return view('admin/bends/permission');
+    }
     
     public function add(){
         if(!$this->check_role()){

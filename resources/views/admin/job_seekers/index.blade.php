@@ -4,7 +4,7 @@
 <div class="box box-primary container mt-2" style="background: white">
 	<div class="box-header">
 		<a href="{{route('admin.add_job_seeker')}}" class="btn btn-primary" style="float: right">Add Employee</a>
-		<h3>Employess</h3>
+		<h3>Employees</h3>
 	</div>
 	<div class="box-body">
 		<table class="table table-sm">

@@ -65,6 +65,16 @@ Route::prefix('admin')->group(function () {
     Route::get('/job_seeker/edit/{id}', [Admin\JobSeekerController::class, 'edit'])->name('admin.edit_job_seeker');
     Route::get('/job_seeker/view/{id}', [Admin\JobSeekerController::class, 'view'])->name('admin.view_job_seeker');
     
+//profile
+Route::get('/profile/view', [Admin\ProfileController::class, 'view'])->name('admin.view_profile');
+Route::post('/profile/update_profile_resume/{id}', [Admin\ProfileController::class, 'update_profile_resume'])->name('admin.update_profile_resume');
+Route::post('/profile/store_profile_education/{id}', [Admin\ProfileController::class, 'store_profile_education'])->name('admin.store_profile_education');
+Route::post('/job_seeker/store_profile_experience/{id}', [Admin\ProfileController::class, 'store_profile_experience'])->name('admin.store_profile_experience');
+Route::post('/job_seeker/store_profile_certificate/{id}', [Admin\ProfileController::class, 'store_profile_certificate'])->name('admin.store_profile_certificate');
+Route::post('/job_seeker/store_profile_language/{id}', [Admin\ProfileController::class, 'store_profile_language'])->name('admin.store_profile_language');
+Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::class, 'store_profile_link'])->name('admin.store_profile_link');
+
+
     Route::post('/job_seeker/store_job_seeker', [Admin\JobSeekerController::class, 'store_job_seeker'])->name('admin.store_job_seeker');
 
     Route::post('/job_seeker/update_job_seeker/{id}', [Admin\JobSeekerController::class, 'update_job_seeker'])->name('admin.update_job_seeker');
@@ -147,6 +157,12 @@ Route::prefix('admin')->group(function () {
     Route::post('/bend/store', [Admin\BendController::class, 'store'])->name('admin.bend_store');
     Route::post('/bend/update/{id}', [Admin\BendController::class, 'update'])->name('admin.bend_update');
     Route::get('/bend/delete/{id}', [Admin\BendController::class, 'delete'])->name('admin.bend_delete');
+
+
+
+
+//permission
+Route::get('/bend/permission', [Admin\BendController::class, 'permission'])->name('admin.bend_permission');
 
     Route::get('/business_location', [Admin\BusinessLocationController::class, 'index'])->name('admin.business_locations');
     Route::get('/business_location/add', [Admin\BusinessLocationController::class, 'add'])->name('admin.business_location_add');

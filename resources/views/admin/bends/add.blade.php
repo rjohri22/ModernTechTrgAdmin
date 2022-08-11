@@ -5,7 +5,7 @@
 <div class="box box-primary container mt-2" style="background: white">
 
 	<div class="box-header">
-		<h3>Add Bend</h3>
+		<h3>Add Band</h3>
 	</div>
 	<div class="box-body">
 		
@@ -43,7 +43,7 @@
 				<div class="col-sm-4">
 					<label>Report Band</label>
 					<select class="form-control" name="bend_report[]" multiple>
-						<option value="">Select Report Bend</option>
+						<option value="">Select Report Band</option>
 						 @foreach($bends as $b) 
 						 <option value="{{$b->id}}">{{$b->name}}</option>
 						 @endforeach					
