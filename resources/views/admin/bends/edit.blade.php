@@ -5,7 +5,7 @@
 <div class="box box-primary container mt-2" style="background: white">
 
 	<div class="box-header">
-		<h3>Edit Bend</h3>
+		<h3>Edit Band</h3>
 	</div>
 	<div class="box-body">
 		<form action="{{route('admin.bend_update',$bend->id)}}" method="post">
