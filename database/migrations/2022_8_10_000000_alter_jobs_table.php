@@ -25,6 +25,9 @@ class AlterJobsTable extends Migration
      */
     public function down()
     {
+        Schema::table('jobs', function($table) {
+            $table->dropColumn('is_deleted');
+        });
         //
     }
 }

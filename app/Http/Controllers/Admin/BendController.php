@@ -70,9 +70,13 @@ class BendController extends AdminBaseController
         $user_id = Auth::user()->id;
         $data['login_details'] = $login_detail = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
         $data['special_view'] = 0;
-        if($login_detail->band_type == '2' && ($login_detail->level == '3' || $login_detail->level == '4')){
-            $data['special_view'] = 1;
-            $data['all_bend'] = Bend::where('band_type','2')->get();
+        if(!empty($login_details)){
+            if($login_detail->band_type == '2' && ($login_detail->level == '3' || $login_detail->level == '4')){
+                $data['special_view'] = 1;
+                $data['all_bend'] = Bend::where('band_type','2')->get();
+            }else{
+                $data['all_bend'] = Bend::get();
+            }
         }else{
             $data['all_bend'] = Bend::get();
         }
