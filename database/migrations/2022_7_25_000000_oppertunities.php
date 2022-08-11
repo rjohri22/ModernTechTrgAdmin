@@ -16,6 +16,7 @@ class Oppertunities extends Migration
         Schema::create('oppertunities', function (Blueprint $table) {
             $table->id();
             $table->string('title',500)->nullable();
+            $table->integer('bend_id',false)->nullable();
             $table->integer('company_id',false)->nullable();
             $table->integer('min_salary',false)->nullable();
             $table->integer('max_salary',false)->nullable();
