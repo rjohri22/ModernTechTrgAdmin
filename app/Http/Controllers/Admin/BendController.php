@@ -41,12 +41,47 @@ class BendController extends AdminBaseController
     }
 
 
-    public function permission(){
-        
-        $data['permissions'] = DB::table('modules')
-                                ->join('options','options.module_id','=','modules.id')
-                                ->where('modules.active',1)->get();
+    public function permission($id){
+        $data['id'] = $id;
+        $permissions = DB::table('modules')->join('options','options.module_id','=','modules.id')->where('modules.active',1)->get();
+        foreach($permissions as $key => $p){
+            $option = DB::table('option_permissions')->where('bend_id',$id)->where('option_slug',$p->option_slug)->first();
+            if($option){
+                $permissions[$key]->_index = $option->_index;
+                $permissions[$key]->_view = $option->_view;
+                $permissions[$key]->_add = $option->_add;
+                $permissions[$key]->_edit = $option->_edit;
+                $permissions[$key]->_delete = $option->_delete;
+            }
+        }
+        $data['permissions'] = $permissions;
         return view('admin/bends/permission',$data);
+    }
+    public function permission_update($id,Request $request){
+        $options = DB::table('modules')
+                    ->join('options','options.module_id','=','modules.id')
+                    ->where('modules.active',1)->get();
+        foreach($options as $o){
+            $insertdata['_index'] = isset($request[$o->option_slug.'_index']) ? 1 : 0;
+            $insertdata['_view'] = isset($request[$o->option_slug.'_view']) ? 1 : 0;
+            $insertdata['_add'] = isset($request[$o->option_slug.'_add']) ? 1 : 0;
+            $insertdata['_edit'] = isset($request[$o->option_slug.'_edit']) ? 1 : 0;
+            $insertdata['_delete'] = isset($request[$o->option_slug.'_delete']) ? 1 : 0;
+            $chek = DB::table('option_permissions')->where('bend_id',$id)->where('option_slug',$o->option_slug)->first();
+            if($chek){
+                DB::table('option_permissions')
+                    ->where('bend_id',$id)
+                    ->where('option_slug',$o->option_slug)
+                    ->update($insertdata);
+            }
+            else{
+                $insertdata['bend_id'] = $id;
+                $insertdata['option_slug'] = $o->option_slug;
+                $insertdata['option_type'] = 'form';
+                DB::table('option_permissions')->insert($insertdata);
+            }
+        }
+        return redirect()->route('admin.bend_permission',$id);
     }
     
     public function add(){
