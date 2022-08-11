@@ -24,6 +24,18 @@ class CreateSettingsTable extends Migration
             $table->string('date');
             $table->timestamps();
         });
+
+        DB::table('settings')->insert(
+            array(
+                'smtp_host' => 'info@gmail.com',
+                'smtp_username' => 'info@moderntech.com',
+                'smtp_port' => '456',
+                'smtp_password' => "password",
+                'smtp_mail_encryption' => "ssl",
+                'smtp_mail_from_name' => "Modern tech",
+                'date' => 'dd-mm-yyyy',
+            )
+        );
     }
 
     /**

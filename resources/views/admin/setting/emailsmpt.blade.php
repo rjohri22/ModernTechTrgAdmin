@@ -11,7 +11,7 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<label>SMTP Host</label>
-					<input type="text" name="smtp_host" id="smtp_host" value="{{ $smtp->smtp_host}}" class="form-control">
+					<input type="text" name="smtp_host" id="smtp_host" value="{{($smtp->smtp_host) ? $smtp->smtp_host : ''}}" class="form-control">
 				</div>
 			</div>
 			<div class="row">
