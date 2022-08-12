@@ -23,6 +23,12 @@ use Session;
 
 class ProfileController extends Controller
 {
+	public function __construct(Request $request)
+    {
+        parent::__construct($request);
+        $this->middleware('auth');
+    }
+
     public function view( )
     {
          //$user = auth::user();

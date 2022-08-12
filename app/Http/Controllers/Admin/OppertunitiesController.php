@@ -26,8 +26,9 @@ class OppertunitiesController extends AdminBaseController
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function __construct()
+	public function __construct(Request $request)
     {
+        parent::__construct($request);
         $this->middleware('auth');
     }
     

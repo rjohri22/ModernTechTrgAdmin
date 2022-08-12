@@ -12,8 +12,9 @@ use App\Models\Admin\Cities;
 
 class CitiesController extends AdminBaseController
 {
-	public function __construct()
+	public function __construct(Request $request)
     {
+        parent::__construct($request);
     	$this->middleware('auth');
     }
 

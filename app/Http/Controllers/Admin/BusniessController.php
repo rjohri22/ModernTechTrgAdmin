@@ -11,8 +11,9 @@ use App\Models\Admin\Countries;
 
 class BusniessController extends AdminBaseController
 {
-	public function __construct()
+	public function __construct(Request $request)
     {
+        parent::__construct($request);
     	$this->middleware('auth');
     }
 

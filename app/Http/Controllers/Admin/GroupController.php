@@ -10,8 +10,9 @@ use App\Models\Admin\Groups;
 
 class GroupController extends AdminBaseController
 {
-	public function __construct()
+	public function __construct(Request $request)
     {
+        parent::__construct($request);
     	$this->middleware('auth');
     }
 

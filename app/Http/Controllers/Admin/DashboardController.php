@@ -22,8 +22,9 @@ class DashboardController extends AdminBaseController
      * @return void
      */
    
-    public function __construct()
+    public function __construct(Request $request)
     {
+        parent::__construct($request);
         
         $this->middleware('auth');
         // echo Session::get('admin_login');
