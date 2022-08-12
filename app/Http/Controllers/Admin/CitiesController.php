@@ -19,6 +19,7 @@ class CitiesController extends AdminBaseController
     }
 
     public function index(){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -26,30 +27,33 @@ class CitiesController extends AdminBaseController
         $fetch = Cities::join('countries','countries.id','=','cities.country_id')
                             ->join('states','states.id','=','cities.state_id')
                             ->get(['cities.*','states.name as state_name','countries.name as country_name']);
-        $data['cities'] = $fetch;
-        return view('admin/cities/index',$data);
+        $this->data['cities'] = $fetch;
+        return view('admin/cities/index',$this->data);
     }
     
     public function add(){
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
         
-        $data['countries'] = Countries::get();
-        $data['states'] = States::get();
-        return view('admin/cities/add',$data);
+        $this->data['countries'] = Countries::get();
+        $this->data['states'] = States::get();
+        return view('admin/cities/add',$this->data);
     }
 
     public function edit($id){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $data['countries'] = Countries::get();
-        $data['city'] = Cities::where('id',$id)->first();
-        return view('admin/cities/edit',$data);
+        $this->data['countries'] = Countries::get();
+        $this->data['city'] = Cities::where('id',$id)->first();
+        return view('admin/cities/edit',$this->data);
     }
 
     public function store(Request $request){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -70,6 +74,7 @@ class CitiesController extends AdminBaseController
     }
 
     public function update($id, Request $request){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -87,6 +92,7 @@ class CitiesController extends AdminBaseController
     }
 
     public function delete($id){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -95,23 +101,25 @@ class CitiesController extends AdminBaseController
         ->with('success','City Deleted successfully.');
     }
     public function states(Request $request){
-        $data['codestatus'] = true;
-        $data['html'] = '';
+        $this->loadBaseData();
+        $this->data['codestatus'] = true;
+        $this->data['html'] = '';
         $states = States::where('country_id',$request->id)->get();
         foreach($states as $state){
-            $data['html'] .= "<option value='".$state->id."'>".$state->name."</option>";
+            $this->data['html'] .= "<option value='".$state->id."'>".$state->name."</option>";
         }
-        return response()->json($data);
+        return response()->json($this->data);
 
     }
     public function cities(Request $request){
-        $data['codestatus'] = true;
-        $data['html'] = '';
+        $this->loadBaseData();
+        $this->data['codestatus'] = true;
+        $this->data['html'] = '';
         $cities = Cities::where('state_id',$request->id)->get();
         foreach($cities as $city){
-            $data['html'] .= "<option value='".$city->id."'>".$city->name."</option>";
+            $this->data['html'] .= "<option value='".$city->id."'>".$city->name."</option>";
         }
-        return response()->json($data);
+        return response()->json($this->data);
 
     }
 

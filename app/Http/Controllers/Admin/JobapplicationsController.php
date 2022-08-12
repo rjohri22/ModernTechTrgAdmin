@@ -30,6 +30,7 @@ class JobapplicationsController extends AdminBaseController
 
     public function index($status)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -56,34 +57,37 @@ class JobapplicationsController extends AdminBaseController
             $fetch = $fetch->where('job_applications.status',$application_status);
         }
         $fetch = $fetch->get(['job_applications.*', 'users.name as user_name','oppertunities.title as oppertunity']);
-        $data['job_applications'] = $fetch;
-        $data['application_status'] = $status;
-        return view('admin/job_applications/index',$data);
+        $this->data['job_applications'] = $fetch;
+        $this->data['application_status'] = $status;
+        return view('admin/job_applications/index',$this->data);
     }
 
     
 
     public function edit($id)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $data['companies'] = Companies::where('status','1')->get();
-        $data['job_application'] = Job_applications::where('id', $id)->first();
-        return view('admin/job_applications/edit',$data);
+        $this->data['companies'] = Companies::where('status','1')->get();
+        $this->data['job_application'] = Job_applications::where('id', $id)->first();
+        return view('admin/job_applications/edit',$this->data);
     }
 
     public function view($id)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $data['oppertunity'] = Job_applications::where('id', $id)->first();
-        return view('admin/job_applications/view',$data);
+        $this->data['oppertunity'] = Job_applications::where('id', $id)->first();
+        return view('admin/job_applications/view',$this->data);
     }
 
     public function store_application(Request $request)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -115,6 +119,7 @@ class JobapplicationsController extends AdminBaseController
 
     public function update_application($id, Request $request)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -133,6 +138,7 @@ class JobapplicationsController extends AdminBaseController
     }
 
     public function delete_application($id){
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };

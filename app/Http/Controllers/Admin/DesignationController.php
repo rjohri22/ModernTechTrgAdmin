@@ -17,16 +17,18 @@ class DesignationController extends AdminBaseController
     }
 
     public function index(){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
 
         $fetch = Designations::get();
-        $data['designations'] = $fetch;
-        return view('admin/designations/index',$data);
+        $this->data['designations'] = $fetch;
+        return view('admin/designations/index',$this->data);
     }
 
     public function add(){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -35,14 +37,16 @@ class DesignationController extends AdminBaseController
     }
 
     public function edit($id){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $data['designation'] = Designations::where('id',$id)->first();
-        return view('admin/designations/edit',$data);
+        $this->data['designation'] = Designations::where('id',$id)->first();
+        return view('admin/designations/edit',$this->data);
     }
 
     public function store(Request $request){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -62,6 +66,7 @@ class DesignationController extends AdminBaseController
     }
 
     public function update($id, Request $request){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -78,6 +83,7 @@ class DesignationController extends AdminBaseController
     }
 
     public function delete($id){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };

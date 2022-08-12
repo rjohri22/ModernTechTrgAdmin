@@ -18,16 +18,18 @@ class SettingController extends AdminBaseController
     }
 
     public function emailsmpt(){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
 
-        $data['smtp']  = settings::where('id', 1)->first();
-        return view('admin/setting/emailsmpt',$data);
+        $this->data['smtp']  = settings::where('id', 1)->first();
+        return view('admin/setting/emailsmpt',$this->data);
     }
 
     public function store_setting(Request $request)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -55,9 +57,4 @@ class SettingController extends AdminBaseController
         return redirect()->route('admin.setting.emailsmtp')
         ->with('success','oppertunity created successfully.');
     }
-
-
-
-
-
 }

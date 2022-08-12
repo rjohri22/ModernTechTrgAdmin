@@ -17,16 +17,18 @@ class DepartmentController extends AdminBaseController
     }
 
     public function index(){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
 
         $fetch = Departments::get();
-        $data['departments'] = $fetch;
-        return view('admin/departments/index',$data);
+        $this->data['departments'] = $fetch;
+        return view('admin/departments/index',$this->data);
     }
 
     public function add(){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -35,14 +37,16 @@ class DepartmentController extends AdminBaseController
     }
 
     public function edit($id){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $data['department'] = Departments::where('id',$id)->first();
-        return view('admin/departments/edit',$data);
+        $this->data['department'] = Departments::where('id',$id)->first();
+        return view('admin/departments/edit',$this->data);
     }
 
     public function store(Request $request){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -63,6 +67,7 @@ class DepartmentController extends AdminBaseController
     }
 
     public function update($id, Request $request){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -80,6 +85,7 @@ class DepartmentController extends AdminBaseController
     }
 
     public function delete($id){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };

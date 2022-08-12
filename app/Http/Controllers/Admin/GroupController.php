@@ -17,16 +17,18 @@ class GroupController extends AdminBaseController
     }
 
     public function index(){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
 
         $fetch = Groups::get();
-        $data['groups'] = $fetch;
-        return view('admin/groups/index',$data);
+        $this->data['groups'] = $fetch;
+        return view('admin/groups/index',$this->data);
     }
 
     public function add(){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -35,14 +37,16 @@ class GroupController extends AdminBaseController
     }
 
     public function edit($id){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $data['group'] = Groups::where('id',$id)->first();
-        return view('admin/groups/edit',$data);
+        $this->data['group'] = Groups::where('id',$id)->first();
+        return view('admin/groups/edit',$this->data);
     }
 
     public function store(Request $request){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -62,6 +66,7 @@ class GroupController extends AdminBaseController
     }
 
     public function update($id, Request $request){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -78,6 +83,7 @@ class GroupController extends AdminBaseController
     }
 
     public function delete($id){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };

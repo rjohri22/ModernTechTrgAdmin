@@ -19,6 +19,7 @@ class BusinessLocationController extends AdminBaseController
     }
 
     public function index(){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -26,35 +27,38 @@ class BusinessLocationController extends AdminBaseController
 
         $fetch = BusinessLocations::get();
         $fetch = BusinessLocations::join('companies','companies.id','=','business_locations.company_id')->join('countries','countries.id','=','business_locations.country_id')->join('states','states.id','=','business_locations.state_id')->join('cities','cities.id','=','business_locations.city')->get(['business_locations.*','companies.name as company_name','countries.name as country_name','states.name as state_name','cities.name as city_name']);
-        $data['business_location'] = $fetch;
-        return view('admin/business_locations/index',$data);
+        $this->data['business_location'] = $fetch;
+        return view('admin/business_locations/index',$this->data);
     }
     
     public function add(){
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
 
-        $data['companies'] = Companies::get();
-        $data['countries'] = Countries::get();
-        // $data['countries'] = Countries::get();
-        return view('admin/business_locations/add',$data);
+        $this->data['companies'] = Companies::get();
+        $this->data['countries'] = Countries::get();
+        // $this->data['countries'] = Countries::get();
+        return view('admin/business_locations/add',$this->data);
     }
 
     public function edit($id){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
 
-        $data['companies'] = Companies::get();
-        $data['countries'] = Countries::get();
-        $data['business_location'] = BusinessLocations::where('id',$id)->first();
-        // $data['countries'] = Countries::get();
-        // $data['state'] = States::where('id',$id)->first();
-        return view('admin/business_locations/edit',$data);
+        $this->data['companies'] = Companies::get();
+        $this->data['countries'] = Countries::get();
+        $this->data['business_location'] = BusinessLocations::where('id',$id)->first();
+        // $this->data['countries'] = Countries::get();
+        // $this->data['state'] = States::where('id',$id)->first();
+        return view('admin/business_locations/edit',$this->data);
     }
 
     public function store(Request $request){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -79,6 +83,7 @@ class BusinessLocationController extends AdminBaseController
     }
 
     public function update($id, Request $request){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -97,6 +102,7 @@ class BusinessLocationController extends AdminBaseController
     }
 
     public function delete($id){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };

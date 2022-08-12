@@ -18,35 +18,39 @@ class StatesController extends AdminBaseController
     }
 
     public function index(){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
 
         // $fetch = States::with('country')->get();
         $fetch = States::join('countries','countries.id','=','states.country_id')->get(['states.*','countries.name as country_name']);
-        $data['states'] = $fetch;
-        return view('admin/states/index',$data);
+        $this->data['states'] = $fetch;
+        return view('admin/states/index',$this->data);
     }
     
     public function add(){
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
         
-        $data['countries'] = Countries::get();
-        return view('admin/states/add',$data);
+        $this->data['countries'] = Countries::get();
+        return view('admin/states/add',$this->data);
     }
 
     public function edit($id){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $data['countries'] = Countries::get();
-        $data['state'] = States::where('id',$id)->first();
-        return view('admin/states/edit',$data);
+        $this->data['countries'] = Countries::get();
+        $this->data['state'] = States::where('id',$id)->first();
+        return view('admin/states/edit',$this->data);
     }
 
     public function store(Request $request){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -66,6 +70,7 @@ class StatesController extends AdminBaseController
     }
 
     public function update($id, Request $request){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -82,6 +87,7 @@ class StatesController extends AdminBaseController
     }
 
     public function delete($id){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
