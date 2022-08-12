@@ -38,9 +38,11 @@ class AdminBaseController extends Controller
          $options = DB::table('options')->select('option_name','option_slug','module_id','redirect_link')->where('module_id',$m->id)->get();
          $m->options = array();
          foreach($options as $o){
+          if(isset($this->data['bp'][$o->option_slug]->_index)){
             if($this->data['bp'][$o->option_slug]->_index == 1){
                $m->options[] = $o;
             }
+          }
          }
          $sidemenu[] = $m;
       }
