@@ -147,6 +147,38 @@
               <i class="fa fa-th"></i> <span>Dashbaord</span>
             </a>
           </li>
+          @foreach($sidemenu as $sm)
+            @if(count($sm->options) == 1)
+              <li>
+                <a href="{{route($sm->options[0]->redirect_link)}}">
+                  <i class="fa fa-th"></i> <span>{{ $sm->options[0]->option_name }}</span>
+                </a>
+              </li>
+            @elseif(count($sm->options) > 1)
+              <li class="treeview" style="height: auto;">
+                <a href="#">
+                  <i class="fa fa-share"></i> <span>{{ $sm->module_name }}</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu" style="display: none;">
+                  @foreach($sm->options as $o)
+                    <li>
+                      <a href="{{route($o->redirect_link)}}">
+                        <i class="fa fa-circle-o"></i> <span>{{ $o->option_name }}</span>
+                      </a>
+                    </li>
+                  @endforeach
+                </ul>
+              </li>     
+            @endif
+          @endforeach
+
+
+<!--
+
+
 
           <li class="treeview" style="height: auto;">
             <a href="#">
@@ -156,27 +188,6 @@
               </span>
             </a>
             <ul class="treeview-menu" style="display: none;">
-              <!-- <li>
-                <a href="{{route('admin.bends')}}">
-                  <i class="fa fa-circle-o"></i> <span>Bands</span>
-                </a>
-              </li> -->
-              <!-- <li>
-                <a href="{{route('admin.job_seeker')}}">
-                  <i class="fa fa-circle-o"></i> <span>Employees</span>
-                </a>
-              </li> -->
-              <!-- <li>
-                <a href="{{route('admin.business_locations')}}">
-                  <i class="fa fa-circle-o"></i> <span>Business Location</span>
-                </a>
-              </li> -->
-              <!-- <li>
-                <a href="{{route('admin.job_seeker')}}">
-                  <i class="fa fa-circle-o"></i> <span>Bend Country</span>
-                </a>
-              </li> -->
-              
               <li>
                 <a href="{{route('admin.oppertunities')}}">
                   <i class="fa fa-circle-o"></i> <span>Job Description</span>
@@ -194,32 +205,6 @@
                   <i class="fa fa-circle-o"></i> <span>Approved Jobs</span>
                 </a>
               </li>
-
-              <!-- <li>
-                <a href="{{route('admin.oppertunities')}}">
-                  <i class="fa fa-circle-o"></i> <span>Oppertiunity</span>
-                </a>
-              </li> -->
-              <!-- <li>
-                <a href="{{route('admin.job_applications','all')}}">
-                  <i class="fa fa-circle-o"></i> <span>Job Applications</span>
-                </a>
-              </li>
-              <li>
-                <a href="{{route('admin.interview')}}">
-                  <i class="fa fa-circle-o"></i> <span>Interview</span>
-                </a>
-              </li>
-              <li>
-                <a href="{{route('admin.job_applications','onboarding')}}">
-                  <i class="fa fa-circle-o"></i> <span>Onboarding</span>
-                </a>
-              </li>
-              <li>
-                <a href="{{route('admin.job_applications','hiring')}}">
-                  <i class="fa fa-circle-o"></i> <span>Hiring</span>
-                </a>
-              </li> -->
             </ul>
           </li> 
 
@@ -293,7 +278,9 @@
                   <i class="fa fa-circle-o"></i> <span>Business Location</span>
                 </a>
               </li>
-        </ul>
+  -->
+
+          </ul>
       </section>
       <!-- /.sidebar -->
     </aside>
@@ -301,13 +288,6 @@
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-        <!-- <h1>
-          Dashboard
-        </h1> -->
-        <!-- <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li class="active">Dashboard</li>
-        </ol> -->
       </section>
       <!-- Main content -->
       <section class="content">

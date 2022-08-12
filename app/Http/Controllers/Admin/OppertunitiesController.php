@@ -26,99 +26,105 @@ class OppertunitiesController extends AdminBaseController
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function __construct()
+	public function __construct(Request $request)
     {
+        parent::__construct($request);
         $this->middleware('auth');
     }
     
     public function index()
     {   
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
 
         $user_id = Auth::user()->id;
        
-        $data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
+        $this->data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
         
         $fetch = DB::table('oppertunities')
             ->select(DB::raw("oppertunities.*, pb.name as company_name"))
             ->leftJoin('companies as pb','pb.id','=','oppertunities.company_id');
             // ->leftJoin('bends as fl','fl.id','=','oppertunities.modified_by');
             // ->where('fl.id',$login_bend_id)
-        $data['children'] = [];
+        $this->data['children'] = [];
         if(!empty($login_details)){
             $login_bend_id = $login_details->id;
-            $data['childern'] = BendAssign::where('parent_id',$login_bend_id)->get()->pluck('child_id');
-            $data['childern'][] = $login_bend_id;
-            if($data['login_details']->level < 7){
-                $fetch = $fetch->wherein('oppertunities.bend_id',$data['childern']);
+            $this->data['childern'] = BendAssign::where('parent_id',$login_bend_id)->get()->pluck('child_id');
+            $this->data['childern'][] = $login_bend_id;
+            if($this->data['login_details']->level < 7){
+                $fetch = $fetch->wherein('oppertunities.bend_id',$this->data['childern']);
             }
         }
         
-        // $data['children']  = BendAssign::join('bends','bends.id','=','bend_assigns.child_id')->where('bend_assigns.parent_id',$login_bend_id)->get()->pluck('child_id');
+        // $this->data['children']  = BendAssign::join('bends','bends.id','=','bend_assigns.child_id')->where('bend_assigns.parent_id',$login_bend_id)->get()->pluck('child_id');
 
 
         $fetch = $fetch->get();
 
         // dd($fetch);
-        // dd($data['childern']);
+        // dd($this->data['childern']);
         // echo $fetch;
         // die();
         // dd($fetch);
         // dd()
 
-        $data['oppertunities'] = $fetch;
+        $this->data['oppertunities'] = $fetch;
 
-        return view('admin/oppertunities/index',$data);
+        return view('admin/oppertunities/index',$this->data);
     }
 
     public function add()
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
-         $data['companies'] = Companies::where('status','1')->get();
+         $this->data['companies'] = Companies::where('status','1')->get();
          $user_id = Auth::user()->id;
-        $data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
-        $data['bends'] = [];
+        $this->data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
+        $this->data['bends'] = [];
         if(!empty($login_details)){
-            $data['bends'] = Bend::where('level','<=',$login_details->level)->get();
+            $this->data['bends'] = Bend::where('level','<=',$login_details->level)->get();
         }
 
-         // $data['bends'] = Bend::get();
-        return view('admin/oppertunities/add',$data);
+         // $this->data['bends'] = Bend::get();
+        return view('admin/oppertunities/add',$this->data);
     }
 
     public function edit($id)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $data['companies'] = Companies::where('status','1')->get();
-        $data['oppertunity'] = Oppertunities::where('id', $id)->first();
+        $this->data['companies'] = Companies::where('status','1')->get();
+        $this->data['oppertunity'] = Oppertunities::where('id', $id)->first();
         $user_id = Auth::user()->id;
-        $data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
-        $data['bends'] = [];
+        $this->data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
+        $this->data['bends'] = [];
         if(!empty($login_details)){
-            $data['bends'] = Bend::where('level','<=',$login_details->level)->get();
+            $this->data['bends'] = Bend::where('level','<=',$login_details->level)->get();
         }
-        return view('admin/oppertunities/edit',$data);
+        return view('admin/oppertunities/edit',$this->data);
     }
 
     public function view($id)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
         $fetch = Oppertunities::Leftjoin('companies', 'companies.id', '=', 'oppertunities.company_id')
                 ->get(['oppertunities.*', 'companies.name as company_name'])->where('id',$id)->first();
-        $data['oppertunity'] = $fetch;
-        return view('admin/oppertunities/view',$data);
+        $this->data['oppertunity'] = $fetch;
+        return view('admin/oppertunities/view',$this->data);
     }
 
     public function store_oppertunity(Request $request)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -151,6 +157,7 @@ class OppertunitiesController extends AdminBaseController
 
     public function update_oppertunity($id, Request $request)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -181,6 +188,7 @@ class OppertunitiesController extends AdminBaseController
     }
 
     public function delete_oppertunity($id){
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };

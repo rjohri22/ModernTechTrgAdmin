@@ -11,40 +11,45 @@ use App\Models\Admin\Countries;
 
 class BusniessController extends AdminBaseController
 {
-	public function __construct()
+	public function __construct(Request $request)
     {
+        parent::__construct($request);
     	$this->middleware('auth');
     }
 
     public function index(){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
 
         $fetch = Companies::get();
-        $data['busniess'] = $fetch;
-        return view('admin/busniess/index',$data);
+        $this->data['busniess'] = $fetch;
+        return view('admin/busniess/index',$this->data);
     }
     
     public function add(){
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
         
-        $data['countries'] = Countries::get();
-        return view('admin/busniess/add',$data);
+        $this->data['countries'] = Countries::get();
+        return view('admin/busniess/add',$this->data);
     }
 
     public function edit($id){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $data['countries'] = Countries::get();
-        $data['busniess'] = Companies::where('id',$id)->first();
-        return view('admin/busniess/edit',$data);
+        $this->data['countries'] = Countries::get();
+        $this->data['busniess'] = Companies::where('id',$id)->first();
+        return view('admin/busniess/edit',$this->data);
     }
 
     public function store(Request $request){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -69,6 +74,7 @@ class BusniessController extends AdminBaseController
     }
 
     public function update($id, Request $request){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -89,6 +95,7 @@ class BusniessController extends AdminBaseController
     }
 
     public function delete($id){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };

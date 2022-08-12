@@ -27,13 +27,15 @@ class JobController extends AdminBaseController
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function __construct()
+	public function __construct(Request $request)
     {
+        parent::__construct($request);
         $this->middleware('auth');
     }
     
     public function index()
     {   
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -45,13 +47,13 @@ class JobController extends AdminBaseController
         ->join('cities','cities.id','=','jobs.city_id')
         ->join('users','users.id','=','jobs.modified_by');
 
-        $data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
+        $this->data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
 
         if(!empty($login_details)){
-            $childres = BendAssign::where('parent_id',$data['login_details']->id)->get()->pluck('child_id');
-            $childres[] = $data['login_details']->id;
+            $childres = BendAssign::where('parent_id',$this->data['login_details']->id)->get()->pluck('child_id');
+            $childres[] = $this->data['login_details']->id;
 
-            if($data['login_details']->name != 'HR Management'){
+            if($this->data['login_details']->name != 'HR Management'){
                 $fetch = $fetch->wherein('users.bend_id',$childres);
             }else{
                $fetch = $fetch->where('jobs.approved_manager','!=',null); 
@@ -59,34 +61,36 @@ class JobController extends AdminBaseController
         }
         $fetch = $fetch->where('jobs.is_deleted','=',0);
         $fetch = $fetch->get(['jobs.*', 'companies.name as company_name', 'countries.name as country_name','states.name as state_name','cities.name as city_name','users.first_name']);
-        $data['jobs'] = $fetch;
-        return view('admin/jobs/index',$data);
+        $this->data['jobs'] = $fetch;
+        return view('admin/jobs/index',$this->data);
     }
 
     public function add()
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $data['job_descrtiption'] = Oppertunities::get();
-        $data['companies'] = Companies::where('status','1')->get();
-        $data['countries'] = Countries::get();
-        // $data['countries'] = Countries::get();
+        $this->data['job_descrtiption'] = Oppertunities::get();
+        $this->data['companies'] = Companies::where('status','1')->get();
+        $this->data['countries'] = Countries::get();
+        // $this->data['countries'] = Countries::get();
         
-        return view('admin/jobs/add',$data);
+        return view('admin/jobs/add',$this->data);
     }
 
     public function edit($id)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $data['countries'] = Countries::get();
-        $data['job'] = jobs::where('id',$id)->first();
-        if($data['job']->approved_hr == null){
-            $data['companies'] = Companies::where('status','1')->get();
-            $data['oppertunity'] = Oppertunities::where('id', $id)->first();
-            return view('admin/jobs/edit',$data);
+        $this->data['countries'] = Countries::get();
+        $this->data['job'] = jobs::where('id',$id)->first();
+        if($this->data['job']->approved_hr == null){
+            $this->data['companies'] = Companies::where('status','1')->get();
+            $this->data['oppertunity'] = Oppertunities::where('id', $id)->first();
+            return view('admin/jobs/edit',$this->data);
         }
         else{
             return redirect()->route('admin.jobs');
@@ -95,6 +99,7 @@ class JobController extends AdminBaseController
 
     public function view($id)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -103,12 +108,13 @@ class JobController extends AdminBaseController
                 ->select(['jobs.*', 'companies.name as company_name', 'countries.name as country_name','states.name as state_name','cities.name as city_name'])->where('jobs.id',$id)->first();
         // $fetch = Oppertunities::Leftjoin('companies', 'companies.id', '=', 'oppertunities.company_id')
                 // ->get(['oppertunities.*', 'companies.name as company_name'])->where('id',$id)->first();
-        $data['job'] = $fetch;
-        return view('admin/jobs/view',$data);
+        $this->data['job'] = $fetch;
+        return view('admin/jobs/view',$this->data);
     }
 
     public function store(Request $request)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -149,6 +155,7 @@ class JobController extends AdminBaseController
 
     public function update($id, Request $request)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -181,6 +188,7 @@ class JobController extends AdminBaseController
     }
 
     public function delete($id){
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -194,60 +202,64 @@ class JobController extends AdminBaseController
     }
 
     public function job_approved_manager($id){
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
         
         $user_id = Auth::user()->id;
-        $data = array(
+        $this->data = array(
             'approved_manager' => $user_id
         );
-        $query = Jobs::where('id',$id)->update($data); 
+        $query = Jobs::where('id',$id)->update($this->data); 
 
         return redirect()->route('admin.jobs')
         ->with('success','Job Approved By Manager.');
     }
 
     public function job_approved_hr($id){
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
         
         $user_id = Auth::user()->id;
-        $data = array(
+        $this->data = array(
             'approved_hr' => $user_id
         );
-        $query = Jobs::where('id',$id)->update($data); 
+        $query = Jobs::where('id',$id)->update($this->data); 
 
         return redirect()->route('admin.jobs')
         ->with('success','Job Approved By Hr.');
     }
 
     public function load_country(Request $request){
-        $data['codestatus'] = true;
-        $data['html'] = '';
+        $this->loadBaseData();
+        $this->data['codestatus'] = true;
+        $this->data['html'] = '';
         // $states = States::where('country_id',$request->id)->get();
         $states = BusinessLocations::join('countries','countries.id','=','business_locations.country_id')->where('business_locations.company_id',$request->id)->toSql();
         // print_r($request);
         echo $states;
         die();
         foreach($states as $state){
-            $data['html'] .= "<option value='".$state->id."'>".$state->name."</option>";
+            $this->data['html'] .= "<option value='".$state->id."'>".$state->name."</option>";
         }
-        return response()->json($data);
+        return response()->json($this->data);
     }
 
     public function load_states(Request $request){
-        $data['codestatus'] = true;
-        $data['html'] = '';
+        $this->loadBaseData();
+        $this->data['codestatus'] = true;
+        $this->data['html'] = '';
         $country_id = $request->id;
         $compnay_id = $request->company_id;
         // $states = States::where('country_id',$request->id)->get();
         $states = BusinessLocations::join('states','states.id','=','business_locations.state_id')->where('company_id',$compnay_id)->where('business_locations.country_id',$country_id)->get();
         foreach($states as $state){
-            $data['html'] .= "<option value='".$state->id."'>".$state->name."</option>";
+            $this->data['html'] .= "<option value='".$state->id."'>".$state->name."</option>";
         }
-        return response()->json($data);
+        return response()->json($this->data);
 
     }
 }

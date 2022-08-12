@@ -22,8 +22,9 @@ class DashboardController extends AdminBaseController
      * @return void
      */
    
-    public function __construct()
+    public function __construct(Request $request)
     {
+        parent::__construct($request);
         
         $this->middleware('auth');
         // echo Session::get('admin_login');
@@ -39,29 +40,31 @@ class DashboardController extends AdminBaseController
      */
     public function index()
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
              return redirect()->route('home');
         };
         // $user_id = Auth::user()->id;
-        // $data['login_detail'] = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
-        $data['total_oppertunity'] = Oppertunities::count();
-        $data['total_jobseeker'] = User::where('group_id', 2)->count();
-        $data['total_applications'] = Job_applications::count();
-        return view('admin.dashbaord',$data);
+        // $this->data['login_detail'] = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
+        $this->data['total_oppertunity'] = Oppertunities::count();
+        $this->data['total_jobseeker'] = User::where('group_id', 2)->count();
+        $this->data['total_applications'] = Job_applications::count();
+        return view('admin.dashbaord',$this->data);
     }
 
     public function loginverification(){
-        echo "<pre/>".print_r(Auth::user(),1);die();
-        $data = false;
+        $this->loadBaseData();
+        $this->data = false;
         $user_id = Auth::user()->id;
         $user = User::where('id',$user_id)->first();
         if($user->group_id == 1){
-           $data = true;
+           $this->data = true;
         }
-        return $data;
+        return $this->data;
     }
 
     function send_email($to, $subject, $message){
+        $this->loadBaseData();
         require base_path("vendor/autoload.php");
         $mail = new PHPMailer(true);
         try {
@@ -114,6 +117,7 @@ class DashboardController extends AdminBaseController
     }
 
     public function change_status(Request $request){
+        $this->loadBaseData();
         $id = $request->input('id');
         $status = $request->input('status');
         

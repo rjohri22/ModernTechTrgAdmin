@@ -23,13 +23,15 @@ class InterviewController extends AdminBaseController
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function __construct()
+	public function __construct(Request $request)
     {
+        parent::__construct($request);
         $this->middleware('auth');
     }
 
     public function index(Request $request)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };  
@@ -54,32 +56,35 @@ class InterviewController extends AdminBaseController
 
         $fetch = $fetch->get(['job_applications.*', 'users.name as user_name','oppertunities.title as oppertunity']);
 
-        $data['job_applications'] = $fetch;
-        return view('admin/interview/index',$data);
+        $this->data['job_applications'] = $fetch;
+        return view('admin/interview/index',$this->data);
     }
     
 
     public function edit($id)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $data['companies'] = Companies::where('status','1')->get();
-        $data['job_application'] = Job_applications::where('id', $id)->first();
-        return view('admin/interview/edit',$data);
+        $this->data['companies'] = Companies::where('status','1')->get();
+        $this->data['job_application'] = Job_applications::where('id', $id)->first();
+        return view('admin/interview/edit',$this->data);
     }
 
     public function view($id)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $data['oppertunity'] = Job_applications::where('id', $id)->first();
-        return view('admin/interview/view',$data);
+        $this->data['oppertunity'] = Job_applications::where('id', $id)->first();
+        return view('admin/interview/view',$this->data);
     }
 
     public function store_interview(Request $request)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -104,6 +109,7 @@ class InterviewController extends AdminBaseController
 
     public function update_interview($id, Request $request)
     {
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -123,6 +129,7 @@ class InterviewController extends AdminBaseController
     }
 
     public function delete_interview($id){
+        $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };

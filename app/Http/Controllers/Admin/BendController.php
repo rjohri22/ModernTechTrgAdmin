@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\AdminBaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\AdminBaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin\Bend;
@@ -13,12 +13,14 @@ use Illuminate\Support\Facades\DB;
 
 class BendController extends AdminBaseController
 {
-	public function __construct()
+	public function __construct(Request $request)
     {
+        parent::__construct($request);
     	$this->middleware('auth');
     }
 
     public function index(){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -27,7 +29,7 @@ class BendController extends AdminBaseController
                 // ->join('users','users.id','=','job_applications.jobseeker_id')->where('job_applications.status',3);
         // $fetch = Bend::leftJoin('bends as pb','bends.id','=','pb.parent_id')->get(['bends.*','pb.name as parent']);
         $user_id = Auth::user()->id;
-        $data['login_details'] = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
+        $this->data['login_details'] = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
 
         $fetch = DB::table('bends')
             ->select(DB::raw("bends.*, GROUP_CONCAT(fl.name) as children"))
@@ -35,62 +37,108 @@ class BendController extends AdminBaseController
             ->leftJoin('bends as fl','fl.id','=','pb.parent_id')
             ->groupBy('bends.id')
             ->get();
-        $data['bends'] = $fetch;
+        $this->data['bends'] = $fetch;
 
-        return view('admin/bends/index',$data);
+        return view('admin/bends/index',$this->data);
     }
 
 
-    public function permission(){
-        return view('admin/bends/permission');
+    public function permission($id){
+        $this->loadBaseData();
+        $this->data['id'] = $id;
+        $permissions = DB::table('modules')->join('options','options.module_id','=','modules.id')->where('modules.active',1)->get();
+        foreach($permissions as $key => $p){
+            $option = DB::table('option_permissions')->where('bend_id',$id)->where('option_slug',$p->option_slug)->first();
+            if($option){
+                $permissions[$key]->_index = $option->_index;
+                $permissions[$key]->_view = $option->_view;
+                $permissions[$key]->_add = $option->_add;
+                $permissions[$key]->_edit = $option->_edit;
+                $permissions[$key]->_delete = $option->_delete;
+            }
+        }
+        $this->data['permissions'] = $permissions;
+        return view('admin/bends/permission',$this->data);
+    }
+    public function permission_update($id,Request $request){
+        $this->loadBaseData();
+        $options = DB::table('modules')
+                    ->join('options','options.module_id','=','modules.id')
+                    ->where('modules.active',1)->get();
+        foreach($options as $o){
+            $insertdata['_index'] = isset($request[$o->option_slug.'_index']) ? 1 : 0;
+            $insertdata['_view'] = isset($request[$o->option_slug.'_view']) ? 1 : 0;
+            $insertdata['_add'] = isset($request[$o->option_slug.'_add']) ? 1 : 0;
+            $insertdata['_edit'] = isset($request[$o->option_slug.'_edit']) ? 1 : 0;
+            $insertdata['_delete'] = isset($request[$o->option_slug.'_delete']) ? 1 : 0;
+            $chek = DB::table('option_permissions')->where('bend_id',$id)->where('option_slug',$o->option_slug)->first();
+            if($chek){
+                DB::table('option_permissions')
+                    ->where('bend_id',$id)
+                    ->where('option_slug',$o->option_slug)
+                    ->update($insertdata);
+            }
+            else{
+                $insertdata['bend_id'] = $id;
+                $insertdata['option_slug'] = $o->option_slug;
+                $insertdata['option_type'] = 'form';
+                DB::table('option_permissions')->insert($insertdata);
+            }
+        }
+        return redirect()->route('admin.bend_permission',$id);
     }
     
     public function add(){
+        $this->loadBaseData();
+
         if(!$this->check_role()){
             return redirect()->route('home');
         };
 
         $user_id = Auth::user()->id;
-        $data['login_details'] = $login_detail = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
-        $data['special_view'] = 0;
+        $this->data['login_details'] = $login_detail = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
+        $this->data['special_view'] = 0;
         if($login_detail){
             if($login_detail->band_type == '2' && ($login_detail->level == '3' || $login_detail->level == '4')){
-                $data['special_view'] = 1;
-                $data['bends'] = Bend::where('band_type','2')->get();
+                $this->data['special_view'] = 1;
+                $this->data['bends'] = Bend::where('band_type','2')->get();
             }else{
-                $data['bends'] = Bend::get();
+                $this->data['bends'] = Bend::get();
             }
         }else{
-            $data['bends'] = Bend::get();
+            $this->data['bends'] = Bend::get();
         }
         // dd($login_detail);
-        // dd($data['special_view']);
-        return view('admin/bends/add',$data);
+        // dd($this->data['special_view']);
+        return view('admin/bends/add',$this->data);
     }
 
     public function edit($id){
+        $this->loadBaseData();
+
         if(!$this->check_role()){
             return redirect()->route('home');
         };
         $user_id = Auth::user()->id;
-        $data['login_details'] = $login_detail = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
-        $data['special_view'] = 0;
+        $this->data['login_details'] = $login_detail = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
+        $this->data['special_view'] = 0;
         if(!empty($login_details)){
             if($login_detail->band_type == '2' && ($login_detail->level == '3' || $login_detail->level == '4')){
-                $data['special_view'] = 1;
-                $data['all_bend'] = Bend::where('band_type','2')->get();
+                $this->data['special_view'] = 1;
+                $this->data['all_bend'] = Bend::where('band_type','2')->get();
             }else{
-                $data['all_bend'] = Bend::get();
+                $this->data['all_bend'] = Bend::get();
             }
         }else{
-            $data['all_bend'] = Bend::get();
+            $this->data['all_bend'] = Bend::get();
         }
-        $data['bend'] = Bend::where('id',$id)->first();
-        $data['bend_assign'] = BendAssign::where('child_id',$id)->pluck('parent_id')->toArray();
-        return view('admin/bends/edit',$data);
+        $this->data['bend'] = Bend::where('id',$id)->first();
+        $this->data['bend_assign'] = BendAssign::where('child_id',$id)->pluck('parent_id')->toArray();
+        return view('admin/bends/edit',$this->data);
     }
 
     public function store(Request $request){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -125,6 +173,7 @@ class BendController extends AdminBaseController
     }
 
     public function update($id, Request $request){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -160,6 +209,7 @@ class BendController extends AdminBaseController
     }
 
     public function delete($id){
+        $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 
 use App\Http\Controllers\Admin\AdminBaseController;
-
 use App\Models\User;
 use App\Models\Employee_educations;
 use App\Models\Employee_works;
@@ -21,30 +20,32 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Session;
 
-class ProfileController extends Controller
+class ProfileController extends AdminBaseController
 {
+	public function __construct(Request $request)
+    {
+        parent::__construct($request);
+        $this->middleware('auth');
+    }
+
     public function view( )
     {
-         //$user = auth::user();
-         $user = Auth::user()->id;
-        //  echo "<pre>";
-        //  print_r($check);
-        //    return view('admin/profile/view',$user);
-      
-
-        $data['user'] = User::where('id', $user)->first();
-        $data['education'] = Employee_educations::where('user_id', $user)->get();
-        $data['works'] = Employee_works::where('user_id', $user)->get();
-        $data['language'] = Employee_languages::where('user_id', $user)->get();
-        $data['certificate'] = Employee_cirtificates::where('user_id', $user)->get();
-        $data['links'] = Employee_sociallinks::where('user_id', $user)->get();
-        $data['bends'] = Bend::get();
-        $data['business'] = Companies::get();
-        $data['countries'] = Countries::get();
-        return view('admin/profile/view',$data);
+        $this->loadBaseData();
+        $user = Auth::user()->id;
+        $this->data['user'] = User::where('id', $user)->first();
+        $this->data['education'] = Employee_educations::where('user_id', $user)->get();
+        $this->data['works'] = Employee_works::where('user_id', $user)->get();
+        $this->data['language'] = Employee_languages::where('user_id', $user)->get();
+        $this->data['certificate'] = Employee_cirtificates::where('user_id', $user)->get();
+        $this->data['links'] = Employee_sociallinks::where('user_id', $user)->get();
+        $this->data['bends'] = Bend::get();
+        $this->data['business'] = Companies::get();
+        $this->data['countries'] = Countries::get();
+        return view('admin/profile/view',$this->data);
     }
 
     public function update_profile_resume($id, Request $request){
+        $this->loadBaseData();
         // if(!$this->check_role()){
         //     return redirect()->route('home');
         // };
@@ -71,6 +72,7 @@ class ProfileController extends Controller
     }
 
     public function store_profile_education($user_id, Request $request){ 
+        $this->loadBaseData();
         $institude_name = $request->input('institude');
         $del_ids = $request->input('del_id');
         $del_id = [];
@@ -85,11 +87,11 @@ class ProfileController extends Controller
              Employee_educations::where('id',$id)->delete(); 
          }
      }
-     $data = array();
+     $this->data = array();
      if(count((array)$institude_name) > 0){
         for($i=0; $i< count($institude_name); $i++){
             if($request->input('insert_update')[$i] == 0){
-                $data[] = array(
+                $this->data[] = array(
                     'user_id' => $user_id,
                     'level' => $request->input('level')[$i],
                     'institute_name' => $institude_name[$i],
@@ -102,7 +104,7 @@ class ProfileController extends Controller
                 );
             }
         }
-        $query = Employee_educations::insert($data);
+        $query = Employee_educations::insert($this->data);
         if($query){
             return redirect()->route('admin.view_profile')
             ->with('success','oppertunity Updated successfully.');
@@ -118,6 +120,7 @@ class ProfileController extends Controller
 
 
 public function store_profile_experience($user_id, Request $request){
+    $this->loadBaseData();
     $compnay = $request->input('work_company');
     $del_ids = $request->input('work_del_id');
     $del_id = [];
@@ -133,11 +136,11 @@ public function store_profile_experience($user_id, Request $request){
          Employee_works::where('id',$id)->delete(); 
      }
  }
- $data = array();
+ $this->data = array();
  if(count((array)$compnay) > 0){
     for($i=0; $i< count($compnay); $i++){
         if($request->input('insert_update')[$i] == 0){
-            $data[] = array(
+            $this->data[] = array(
                 'user_id' => $user_id,
                 'title' => $request->input('work_title')[$i],
                 'company' => $compnay[$i],
@@ -150,7 +153,7 @@ public function store_profile_experience($user_id, Request $request){
             );
         }
     }
-    $query = Employee_works::insert($data);
+    $query = Employee_works::insert($this->data);
     if($query){
         return redirect()->route('admin.view_profile')
         ->with('success','oppertunity Updated successfully.');
@@ -166,6 +169,7 @@ public function store_profile_experience($user_id, Request $request){
 
 
 public function store_profile_certificate($user_id, Request $request){
+    $this->loadBaseData();
     $title = $request->input('certificate_title');
     $del_ids = $request->input('certificate_del_id');
     $del_id = [];
@@ -181,11 +185,11 @@ public function store_profile_certificate($user_id, Request $request){
          Employee_cirtificates::where('id',$id)->delete(); 
      }
  }
- $data = array();
+ $this->data = array();
  if(count((array)$title) > 0){
     for($i=0; $i< count($title); $i++){
         if($request->input('insert_update')[$i] == 0){
-            $data[] = array(
+            $this->data[] = array(
                 'user_id' => $user_id,
                 'title' => $title[$i],
                 'institute_name' => $request->input('certificate_institude')[$i],
@@ -195,7 +199,7 @@ public function store_profile_certificate($user_id, Request $request){
             );
         }
     }
-    $query = Employee_cirtificates::insert($data);
+    $query = Employee_cirtificates::insert($this->data);
     if($query){
         return redirect()->route('admin.view_profile')
         ->with('success','oppertunity Updated successfully.');
@@ -214,6 +218,7 @@ public function store_profile_certificate($user_id, Request $request){
 
 
 public function store_profile_language($user_id, Request $request){
+    $this->loadBaseData();
     $title = $request->input('language_title');
     $del_ids = $request->input('language_del_id');
     $del_id = [];
@@ -229,18 +234,18 @@ public function store_profile_language($user_id, Request $request){
          Employee_languages::where('id',$id)->delete(); 
      }
  }
- $data = array();
+ $this->data = array();
  if(count((array)$title) > 0){
     for($i=0; $i< count($title); $i++){
         if($request->input('insert_update')[$i] == 0){
-            $data[] = array(
+            $this->data[] = array(
                 'user_id' => $user_id,
                 'title' => $title[$i],
                 'proficiency' => $request->input('language_profiency')[$i],
             );
         }
     }
-    $query = Employee_languages::insert($data);
+    $query = Employee_languages::insert($this->data);
     if($query){
      return redirect()->route('admin.view_profile')
      ->with('success','oppertunity Updated successfully.');
@@ -255,6 +260,7 @@ public function store_profile_language($user_id, Request $request){
 }
 
 public function store_profile_link($user_id, Request $request){
+    $this->loadBaseData();
     $title = $request->input('link_title');
     $del_ids = $request->input('link_del_id');
     $del_id = [];
@@ -270,18 +276,18 @@ public function store_profile_link($user_id, Request $request){
          Employee_sociallinks::where('id',$id)->delete(); 
      }
  }
- $data = array();
+ $this->data = array();
  if(count((array)$title) > 0){
     for($i=0; $i< count($title); $i++){
         if($request->input('insert_update')[$i] == 0){
-            $data[] = array(
+            $this->data[] = array(
                 'user_id' => $user_id,
                 'title' => $title[$i],
                 'link' => $request->input('link_link')[$i],
             );
         }
     }
-    $query = Employee_sociallinks::insert($data);
+    $query = Employee_sociallinks::insert($this->data);
     if($query){
         return redirect()->route('admin.view_profile')
         ->with('success','oppertunity Updated successfully.');

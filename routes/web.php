@@ -161,8 +161,9 @@ Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::cla
 
 
 
-//permission
-Route::get('/bend/permission', [Admin\BendController::class, 'permission'])->name('admin.bend_permission');
+    //permission
+    Route::get('/bend/permission/{id}', [Admin\BendController::class, 'permission'])->name('admin.bend_permission');
+    Route::post('/bend/permission_update/{id}', [Admin\BendController::class, 'permission_update'])->name('admin.bend_permission_update');
 
     Route::get('/business_location', [Admin\BusinessLocationController::class, 'index'])->name('admin.business_locations');
     Route::get('/business_location/add', [Admin\BusinessLocationController::class, 'add'])->name('admin.business_location_add');
