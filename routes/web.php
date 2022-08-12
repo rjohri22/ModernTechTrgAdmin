@@ -188,6 +188,8 @@ Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::cla
     Route::get('/settings/emailsmtp', [Admin\SettingController::class, 'emailsmpt'])->name('admin.setting.emailsmtp');
     Route::post('/settings/emailsmtp/store_setting', [Admin\SettingController::class, 'store_setting'])->name('admin.store_setting');
 
+    Route::post('/settings/emailsmtp/test_email', [Admin\SettingController::class, 'test_email'])->name('admin.test_email');
+
 
 });
 
