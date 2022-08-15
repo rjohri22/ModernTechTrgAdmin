@@ -26,7 +26,11 @@ class BusinessLocationController extends AdminBaseController
 
 
         $fetch = BusinessLocations::get();
-        $fetch = BusinessLocations::join('companies','companies.id','=','business_locations.company_id')->join('countries','countries.id','=','business_locations.country_id')->join('states','states.id','=','business_locations.state_id')->join('cities','cities.id','=','business_locations.city')->get(['business_locations.*','companies.name as company_name','countries.name as country_name','states.name as state_name','cities.name as city_name']);
+        $fetch = BusinessLocations::join('companies','companies.id','=','business_locations.company_id')
+                                   ->join('countries','countries.id','=','business_locations.country_id')
+                                   ->join('states','states.id','=','business_locations.state_id')
+                                   ->join('cities','cities.id','=','business_locations.city')
+                                   ->get(['business_locations.*','companies.name as company_name','countries.name as country_name','states.name as state_name','cities.name as city_name']);
         $this->data['business_location'] = $fetch;
         return view('admin/business_locations/index',$this->data);
     }

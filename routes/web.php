@@ -190,6 +190,8 @@ Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::cla
 
     Route::post('/settings/emailsmtp/test_email', [Admin\SettingController::class, 'test_email'])->name('admin.test_email');
 
-
+    Route::post('/load_business_country', [Admin\DashboardController::class, 'load_business_country'])->name('admin.load_business_country');
+    Route::post('/load_business_state', [Admin\DashboardController::class, 'load_business_state'])->name('admin.load_business_state');
+    Route::post('/load_business_city', [Admin\DashboardController::class, 'load_business_city'])->name('admin.load_business_city');
 });
 

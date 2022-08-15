@@ -65,6 +65,11 @@ class JobController extends AdminBaseController
         return view('admin/jobs/index',$this->data);
     }
 
+
+
+
+
+
     public function add()
     {
         $this->loadBaseData();
@@ -78,6 +83,26 @@ class JobController extends AdminBaseController
         
         return view('admin/jobs/add',$this->data);
     }
+
+
+    public function getcountry()
+    {
+        $this->loadBaseData();
+        if(!$this->check_role()){
+            return redirect()->route('home');
+        };
+        $this->data['job_descrtiption'] = Oppertunities::get();
+        $this->data['companies'] = Companies::where('status','1')->get();
+        $this->data['countries'] = Countries::join('business_locations', 'business_locations.country_id', '=', 'countries.id')->groupby('business_locations.country_id')->get();
+        // $this->data['countries'] = Countries::get();
+        
+        return view('admin/jobs/add',$this->data);
+    }
+
+
+
+
+
 
     public function edit($id)
     {
