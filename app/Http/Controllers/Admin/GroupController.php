@@ -33,7 +33,7 @@ class GroupController extends AdminBaseController
             return redirect()->route('home');
         };
 
-        return view('admin/groups/add');
+        return view('admin/groups/add',$this->data);
     }
 
     public function edit($id){

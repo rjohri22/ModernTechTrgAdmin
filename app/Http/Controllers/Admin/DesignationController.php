@@ -33,7 +33,7 @@ class DesignationController extends AdminBaseController
             return redirect()->route('home');
         };
 
-        return view('admin/designations/add');
+        return view('admin/designations/add',$this->data);
     }
 
     public function edit($id){

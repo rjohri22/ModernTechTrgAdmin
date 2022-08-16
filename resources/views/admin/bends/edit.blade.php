@@ -61,18 +61,8 @@
 						<option value="0" @if ($bend->status == 0) selected @endif>Inactive</option>
 					</select>
 				</div>
-
-				@if($special_view == 1)
-					<input type="hidden" name="special" id="special" value="{{$bend->special}}">
-				@else
-				<div class="col-sm-4">
-					<label>Access For Final Approval</label>
-					<select class="form-control" name="special">
-						<option value="1" @if ($bend->special == 1) selected @endif>Yes</option>
-						<option value="0" @if ($bend->special == 0) selected @endif>No</option>
-					</select>
-				</div>
-				@endif
+				<input type="hidden" name="special" id="special" value="{{$bend->special}}">
+				
 			</div>
 			
 			<br>

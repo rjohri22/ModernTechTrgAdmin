@@ -53,7 +53,7 @@ class JobController extends AdminBaseController
             $childres = BendAssign::where('parent_id',$this->data['login_details']->id)->get()->pluck('child_id');
             $childres[] = $this->data['login_details']->id;
 
-            if($this->data['login_details']->name != 'HR Management'){
+            if($this->data['login_details']->name != 'HR Manager'){
                 $fetch = $fetch->wherein('users.bend_id',$childres);
             }else{
                $fetch = $fetch->where('jobs.approved_manager','!=',null); 

@@ -3,7 +3,7 @@
 
 <div class="box box-primary container mt-2" style="background: white">
 	<div class="box-header">
-		<h3>Add Opportunities</h3>
+		<h3>Edit Opportunities</h3>
 	</div>
 	<div class="box-body">
 		

@@ -7,12 +7,22 @@
     margin-right: 10px;
   }
 </style>
+
 <div class="box box-primary container mt-2" style="background: white">
   <form action="{{route('admin.bend_permission_update',$id)}}" method="post">
   @csrf
 	<div class="box-header">
-		<h3>Permissions</h3>
+		<h3 style="display: inline">Permissions</h3>
+    <div class="filter" style="display: inline; float: right; width: 500px">
+      <select class="form-control" id="filter">
+        <option value="">All Modules</option>
+        @foreach($modules as $p)
+            <option value="{{$p->module_name}}">{{$p->module_name}}</option>
+        @endforeach
+      </select>
+    </div>
 	</div>
+  <br>
 	<div class="box-body">
     <table class="table">
       <thead>
@@ -28,7 +38,10 @@
       </thead>
       <tbody>
         @foreach($permissions as $p)
-        <tr>
+        @php
+          $module_name = str_replace(' ','_',$p->module_name);
+        @endphp
+        <tr class="row_{{$module_name}} all_class">
           <th>{{ $p->module_name }}</th>
           <td><label ><input type="checkbox" class="check_all" data-class="{{ $p->option_slug }}" ></label> {{ $p->option_name }}</td>
           <td><label ><input type="checkbox" name="{{ $p->option_slug.'_index' }}" @if($p->_index) checked @endif class="index {{ $p->option_slug }}"></label></td>
@@ -50,6 +63,17 @@
   $(document).ready(function(){
     $('.check_all').click(function(){
       $('.'+$(this).data('class')).prop('checked', $(this).prop("checked"));
+    });
+
+    $('#filter').change(function(){
+      var modules = $(this).val();
+      var modules = modules.replace(' ','_');
+      if(modules != ''){
+        $('.all_class').hide();
+        $(`.row_${modules}`).show();
+      }else{
+        $('.all_class').show();
+      }
     });
   });
 </script>
