@@ -5,7 +5,7 @@
 	<br>
 
 	<div class="card-header">
-		<h3>Add Oppertunities</h3>
+		<h3>Add Opportunities</h3>
 	</div>
 	<div class="card-body">
 		

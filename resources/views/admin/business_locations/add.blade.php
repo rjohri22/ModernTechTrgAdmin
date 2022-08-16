@@ -5,7 +5,7 @@
 <div class="box box-primary container mt-2" style="background: white">
 
 	<div class="box-header">
-		<h3>Add Busniess Location</h3>
+		<h3>Add Business Location</h3>
 	</div>
 	<div class="box-body">
 		

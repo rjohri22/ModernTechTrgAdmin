@@ -4,7 +4,7 @@
 <div class="box box-primary container mt-2" style="background: white">
 	<div class="box-header with-border">
 		<a href="{{route('admin.busniess_add')}}" class="btn btn-primary" style="float: right;">Add Busniess</a>
-		<h3>Busniess</h3>
+		<h3>Business</h3>
 	</div>
 	<div class="box-body">
 		<table class="table table-sm">

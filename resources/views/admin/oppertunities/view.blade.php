@@ -5,7 +5,7 @@
 	<br>
 
 	<div class="box-header">
-		<h3>Add Oppertunities</h3>
+		<h3>Add Opportunities</h3>
 	</div>
 	<div class="box-body">
 		<table class="table table-bordered">

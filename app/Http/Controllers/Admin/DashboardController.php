@@ -8,10 +8,14 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Job_applications;
 use App\Models\Admin\Oppertunities;
+use App\Models\Admin\BusinessLocations;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use App\Models\Admin\Countries;
+use App\Models\Admin\States;
+use App\Models\Admin\Cities;
 
 
 class DashboardController extends AdminBaseController
@@ -138,6 +142,38 @@ class DashboardController extends AdminBaseController
         echo json_encode($res);
     }
 
+    function load_business_country(Request $request ){
+        $this->loadBaseData();
+        $this->data['codestatus'] = true;
+        $this->data['html'] = '';
+        $countries = BusinessLocations::select('countries.*')->join('countries','countries.id','=','business_locations.country_id')->groupBY('business_locations.country_id')->where('business_locations.company_id',$request->id)->get();
+        // $cities = Cities::where('state_id',$request->id)->get('countries.id','countries.name');    
+        foreach($countries as $coun){
+            $this->data['html'] .= "<option value='".$coun->id."'>".$coun->name."</option>";
+        }
+        return response()->json($this->data);
+    }
+
+    function load_business_state(Request $request ){
+        $this->loadBaseData();
+        $this->data['codestatus'] = true;
+        $this->data['html'] = '';
+        $states = States::where('country_id',$request->id)->get(); 
+        foreach($states as $state){
+            $this->data['html'] .= "<option value='".$state->id."'>".$state->name."</option>";
+        }
+        return response()->json($this->data);
+    }
+    function load_business_city(Request $request ){
+        $this->loadBaseData();
+        $this->data['codestatus'] = true;
+        $this->data['html'] = '';
+        $cities = Cities::where('state_id',$request->id)->get(); 
+        foreach($cities as $city){
+            $this->data['html'] .= "<option value='".$city->id."'>".$city->name."</option>";
+        }
+        return response()->json($this->data);
+    }
     
 
 }
