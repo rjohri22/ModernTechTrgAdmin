@@ -76,7 +76,7 @@ use App\Models\Job_applications;
 				 	<i>Not Specified</i>       
 				@endif
 		      </td>
-		      <td>{{$job->expires_on}}</td>
+		      <td>{{date('d-M-Y',strtotime($job->expires_on))}}</td>
 		      <td>{{$job->no_of_positions}}</td>
 		      <td>{{($job->urgent_hiring) ? "Yes": " No "}}</td>
 		      <td>{{$job->first_name}}</td>

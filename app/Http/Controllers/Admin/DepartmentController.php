@@ -33,7 +33,7 @@ class DepartmentController extends AdminBaseController
             return redirect()->route('home');
         };
 
-        return view('admin/departments/add');
+        return view('admin/departments/add',$this->data);
     }
 
     public function edit($id){
