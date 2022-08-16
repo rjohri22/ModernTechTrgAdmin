@@ -57,17 +57,7 @@
 						<option value="0">Inactive</option>
 					</select>
 				</div>
-				@if($special_view == 1)
-					<input type="hidden" name="special" id="special" value="0">
-				@else
-				<div class="col-sm-4">
-					<label>Access For Final Approval</label>
-					<select class="form-control" name="special">
-						<option value="1">Yes</option>
-						<option value="0">No</option>
-					</select>
-				</div>
-				@endif
+				<input type="hidden" name="special" id="special" value="0">
 			</div>
 			
 			<br>

@@ -71,9 +71,9 @@
       <!-- Logo -->
       <a href="#" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>Admin</b></span>
+        <span class="logo-mini"><b>TRG Admin</b></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Admin</b></span>
+        <span class="logo-lg"><b>TRG Admin</b></span>
       </a>
       <!-- Header Navbar: style can be found in header.less -->
       <nav class="navbar navbar-static-top">
@@ -141,7 +141,7 @@
         </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-          <li class="header">MAIN NAVIGATION</li>
+          <!-- <li class="header">MAIN NAVIGATION</li> -->
           <li>
             <a href="{{route('dashboard')}}">
               <i class="fa fa-th"></i> <span>Dashbaord</span>
