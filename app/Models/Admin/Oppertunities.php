@@ -36,4 +36,5 @@ class Oppertunities extends Authenticatable
         'modified_by',
         'status',
     ];
+   
 }

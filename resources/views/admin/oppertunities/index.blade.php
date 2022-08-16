@@ -75,7 +75,8 @@ use App\Models\Job_applications;
 				 	<i>Not Specified</i>       
 				@endif
 		      </td>
-		      <td>{{$oppertunity->expires_on}}</td>
+			 
+		      <td>{{ \Carbon\Carbon::parse($oppertunity->expires_on)->format('d-m-y') }}</td>
 		      <td>{{$oppertunity->no_of_positions}}</td>
 		      <td>{{($oppertunity->urgent_hiring) ? "Yes": " No "}}</td>
 		      @php

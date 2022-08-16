@@ -141,7 +141,7 @@ class OppertunitiesController extends AdminBaseController
             'salary_type'   => $request->input('salary_type'),
             'job_type'   => $request->input('job_type'),
             'work_type'   => $request->input('work_type'),
-            'expires_on'    => $request->input('expires_on'),
+            'expires_on'    =>  $request->input('expires_on'),
             'no_of_positions'    => $request->input('no_of_position'),
             'urgent_hiring'     => $request->input('urgent_hiring'),
             'status'            => $request->input('status'),
