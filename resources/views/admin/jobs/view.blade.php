@@ -89,7 +89,7 @@
 			</tr>
 			<tr>
 				<th>Expires on</th>
-				<td>{{$job->expires_on}}</td>
+				<td>{{date('d-M-Y',strtotime($job->expires_on))}}</td>
 			</tr>
 			<tr>
 				<th>No Of Postions</th>
