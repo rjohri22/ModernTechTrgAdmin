@@ -31,6 +31,20 @@ class CreateAdminPermissionEmailSmtp extends Migration
             ],
         );
         DB::table('option_permissions')->insert($data);
+
+
+        $update_red_1 = array(
+            'redirect_link' => 'admin.jobs'
+        );
+
+        DB::table('options')->where('option_slug','approved-jobs')->update($update_red_1);
+
+        $update_red_2 = array(
+            'redirect_link' => 'admin.departments'
+        );
+
+        DB::table('options')->where('option_slug','departments')->update($update_red_2);
+
     }
 
     /**
