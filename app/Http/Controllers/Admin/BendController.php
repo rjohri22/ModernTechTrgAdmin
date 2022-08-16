@@ -57,6 +57,7 @@ class BendController extends AdminBaseController
                 $permissions[$key]->_delete = $option->_delete;
             }
         }
+        $this->data['modules'] = DB::table('modules')->get();
         $this->data['permissions'] = $permissions;
         return view('admin/bends/permission',$this->data);
     }
