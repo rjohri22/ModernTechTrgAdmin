@@ -22,18 +22,18 @@
                     <a class="btn btn-primary" href="{{ route('profile') }}">Setup Profile</a>
                 </div>
             </div>
-            @foreach($Oppertunities as $oppertunity)
+            @foreach($Jobs as $Job)
             <br>
             <div class="card">
                 <div class="card-body">
-                    <h6>{{$oppertunity->title}}</h6>
-                    <p>{{$oppertunity->summery}}</p>
-                    <p><strong>Salary</strong><br>{{$oppertunity->min_salary}} - {{($oppertunity->max_salary) ? $oppertunity->max_salary : 0}}</p>
+                    <h6>{{$Job->title}}</h6>
+                    <p>{{$Job->summery}}</p>
+                    <p><strong>Salary</strong><br>{{$Job->min_salary}} - {{($Job->max_salary) ? $Job->max_salary : 0}}</p>
                     <br>
-                    @if(in_array($oppertunity->id, $products))
+                    @if(in_array($Job->id, $products))
                     <a class="btn btn-success" href="javascript:void()" style="opacity: 0.5">Applied</a>
                     @else
-                    <a class="btn btn-primary" href="{{ route('apply_job',$oppertunity->id) }}">Apply</a>
+                    <a class="btn btn-primary" href="{{ route('apply_job',$Job->id) }}">Apply</a>
                     @endif
 
                 </div>

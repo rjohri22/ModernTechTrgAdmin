@@ -3,7 +3,7 @@
 
 <div class="box box-primary container mt-2" style="background: white">
 	<div class="box-header">
-		<h3>Edit Opportunities</h3>
+		<h3>Edit Job Description</h3>
 	</div>
 	<div class="box-body">
 		
@@ -69,11 +69,11 @@
 				</div>
 			</div>
 			<br>
-			<div class="row">
+			<!-- <div class="row">
 				<div class="col-sm-3">
 					<label>No Of Positions</label>
 					<input type="number" name="no_of_position" class="form-control" value="{{$oppertunity->no_of_positions}}">
-				</div>
+				</div> -->
 
 				<div class="col-sm-3">
 					<label>Urgent Hiring</label>
@@ -108,7 +108,7 @@
 			<br>
 			<div class="row">
 				<div class="col-sm-12">
-					<button class="btn btn-primary" type="submit" style="float: right">Edit Opportiunity</button>
+					<button class="btn btn-primary" type="submit" style="float: right">Edit Job Description</button>
 				</div>
 			</div>
 		</form>

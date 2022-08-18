@@ -126,7 +126,7 @@
 			<br>
 			<div class="row">
 				<div class="col-sm-12">
-					<button class="btn btn-primary" type="submit" style="float: right">Edit Oppertiunity</button>
+					<button class="btn btn-primary" type="submit" style="float: right">Edit Job Description</button>
 				</div>
 			</div>
 		</form>
