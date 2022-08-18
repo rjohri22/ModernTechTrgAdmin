@@ -5,7 +5,7 @@
 	<br>
 
 	<div class="box-header">
-		<h3>View Opportunities</h3>
+		<h3>View Job Description</h3>
 	</div>
 	<div class="box-body">
 		<table class="table table-bordered">
@@ -79,10 +79,10 @@
 				<th>Expires on</th>
 				<td>{{$oppertunity->expires_on}}</td>
 			</tr>
-			<tr>
+			<!-- <tr>
 				<th>No Of Postions</th>
 				<td>{{$oppertunity->no_of_positions}}</td>
-			</tr>
+			</tr> -->
 			<tr>
 				<th>urgent Hiring</th>
 				<td>{{($oppertunity->urgent_hiring == 1) ? "Yes" : "No"}}</td>

@@ -10,6 +10,7 @@ use App\Models\Employee_languages;
 use App\Models\Employee_cirtificates;
 use App\Models\Employee_sociallinks;
 use App\Models\Job_applications;
+use App\Models\Admin\Jobs;
 use App\Models\Admin\Oppertunities;
 use Illuminate\Support\Facades\Auth;
 use Session;
@@ -71,7 +72,7 @@ class HomeController extends Controller
         }
 
         $data['profile_completion'] = ($filled_modules/$total_modules)*100;
-        $data['Oppertunities'] = Oppertunities::get();
+        $data['Jobs'] = Jobs::get();
         $data['products'] = Job_applications::where('jobseeker_id', $user_id)->pluck('oppertunity_id')->toArray();
         // echo "Basic Information -->".$basic_information;
         // echo "Basic education -->".$education;
@@ -397,9 +398,8 @@ class HomeController extends Controller
             // return redirect('/admin/dashboard');
         }
         else{
-            Session::put('admin_login', 0);
-            return redirect()->route('home');
-            // return redirect('/home');
+             Session::put('admin_login', 2);
+            return redirect('/home');
         }
     }
 

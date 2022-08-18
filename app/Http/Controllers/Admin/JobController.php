@@ -163,28 +163,31 @@ class JobController extends AdminBaseController
             'country_id' => 'required',
             'state_id' => 'required',
             'city_id' => 'required',
+            'no_of_positions' => 'required',
         ]);
         $user_id = Auth::user()->id;
         $job_descrtiption_id = $request->input('jd');
+
         $oppertunity = Oppertunities::where('id',$job_descrtiption_id)->first();
         $update_arr = array(
             'title'         => $oppertunity->title,
-            'company_id'       => $request->input('company_id'),
-            'country_id'       => $request->input('country_id'),
-            'state_id'       => $request->input('state_id'),
+            'company_id'    => $request->input('company_id'),
+            'country_id'    => $request->input('country_id'),
+            'state_id'      => $request->input('state_id'),
             'city_id'       => $request->input('city_id'),
+            'no_of_positions' => $request->input('no_of_positions'),
             'min_salary'    => $oppertunity->min_salary,
             'max_salary'    => $oppertunity->max_salary,
             'salary_type'   => $oppertunity->salary_type,
-            'job_type'   => $oppertunity->job_type,
-            'work_type'   => $oppertunity->work_type,
+            'job_type'      => $oppertunity->job_type,
+            'work_type'     => $oppertunity->work_type,
             'expires_on'    => $oppertunity->expires_on,
-            'no_of_positions'    => $oppertunity->no_of_positions,
-            'urgent_hiring'     => $oppertunity->urgent_hiring,
-            'status'            => 0,
-            'summery'           => $oppertunity->summery,
-            'description'       => $oppertunity->description,
-            'modified_by'       => $user_id,
+      // 'no_of_positions'  => $oppertunity->no_of_positions,
+            'urgent_hiring' => $oppertunity->urgent_hiring,
+            'status'        => 0,
+            'summery'       => $oppertunity->summery,
+            'description'   => $oppertunity->description,
+            'modified_by'   => $user_id,
         );
 
         $query = Jobs::insert($update_arr);

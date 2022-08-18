@@ -6,8 +6,8 @@ use App\Models\Job_applications;
 <div class="box box-primary container mt-2" style="background: white">
 	<br>
 	<div class="box-header with-border">
-		<a href="{{route('admin.add_oppertunities')}}" class="btn btn-primary" style="float: right;">Add Opportunity</a>
-		<h3>Opportunities</h3>
+		<a href="{{route('admin.add_oppertunities')}}" class="btn btn-primary" style="float: right;">Add Job Description</a>
+		<h3>Job Description</h3>
 		<!-- <span class="label label-primary">Total Job Applied</span>
       	<span class="label label-warning">Total Shortlisted</span>
       	<span class="label label-danger">Total Rejected</span>
@@ -27,7 +27,7 @@ use App\Models\Job_applications;
 		      <th scope="col">Work Type</th>
 		      <th scope="col">Job Type</th>
 		      <th scope="col">Expires On</th>
-		      <th scope="col">No Of Position</th>
+		      <!-- <th scope="col">No Of Position</th> -->
 		      <th scope="col">Urgent Hirign</th>
 		      <!-- <th scope="col">Summery</th> -->
 		      <th scope="col">Actions</th>
@@ -77,7 +77,7 @@ use App\Models\Job_applications;
 		      </td>
 			 
 		      <td>{{date('d-M-Y',strtotime($oppertunity->expires_on))}}</td>
-		      <td>{{$oppertunity->no_of_positions}}</td>
+		      <!-- <td>{{$oppertunity->no_of_positions}}</td> -->
 		      <td>{{($oppertunity->urgent_hiring) ? "Yes": " No "}}</td>
 		      @php
 		      	$total_applied = Job_applications::where('status','0')->where('oppertunity_id',$oppertunity->id)->count();
