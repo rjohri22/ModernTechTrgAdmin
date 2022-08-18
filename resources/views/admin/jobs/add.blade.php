@@ -48,6 +48,11 @@
 					<select class="form-control" name="city_id" id="cities" >
 					</select>
 				</div>
+				
+				<div class="col-sm-4">
+					<label>No Of Positions</label>
+					<input type="number" name="no_of_positions" class="form-control">
+				</div>
 			</div>
 			<br>
 			

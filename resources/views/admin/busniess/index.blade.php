@@ -17,7 +17,7 @@
 		      <th scope="col" style="width: 10%">City</th>
 		      <th scope="col" style="width: 10%">Address</th>
 		      <th scope="col" style="width: 10%">Description</th>
-		      <th scope="col" style="width: 10%">Company Type</th>
+		      <!-- <th scope="col" style="width: 10%">Business Type</th> -->
 		      <th scope="col" style="width: 10%">Status</th>
 		      <th scope="col" style="width: 10%">Actions</th>
 		    </tr>
@@ -35,7 +35,7 @@
 		      <td class="oppertunity">{{$b->city}}</td>
 		      <td class="oppertunity">{{$b->address}}</td>
 		      <td class="oppertunity">{{$b->description}}</td>
-		      <td class="oppertunity">{{$b->company_type}}</td>
+		      <!-- <td class="oppertunity">{{$b->company_type}}</td> -->
 		      <td class="user_name">
 		      	@if($b->status == 1)
 		      		<span class="label label-success">Active</span>
