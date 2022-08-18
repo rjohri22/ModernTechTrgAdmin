@@ -81,7 +81,7 @@ use App\Models\Job_applications;
 		      <td>{{($job->urgent_hiring) ? "Yes": " No "}}</td>
 		      <td>{{$job->first_name}}</td>
 
-		      @if($job->modified_by != $login_details->user_id)
+		      @if($job->modified_by != $login_details->user_id || $master_bend == true)
 		      	@if($job->approved_manager != null)
 		      	<td>Approved By Manager</td>
 		      	@else
@@ -94,7 +94,7 @@ use App\Models\Job_applications;
 			      	<td>Pending</td>
 			      	@endif
 		      @endif
-		      @if($login_details->name == 'HR Management')
+		      @if($login_details->name == 'HR Manager')
 		      	<td>
 		      		@if($job->approved_hr != null)
 		      		Approved By Hr

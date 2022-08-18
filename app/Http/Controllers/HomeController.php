@@ -34,7 +34,15 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         $user_id = Auth::user()->id;
+        $user = User::where('id',$user_id)->first();
+        
+        if($user->group_id == 1){
+            Session::put('admin_login', 1);
+            return redirect()->route('dashboard');
+        }
+
         $basic_information = User::where('id', $user_id)->count();
         $education = Employee_educations::where('user_id', $user_id)->count();
         $work = Employee_works::where('user_id', $user_id)->count();
@@ -386,10 +394,11 @@ class HomeController extends Controller
         $user = User::where('id',$user_id)->first();
         if($user->group_id == 1){
             Session::put('admin_login', 1);
-            return redirect('/admin/dashboard');
+            return redirect()->route('dashboard');
+            // return redirect('/admin/dashboard');
         }
         else{
-            Session::put('admin_login', 2);
+             Session::put('admin_login', 2);
             return redirect('/home');
         }
     }
