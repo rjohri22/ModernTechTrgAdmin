@@ -12,9 +12,9 @@
 		    <tr>
 		      <th scope="col" style="width: 10%">#</th>
 		      <th scope="col" style="width: 10%">Name</th>
-		      <th scope="col" style="width: 10%">Country</th>
+		      <!-- <th scope="col" style="width: 10%">Country</th>
 		      <th scope="col" style="width: 10%">State</th>
-		      <th scope="col" style="width: 10%">City</th>
+		      <th scope="col" style="width: 10%">City</th> -->
 		      <th scope="col" style="width: 10%">Address</th>
 		      <th scope="col" style="width: 10%">Description</th>
 		      <!-- <th scope="col" style="width: 10%">Business Type</th> -->
@@ -30,9 +30,9 @@
 		    <tr>
 		      <th scope="row">{{$counter}}</th>
 		      <td class="oppertunity">{{$b->name}}</td>
-		      <td class="oppertunity">{{$b->country}}</td>
+		      <!-- <td class="oppertunity">{{$b->country}}</td>
 		      <td class="oppertunity">{{$b->state}}</td>
-		      <td class="oppertunity">{{$b->city}}</td>
+		      <td class="oppertunity">{{$b->city}}</td> -->
 		      <td class="oppertunity">{{$b->address}}</td>
 		      <td class="oppertunity">{{$b->description}}</td>
 		      <!-- <td class="oppertunity">{{$b->company_type}}</td> -->
