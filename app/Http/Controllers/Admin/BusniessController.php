@@ -60,9 +60,9 @@ class BusniessController extends AdminBaseController
 
         $insert_arr = array(
             'name'       => $request->input('title'),
-            'country'       => $request->input('country'),
-            'state'    => $request->input('state'),
-            'city'    => $request->input('city'),
+            // 'country'       => $request->input('country'),
+            // 'state'    => $request->input('state'),
+            // 'city'    => $request->input('city'),
             'address'    => $request->input('address'),
             'description'    => $request->input('description'),
             'status'    => $request->input('status'),
@@ -81,9 +81,9 @@ class BusniessController extends AdminBaseController
 
          $update_arr = array(
             'name'       => $request->input('title'),
-            'country'       => $request->input('country'),
-            'state'    => $request->input('state'),
-            'city'    => $request->input('city'),
+            // 'country'       => $request->input('country'),
+            // 'state'    => $request->input('state'),
+            // 'city'    => $request->input('city'),
             'address'    => $request->input('address'),
             'description'    => $request->input('description'),
             'status'    => $request->input('status'),

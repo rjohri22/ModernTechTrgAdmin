@@ -16,24 +16,24 @@
 					<label>Title</label>
 					<input type="text" name="title" class="form-control" value="{{$busniess->name}}" >
 				</div>
-				<div class="col-sm-4">
+				<!-- <div class="col-sm-4">
 					<label>Country</label>
 					<select class="form-control" name="country" id="country">
 						@foreach ($countries as $country)
 						<option value="{{ $country->id }}" @if ($country->id == $busniess->country) selected @endif >{{ $country->name }}</option>
 						@endforeach
 					</select>
-				</div>
-				<div class="col-sm-4">
+				</div> -->
+				<!-- <div class="col-sm-4">
 					<label>State</label>
 					<select class="form-control" name="state" id="state">
 					</select>
-				</div>
-				<div class="col-sm-4">
+				</div> -->
+				<!-- <div class="col-sm-4">
 					<label>City</label>
 					<select class="form-control" name="city" id="cities" >
 					</select>
-				</div>
+				</div> -->
 				<div class="col-sm-4">
 					<label>Address</label>
 					<input type="text" name="address" class="form-control" value="{{$busniess->address}}" >
