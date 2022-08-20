@@ -201,7 +201,7 @@
               </li>
 
               <li>
-                <a href="{{route('admin.job_seeker')}}">
+                <a href="{{route('admin.groups')}}">
                   <i class="fa fa-circle-o"></i> <span>Approved Jobs</span>
                 </a>
               </li>

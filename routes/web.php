@@ -174,6 +174,7 @@ Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::cla
 
 
     Route::get('/jobs', [Admin\JobController::class, 'index'])->name('admin.jobs');
+    Route::get('/approved', [Admin\JobController::class, 'approved'])->name('admin.approved');
     Route::get('/jobs/add', [Admin\JobController::class, 'add'])->name('admin.add_job');
     Route::get('/jobs/edit/{id}', [Admin\JobController::class, 'edit'])->name('admin.edit_job');
     Route::get('/jobs/view/{id}', [Admin\JobController::class, 'view'])->name('admin.view_job');

@@ -50,7 +50,7 @@
 				</div>
 				
 				<div class="col-sm-4">
-					<label>No Of Positions</label>
+					<label>Head Count</label>
 					<input type="number" name="no_of_positions" class="form-control">
 				</div>
 			</div>
