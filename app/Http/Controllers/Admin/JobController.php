@@ -52,16 +52,25 @@ class JobController extends AdminBaseController
 
         $this->data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
 
-        
+        // dd($login_details);
+        $mas_ben = BendAssign::where('child_id',$this->data['login_details']->id)->count();
+
         if(!empty($login_details)){
             $childres = BendAssign::where('parent_id',$this->data['login_details']->id)->get()->pluck('child_id');
             $childres[] = $this->data['login_details']->id;
+            // dd($childres);
 
             if($this->data['login_details']->name != 'HR Manager'){
                 // dd($childres);
                 $fetch = $fetch->wherein('users.bend_id',$childres);
             }else{
-               $fetch = $fetch->where('jobs.approved_manager','!=',null); 
+
+                // if($mas_ben > 0){
+                   $fetch = $fetch->where('jobs.approved_manager','!=',null); 
+                   $fetch = $fetch->orWhere('jobs.modified_by','=',$login_details->user_id); 
+                    $fetch = $fetch->orWherein('users.bend_id',$childres);
+                   // $fetch = $fetch->where('jobs.modified_by','=',$login_details->user_id); 
+                // }
             }
         }
         
@@ -69,8 +78,8 @@ class JobController extends AdminBaseController
         $fetch = $fetch->get(['jobs.*', 'companies.name as company_name', 'countries.name as country_name','states.name as state_name','cities.name as city_name','users.first_name']);
         $this->data['jobs'] = $fetch;
 
-        $mas_ben = BendAssign::where('child_id',$this->data['login_details']->id)->count();
-
+        // dd($mas_ben);
+        // die();
         if($mas_ben > 0){
             $this->data['master_bend'] = false;
         }
@@ -219,7 +228,7 @@ class JobController extends AdminBaseController
             'expires_on'    => $request->input('expires_on'),
             'no_of_positions'    => $request->input('no_of_position'),
             'urgent_hiring'     => $request->input('urgent_hiring'),
-            'status'            => $request->input('status'),
+            // 'status'            => $request->input('status'),
             'summery'           => $request->input('summery'),
             'description'       => $request->input('description'),
         );
@@ -350,7 +359,7 @@ public function approved()
         $this->data['master_bend'] = false;
     }
     // $this->data['childrens'] = $childres;
-
+    $this->data['approved'] = 1;
     return view('admin/jobs/index',$this->data);
 }
 

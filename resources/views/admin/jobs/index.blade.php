@@ -7,7 +7,11 @@ use App\Models\Job_applications;
 	<br>
 	<div class="box-header with-border">
 		<a href="{{route('admin.add_job')}}" class="btn btn-primary" style="float: right;">Add Jobs</a>
+		@if(isset($approved))
+		<h3>{{($approved ==  1) ? "Approved Jobs" : "Jobs"}}</h3>
+		@else
 		<h3>Jobs</h3>
+		@endif
 	</div>
 	<div class="box-body">
 		<table class="table table-sm">
@@ -24,7 +28,7 @@ use App\Models\Job_applications;
 		      <th scope="col">Work Type</th>
 		      <th scope="col">Job Type</th>
 		      <th scope="col">Expires On</th>
-		      <th scope="col">No Of Position</th>
+		      <th scope="col">Head Count</th>
 		      <th scope="col">Urgent Hirign</th>
 		      <th scope="col">Created By</th>
 		      <th scope="col">Status</th>
@@ -99,7 +103,12 @@ use App\Models\Job_applications;
 		      		@if($job->approved_hr != null)
 		      		Approved By Hr
 		      		@else
-		      		<a href="{{route('admin.job_approved_hr',$job->id)}}" class="btn btn-success">Approved</a>
+		      			@if($job->approved_manager != null)
+				      		<a href="{{route('admin.job_approved_hr',$job->id)}}" class="btn btn-success">Approved</a>
+			      		@else
+			      			Manager Approval Pending
+
+				      	@endif
 		      		@endif
 		      	</td>
 		      @else

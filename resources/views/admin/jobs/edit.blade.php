@@ -101,13 +101,13 @@
 					</select>
 				</div>
 
-				<div class="col-sm-3">
+				<!-- <div class="col-sm-3">
 					<label>Status</label>
 					<select name="status" class="form-control">
 						<option value="1" {{($job->status == 1) ? 'selected' : ''}}>Approved</option>
 						<option value="0" {{($job->status == 0) ? 'selected' : ''}}>Pending</option>
 					</select>
-				</div>
+				</div> -->
 			</div>
 			<br>
 			<div class="row">
