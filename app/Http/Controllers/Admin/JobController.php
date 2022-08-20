@@ -304,4 +304,56 @@ class JobController extends AdminBaseController
         return response()->json($this->data);
 
     }
+
+//approved jobs
+public function approved()
+{   
+    $this->loadBaseData();
+    if(!$this->check_role()){
+        return redirect()->route('home');
+    };
+
+    $user_id = Auth::user()->id;
+    $fetch = Jobs::join('companies', 'companies.id', '=', 'jobs.company_id')
+    ->join('countries','countries.id','=','jobs.country_id')
+    ->join('states','states.id','=','jobs.state_id')
+    ->join('cities','cities.id','=','jobs.city_id')
+    ->join('users','users.id','=','jobs.modified_by');
+
+
+    $this->data['master_bend'] = true;
+
+    $this->data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
+
+    
+    if(!empty($login_details)){
+        $childres = BendAssign::where('parent_id',$this->data['login_details']->id)->get()->pluck('child_id');
+        $childres[] = $this->data['login_details']->id;
+
+        if($this->data['login_details']->name != 'HR Manager'){
+            // dd($childres);
+            $fetch = $fetch->wherein('users.bend_id',$childres);
+        }else{
+           $fetch = $fetch->where('jobs.approved_manager','!=',null); 
+        }
+    }
+    
+    $fetch = $fetch->where('jobs.is_deleted','=',0);
+    $fetch = $fetch->where('jobs.approved_manager','!=',null);
+    $fetch = $fetch->where('jobs.approved_hr','!=',null);
+    $fetch = $fetch->get(['jobs.*', 'companies.name as company_name', 'countries.name as country_name','states.name as state_name','cities.name as city_name','users.first_name']);
+    $this->data['jobs'] = $fetch;
+
+    $mas_ben = BendAssign::where('child_id',$this->data['login_details']->id)->count();
+
+    if($mas_ben > 0){
+        $this->data['master_bend'] = false;
+    }
+    // $this->data['childrens'] = $childres;
+
+    return view('admin/jobs/index',$this->data);
+}
+
+
+
 }

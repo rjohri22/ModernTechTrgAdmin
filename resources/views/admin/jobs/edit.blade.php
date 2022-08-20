@@ -89,7 +89,7 @@
 			<br>
 			<div class="row">
 				<div class="col-sm-3">
-					<label>No Of Positions</label>
+					<label>Head Count</label>
 					<input type="number" name="no_of_position" class="form-control" value="{{$job->no_of_positions}}">
 				</div>
 

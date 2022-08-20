@@ -54,7 +54,7 @@
                     </div>
                     <br>
                     <div class="work_type">
-                        <strong>No Of Positions</strong><br>
+                        <strong>Head Count</strong><br>
                         {{$oppertunity->no_of_positions}}
                     </div>
 
