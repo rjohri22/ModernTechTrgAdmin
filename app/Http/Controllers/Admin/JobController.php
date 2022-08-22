@@ -185,9 +185,9 @@ class JobController extends AdminBaseController
             'state_id'      => $request->input('state_id'),
             'city_id'       => $request->input('city_id'),
             'no_of_positions' => $request->input('no_of_positions'),
-            'min_salary'    => $oppertunity->min_salary,
-            'max_salary'    => $oppertunity->max_salary,
-            'salary_type'   => $oppertunity->salary_type,
+            // 'min_salary'    => $oppertunity->min_salary,
+            // 'max_salary'    => $oppertunity->max_salary,
+            // 'salary_type'   => $oppertunity->salary_type,
             'job_type'      => $oppertunity->job_type,
             'work_type'     => $oppertunity->work_type,
             'expires_on'    => $oppertunity->expires_on,
@@ -198,7 +198,10 @@ class JobController extends AdminBaseController
             'description'   => $oppertunity->description,
             'modified_by'   => $user_id,
         );
-
+ if(level > 4){
+    $update_arr['approved_manager'] =  $user_id;
+    $update_arr['approved_hr'] =  $user_id;
+}
         $query = Jobs::insert($update_arr);
         return redirect()->route('admin.jobs')
         ->with('success','Job created successfully.');

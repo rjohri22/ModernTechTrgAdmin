@@ -9,7 +9,7 @@
 	</div>
 	<div class="box-body">
 		
-		<form action="{{route('admin.busniess_update',$busniess->id)}}" method="post">
+		<form action="{{route('admin.busniess_update',$busniess->id)}}" method="post" enctype="multipart/form-data">
 			@csrf
 			<div class="row">
 				<div class="col-sm-4">
@@ -39,11 +39,34 @@
 					<input type="text" name="address" class="form-control" value="{{$busniess->address}}" >
 				</div>
 				<div class="col-sm-4">
+					<label>Bussiness Logo</label>
+					<input type="file" name="business_logo" class="form-control" value="{{$busniess->business_logo}}">
+					<img src="  {{ url('public/images/logo/'.$busniess->business_logo) }}" width="50px" height="50px"/>
+				</div>
+				<!-- <div class="col-sm-4">
+					<label>Bussiness Logo</label>
+					<input type="file" name="business_logo" class="form-control" value="{{$busniess->business_url}}">
+				</div> -->
+				<div class="col-sm-4">
+					<label>Business URL</label>
+					<input type="text" name="business_url" class="form-control" value="{{$busniess->business_url}}">
+				</div>
+				
+				<!-- <div class="col-sm-4">
+					<label>Decription</label>
+					<textarea type="textarea" name="address" class="form-control">
+					</textarea>	
+				</div> -->
+				<div class="col-sm-4">
 					<label>Active</label>
 					<select class="form-control" name="status">
 						<option value="1" @if ($busniess->status == 1) selected @endif >Active</option>
 						<option value="0" @if ($busniess->status == 0) selected @endif >Inactive</option>
 					</select>
+				</div>
+				<div class="col-sm-12">
+					<label>Summary</label>
+					<textarea name="Summary" class="form-control" rows="5">{{$busniess->summary}}</textarea>
 				</div>
 			</div>
 			<br>

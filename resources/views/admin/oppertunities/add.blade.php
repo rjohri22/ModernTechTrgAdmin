@@ -23,25 +23,37 @@
 						@endforeach
 					</select>
 				</div>
-				<div class="col-sm-3">
+				<!-- <div class="col-sm-3">
 					<label>Min Salary</label>
 					<input type="number" name="min_salary" class="form-control">
 				</div>
 				<div class="col-sm-3">
 					<label>Max Salary</label>
 					<input type="number" name="max_salary" class="form-control">
+				</div> -->
+				<div class="col-sm-3">
+					<label>Daily Job</label>
+					<input type="text" name="daily_job" class="form-control">
+				</div>
+				<div class="col-sm-3">
+					<label>Team Engagement</label>
+					<input type="text" name="team_engagement" class="form-control">
+				</div>
+				<div class="col-sm-3">
+					<label>Reporting</label>
+					<input type="text" name="reporting" class="form-control">
 				</div>
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-3">
+				<!-- <div class="col-sm-3">
 					<label>Salary Type</label>
 					<select name="salary_type" class="form-control">
 						<option value="1">Monthly</option>
 						<option value="2">Yearly</option>
 						<option value="3">Daily</option>
 					</select>
-				</div>
+				</div> -->
 
 				<div class="col-sm-3">
 					<label>Job Type</label>
@@ -59,6 +71,7 @@
 						<option value="2">Full Time</option>
 					</select>
 				</div>
+				
 
 				<div class="col-sm-3">
 					<label>Expired On</label>
@@ -87,6 +100,16 @@
 						<option value="0">Closed</option>
 					</select>
 				</div>
+				<div class="col-sm-12">
+					<label>profile</label>
+					<textarea type="text" name="profile" class="form-control" rows="8" >
+</textarea>
+				</div>
+				<div class="col-sm-12">
+					<label>Responsibilities</label>
+					<textarea type="text" name="Responsibilities" class="form-control" rows="8" >
+</textarea>
+				</div>
 			</div>
 			<br>
 			<div class="row">
@@ -94,6 +117,7 @@
 					<label>Summery</label>
 					<textarea class="form-control" name="summery" rows="8"></textarea>
 				</div>
+				
 			</div>
 			<br>
 			<div class="row">

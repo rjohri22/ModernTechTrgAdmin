@@ -17,6 +17,9 @@ class Companies extends Migration
             $table->id();
             $table->string('name',255)->nullable();
             $table->string('country',100)->nullable();
+            $table->string('summary',100)->nullable();
+            $table->string('business_logo',100)->nullable();
+            $table->string('business_url',100)->nullable();
             $table->string('state',100)->nullable();
             $table->string('city',100)->nullable();
             $table->string('address',150)->nullable();
