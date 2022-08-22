@@ -134,6 +134,11 @@ class OppertunitiesController extends AdminBaseController
         $user_id = Auth::user()->id;
         $update_arr = array(
             'title'         => $request->input('title'),
+            'daily_job'         => $request->input('daily_job'),
+            'team_engagement'         => $request->input('team_engagement'),
+            'reporting'         => $request->input('reporting'),
+            'profile'         => $request->input('profile'),
+            'Responsibilities'         => $request->input('Responsibilities'),
             'company_id'    => 0,
             'bend_id'       => $request->input('bend_id'),
             'min_salary'    => $request->input('min_salary'),
@@ -180,6 +185,11 @@ class OppertunitiesController extends AdminBaseController
             'status'            => $request->input('status'),
             'summery'           => $request->input('summery'),
             'description'       => $request->input('description'),
+            'daily_job'         => $request->input('daily_job'),
+            'team_engagement'         => $request->input('team_engagement'),
+            'reporting'         => $request->input('reporting'),
+            'profile'         => $request->input('profile'),
+            'Responsibilities'         => $request->input('Responsibilities'),
         );
 
         $query  = Oppertunities::where('id', $id)->update($update_arr);

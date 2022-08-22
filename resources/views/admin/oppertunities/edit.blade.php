@@ -34,6 +34,18 @@
 					<label>Max Salary</label>
 					<input type="number" name="max_salary" class="form-control" value="{{$oppertunity->max_salary}}">
 				</div>
+				<div class="col-sm-3">
+					<label>Daily Job</label>
+					<input type="text" name="daily_job" class="form-control" value="{{$oppertunity->daily_job}}">
+				</div>
+				<div class="col-sm-3">
+					<label>Team Engagement</label>
+					<input type="text" name="team_engagement" class="form-control" value="{{$oppertunity->team_engagement}}">
+				</div>
+				<div class="col-sm-3">
+					<label>Reporting</label>
+					<input type="text" name="reporting" class="form-control" value="{{$oppertunity->reporting}}">
+				</div>
 			</div>
 			<br>
 			<div class="row">
@@ -89,6 +101,14 @@
 						<option value="1" {{($oppertunity->status == 1) ? 'selected' : ''}}>Open</option>
 						<option value="0" {{($oppertunity->status == 0) ? 'selected' : ''}}>Closed</option>
 					</select>
+				</div>
+				<div class="col-sm-12">
+					<label>profile</label>
+					<textarea type="text" name="profile" class="form-control" rows="8" value="">{{$oppertunity->profile}}</textarea>
+				</div>
+				<div class="col-sm-12">
+					<label>Responsibilities</label>
+					<textarea type="text" name="Responsibilities" class="form-control" rows="8" >{{$oppertunity->Responsibilities}}</textarea>
 				</div>
 			</div>
 			<br>
