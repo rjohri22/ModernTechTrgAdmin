@@ -198,10 +198,10 @@ class JobController extends AdminBaseController
             'description'   => $oppertunity->description,
             'modified_by'   => $user_id,
         );
- if(level > 4){
-    $update_arr['approved_manager'] =  $user_id;
-    $update_arr['approved_hr'] =  $user_id;
-}
+//  if($level > 4){
+//     $update_arr['approved_manager'] =  $user_id;
+//     $update_arr['approved_hr'] =  $user_id;
+// }
         $query = Jobs::insert($update_arr);
         return redirect()->route('admin.jobs')
         ->with('success','Job created successfully.');
