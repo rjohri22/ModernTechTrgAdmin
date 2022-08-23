@@ -194,5 +194,18 @@ Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::cla
     Route::post('/load_business_country', [Admin\DashboardController::class, 'load_business_country'])->name('admin.load_business_country');
     Route::post('/load_business_state', [Admin\DashboardController::class, 'load_business_state'])->name('admin.load_business_state');
     Route::post('/load_business_city', [Admin\DashboardController::class, 'load_business_city'])->name('admin.load_business_city');
+
+    Route::get('/interview_objectives', [Admin\InterviewObjectivesController::class, 'index'])->name('admin.interview_objectives');
+
+    Route::get('/interview_objectives/add', [Admin\InterviewObjectivesController::class, 'add'])->name('admin.add_interview_objectives');
+    Route::get('/interview_objectives/edit/{id}', [Admin\InterviewObjectivesController::class, 'edit'])->name('admin.edit_interview_objectives');
+    Route::get('/interview_objectives/view/{id}', [Admin\InterviewObjectivesController::class, 'view'])->name('admin.view_interview_objectives');
+    Route::post('/interview_objectives/store_objective', [Admin\InterviewObjectivesController::class, 'store'])->name('admin.store_interview_objectives');
+    
+    Route::post('/interview_objectives/update_objective/{id}', [Admin\InterviewObjectivesController::class, 'update'])->name('admin.update_interview_objectives');
+    
+    Route::get('/interview_objectives/delete_objective/{id}', [Admin\InterviewObjectivesController::class, 'delete'])->name('admin.delete_interview_objectives');
+
+
 });
 
