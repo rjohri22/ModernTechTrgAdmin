@@ -18,20 +18,30 @@
 		      <th scope="col" style="width: 20%">Actions</th>
 		    </tr>
 		  </thead>
+		 
 		  <tbody>
+		  @php
+			{{$counter = 1;}}
+			@endphp
+		    @foreach($interviewobj as $intobj) 
 		  		<tr>
-		  			<td>01</td>
-		  			<td>Interview For Developer</td>
-		  			<td>60</td>
-		  			<td>60</td>
-		  			<td>60</td>
+				  <th scope="row">{{$counter}}</th>
+		  			
+				    <td class="">{{$intobj->name}}</td>
+					<td class="">{{$intobj->round_1_passing_marks}}</td>
+					<td class="">{{$intobj->round_2_passing_marks}}</td>
+					<td class="">{{$intobj->round_3_passing_marks}}</td>
 		  			<td>
-		  				<a href="#" class="btn btn-info btn-sm">View</a>
-		  				<a href="#" class="btn btn-info btn-sm">Edit</a>
-		  				<a href="#" class="btn btn-success btn-sm">Questions</a>
-				      	<button type="button" class="btn btn-sm btn-danger" data-toggle="popover" data-placement="left" data-trigger="focus" title="Delete Group" data-html="true" data-content="<b>Are You Sure ?</b><hr><a href='#' class='btn btn-success btn-sm'>I am Sure</a>&nbsp;<a class='btn btn-danger btn-sm'>No</a>">Delete</button>
+		  				<a href="{{route('admin.view_interview_objectives',$intobj->id)}}" class="btn btn-info btn-sm">View</a>
+		  				<a href="{{route('admin.edit_interview_objectives',$intobj->id)}}" class="btn btn-info btn-sm">Edit</a>
+		  				<a href="{{route('admin.question_interview_objectives',$intobj->id)}}" class="btn btn-success btn-sm">Questions</a>
+				      	<button type="button" class="btn btn-sm btn-danger" data-toggle="popover" data-placement="left" data-trigger="focus" title="Delete Group" data-html="true" data-content="<b>Are You Sure ?</b><hr><a href='{{route('admin.delete_interview_objectives',$intobj->id)}}' class='btn btn-success btn-sm'>I am Sure</a>&nbsp;<a class='btn btn-danger btn-sm'>No</a>">Delete</button>
 		  			</td>
 		  		</tr>
+				  @php
+			{{$counter++;}}
+			@endphp
+		    @endforeach
 		  </tbody>
 		</table>
 	</div>

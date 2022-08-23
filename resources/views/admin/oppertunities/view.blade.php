@@ -18,14 +18,18 @@
 				<td>{{$oppertunity->company_name}}</td>
 			</tr> -->
 			<tr>
-				<th>Min Salary</th>
-				<td>{{$oppertunity->min_salary}}</td>
+				<th>Daily Job</th>
+				<td>{{$oppertunity->daily_job}}</td>
 			</tr>
 			<tr>
-				<th>Max Salary</th>
-				<td>{{$oppertunity->max_salary}}</td>
+				<th>Team Engagement</th>
+				<td>{{$oppertunity->team_engagement}}</td>
 			</tr>
 			<tr>
+				<th>Reporting</th>
+				<td>{{$oppertunity->reporting}}</td>
+			</tr>
+			<!-- <tr>
 				<th>Salary Type</th>
 				<td>
 
@@ -40,7 +44,7 @@
 					@endif
 
 				</td>
-			</tr>
+			</tr> -->
 			<tr>
 				<th>Job Type</th>
 				<td>
@@ -66,6 +70,14 @@
 					 	<i>Not Specified</i>       
 					@endif
 				</td>
+			</tr>
+			<tr>
+				<th>Profile</th>
+				<td>{{$oppertunity->profile}}</td>
+			</tr>
+			<tr>
+				<th>Responsibilities</th>
+				<td>{{$oppertunity->Responsibilities}}</td>
 			</tr>
 			<tr>
 				<th>Summery</th>
