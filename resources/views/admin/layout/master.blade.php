@@ -311,6 +311,8 @@
         </div>
         @endif
         @yield('content')
+        <div class="modal fade" id="myModal" role="dialog">
+        </div>
       </section>
       <!-- /.content -->
     </div>
@@ -321,6 +323,23 @@
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   <script>
   $.widget.bridge('uibutton', $.ui.button);
+
+  $(document).ready(function(){
+    console.log('asdasd');
+    $(document).on('click', '[data-toggle="modal"]', function(){
+      $.ajax({
+        url: $(this).attr("href"),
+        type: 'GET',
+        data: {},
+        success: function(data) {
+          $('#myModal').html(data);
+        }
+      });
+      $('#myModal').modal('show');
+      // $('#myModal').modal('show').find('.modal-body').load($(this).data("remote"));
+        // $($(this).data("target")+' .modal-body').load($(this).data("remote"));
+    });
+  });
   </script>
   <!-- Bootstrap 3.3.7 -->
   <script src="{{ url('assets/adminpanel1/') }}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
