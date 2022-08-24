@@ -6,7 +6,7 @@
 		<h3>Add Interview Objectives</h3>
 	</div>
 	<div class="box-body">
-		<form action="{{route('admin.store_interview_question',$interviewobj->id)}}" method="post">
+		<form action="{{route('admin.store_interview_question',$interview_id)}}" method="post">
 			@csrf
 
             <div class="row">
@@ -22,7 +22,6 @@
 						<option value="1">1</option>
 						<option value="2">2</option>
                         <option value="3">3</option>
-                       
 					</select>
 				</div>
 </div>
