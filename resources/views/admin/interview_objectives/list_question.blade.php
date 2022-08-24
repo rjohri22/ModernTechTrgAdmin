@@ -24,7 +24,7 @@
 		      <th scope="col" style="width: 10%">Option B</th>
 		      <th scope="col" style="width: 10%">Option C</th>
               <th scope="col" style="width: 10%">Option D</th>
-              <th scope="col" style="width: 5%">Marks</th>
+              <!-- <th scope="col" style="width: 5%">Marks</th> -->
 			  <th scope="col" style="width: 2%">Correct Answers</th>
 		      <th scope="col" style="width: 5%">Actions</th>
 		    </tr>
@@ -43,7 +43,7 @@
 					<td class="">{{$question->option_b}}</td>
 					<td class="">{{$question->option_c}}</td>
                     <td class="">{{$question->option_d}}</td>
-                    <td class="">{{$question->marks}}</td>
+                    <!-- SS -->
 					<td class="">{{$question->correct_answer}}</td>
 		  			<td>
 		  		

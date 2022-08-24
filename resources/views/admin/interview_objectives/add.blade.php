@@ -18,15 +18,15 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<label>Round 1 Passing Marks</label>
-					<input type="number" name="round_1_mark" class="form-control">
+					<input type="number" name="round_1_mark" class="form-control" value="60" readonly>
 				</div>
 				<div class="col-sm-4">
 					<label>Round 2 Passing Marks</label>
-					<input type="number" name="round_2_mark" class="form-control">
+					<input type="number" name="round_2_mark" class="form-control" value="50" readonly>
 				</div>
 				<div class="col-sm-4">
 					<label>Round 3 Passing Marks</label>
-					<input type="number" name="round_3_mark" class="form-control">
+					<input type="number" name="round_3_mark" class="form-control" value="40" readonly>
 				</div>	
 			</div>
 			<br>

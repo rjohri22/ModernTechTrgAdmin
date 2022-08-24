@@ -64,10 +64,10 @@
                         <option value="D">D</option>
 					</select>
 				</div>
-                <div class="col-sm-2">
+                <!-- <div class="col-sm-2">
 					<label>Marks</label>
 					<input type="text" name="marks" class="form-control">
-				</div>	
+				</div>	 -->
             </div>
 			<br>
 			<div class="row">

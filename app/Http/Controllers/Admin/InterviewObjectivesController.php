@@ -168,7 +168,7 @@ class InterviewObjectivesController extends AdminBaseController
             'option_c'    => $request->input('option_c'),
             'option_d'    => $request->input('option_d'),
             'correct_answer'      => $request->input('correct_answer'),
-            'marks'               => $request->input('marks'),
+          //  'marks'               => $request->input('marks'),
             'interview_id'        => $request->input('interview_id'),
 
         );
@@ -204,7 +204,7 @@ class InterviewObjectivesController extends AdminBaseController
             'option_c'    => $request->input('option_c'),
             'option_d'    => $request->input('option_d'),
             'correct_answer'      => $request->input('correct_answer'),
-            'marks'               => $request->input('marks'),
+          //  'marks'               => $request->input('marks'),
         );
 
         $query  = Question::where('id', $id)->update($update_arr);

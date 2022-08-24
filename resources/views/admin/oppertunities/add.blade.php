@@ -31,7 +31,7 @@
 					<label>Max Salary</label>
 					<input type="number" name="max_salary" class="form-control">
 				</div> -->
-				<div class="col-sm-3">
+				<!-- <div class="col-sm-3">
 					<label>Daily Job</label>
 					<input type="text" name="daily_job" class="form-control">
 				</div>
@@ -43,9 +43,9 @@
 					<label>Reporting</label>
 					<input type="text" name="reporting" class="form-control">
 				</div>
-			</div>
-			<br>
-			<div class="row">
+			</div> -->
+			
+			<!-- <div class="row"> -->
 				<!-- <div class="col-sm-3">
 					<label>Salary Type</label>
 					<select name="salary_type" class="form-control">
@@ -73,10 +73,10 @@
 				</div>
 				
 
-				<div class="col-sm-3">
+				<!-- <div class="col-sm-3">
 					<label>Expired On</label>
 					<input type="date" name="expires_on" class="form-control">
-				</div>
+				</div> -->
 			</div>
 			<br>
 			<!-- <div class="row">
@@ -93,13 +93,35 @@
 					</select>
 				</div>
 
-				<div class="col-sm-3">
+				<!-- <div class="col-sm-3">
 					<label>Status</label>
 					<select name="status" class="form-control">
 						<option value="1">Open</option>
 						<option value="0">Closed</option>
 					</select>
+				</div> -->
+				<div class="row">
+				<div class="col-sm-12">
+					<label>Daily Job</label>
+					<textarea type="text" name="daily_job" class="form-control" rows="8">
+</textarea>
 				</div>
+</div>
+<div class="row">
+				<div class="col-sm-12">
+					<label>Team Engagement</label>
+					<textarea type="text" name="team_engagement" class="form-control" rows="8">
+</textarea>
+				</div>
+</div>
+<div class="row">
+				<div class="col-sm-12">
+					<label>Reporting</label>
+					<textarea type="text" name="reporting" class="form-control" rows="8">
+</textarea>
+				</div>
+</div>
+			</div>
 			</div>
 			<br>
 			<div class="row">

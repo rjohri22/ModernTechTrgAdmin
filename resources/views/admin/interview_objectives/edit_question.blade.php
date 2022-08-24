@@ -61,10 +61,10 @@
                         <option value="D" {{($questions->correct_answer == "D") ? "Selected" : "";}}>D</option>
 					</select>
 				</div>
-                <div class="col-sm-2">
+                <!-- <div class="col-sm-2">
 					<label>Marks</label>
 					<input type="text" name="marks" class="form-control" value="{{$questions->marks}}">
-				</div>	
+				</div>	 -->
             </div>
 			<br>
 			<div class="row">
