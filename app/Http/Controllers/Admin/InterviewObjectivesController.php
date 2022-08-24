@@ -112,22 +112,25 @@ class InterviewObjectivesController extends AdminBaseController
 
 
 
-    public function list_question(Request $Request , $id){
+    public function list_question($id, $round = null){
+
         $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
-        if(isset($Request->id)){
-            $round  = $Request->id;
+
+        if($round != null){
+            $round_  = $round;
         }
         else{
-            $round = 1;
+            $round_ = 1;
         } 
         // dd($round);
-      
-        $fetch = Question::where('round_no',$round)
-        ->get();
+        $fetch = Question::where('round_no',$round_)->where('interview_id',$id)->get();
+
          $this->data['questions'] = $fetch;
+        // die();
+         $this->data['interview_id'] = $id;
         return view('admin/interview_objectives/list_question',$this->data);
         
        
@@ -135,12 +138,12 @@ class InterviewObjectivesController extends AdminBaseController
 
 
 
-    public function question(){
+    public function question($interview_id){
         $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
-        
+        $this->data['interview_id'] = $interview_id;
         $this->data['interviewobj'] = InterviewObjectives::get();
         return view('admin/interview_objectives/questions',$this->data);
     }
@@ -158,12 +161,12 @@ class InterviewObjectivesController extends AdminBaseController
         $this->data['interviewobj'] = InterviewObjectives::get();
       
         $insert_arr = array(
-                    'round_no'    => $request->input('round_no'),
-                    'question'    => $request->input('question'),
-                    'option_a'    => $request->input('option_a'),
-                    'option_b'    => $request->input('option_b'),
-                    'option_c'    => $request->input('option_c'),
-                    'option_d'    => $request->input('option_d'),
+            'round_no'    => $request->input('round_no'),
+            'question'    => $request->input('question'),
+            'option_a'    => $request->input('option_a'),
+            'option_b'    => $request->input('option_b'),
+            'option_c'    => $request->input('option_c'),
+            'option_d'    => $request->input('option_d'),
             'correct_answer'      => $request->input('correct_answer'),
             'marks'               => $request->input('marks'),
             'interview_id'        => $request->input('interview_id'),
@@ -172,7 +175,7 @@ class InterviewObjectivesController extends AdminBaseController
         
         $query = Question::insert($insert_arr);
         //return redirect()->route('admin.question_interview_objectives','interviewobj->id')
-        return redirect()->route('admin.list_question',1)
+        return redirect()->route('admin.list_question',['id'=>$request->input('interview_id'),'round'=>'1'])
         ->with('success','Questions created successfully.');
     }
 
@@ -200,14 +203,14 @@ class InterviewObjectivesController extends AdminBaseController
             'option_b'    => $request->input('option_b'),
             'option_c'    => $request->input('option_c'),
             'option_d'    => $request->input('option_d'),
-    'correct_answer'      => $request->input('correct_answer'),
-    'marks'               => $request->input('marks'),
-    'interview_id'        => $request->input('interview_id'),
+            'correct_answer'      => $request->input('correct_answer'),
+            'marks'               => $request->input('marks'),
         );
 
         $query  = Question::where('id', $id)->update($update_arr);
-        return redirect()->route('admin.list_question',1)
-        ->with('success','Questions Updated successfully.');
+        return redirect()->back()->with('success', 'Questions Updated successfully'); 
+        // return redirect()->route('admin.list_question',1)
+        // ->with('success','Questions Updated successfully.');
     }
 
     public function delete_question($id){
@@ -216,8 +219,11 @@ class InterviewObjectivesController extends AdminBaseController
             return redirect()->route('home');
         };
         Question::where('id',$id)->delete(); 
-        return redirect()->route('admin.list_question',1)
-        ->with('success','question Deleted successfully.');
+        return redirect()->back()->with('success', 'Question Deleted successfully'); 
+        // return back()->with('message','question Deleted successfully');
+        // return redirect::back()->with('message','question Deleted successfully');
+        // return redirect()->route('admin.list_question',1)
+        // ->with('success','question Deleted successfully.');
     }
 
 

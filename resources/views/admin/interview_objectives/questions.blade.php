@@ -10,13 +10,11 @@
 			@csrf
 
             <div class="row">
-            @foreach ($interviewobj as $intobj)
            
-					<label></label>
-					<input type="hidden" name="interview_id" class="form-control" value="{{$intobj->id}}">
+					<!-- <label></label> -->
+					<input type="hidden" name="interview_id" class="form-control" value="{{$interview_id}}">
                     
 			
-                @endforeach
 
             <div class="col-sm-3">
 					<label>Round#</label>
@@ -61,10 +59,10 @@
             <div class="col-sm-3">
 					<label>Correct Answers</label>
 					<select name="correct_answer" class="form-control">
-						<option value="1">A</option>
-						<option value="0">B</option>
-                        <option value="0">C</option>
-                        <option value="0">D</option>
+						<option value="A">A</option>
+						<option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
 					</select>
 				</div>
                 <div class="col-sm-2">
@@ -76,7 +74,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<input type="submit" name="add_objective" value="save" class="btn btn-primary">
-                    <a href="{{route('admin.list_question',1)}}" class="btn btn-info btn-sm">list</a>
+                    <a href="{{route('admin.list_question',['id'=>$interview_id,'round'=>'1'])}}" class="btn btn-info">list</a>
 				</div>
 			</div>
 			
