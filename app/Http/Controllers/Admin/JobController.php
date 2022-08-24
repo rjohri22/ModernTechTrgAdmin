@@ -47,7 +47,7 @@ class JobController extends AdminBaseController
         ->join('cities','cities.id','=','jobs.city_id')
         ->join('users','users.id','=','jobs.modified_by');
 
-
+        
         $this->data['master_bend'] = true;
 
         $this->data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
