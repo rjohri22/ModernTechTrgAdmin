@@ -44,6 +44,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/oppertunities/add', [Admin\OppertunitiesController::class, 'add'])->name('admin.add_oppertunities');
     Route::get('/oppertunities/edit/{id}', [Admin\OppertunitiesController::class, 'edit'])->name('admin.edit_oppertunities');
     Route::get('/oppertunities/view/{id}', [Admin\OppertunitiesController::class, 'view'])->name('admin.view_oppertunities');
+    Route::get('/oppertunities/publish/{id}', [Admin\OppertunitiesController::class, 'publish'])->name('admin.publish_oppertunities');
     Route::post('/oppertunities/store_oppertunity', [Admin\OppertunitiesController::class, 'store_oppertunity'])->name('admin.store_oppertunity');
     Route::post('/oppertunities/update_oppertunity/{id}', [Admin\OppertunitiesController::class, 'update_oppertunity'])->name('admin.update_oppertunity');
     Route::get('/oppertunities/delete_oppertunity/{id}', [Admin\OppertunitiesController::class, 'delete_oppertunity'])->name('admin.delete_oppertunity');

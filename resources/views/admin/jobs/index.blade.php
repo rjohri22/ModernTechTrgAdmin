@@ -3,6 +3,52 @@
 @php
 use App\Models\Job_applications;
 @endphp
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Interview Objectives</h4>
+        </div>
+        <div class="modal-body">
+
+         <div class="col-sm-4">
+					<label>Country</label>
+					<select class="form-control" name="country" id="country">
+						
+						<option value="1">objectives 1</option>
+						<option value="2">objectives 2</option>
+						<option value="3">objectives 3</option>
+					</select>
+				</div>
+				<div class="row">
+				<div class="col-sm-8">
+					<label>Round 1</label>
+					<input type="text" name="address" class="form-control">
+				</div>
+				<div class="col-sm-8">
+					<label>Round 2</label>
+					<input type="text" name="address" class="form-control">
+				</div>
+				<div class="col-sm-8">
+					<label>Round 3</label>
+					<input type="text" name="address" class="form-control">
+				</div>
+              </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
 <div class="box box-primary container mt-2" style="background: white">
 	<br>
 	<div class="box-header with-border">
@@ -14,6 +60,7 @@ use App\Models\Job_applications;
 		@endif
 	</div>
 	<div class="box-body">
+		<div class="table-responsive">
 		<table class="table table-sm">
 		  <thead>
 		    <tr>
@@ -22,6 +69,7 @@ use App\Models\Job_applications;
 		      <th scope="col">Company</th>
 		      <th scope="col">Country</th>
 		      <th scope="col">State</th>
+			  <th scope="col">Modal</th>
 		      <th scope="col">Location</th>
 		      <th scope="col">Salary</th>
 		      <th scope="col">Salary Type</th>
@@ -47,6 +95,7 @@ use App\Models\Job_applications;
 		      <td>{{$job->company_name}}</td>
 		      <td>{{$job->country_name}}</td>
 		      <td>{{$job->state_name}}</td>
+			  <td><button class="btn btn-sm primary-btn" data-toggle="modal" data-target="#myModal" >hello</button></td>
 		      <td>{{$job->city_name}}</td>
 		      <td>{{($job->min_salary) ? $job->min_salary : 0}} To {{($job->max_salary) ? $job->max_salary : 0}}</td>
 		      <td>
@@ -105,6 +154,7 @@ use App\Models\Job_applications;
 		      		@else
 		      			@if($job->approved_manager != null)
 				      		<a href="{{route('admin.job_approved_hr',$job->id)}}" class="btn btn-success">Approved</a>
+							
 			      		@else
 			      			Manager Approval Pending
 
@@ -136,6 +186,7 @@ use App\Models\Job_applications;
 		    @endforeach
 		  </tbody>
 		</table>
+</div>
 	</div>
 </div>
 

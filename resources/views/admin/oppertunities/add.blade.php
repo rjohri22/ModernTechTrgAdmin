@@ -134,7 +134,8 @@
 			<br>
 			<div class="row">
 				<div class="col-sm-12">
-					<button class="btn btn-primary" type="submit" style="float: right">Add Job Description</button>
+					<button class="btn btn-primary" type="submit" name="savepublish" value="1" style="float: right">Add Job Description</button>
+					<button class="btn btn-warning" type="submit" name="savedraft" value="1" style="float: right;margin-right: 6px;margin-bottom: 15px;" >Save Draft</button>
 				</div>
 			</div>
 		</form>
