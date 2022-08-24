@@ -15,9 +15,9 @@
             <div class="col-sm-3">
 					<label>Round#</label>
 					<select name="round_no" class="form-control">
-						<option value="{{$questions->round_no}}">1</option>
-						<option value="{{$questions->round_no}}">2</option>
-                        <option value="{{$questions->round_no}}">3</option>
+						<option value="1" {{($questions->round_no == "1") ? "Selected" : "";}}>1</option>
+						<option value="2" {{($questions->round_no == "2") ? "Selected" : "";}}>2</option>
+                        <option value="3" {{($questions->round_no == "3") ? "Selected" : "";}}>3</option>
                        
 					</select>
 				</div>
@@ -55,10 +55,10 @@
             <div class="col-sm-3">
 					<label>Correct Answers</label>
 					<select name="correct_answer" class="form-control">
-						<option value="{{$questions->correct_answer}}">A</option>
-						<option value="{{$questions->correct_answer}}">B</option>
-                        <option value="{{$questions->correct_answer}}">C</option>
-                        <option value="{{$questions->correct_answer}}">D</option>
+						<option value="A" {{($questions->correct_answer == "A") ? "Selected" : "";}}>A</option>
+						<option value="B" {{($questions->correct_answer == "B") ? "Selected" : "";}}>B</option>
+                        <option value="C" {{($questions->correct_answer == "C") ? "Selected" : "";}}>C</option>
+                        <option value="D" {{($questions->correct_answer == "D") ? "Selected" : "";}}>D</option>
 					</select>
 				</div>
                 <div class="col-sm-2">

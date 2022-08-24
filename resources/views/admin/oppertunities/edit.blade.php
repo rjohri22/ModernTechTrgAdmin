@@ -34,6 +34,9 @@
 					<label>Max Salary</label>
 					<input type="number" name="max_salary" class="form-control" value="{{$oppertunity->max_salary}}">
 				</div>
+			</div>
+			<br>
+			<div class="row">
 				<div class="col-sm-3">
 					<label>Daily Job</label>
 					<input type="text" name="daily_job" class="form-control" value="{{$oppertunity->daily_job}}">
@@ -81,8 +84,8 @@
 				</div>
 			</div>
 			<br>
-			<!-- <div class="row">
-				<div class="col-sm-3">
+			<div class="row">
+				<!-- <div class="col-sm-3">
 					<label>No Of Positions</label>
 					<input type="number" name="no_of_position" class="form-control" value="{{$oppertunity->no_of_positions}}">
 				</div> -->

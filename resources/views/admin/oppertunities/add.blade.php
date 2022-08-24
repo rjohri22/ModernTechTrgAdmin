@@ -19,7 +19,7 @@
 					<select name="bend_id" class="form-control">
 						<option value="">Select Band</option>
 						@foreach($bends as $bend)
-							<option value="{{$bend->id}}">{{$bend->name}}</option>
+						<option value="{{$bend->id}}">{{$bend->name}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -84,7 +84,7 @@
 					<label>No Of Positions</label>
 					<input type="number" name="no_of_position" class="form-control" disabled>
 				</div> -->
-
+				<div class="row">
 				<div class="col-sm-3">
 					<label>Urgent Hiring</label>
 					<select name="urgent_hiring" class="form-control">
@@ -100,15 +100,20 @@
 						<option value="0">Closed</option>
 					</select>
 				</div>
+			</div>
+			<br>
+			<div class="row">
 				<div class="col-sm-12">
 					<label>profile</label>
 					<textarea type="text" name="profile" class="form-control" rows="8" >
-</textarea>
+					</textarea>
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-sm-12">
 					<label>Responsibilities</label>
 					<textarea type="text" name="Responsibilities" class="form-control" rows="8" >
-</textarea>
+					</textarea>
 				</div>
 			</div>
 			<br>
