@@ -34,7 +34,7 @@
 		  			<td>
 		  				<a href="{{route('admin.view_interview_objectives',$intobj->id)}}" class="btn btn-info btn-sm">View</a>
 		  				<a href="{{route('admin.edit_interview_objectives',$intobj->id)}}" class="btn btn-info btn-sm">Edit</a>
-		  				<a href="{{route('admin.question_interview_objectives',$intobj->id)}}" class="btn btn-success btn-sm">Questions</a>
+		  				<a href="{{route('admin.list_question',$intobj->id)}}" class="btn btn-success btn-sm">Questions</a>
 				      	<button type="button" class="btn btn-sm btn-danger" data-toggle="popover" data-placement="left" data-trigger="focus" title="Delete Group" data-html="true" data-content="<b>Are You Sure ?</b><hr><a href='{{route('admin.delete_interview_objectives',$intobj->id)}}' class='btn btn-success btn-sm'>I am Sure</a>&nbsp;<a class='btn btn-danger btn-sm'>No</a>">Delete</button>
 		  			</td>
 		  		</tr>

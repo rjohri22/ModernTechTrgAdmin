@@ -112,7 +112,7 @@ class InterviewObjectivesController extends AdminBaseController
 
 
 
-    public function list_question(Request $Request){
+    public function list_question(Request $Request , $id){
         $this->loadBaseData();
     	if(!$this->check_role()){
             return redirect()->route('home');
@@ -124,6 +124,7 @@ class InterviewObjectivesController extends AdminBaseController
             $round = 1;
         } 
         // dd($round);
+      
         $fetch = Question::where('round_no',$round)
         ->get();
          $this->data['questions'] = $fetch;
