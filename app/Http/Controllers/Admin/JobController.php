@@ -9,6 +9,7 @@ use App\Models\Admin\Oppertunities;
 use App\Models\Admin\Jobs;
 use App\Models\User;
 use App\Models\Admin\BendAssign;
+use App\Models\Admin\Bend;
 use App\Models\Admin\Companies;
 use App\Models\Admin\Countries;
 use App\Models\Admin\BusinessLocations;
@@ -175,6 +176,10 @@ class JobController extends AdminBaseController
             'no_of_positions' => 'required',
         ]);
         $user_id = Auth::user()->id;
+        $user_details = User::where('id',$user_id)->first();
+        $bend_details = Bend::where('id',$user_details->bend_id)->first();
+        $level = $bend_details->level;
+
         $job_descrtiption_id = $request->input('jd');
 
         $oppertunity = Oppertunities::where('id',$job_descrtiption_id)->first();
@@ -198,10 +203,11 @@ class JobController extends AdminBaseController
             'description'   => $oppertunity->description,
             'modified_by'   => $user_id,
         );
-//  if($level > 4){
-//     $update_arr['approved_manager'] =  $user_id;
-//     $update_arr['approved_hr'] =  $user_id;
-// }
+        
+        if($level > 4){
+            $update_arr['approved_manager'] =  $user_id;
+            $update_arr['approved_hr'] =  $user_id;
+        }
         $query = Jobs::insert($update_arr);
         return redirect()->route('admin.jobs')
         ->with('success','Job created successfully.');
