@@ -19,8 +19,8 @@ class CreateUpdateNavigation extends Migration
 
          DB::table('options')
          ->where('option_slug','groups')
-         ->where('option_slug','departments')
-         ->where('option_slug','designations')
+         ->orwhere('option_slug','departments')
+         ->orwhere('option_slug','designations')
          ->update($data);
     }
 

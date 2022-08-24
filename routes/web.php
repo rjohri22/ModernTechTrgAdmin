@@ -205,6 +205,15 @@ Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::cla
     Route::post('/interview_objectives/update_objective/{id}', [Admin\InterviewObjectivesController::class, 'update'])->name('admin.update_interview_objectives');
     
     Route::get('/interview_objectives/delete_objective/{id}', [Admin\InterviewObjectivesController::class, 'delete'])->name('admin.delete_interview_objectives');
+//Questions
+    Route::get('/interview_objectives/list_question/{id}', [Admin\InterviewObjectivesController::class, 'list_question'])->name('admin.list_question');
+    Route::get('/interview_objectives/questions', [Admin\InterviewObjectivesController::class, 'question'])->name('admin.question_interview_objectives');
+    Route::post('/interview_objectives/store_question', [Admin\InterviewObjectivesController::class, 'store_question'])->name('admin.store_interview_question');
+    Route::get('/interview_objectives/edit_question/{id}', [Admin\InterviewObjectivesController::class, 'edit_question'])->name('admin.edit_question');
+    Route::post('/interview_objectives/update_question/{id}', [Admin\InterviewObjectivesController::class, 'update_question'])->name('admin.update_question');
+    Route::get('/interview_objectives/delete_question/{id}', [Admin\InterviewObjectivesController::class, 'delete_question'])->name('admin.delete_question');
+
+    Route::get('/interview_objectives/questions', [Admin\InterviewObjectivesController::class, 'question'])->name('admin.question_interview_objectives');
 
 
 });
