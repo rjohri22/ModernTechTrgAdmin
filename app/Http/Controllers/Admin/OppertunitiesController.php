@@ -121,6 +121,15 @@ class OppertunitiesController extends AdminBaseController
         $this->data['oppertunity'] = $fetch;
         return view('admin/oppertunities/view',$this->data);
     }
+    public function publish($id)
+    {
+        $this->loadBaseData();
+        $update_arr['is_draft'] = 0;
+        $query  = Oppertunities::where('id', $id)->update($update_arr);
+        return redirect()->route('admin.oppertunities')
+        ->with('success','oppertunity Updated successfully.');
+
+    }
 
     public function store_oppertunity(Request $request)
     {
@@ -153,8 +162,12 @@ class OppertunitiesController extends AdminBaseController
             'summery'           => $request->input('summery'),
             'description'       => $request->input('description'),
             'modified_by'       => $user_id,
+            'is_draft'       => 0,
         );
 
+        if(isset($request->savedraft)){
+            $update_arr['is_draft'] = 1;
+        }
         $query = Oppertunities::insert($update_arr);
         return redirect()->route('admin.oppertunities')
         ->with('success','oppertunity created successfully.');
