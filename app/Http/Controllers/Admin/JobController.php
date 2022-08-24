@@ -13,6 +13,7 @@ use App\Models\Admin\Bend;
 use App\Models\Admin\Companies;
 use App\Models\Admin\Countries;
 use App\Models\Admin\BusinessLocations;
+use App\Models\Admin\InterviewObjectives;
 use Illuminate\Support\Facades\Auth;
 
 class JobController extends AdminBaseController
@@ -91,7 +92,17 @@ class JobController extends AdminBaseController
 
 
 
+    public function assign_objective($job_id)
+    {
 
+        $this->loadBaseData();
+        if(!$this->check_role()){
+            return redirect()->route('home');
+        };   
+        $this->data['objectives'] = InterviewObjectives::get();
+        $this->data['job_id'] = $job_id;
+        return view('admin/jobs/assign_test',$this->data);
+    }
 
 
     public function add()
@@ -100,11 +111,16 @@ class JobController extends AdminBaseController
         if(!$this->check_role()){
             return redirect()->route('home');
         };
+        $user_id = Auth::user()->id;
+        $user_details = User::where('id',$user_id)->first();
+        $bend_details = Bend::where('id',$user_details->bend_id)->first();
         $this->data['job_descrtiption'] = Oppertunities::get();
+        $this->data['objectives'] = InterviewObjectives::get();
         $this->data['companies'] = Companies::where('status','1')->get();
         $this->data['countries'] = Countries::get();
+
         // $this->data['countries'] = Countries::get();
-        
+        $this->data['bend_details'] = $bend_details;
         return view('admin/jobs/add',$this->data);
     }
 
@@ -115,11 +131,12 @@ class JobController extends AdminBaseController
         if(!$this->check_role()){
             return redirect()->route('home');
         };
+        
+
         $this->data['job_descrtiption'] = Oppertunities::get();
         $this->data['companies'] = Companies::where('status','1')->get();
         $this->data['countries'] = Countries::join('business_locations', 'business_locations.country_id', '=', 'countries.id')->groupby('business_locations.country_id')->get();
         // $this->data['countries'] = Countries::get();
-        
         return view('admin/jobs/add',$this->data);
     }
 
@@ -207,6 +224,10 @@ class JobController extends AdminBaseController
         if($level > 4){
             $update_arr['approved_manager'] =  $user_id;
             $update_arr['approved_hr'] =  $user_id;
+            $update_arr['objective_id'] =  $request->input('objective');
+            $update_arr['round_1_question'] =  $request->input('round_1');
+            $update_arr['round_2_question'] =  $request->input('round_2');
+            $update_arr['round_3_question'] =  $request->input('round_3');
         }
         $query = Jobs::insert($update_arr);
         return redirect()->route('admin.jobs')
@@ -277,15 +298,23 @@ class JobController extends AdminBaseController
         ->with('success','Job Approved By Manager.');
     }
 
-    public function job_approved_hr($id){
+    public function job_approved_hr($id, Request $request){
         $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
         
         $user_id = Auth::user()->id;
+        $interview_id = $request->input('interview_id');
+        $round_1 = $request->input('round_1');
+        $round_2 = $request->input('round_2');
+        $round_3 = $request->input('round_3');
         $this->data = array(
-            'approved_hr' => $user_id
+            'approved_hr' => $user_id,
+            'objective_id' => $interview_id,
+            'round_1_question' => $round_1,
+            'round_2_question' => $round_2,
+            'round_3_question' => $round_3
         );
         $query = Jobs::where('id',$id)->update($this->data); 
 

@@ -55,8 +55,31 @@
 				</div>
 			</div>
 			<br>
-			
+			@if($bend_details->level > 4)
+			<div class="row">
+				<div class="col-sm-3">
+					<label>Objective</label>
+					<select class="form-control" name="objective">
+						@foreach($objectives as $o)
+						<option value="{{$o->id}}">{{$o->name}}</option>
+						@endforeach
+					</select>
+				</div>
+				<div class="col-sm-3">
+					<label>Round 1 Questions</label>
+					<input type="number" name="round_1" class="form-control">
+				</div>
+				<div class="col-sm-3">
+					<label>Round 2 Questions</label>
+					<input type="number" name="round_2" class="form-control">
+				</div>
+				<div class="col-sm-3">
+					<label>Round 3 Questions</label>
+					<input type="number" name="round_3" class="form-control">
+				</div>
+			</div>
 			<br>
+			@endif
 			<div class="row">
 				<div class="col-sm-12">
 					<button class="btn btn-primary" type="submit" style="float: right">Save</button>
