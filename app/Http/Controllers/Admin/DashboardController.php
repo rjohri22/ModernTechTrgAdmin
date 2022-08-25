@@ -175,5 +175,17 @@ class DashboardController extends AdminBaseController
         return response()->json($this->data);
     }
     
+    function load_round(Request $request ){
+        $this->loadBaseData();
+        $this->data['codestatus'] = true;
+        $this->data['html'] = '';
+        $questions = Question::where('interview_id',$request->id)->get(); 
+        foreach($questions as $question){
+            $this->data['html'] .= "<option value='".$question->id."'>".$question->round_no."</option>";
+        }
+        return response()->json($this->data);
+    }
+    
+
 
 }

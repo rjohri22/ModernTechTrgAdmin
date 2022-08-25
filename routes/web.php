@@ -197,6 +197,9 @@ Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::cla
     Route::post('/load_business_state', [Admin\DashboardController::class, 'load_business_state'])->name('admin.load_business_state');
     Route::post('/load_business_city', [Admin\DashboardController::class, 'load_business_city'])->name('admin.load_business_city');
 
+    //rounds
+    Route::post('/load_round', [Admin\DashboardController::class, 'load_round'])->name('admin.load_round');
+
     Route::get('/interview_objectives', [Admin\InterviewObjectivesController::class, 'index'])->name('admin.interview_objectives');
 
     Route::get('/interview_objectives/add', [Admin\InterviewObjectivesController::class, 'add'])->name('admin.add_interview_objectives');

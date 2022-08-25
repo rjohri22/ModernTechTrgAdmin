@@ -1,5 +1,10 @@
 @extends('admin.layout.master')
 @section('content')
+<style>
+	.sweet-warning{
+		background-color: blue;
+	}
+	</style>
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 <div class="box box-primary container mt-2" style="background: white">
@@ -59,7 +64,7 @@
 			<div class="row">
 				<div class="col-sm-3">
 					<label>Objective</label>
-					<select class="form-control" name="objective">
+					<select class="form-control" name="objective" id="objectives">
 						@foreach($objectives as $o)
 						<option value="{{$o->id}}">{{$o->name}}</option>
 						@endforeach
@@ -67,15 +72,15 @@
 				</div>
 				<div class="col-sm-3">
 					<label>Round 1 Questions</label>
-					<input type="number" name="round_1" class="form-control">
+					<input type="number" name="round_1" class="form-control"  id="round_1">
 				</div>
 				<div class="col-sm-3">
 					<label>Round 2 Questions</label>
-					<input type="number" name="round_2" class="form-control">
+					<input type="number" name="round_2" class="form-control" id="round_2">
 				</div>
 				<div class="col-sm-3">
 					<label>Round 3 Questions</label>
-					<input type="number" name="round_3" class="form-control">
+					<input type="number" name="round_3" class="form-control" id="round_3">
 				</div>
 			</div>
 			<br>
@@ -180,6 +185,77 @@
 			});
 
 		}
+
+
+
+
+
+
 	});		
 </script>
 @endsection
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" id="theme-styles">
+<script>
+$(document).ready(function(){
+	
+	
+$('#round_1').on('keyup', function(e){
+	if(this.value > 20){
+     swal.fire('You cant enter more than 20 as input in round 1');
+	 $("#round_1").val('20');
+	}	
+	
+});
+$('#round_2').on('keyup', function(e){
+	if(this.value > 30){
+       swal.fire('You cant enter more than 30 as input in round 2');
+	   $("#round_2").val('30');
+	}
+});
+$('#round_3').on('keyup', function(e){
+	if(this.value > 35){
+       swal.fire('You cant enter more than 35 as input in round 3');
+       $("#round_3").val('35');
+	}
+});
+
+
+
+$('#objectives').change(function(){
+			console.log('change round numbers');
+			loadround();
+			
+			
+		});
+		loadround();
+		function loadround(){
+			console.log('Load Rounds');
+			var id = $('#round_1').val();
+			// var id = $('#round_2').val();
+			// var id = $('#round_3').val();
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				url: "{{route('admin.load_round')}}",
+				type: 'POST',
+				data: {id:id},
+				success: function(data) {
+					console.log(data);
+					$('#round_1').html(data.html);
+					// loadcity();
+				}
+			});
+
+		}
+
+
+
+
+
+
+});
+</script>
