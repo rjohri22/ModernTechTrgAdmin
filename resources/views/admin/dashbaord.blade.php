@@ -21,7 +21,7 @@
             <div class="small-box bg-aqua">
               <div class="inner">
                 <h3>{{$total_oppertunity}}</h3>
-                <p>Total Opportunity</p>
+                <p>Total Jobs</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -55,6 +55,31 @@
             </div>
           </div>
           <!-- ./col -->
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+              <div class="inner">
+                <h3>{{$total_oppertunity}}</h3>
+                <p>Total Approved Jobs</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+            </div>
+          </div>
+          <!-- /col -->
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-red">
+              <div class="inner">
+                <h3>{{$total_oppertunity}}</h3>
+                <p>Total pendings</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+            </div>
+          </div>
         </div>
 
      
