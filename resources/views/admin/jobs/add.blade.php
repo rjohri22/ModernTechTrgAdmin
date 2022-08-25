@@ -65,6 +65,7 @@
 				<div class="col-sm-3">
 					<label>Objective</label>
 					<select class="form-control" name="objective" id="objectives">
+						<option value=""> Select Objective</option>
 						@foreach($objectives as $o)
 						<option value="{{$o->id}}">{{$o->name}}</option>
 						@endforeach
@@ -72,15 +73,15 @@
 				</div>
 				<div class="col-sm-3">
 					<label>Round 1 Questions</label>
-					<input type="number" name="round_1" class="form-control"  id="round_1">
+					<input type="number" name="round_1" class="form-control"  id="round_1" data-total="">
 				</div>
 				<div class="col-sm-3">
 					<label>Round 2 Questions</label>
-					<input type="number" name="round_2" class="form-control" id="round_2">
+					<input type="number" name="round_2" class="form-control" id="round_2" data-total="">
 				</div>
 				<div class="col-sm-3">
 					<label>Round 3 Questions</label>
-					<input type="number" name="round_3" class="form-control" id="round_3">
+					<input type="number" name="round_3" class="form-control" id="round_3" data-total="">
 				</div>
 			</div>
 			<br>
@@ -203,23 +204,38 @@ $(document).ready(function(){
 	
 	
 $('#round_1').on('keyup', function(e){
-	if(this.value > 20){
-     swal.fire('You cant enter more than 20 as input in round 1');
-	 $("#round_1").val('20');
+	var this_val = parseInt($(this).val());
+	var this_attr = parseInt($(this).attr('data-total'));
+	if(this_val > this_attr){
+     swal.fire(`You cant enter more than ${this_attr} as input in round 1`);
+	 $("#round_1").val(this_attr);
 	}	
 	
 });
 $('#round_2').on('keyup', function(e){
-	if(this.value > 30){
-       swal.fire('You cant enter more than 30 as input in round 2');
-	   $("#round_2").val('30');
-	}
+	var this_val = parseInt($(this).val());
+	var this_attr = parseInt($(this).attr('data-total'));
+	if(this_val > this_attr){
+     swal.fire(`You cant enter more than ${this_attr} as input in round 2`);
+	 $("#round_2").val(this_attr);
+	}	
+
+	// if(this.value > 30){
+ //       swal.fire('You cant enter more than 30 as input in round 2');
+	//    $("#round_2").val('30');
+	// }
 });
 $('#round_3').on('keyup', function(e){
-	if(this.value > 35){
-       swal.fire('You cant enter more than 35 as input in round 3');
-       $("#round_3").val('35');
-	}
+	var this_val = parseInt($(this).val());
+	var this_attr = parseInt($(this).attr('data-total'));
+	if(this_val > this_attr){
+     swal.fire(`You cant enter more than ${this_attr} as input in round 3`);
+	 $("#round_3").val(this_attr);
+	}	
+	// if(this.value > 35){
+ //       swal.fire('You cant enter more than 35 as input in round 3');
+ //       $("#round_3").val('35');
+	// }
 });
 
 
@@ -227,13 +243,11 @@ $('#round_3').on('keyup', function(e){
 $('#objectives').change(function(){
 			console.log('change round numbers');
 			loadround();
-			
-			
 		});
 		loadround();
 		function loadround(){
 			console.log('Load Rounds');
-			var id = $('#round_1').val();
+			var id = $('#objectives').val();
 			// var id = $('#round_2').val();
 			// var id = $('#round_3').val();
 			$.ajax({
@@ -244,8 +258,13 @@ $('#objectives').change(function(){
 				type: 'POST',
 				data: {id:id},
 				success: function(data) {
-					console.log(data);
-					$('#round_1').html(data.html);
+					if(data.codestatus){
+						var question = data.data;
+						$('#round_1').attr('data-total',question.round_1);
+						$('#round_2').attr('data-total',question.round_2);
+						$('#round_3').attr('data-total',question.round_3);
+					}
+					// $('#round_1').html(data.html);
 					// loadcity();
 				}
 			});
