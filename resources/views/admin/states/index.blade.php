@@ -1,5 +1,15 @@
 @extends('admin.layout.master')
 @section('content')
+<head>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+</head>
+<style>
+	div.box-body{
+		overflow-x: scroll;
+	}
+	
+	</style>
 
 <div class="box box-primary container mt-2" style="background: white">
 	<div class="box-header with-border">
@@ -7,7 +17,7 @@
 		<h3>States</h3>
 	</div>
 	<div class="box-body">
-		<table class="table table-sm">
+		<table id="example" class="table table-striped table-bordered">
 		  <thead>
 		    <tr>
 		      <th scope="col" style="width: 10%">#</th>
@@ -48,4 +58,9 @@
 		</table>
 	</div>
 </div>
+<script>
+	$(document).ready(function () {
+    $('#example').DataTable();
+});
+	</script>
 @endsection

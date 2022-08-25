@@ -3,7 +3,16 @@
 @php
 use App\Models\Job_applications;
 @endphp
-
+<head>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+</head>
+<style>
+	div.box-body{
+		overflow-x: scroll;
+	}
+	
+	</style>
 <div class="box box-primary container mt-2" style="background: white">
 	<br>
 	<div class="box-header with-border">
@@ -16,7 +25,7 @@ use App\Models\Job_applications;
 	</div>
 	<div class="box-body">
 		<div class="table-responsive">
-		<table class="table table-sm">
+		<table id="example" class="table table-striped table-bordered">
 		  <thead>
 		    <tr>
 		      <th scope="col">#</th>
@@ -144,6 +153,10 @@ use App\Models\Job_applications;
 </div>
 	</div>
 </div>
-
+<script>
+	$(document).ready(function () {
+    $('#example').DataTable();
+});
+	</script>
 
 @endsection
