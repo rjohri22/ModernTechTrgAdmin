@@ -16,6 +16,7 @@ use PHPMailer\PHPMailer\Exception;
 use App\Models\Admin\Countries;
 use App\Models\Admin\States;
 use App\Models\Admin\Cities;
+use App\Models\Admin\Question;
 
 
 class DashboardController extends AdminBaseController
@@ -177,13 +178,16 @@ class DashboardController extends AdminBaseController
     
     function load_round(Request $request ){
         $this->loadBaseData();
-        $this->data['codestatus'] = true;
-        $this->data['html'] = '';
-        $questions = Question::where('interview_id',$request->id)->get(); 
-        foreach($questions as $question){
-            $this->data['html'] .= "<option value='".$question->id."'>".$question->round_no."</option>";
-        }
-        return response()->json($this->data);
+        $res['codestatus'] = true;
+        $total_questions_1 = Question::where('interview_id',$request->input('id'))->where('round_no',1)->count();
+        $total_questions_2 = Question::where('interview_id',$request->input('id'))->where('round_no',2)->count();
+        $total_questions_3 = Question::where('interview_id',$request->input('id'))->where('round_no',3)->count();
+        $res['data'] = array(
+            'round_1' => $total_questions_1,
+            'round_2' => $total_questions_2,
+            'round_3' => $total_questions_3,
+        );
+        return response()->json($res);
     }
     
 
