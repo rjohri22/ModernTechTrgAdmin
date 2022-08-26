@@ -1,5 +1,11 @@
 @extends('admin.layout.master')
 @section('content')
+<style>
+	div.box-body{
+		overflow-x: scroll;
+	}
+	
+	</style>
 
 <div class="box box-primary container mt-2" style="background: white">
 	<div class="box-header with-border">
@@ -14,7 +20,7 @@
 	
 	</div>
 	<div class="box-body">
-		<table class="table table-sm">
+		<table class="table table-sm datatable">
 		  <thead>
 		    <tr>
 		      <th scope="col" style="width: 2%">#</th>

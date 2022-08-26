@@ -30,6 +30,9 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+  <!-- datatable libraries: -->
+  
+  <link rel="stylesheet" href="{{ url('assets/adminpanel1/') }}/plugins/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <script src="{{ url('assets/adminpanel1/') }}/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="{{ url('assets/adminpanel1/') }}/bower_components/jquery-ui/jquery-ui.min.js"></script>
   <style type="text/css">
@@ -366,13 +369,23 @@
   <script src="{{ url('assets/adminpanel1/') }}/bower_components/fastclick/lib/fastclick.js"></script>
   <!-- AdminLTE App -->
   <script src="{{ url('assets/adminpanel1/') }}/dist/js/adminlte.min.js"></script>
+  <!-- scripts for datatables -->
+
+  <script src="{{ url('assets/adminpanel1/') }}/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="{{ url('assets/adminpanel1/') }}/plugins/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
   <script type="text/javascript">
     $(function () {
-      $('[data-toggle="popover"]').popover({
-        html : true,
-      })
+   
+    $('.datatable').DataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true
     })
+  })
   </script>
   @yield('footer')
 </body>

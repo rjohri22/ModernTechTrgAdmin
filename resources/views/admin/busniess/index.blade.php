@@ -1,10 +1,7 @@
 @extends('admin.layout.master')
 @section('content')
 
-<head>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-</head>
+
 <style>
 	div.box-body{
 		overflow-x: scroll;
@@ -17,7 +14,7 @@
 		<h3>Business</h3>
 	</div>
 	<div class="box-body">
-		<table id="example" class="table table-striped table-bordered">
+		<table id="example" class="table table-striped table-bordered datatable">
 		  <thead>
 		    <tr>
 		      <th scope="col" style="width: 10%">#</th>
@@ -75,9 +72,5 @@
 		</table>
 	</div>
 </div>
-<script>
-	$(document).ready(function () {
-    $('#example').DataTable();
-});
-	</script>
+
 @endsection

@@ -196,6 +196,7 @@ Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::cla
     Route::post('/load_business_country', [Admin\DashboardController::class, 'load_business_country'])->name('admin.load_business_country');
     Route::post('/load_business_state', [Admin\DashboardController::class, 'load_business_state'])->name('admin.load_business_state');
     Route::post('/load_business_city', [Admin\DashboardController::class, 'load_business_city'])->name('admin.load_business_city');
+    Route::get('/jobs/viewjob', [Admin\DashboardController::class, 'viewjob'])->name('admin.viewjob');
 
     //rounds
     Route::post('/load_round', [Admin\DashboardController::class, 'load_round'])->name('admin.load_round');

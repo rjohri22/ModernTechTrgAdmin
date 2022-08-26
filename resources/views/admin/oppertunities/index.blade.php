@@ -3,10 +3,7 @@
 @php
 use App\Models\Job_applications;
 @endphp
-<head>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-</head>
+
 <style>
 	div.box-body{
 		overflow-x: scroll;
@@ -26,7 +23,7 @@ use App\Models\Job_applications;
       	<span class="label label-success">Total Hired</span> -->
 	</div>
 	<div class="box-body">
-		<table id="example" class="table table-striped table-bordered">
+		<table id="example" class="table datatable">
 		  <thead>
 		    <tr>
 		      <th scope="col">#</th>
@@ -145,11 +142,7 @@ use App\Models\Job_applications;
 	</div>
 </div>
 
-<script>
-	$(document).ready(function () {
-    $('#example').DataTable();
-});
-	</script>
+
 
 
 @endsection
