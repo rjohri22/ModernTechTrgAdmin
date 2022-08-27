@@ -5,7 +5,7 @@
 <div class="box box-primary container mt-2" style="background: white">
 
 	<div class="box-header">
-		<h3>Edit Band</h3>
+		<h3>Edit Profile</h3>
 	</div>
 	<div class="box-body">
 		<form action="{{route('admin.bend_update',$bend->id)}}" method="post">
@@ -19,7 +19,7 @@
 					<input type="hidden" name="bend_type" id="bend_id" value="{{$bend->band_type}}">
 				@else
 				<div class="col-sm-4">
-					<label>Bend TYpe</label>
+					<label>Profile Type</label>
 					<select class="form-control" name="bend_type" id="bend_type">
 						<option value="0" @if ($bend->band_type == 0) selected @endif>All</option>
 						<option value="1" @if ($bend->band_type == 1) selected @endif>Business Specific</option>
@@ -41,9 +41,9 @@
 			<div class="row">
 
 				<div class="col-sm-4">
-					<label>Report Bend</label>
+					<label>Report Profile</label>
 					<select class="form-control" name="bend_report[]" multiple>
-						<option value="">Select Report Bend</option>
+						<option value="">Select Report Profile</option>
 						 @foreach($all_bend as $b) 
 						 	@if(in_array($b->id, $bend_assign))
 								 <option value="{{$b->id}}" selected>{{$b->name}}</option>

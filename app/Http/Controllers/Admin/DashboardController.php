@@ -55,7 +55,12 @@ class DashboardController extends AdminBaseController
         $this->data['total_oppertunity'] = Oppertunities::count();
         $this->data['total_jobseeker'] = User::where('group_id', 2)->count();
         $this->data['total_applications'] = Job_applications::count();
-        $this->data['jobs'] = Jobs::orderBy('no_of_positions', 'desc')
+        $this->data['jobs'] = Jobs::join('companies', 'companies.id', '=', 'jobs.company_id')
+        ->join('countries','countries.id','=','jobs.country_id')
+        ->join('states','states.id','=','jobs.state_id')
+        ->join('cities','cities.id','=','jobs.city_id')
+        ->join('users','users.id','=','jobs.modified_by')
+        ->orderBy('no_of_positions', 'desc')
         ->limit(10)
         ->get();
         $this->data['master_bend'] = true;
@@ -203,13 +208,12 @@ class DashboardController extends AdminBaseController
             return redirect()->route('home');
         };
 
-        $fetch = Jobs::orderBy('no_of_positions', 'desc')
-        ->limit(10)
-        ->get();
-        // $fetch = Oppertunities::Leftjoin('companies', 'companies.id', '=', 'oppertunities.company_id')
-                // ->get(['oppertunities.*', 'companies.name as company_name'])->where('id',$id)->first();
-        $this->data['job'] = $fetch;
-        return view('admin/jobs/view',$this->data);
+        $fetch = Jobs::join('companies', 'companies.id', '=', 'jobs.company_id')->join('countries','countries.id','=','jobs.country_id')->join('states','states.id','=','jobs.state_id')->join('cities','cities.id','=','jobs.city_id')
+        ->select(['jobs.*', 'companies.name as company_name', 'countries.name as country_name','states.name as state_name','cities.name as city_name'])->where('jobs.id',$id)->first();
+// $fetch = Oppertunities::Leftjoin('companies', 'companies.id', '=', 'oppertunities.company_id')
+        // ->get(['oppertunities.*', 'companies.name as company_name'])->where('id',$id)->first();
+$this->data['job'] = $fetch;
+return view('admin/jobs/view',$this->data);
     }
 
 }
