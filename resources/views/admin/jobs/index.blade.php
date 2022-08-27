@@ -21,7 +21,7 @@ use App\Models\Job_applications;
 		    <tr>
 		      <th scope="col">#</th>
 		      <th scope="col">Title</th>
-		      <th scope="col">Company</th>
+		      <th scope="col">Business</th>
 		      <th scope="col">Country</th>
 		      <th scope="col">State</th>
 		      <th scope="col">Location</th>

@@ -13,7 +13,7 @@
 			@csrf
 			<div class="row">
 				<div class="col-sm-3">
-					<label>Company</label>
+					<label>Business</label>
 					<select class="form-control" name="company_id" id="company_id">
 						@foreach ($companies as $company)
 						<option value="{{ $company->id }}" @if ($company->id == $business_location->company_id) selected @endif >{{ $company->name }}</option>

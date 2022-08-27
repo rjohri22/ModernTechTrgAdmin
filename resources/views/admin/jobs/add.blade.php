@@ -26,7 +26,7 @@
 					</select>
 				</div>
 				<div class="col-sm-4">
-					<label>Company</label>
+					<label>Business</label>
 					<select class="form-control" name="company_id" id="company_id">
 						@foreach ($companies as $company)
 						<option value="{{ $company->id }}">{{ $company->name }}</option>
