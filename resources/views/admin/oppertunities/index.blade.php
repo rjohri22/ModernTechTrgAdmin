@@ -27,22 +27,23 @@ use App\Models\Job_applications;
 		  <thead>
 		    <tr>
 		      <th scope="col">#</th>
-		      <th scope="col">Title</th>
+		      <!-- <th scope="col">Title</th> -->
 		      <!-- <th scope="col">Company</th> -->
 		      <!-- <th scope="col">Salary</th> -->
 		      <!-- <th scope="col">Salary Type</th> -->
 			  <th scope="col">Daily job</th>
-			  <th scope="col">Team Engagement</th>
-			  <th scope="col">Reporting</th>
-			  <th scope="col">profile</th>
+			  <!-- <th scope="col">Team Engagement</th> -->
+			  <!-- <th scope="col">Reporting</th> -->
+			  <th scope="col">profile</th> 
 			  <th scope="col">Responsibilities</th>
-		      <th scope="col">Work Type</th>
-		      <th scope="col">Job Type</th>
-		      <th scope="col">Expires On</th>
+		      <!-- <th scope="col">Work Type</th> -->
+		      <!-- <th scope="col">Job Type</th> -->
+		      <!-- <th scope="col">Expires On</th> -->
 		      <!-- <th scope="col">No Of Position</th> -->
-		      <th scope="col">Urgent Hirign</th>
-		      <!-- <th scope="col">Summery</th> -->
-		      <th scope="col">Status</th>
+		      <!-- <th scope="col">Urgent Hirign</th> -->
+		      <th scope="col">KPI</th>
+			  <th scope="col">Eligibility Criteria</th>
+		      <!-- <th scope="col">Status</th> -->
 		      <th scope="col">Actions</th>
 		    </tr>
 		  </thead>
@@ -54,7 +55,7 @@ use App\Models\Job_applications;
 		   	
 		    <tr>
 		      <th scope="row">{{$counter}}</th>
-		      <td>{{$oppertunity->title}}</td>
+		      <!-- <td>{{$oppertunity->title}}</td> -->
 		      <!-- <td>{{$oppertunity->company_name}}</td> -->
 		      <!-- <td>{{($oppertunity->min_salary) ? $oppertunity->min_salary : 0}} To {{($oppertunity->max_salary) ? $oppertunity->max_salary : 0}}</td> -->
 		      <!-- <td>
@@ -69,11 +70,11 @@ use App\Models\Job_applications;
 				@endif
 		      </td> -->
 			  <td>{{($oppertunity->daily_job)}}</td>
-			  <td>{{($oppertunity->team_engagement)}}</td>
-			  <td>{{($oppertunity->reporting)}}</td>
-			  <td>{{($oppertunity->profile)}}</td>
+			  <!-- <td>{{($oppertunity->team_engagement)}}</td> -->
+			  <!-- <td>{{($oppertunity->reporting)}}</td> -->
+			  <td>{{($oppertunity->bend_id)}}</td>
 			  <td>{{($oppertunity->Responsibilities)}}</td>
-		      <td>
+		      <!-- <td>
 		      	@if($oppertunity->work_type =='1')
 		      		Part Time
 				@elseif($oppertunity->work_type =='2')
@@ -81,8 +82,8 @@ use App\Models\Job_applications;
 				@else
 				 	<i>Not Specified</i>       
 				@endif
-		      </td>
-		      <td>
+		      </td> -->
+		      <!-- <td>
 		      	@if($oppertunity->job_type =='1')
 		      		Internship
 				@elseif($oppertunity->job_type =='2')
@@ -92,29 +93,12 @@ use App\Models\Job_applications;
 				@else
 				 	<i>Not Specified</i>       
 				@endif
-		      </td>
+		      </td> -->
 			 
-		      <td>{{date('d-M-Y',strtotime($oppertunity->expires_on))}}</td>
-		      <!-- <td>{{$oppertunity->no_of_positions}}</td> -->
-		      <td>{{($oppertunity->urgent_hiring) ? "Yes": " No "}}</td>
-		      @php
-		      	$total_applied = Job_applications::where('status','0')->where('oppertunity_id',$oppertunity->id)->count();
-		      	$total_shorlist = Job_applications::where('status','1')->where('oppertunity_id',$oppertunity->id)->count();
-		      	$total_reject = Job_applications::where('status','2')->where('oppertunity_id',$oppertunity->id)->count();
-		      	$total_interview = Job_applications::where('status','3')->where('oppertunity_id',$oppertunity->id)->count();
-		      	$total_on_boarding = Job_applications::where('status','4')->where('oppertunity_id',$oppertunity->id)->count();
-		      	$total_hiring = Job_applications::where('status','5')->where('oppertunity_id',$oppertunity->id)->count();
-		      @endphp
-		     <!--  <td>
-		      	<span class="label label-primary">{{$total_applied}}</span>
-		      	<span class="label label-warning">{{$total_shorlist}}</span>
-		      	<span class="label label-danger">{{$total_reject}}</span>
-		      	<span class="label label-default">{{$total_interview}}</span>
-		      	<span class="label label-info">{{$total_on_boarding}}</span>
-		      	<span class="label label-success">{{$total_hiring}}</span>
-			      
-			  </td> -->
-		      <td>
+		      <!-- <td>{{date('d-M-Y',strtotime($oppertunity->expires_on))}}</td> -->
+		      <td>{{$oppertunity->summery}}</td>
+			  <td>{{$oppertunity->description}}</td>
+		 
 		      	@if($oppertunity->is_draft =='0')
 		      		Publish
 				@else

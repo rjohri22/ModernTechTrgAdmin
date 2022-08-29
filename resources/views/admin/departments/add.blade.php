@@ -16,12 +16,12 @@
 					<input type="text" name="title" class="form-control">
 				</div>
 
-				<div class="col-sm-3">
+				<!-- <div class="col-sm-3">
 					<label>Head Of Department</label>
 					<select class="form-control" name="hod">
 						<option value="0">DEFAULT HOD</option>
 					</select>
-				</div>
+				</div> -->
 				<div class="col-sm-3">
 					<label>Active</label>
 					<select class="form-control" name="active">

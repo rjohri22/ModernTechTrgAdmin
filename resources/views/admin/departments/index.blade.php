@@ -7,14 +7,14 @@
 		<h3>Department</h3>
 	</div>
 	<div class="box-body">
-		<table class="table table-sm">
+		<table class="table table-sm datatable">
 		  <thead>
 		    <tr>
 		      <th scope="col" style="width: 10%">#</th>
 		      <th scope="col" style="width: 20%">Title</th>
-		      <th scope="col" style="width: 20%">HOD</th>
+		      <!-- <th scope="col" style="width: 20%">HOD</th> -->
 		      <th scope="col" style="width: 40%">Description</th>
-		      <th scope="col" style="width: 10%">Active</th>
+		      <th scope="col" style="width: 20%">Active</th>
 		      <th scope="col" style="width: 10%">Actions</th>
 		    </tr>
 		  </thead>
@@ -26,7 +26,7 @@
 		    <tr>
 		      <th scope="row">{{$counter}}</th>
 		      <td class="oppertunity">{{$department->title}}</td>
-		      <td class="oppertunity">{{$department->hod_id}}</td>
+		      <!-- <td class="oppertunity">{{$department->hod_id}}</td> -->
 		      <td class="user_name">{{$department->description}}</td>
 		      <td class="user_name">
 		      	@if($department->active == 1)

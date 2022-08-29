@@ -138,31 +138,31 @@ class OppertunitiesController extends AdminBaseController
             return redirect()->route('home');
         };
         $validated = $request->validate([
-            'title' => 'required|max:255',
+          //  'title' => 'required|max:255',
         ]);
         $user_id = Auth::user()->id;
         $update_arr = array(
-            'title'         => $request->input('title'),
+            // 'title'         => $request->input('title'),
             'daily_job'         => $request->input('daily_job'),
-            'team_engagement'         => $request->input('team_engagement'),
-            'reporting'         => $request->input('reporting'),
-            'profile'         => $request->input('profile'),
+            // 'team_engagement'       => $request->input('team_engagement'),
+            // 'reporting'             => $request->input('reporting'),
+           // 'profile'                => $request->input('profile'),
             'Responsibilities'         => $request->input('Responsibilities'),
-            'company_id'    => 0,
+          //  'company_id'    => 0,
             'bend_id'       => $request->input('bend_id'),
             //'min_salary'    => $request->input('min_salary'),
             //'max_salary'    => $request->input('max_salary'),
            // 'salary_type'   => $request->input('salary_type'),
-            'job_type'      => $request->input('job_type'),
-            'work_type'     => $request->input('work_type'),
+          //  'job_type'      => $request->input('job_type'),
+            //'work_type'     => $request->input('work_type'),
             //'expires_on'    =>  $request->input('expires_on'),
     // 'no_of_positions'    => $request->input('no_of_position'),
-            'urgent_hiring'     => $request->input('urgent_hiring'),
+           // 'urgent_hiring'     => $request->input('urgent_hiring'),
            // 'status'            => $request->input('status'),
             'summery'           => $request->input('summery'),
             'description'       => $request->input('description'),
             'modified_by'       => $user_id,
-           'is_draft'       => 0,
+            'is_draft'       => 0,
         );
 
         if(isset($request->savedraft)){
@@ -180,28 +180,28 @@ class OppertunitiesController extends AdminBaseController
             return redirect()->route('home');
         };
         $validated = $request->validate([
-            'title' => 'required|max:255',
+           // 'title' => 'required|max:255',
         ]);
 
         $update_arr = array(
-            'title'         => $request->input('title'),
-            'company_id'       => 0,
+            // 'title'         => $request->input('title'),
+            // 'company_id'       => 0,
             'bend_id'       => $request->input('bend_id'),
-            'min_salary'    => $request->input('min_salary'),
-            'max_salary'    => $request->input('max_salary'),
-            'salary_type'   => $request->input('salary_type'),
-            'job_type'   => $request->input('job_type'),
-            'work_type'   => $request->input('work_type'),
+            // 'min_salary'    => $request->input('min_salary'),
+            // 'max_salary'    => $request->input('max_salary'),
+            // 'salary_type'   => $request->input('salary_type'),
+            // 'job_type'   => $request->input('job_type'),
+            // 'work_type'   => $request->input('work_type'),
             //'expires_on'    => $request->input('expires_on'),
-            'no_of_positions'    => $request->input('no_of_position'),
-            'urgent_hiring'     => $request->input('urgent_hiring'),
+            // 'no_of_positions'    => $request->input('no_of_position'),
+            // 'urgent_hiring'     => $request->input('urgent_hiring'),
            // 'status'            => $request->input('status'),
-            'summery'           => $request->input('summery'),
-            'description'       => $request->input('description'),
-            'daily_job'         => $request->input('daily_job'),
-            'team_engagement'         => $request->input('team_engagement'),
-            'reporting'         => $request->input('reporting'),
-            'profile'         => $request->input('profile'),
+            'summery'                 => $request->input('summery'),
+            'description'             => $request->input('description'),
+             'daily_job'               => $request->input('daily_job'),
+            // 'team_engagement'         => $request->input('team_engagement'),
+            // 'reporting'         => $request->input('reporting'),
+            // 'profile'         => $request->input('profile'),
             'Responsibilities'         => $request->input('Responsibilities'),
         );
 
