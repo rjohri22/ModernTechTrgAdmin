@@ -185,7 +185,7 @@ class JobController extends AdminBaseController
             return redirect()->route('home');
         };
         $validated = $request->validate([
-            'jd' => 'required',
+           // 'jd' => 'required',
             'company_id' => 'required',
             'country_id' => 'required',
             'state_id' => 'required',
@@ -196,17 +196,17 @@ class JobController extends AdminBaseController
         $user_details = User::where('id',$user_id)->first();
         $bend_details = Bend::where('id',$user_details->bend_id)->first();
         $level = $bend_details->level;
-
         $job_descrtiption_id = $request->input('jd');
 
         $oppertunity = Oppertunities::where('id',$job_descrtiption_id)->first();
         $update_arr = array(
-            'title'         => $oppertunity->title,
+           // 'title'         => $oppertunity->title,
+            'bend_id'       => $bend_details,
             'company_id'    => $request->input('company_id'),
             'country_id'    => $request->input('country_id'),
             'state_id'      => $request->input('state_id'),
             'city_id'       => $request->input('city_id'),
-            'no_of_positions' => $request->input('no_of_positions'),
+           // 'no_of_positions' => $request->input('no_of_positions'),
             // 'min_salary'    => $oppertunity->min_salary,
             // 'max_salary'    => $oppertunity->max_salary,
             // 'salary_type'   => $oppertunity->salary_type,

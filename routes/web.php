@@ -136,6 +136,20 @@ Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::cla
     Route::post('/states/update/{id}', [Admin\StatesController::class, 'update'])->name('admin.states_update');
     Route::get('/states/delete/{id}', [Admin\StatesController::class, 'delete'])->name('admin.states_delete');
 
+
+
+//countries
+Route::get('/countries', [Admin\CountryController::class, 'index'])->name('admin.countries');
+Route::get('/countries/add', [Admin\CountryController::class, 'add'])->name('admin.countries_add');
+Route::post('/countries/store', [Admin\CountryController::class, 'store'])->name('admin.countries_store');
+Route::get('/countries/edit/{id}', [Admin\CountryController::class, 'edit'])->name('admin.countries_edit');
+Route::post('/countries/update/{id}', [Admin\CountryController::class, 'update'])->name('admin.countries_update');
+Route::get('/countries/delete/{id}', [Admin\CountryController::class, 'delete'])->name('admin.countries_delete');
+
+
+
+
+
     Route::get('/cities', [Admin\CitiesController::class, 'index'])->name('admin.cities');
     Route::get('/cities/add', [Admin\CitiesController::class, 'add'])->name('admin.cities_add');
     Route::get('/cities/edit/{id}', [Admin\CitiesController::class, 'edit'])->name('admin.cities_edit');

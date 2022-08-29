@@ -56,7 +56,7 @@ class DepartmentController extends AdminBaseController
 
         $insert_arr = array(
             'title'       => $request->input('title'),
-            'hod_id'       => $request->input('hod'),
+          //  'hod_id'       => $request->input('hod'),
             'description'    => $request->input('description'),
             'active'    => $request->input('active')
         );
@@ -74,7 +74,7 @@ class DepartmentController extends AdminBaseController
 
          $update_arr = array(
             'title'       => $request->input('title'),
-            'hod_id'       => $request->input('hod'),
+           // 'hod_id'       => $request->input('hod'),
             'description'    => $request->input('description'),
             'active'    => $request->input('active')
         );

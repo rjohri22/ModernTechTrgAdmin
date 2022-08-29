@@ -18,10 +18,10 @@
 			@csrf
 			<div class="row">
 				<div class="col-sm-4">
-					<label>Job Description</label>
-					<select class="form-control" name="jd" id="jd">
-						@foreach ($job_descrtiption as $jd)
-						<option value="{{ $jd->id }}">{{ $jd->title }}</option>
+					<label>Profile</label>
+					<select class="form-control" name="bend_id" id="bend_id">
+						@foreach ($bend_details as $bd)
+						<option value="{{ $bd->id }}">{{ $bd->bend_id }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -54,10 +54,10 @@
 					</select>
 				</div>
 				
-				<div class="col-sm-4">
+				<!-- <div class="col-sm-4">
 					<label>Head Count</label>
 					<input type="number" name="no_of_positions" class="form-control">
-				</div>
+				</div> -->
 			</div>
 			<br>
 			@if($bend_details->level > 4)
