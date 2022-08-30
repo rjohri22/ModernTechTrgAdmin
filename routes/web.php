@@ -166,6 +166,10 @@ Route::get('/countries/delete/{id}', [Admin\CountryController::class, 'delete'])
     Route::post('/busniess/update/{id}', [Admin\BusniessController::class, 'update'])->name('admin.busniess_update');
     Route::get('/busniess/delete/{id}', [Admin\BusniessController::class, 'delete'])->name('admin.busniess_delete');
 
+    Route::post('/busniess/crop', [Admin\BusniessController::class, 'uploadCropImage'])->name('admin.crop');
+
+
+
     Route::get('/bends', [Admin\BendController::class, 'index'])->name('admin.bends');
     Route::get('/bend/add', [Admin\BendController::class, 'add'])->name('admin.bend_add');
     Route::get('/bend/edit/{id}', [Admin\BendController::class, 'edit'])->name('admin.bend_edit');
@@ -235,6 +239,7 @@ Route::get('/countries/delete/{id}', [Admin\CountryController::class, 'delete'])
 
     Route::get('/interview_objectives/questions/{id}', [Admin\InterviewObjectivesController::class, 'question'])->name('admin.question_interview_objectives');
 
+    Route::get('/jobs/publish/{id}', [Admin\JobController::class, 'publish'])->name('admin.publish_jobs');
 
 });
 

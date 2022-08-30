@@ -20,9 +20,9 @@
 				<div class="col-sm-4">
 					<label>Profile</label>
 					<select class="form-control" name="bend_id" id="bend_id">
-						@foreach ($bend_details as $bd)
-						<option value="{{ $bd->id }}">{{ $bd->bend_id }}</option>
-						@endforeach
+					
+						<option value="{{ $bend_details->id }}">{{ $bend_details->name }}</option>
+					
 					</select>
 				</div>
 				<div class="col-sm-4">
@@ -89,6 +89,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<button class="btn btn-primary" type="submit" style="float: right">Save</button>
+					<button class="btn btn-warning" type="submit" name="savedraft" value="1" style="float: right;margin-right: 6px;margin-bottom: 15px;" >Save Draft</button>
 				</div>
 			</div>
 			<br>
