@@ -190,7 +190,7 @@ class JobController extends AdminBaseController
             'country_id' => 'required',
             'state_id' => 'required',
             'city_id' => 'required',
-            'no_of_positions' => 'required',
+           // 'no_of_positions' => 'required',
         ]);
         $user_id = Auth::user()->id;
         $user_details = User::where('id',$user_id)->first();
@@ -201,7 +201,7 @@ class JobController extends AdminBaseController
         $oppertunity = Oppertunities::where('id',$job_descrtiption_id)->first();
         $update_arr = array(
            // 'title'         => $oppertunity->title,
-            'bend_id'       => $bend_details,
+            'bend_id'       => $request->input('bend_id'),
             'company_id'    => $request->input('company_id'),
             'country_id'    => $request->input('country_id'),
             'state_id'      => $request->input('state_id'),
@@ -210,14 +210,14 @@ class JobController extends AdminBaseController
             // 'min_salary'    => $oppertunity->min_salary,
             // 'max_salary'    => $oppertunity->max_salary,
             // 'salary_type'   => $oppertunity->salary_type,
-            'job_type'      => $oppertunity->job_type,
-            'work_type'     => $oppertunity->work_type,
-            'expires_on'    => $oppertunity->expires_on,
+           // 'job_type'      => $oppertunity->job_type,
+            // 'work_type'     => $oppertunity->work_type,
+            // 'expires_on'    => $oppertunity->expires_on,
       // 'no_of_positions'  => $oppertunity->no_of_positions,
-            'urgent_hiring' => $oppertunity->urgent_hiring,
-            'status'        => 0,
-            'summery'       => $oppertunity->summery,
-            'description'   => $oppertunity->description,
+            // 'urgent_hiring' => $oppertunity->urgent_hiring,
+            // 'status'        => 0,
+            // 'summery'       => $oppertunity->summery,
+            // 'description'   => $oppertunity->description,
             'modified_by'   => $user_id,
         );
         
@@ -229,10 +229,24 @@ class JobController extends AdminBaseController
             $update_arr['round_2_question'] =  $request->input('round_2');
             $update_arr['round_3_question'] =  $request->input('round_3');
         }
+        if(isset($request->savedraft)){
+            $update_arr['is_draft'] = 1;
+        }
         $query = Jobs::insert($update_arr);
         return redirect()->route('admin.jobs')
         ->with('success','Job created successfully.');
     }
+
+    public function publish($id)
+    {
+        $this->loadBaseData();
+        $update_arr['is_draft'] = 0;
+        $query  = Jobs::where('id', $id)->update($update_arr);
+        return redirect()->route('admin.jobs')
+        ->with('success','Jobs Updated successfully.');
+
+    }
+
 
     public function update($id, Request $request)
     {

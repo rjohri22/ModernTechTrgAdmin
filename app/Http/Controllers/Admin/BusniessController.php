@@ -60,9 +60,19 @@ class BusniessController extends AdminBaseController
             'address' => 'required|max:255',
             'business_logo' => 'required|mimes:jpeg,png,jpg,gif,svg',
         ]);
-        $business_logo_pic = time().'.'.$request->business_logo->extension();  
-     
-        $request->business_logo->move(public_path('images/logo'), $business_logo_pic);
+
+        
+    //    $business_logo_pic= $request->business_logo;
+    //    $check = rename('images/logo', 'images/temp/', $business_logo_pic);
+       // $request->business_logo->move(public_path('images/logo/'), $business_logo_pic);
+       $org_img_name = $request->input('org_img_name'); 
+       //Location // Moving loation
+       if($org_img_name != ''){
+        rename(public_path('images/temp/'.$org_img_name), public_path('images/logo/'.$org_img_name));
+       }
+       
+    //    rename('images/logo/', 'images/temp/', $business_logo_pic);
+       
         $insert_arr = array(
             'name'       => $request->input('title'),
             // 'country'       => $request->input('country'),
@@ -74,13 +84,31 @@ class BusniessController extends AdminBaseController
             'Summary'    => $request->input('Summary'),
             'description'    => $request->input('description'),
             'status'    => $request->input('status'),
-            'business_logo' => $business_logo_pic, 
+            'business_logo' => $request->input('org_img_name'), 
         );
         
         $query = Companies::insert($insert_arr);
         return redirect()->route('admin.busniess')
         ->with('success','Busniess created successfully.');
     }
+
+    public function uploadCropImage(Request $request)
+    {
+        $business_logo_pic = $_POST['business_logo'];
+
+        list($type, $business_logo_pic) = explode(';', $business_logo_pic);
+        list(, $business_logo_pic)      = explode(',', $business_logo_pic);
+        $business_logo_pic = base64_decode($business_logo_pic);
+        $business_logo= time().'.png';
+        $path = public_path('images/temp/'.$business_logo);
+
+        file_put_contents($path, $business_logo_pic);
+        echo json_encode(array("business_logo" => $business_logo));
+        
+    }
+
+
+
 
     public function update($id, Request $request){
         $this->loadBaseData();
