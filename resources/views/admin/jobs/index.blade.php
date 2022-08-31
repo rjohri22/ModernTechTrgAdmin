@@ -16,22 +16,22 @@ use App\Models\Job_applications;
 	</div>
 	<div class="box-body">
 		<div class="table-responsive">
-		<table class="table table-sm">
+		<table  class="table table-bordered table-hover datatable">
 		  <thead>
 		    <tr>
 		      <th scope="col">#</th>
-		      <th scope="col">Title</th>
-		      <th scope="col">Company</th>
+		      <th scope="col">Profile</th>
+		      <th scope="col">Business</th>
 		      <th scope="col">Country</th>
 		      <th scope="col">State</th>
 		      <th scope="col">Location</th>
-		      <th scope="col">Salary</th>
-		      <th scope="col">Salary Type</th>
-		      <th scope="col">Work Type</th>
-		      <th scope="col">Job Type</th>
-		      <th scope="col">Expires On</th>
-		      <th scope="col">Head Count</th>
-		      <th scope="col">Urgent Hirign</th>
+		      <!-- <th scope="col">Salary</th> -->
+		      <!-- <th scope="col">Salary Type</th> -->
+		      <!-- <th scope="col">Work Type</th> -->
+		      <!-- <th scope="col">Job Type</th> -->
+		      <!-- <th scope="col">Expires On</th> -->
+		      <!-- <th scope="col">Head Count</th> -->
+		      <!-- <th scope="col">Urgent Hirign</th> -->
 		      <th scope="col">Created By</th>
 		      <th scope="col">Status</th>
 		      <th scope="col">Hr Approved</th>
@@ -45,14 +45,14 @@ use App\Models\Job_applications;
 		    @foreach($jobs as $job) 
 		    <tr>
 		      <th scope="row">{{$counter}}</th>
-		      <td>{{$job->title}}</td>
+		      <td>{{$job->bend_id}}</td>
 		      <td>{{$job->company_name}}</td>
 		      <td>{{$job->country_name}}</td>
 		      <td>{{$job->state_name}}</td>
 			  
 		      <td>{{$job->city_name}}</td>
-		      <td>{{($job->min_salary) ? $job->min_salary : 0}} To {{($job->max_salary) ? $job->max_salary : 0}}</td>
-		      <td>
+		      <!-- <td>{{($job->min_salary) ? $job->min_salary : 0}} To {{($job->max_salary) ? $job->max_salary : 0}}</td> -->
+		      <!-- <td>
 		      	@if($job->salary_type =='1')
 		      		Monthly
 				@elseif($job->salary_type =='2')
@@ -62,8 +62,8 @@ use App\Models\Job_applications;
 				@else
 				 	<i>Not Specified</i>       
 				@endif
-		      </td>
-		      <td>
+		      </td> -->
+		      <!-- <td>
 		      	@if($job->work_type =='1')
 		      		Part Time
 				@elseif($job->work_type =='2')
@@ -71,8 +71,8 @@ use App\Models\Job_applications;
 				@else
 				 	<i>Not Specified</i>       
 				@endif
-		      </td>
-		      <td>
+		      </td> -->
+		      <!-- <td>
 		      	@if($job->job_type =='1')
 		      		Internship
 				@elseif($job->job_type =='2')
@@ -82,10 +82,10 @@ use App\Models\Job_applications;
 				@else
 				 	<i>Not Specified</i>       
 				@endif
-		      </td>
-		      <td>{{date('d-M-Y',strtotime($job->expires_on))}}</td>
-		      <td>{{$job->no_of_positions}}</td>
-		      <td>{{($job->urgent_hiring) ? "Yes": " No "}}</td>
+		      </td> -->
+		      <!-- <td>{{date('d-M-Y',strtotime($job->expires_on))}}</td> -->
+		      <!-- <td>{{$job->no_of_positions}}</td> -->
+		      <!-- <td>{{($job->urgent_hiring) ? "Yes": " No "}}</td> -->
 		      <td>{{$job->first_name}}</td>
 
 		      @if($job->modified_by != $login_details->user_id || $master_bend == true)
@@ -127,6 +127,9 @@ use App\Models\Job_applications;
 		      @endif
 
 		      <td>
+			  @if($job->is_draft =='1')
+				<a href="{{route('admin.publish_jobs',$job->id)}}" class="btn btn-warning btn-sm">Publish</a>
+				@endif
 		      	<a href="{{route('admin.view_job',$job->id)}}" class="btn btn-primary btn-sm">View</a>
 				  @if($job->approved_hr == null)
 		      	<a href="{{route('admin.edit_job',$job->id)}}" class="btn btn-info btn-sm">Edit</a>

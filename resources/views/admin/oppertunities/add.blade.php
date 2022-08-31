@@ -10,12 +10,12 @@
 		<form action="{{url('admin/oppertunities/store_oppertunity')}}" method="post">
 			@csrf
 			<div class="row">
-				<div class="col-sm-3">
+				<!-- <div class="col-sm-3">
 					<label>Title</label>
 					<input type="text" name="title" class="form-control">
-				</div>
+				</div> -->
 				<div class="col-sm-3">
-					<label>Band</label>
+					<label>Profiles</label>
 					<select name="bend_id" class="form-control">
 						<option value="">Select Band</option>
 						@foreach($bends as $bend)
@@ -55,22 +55,15 @@
 					</select>
 				</div> -->
 
-				<div class="col-sm-3">
+				<!-- <div class="col-sm-3">
 					<label>Job Type</label>
 					<select name="job_type" class="form-control">
 						<option value="1">Internship</option>
 						<option value="2">Fresher</option>
 						<option value="3">Experienced</option>
 					</select>
-				</div>
-
-				<div class="col-sm-3">
-					<label>Work Type</label>
-					<select name="work_type" class="form-control">
-						<option value="1">Part Time</option>
-						<option value="2">Full Time</option>
-					</select>
-				</div>
+				</div> -->
+<!--   -->
 				
 
 				<!-- <div class="col-sm-3">
@@ -85,13 +78,13 @@
 					<input type="number" name="no_of_position" class="form-control" disabled>
 				</div> -->
 				<div class="row">
-				<div class="col-sm-3">
+				<!-- <div class="col-sm-3">
 					<label>Urgent Hiring</label>
 					<select name="urgent_hiring" class="form-control">
 						<option value="1">Yes</option>
 						<option value="0">No</option>
 					</select>
-				</div>
+				</div> -->
 
 				<!-- <div class="col-sm-3">
 					<label>Status</label>
@@ -103,54 +96,54 @@
 				<div class="row">
 				<div class="col-sm-12">
 					<label>Daily Job</label>
-					<textarea type="text" name="daily_job" class="form-control" rows="8">
+					<textarea type="text" name="daily_job" id="editor1" class="form-control" rows="8">
 </textarea>
 				</div>
 </div>
-<div class="row">
+<!-- <div class="row">
 				<div class="col-sm-12">
 					<label>Team Engagement</label>
 					<textarea type="text" name="team_engagement" class="form-control" rows="8">
 </textarea>
 				</div>
-</div>
-<div class="row">
+</div> -->
+<!-- <div class="row">
 				<div class="col-sm-12">
 					<label>Reporting</label>
 					<textarea type="text" name="reporting" class="form-control" rows="8">
 </textarea>
 				</div>
-</div>
+</div> -->
 			</div>
 			</div>
 			<br>
-			<div class="row">
+			<!-- <div class="row">
 				<div class="col-sm-12">
 					<label>profile</label>
 					<textarea type="text" name="profile" class="form-control" rows="8" >
 					</textarea>
 				</div>
-			</div>
+			</div> -->
 			<div class="row">
 				<div class="col-sm-12">
 					<label>Responsibilities</label>
-					<textarea type="text" name="Responsibilities" class="form-control" rows="8" >
+					<textarea type="text" name="Responsibilities" id="editor2" class="form-control editor1" rows="8" >
 					</textarea>
 				</div>
 			</div>
 			<br>
 			<div class="row">
 				<div class="col-sm-12">
-					<label>Summery</label>
-					<textarea class="form-control" name="summery" rows="8"></textarea>
+					<label>KPI </label>
+					<textarea class="form-control" id="editor3" name="summery" rows="8"></textarea>
 				</div>
 				
 			</div>
 			<br>
 			<div class="row">
 				<div class="col-sm-12">
-					<label>Description</label>
-					<textarea class="form-control" name="description" rows="8"></textarea>
+					<label>Eligibility Criteria</label>
+					<textarea class="form-control" name="description" id="editor4" rows="8"></textarea>
 				</div>
 			</div>
 			<br>
@@ -166,3 +159,4 @@
 
 
 @endsection
+

@@ -14,7 +14,7 @@
 				<td style="width: 50%">{{$job->title}}</td>
 			</tr>
 			<tr>
-				<th>Company</th>
+				<th>Business</th>
 				<td>{{$job->company_name}}</td>
 			</tr>
 			<tr>
@@ -29,14 +29,14 @@
 				<th>City</th>
 				<td>{{$job->city_name}}</td>
 			</tr>
-			<tr>
+			<!-- <tr>
 				<th>Min Salary</th>
 				<td>{{$job->min_salary}}</td>
 			</tr>
 			<tr>
 				<th>Max Salary</th>
 				<td>{{$job->max_salary}}</td>
-			</tr>
+			</tr> -->
 			<tr>
 				<th>Salary Type</th>
 				<td>

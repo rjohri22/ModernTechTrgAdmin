@@ -1,17 +1,24 @@
 @extends('admin.layout.master')
 @section('content')
+
+<style>
+	div.box-body{
+		overflow-x: scroll;
+	}
+	
+	</style>
 <div class="box box-primary container mt-2" style="background: white">
 	<div class="box-header with-border">
-		<a href="{{route('admin.bend_add')}}" class="btn btn-primary" style="float: right;">Add Band</a>
-		<h3>Bands</h3>
+		<a href="{{route('admin.bend_add')}}" class="btn btn-primary" style="float: right;">Add Profile</a>
+		<h3>Profiles</h3>
 	</div>
 	<div class="box-body">
-		<table class="table table-sm">
+		<table id="example" class="table table-striped table-bordered datatable">
 		  <thead>
 		    <tr>
 		      <th scope="col" style="width: 10%">#</th>
 		      <th scope="col" style="width: 10%">Title</th>
-		      <th scope="col" style="width: 10%">Band Type</th>
+		      <th scope="col" style="width: 10%">Profile Type</th>
 		      <th scope="col" style="width: 10%">Level</th>
 		      <th scope="col" style="width: 10%">Status</th>
 		      <th scope="col" style="width: 10%">Report To</th>
@@ -67,4 +74,6 @@
 		</table>
 	</div>
 </div>
+
+
 @endsection

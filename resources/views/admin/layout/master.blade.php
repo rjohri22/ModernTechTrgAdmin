@@ -30,6 +30,9 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+  <!-- datatable libraries: -->
+  
+  <link rel="stylesheet" href="{{ url('assets/adminpanel1/') }}/plugins/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <script src="{{ url('assets/adminpanel1/') }}/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="{{ url('assets/adminpanel1/') }}/bower_components/jquery-ui/jquery-ui.min.js"></script>
   <style type="text/css">
@@ -167,12 +170,14 @@
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
                 </a>
+                
                 <ul class="treeview-menu" style="display: none;">
                   @foreach($sm->options as $o)
                     <li>
                       <a href="{{route($o->redirect_link)}}">
                         <i class="fa fa-circle-o"></i> <span>{{ $o->option_name }}</span>
                       </a>
+                      
                     </li>
                   @endforeach
                 </ul>
@@ -371,14 +376,54 @@
   <script src="{{ url('assets/adminpanel1/') }}/bower_components/fastclick/lib/fastclick.js"></script>
   <!-- AdminLTE App -->
   <script src="{{ url('assets/adminpanel1/') }}/dist/js/adminlte.min.js"></script>
+  <!-- scripts for datatables -->
+
+  <script src="{{ url('assets/adminpanel1/') }}/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="{{ url('assets/adminpanel1/') }}/plugins/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="{{ url('assets/adminpanel1/ckeditor') }}/ckeditor.js"></script>
 
   <script type="text/javascript">
     $(function () {
+   
+    $('.datatable').DataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true
+    })
+  })
+  $(function () {
       $('[data-toggle="popover"]').popover({
         html : true,
       })
     })
+   
   </script>
+  <script>
+	//CKEDITOR.replace( 'editor1' );
+ //  CKEDITOR.replace( 'editor2' );
+  //  CKEDITOR.replace( 'editor3' );
+  //  CKEDITOR.replace( 'editor4' );
+  
+   CKEDITOR.replace( 'editor1', { 
+    enterMode: CKEDITOR.ENTER_BR, 
+    on: {'instanceReady': function (evt) { evt.editor.execCommand('');}},
+    }); 
+    CKEDITOR.replace( 'editor2', { 
+    enterMode: CKEDITOR.ENTER_BR, 
+    on: {'instanceReady': function (evt) { evt.editor.execCommand('');}},
+    }); 
+    CKEDITOR.replace( 'editor3', { 
+    enterMode: CKEDITOR.ENTER_BR, 
+    on: {'instanceReady': function (evt) { evt.editor.execCommand('');}},
+    }); 
+    CKEDITOR.replace( 'editor4', { 
+    enterMode: CKEDITOR.ENTER_BR, 
+    on: {'instanceReady': function (evt) { evt.editor.execCommand('');}},
+    }); 
+	</script>
   @yield('footer')
 </body>
 </html>

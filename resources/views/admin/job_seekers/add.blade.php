@@ -40,7 +40,7 @@
 			<br>
 			<div class="row">
 				<div class="col-sm-4">
-					<label>Band</label>
+					<label>Profile</label>
 					<select class="form-control" name="bend" id="bend">
 						<option value="">Select Band</option>
 						@foreach($bends as $bend)

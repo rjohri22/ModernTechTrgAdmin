@@ -1,13 +1,19 @@
 @extends('admin.layout.master')
 @section('content')
 
+<style>
+	div.box-body{
+		overflow-x: scroll;
+	}
+	
+	</style>
 <div class="box box-primary container mt-2" style="background: white">
 	<div class="box-header">
 		<a href="{{route('admin.add_job_seeker')}}" class="btn btn-primary" style="float: right">Add Employee</a>
 		<h3>Employees</h3>
 	</div>
 	<div class="box-body">
-		<table class="table table-sm">
+		<table id="example" class="table table-striped table-bordered datatable">
 		  <thead>
 		    <tr>
 		      <th scope="col">#</th>
@@ -16,7 +22,7 @@
 		      <th scope="col">Email</th>
 		      <th scope="col">Phone</th>
 		      <th scope="col">Address</th>
-		      <th scope="col">Band</th>
+		      <th scope="col">profile</th>
 		      <th scope="col">Country</th>
 		      <th scope="col">Actions</th>
 		    </tr>

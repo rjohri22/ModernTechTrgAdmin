@@ -15,12 +15,12 @@
 					<label>Title</label>
 					<input type="text" name="title" class="form-control" value="{{$department->title}}">
 				</div>
-				<div class="col-sm-3">
+				<!-- <div class="col-sm-3">
 					<label>Head Of Department</label>
 					<select class="form-control" name="hod">
 						<option value="0" {{($department->hod_id == 0) ? "selected" : ""}}>DEFAULT HOD</option>
 					</select>
-				</div>
+				</div> -->
 				<div class="col-sm-3">
 					<label>Active</label>
 					<select class="form-control" name="active">

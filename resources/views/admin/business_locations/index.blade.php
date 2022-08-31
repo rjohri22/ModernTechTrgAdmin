@@ -1,13 +1,19 @@
 @extends('admin.layout.master')
 @section('content')
 
+<style>
+	div.box-body{
+		overflow-x: scroll;
+	}
+	
+	</style>
 <div class="box box-primary container mt-2" style="background: white">
 	<div class="box-header with-border">
 		<a href="{{route('admin.business_location_add')}}" class="btn btn-primary" style="float: right;">Add Location</a>
 		<h3>Business Location</h3>
 	</div>
 	<div class="box-body">
-		<table class="table table-sm">
+		<table id="example" class="table table-striped table-bordered datatable">
 		  <thead>
 		    <tr>
 		      <th scope="col">#</th>
@@ -15,6 +21,7 @@
 		      <th scope="col">Country</th>
 		      <th scope="col">State</th>
 		      <th scope="col">City</th>
+			  <th scope="col">Status</th>
 		      <th scope="col">Actions</th>
 		    </tr>
 		  </thead>
@@ -52,4 +59,6 @@
 		</table>
 	</div>
 </div>
+
+
 @endsection

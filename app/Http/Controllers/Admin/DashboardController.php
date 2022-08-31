@@ -16,6 +16,7 @@ use PHPMailer\PHPMailer\Exception;
 use App\Models\Admin\Countries;
 use App\Models\Admin\States;
 use App\Models\Admin\Cities;
+use App\Models\Admin\Jobs;
 use App\Models\Admin\Question;
 
 
@@ -49,11 +50,21 @@ class DashboardController extends AdminBaseController
         if(!$this->check_role()){
              return redirect()->route('home');
         };
-        // $user_id = Auth::user()->id;
-        // $this->data['login_detail'] = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
+        $user_id = Auth::user()->id;
+       // $this->data['login_detail'] = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
         $this->data['total_oppertunity'] = Oppertunities::count();
         $this->data['total_jobseeker'] = User::where('group_id', 2)->count();
         $this->data['total_applications'] = Job_applications::count();
+        $this->data['jobs'] = Jobs::join('companies', 'companies.id', '=', 'jobs.company_id')
+        ->join('countries','countries.id','=','jobs.country_id')
+        ->join('states','states.id','=','jobs.state_id')
+        ->join('cities','cities.id','=','jobs.city_id')
+        ->join('users','users.id','=','jobs.modified_by')
+        ->orderBy('no_of_positions', 'desc')
+        ->limit(10)
+        ->get();
+        $this->data['master_bend'] = true;
+         $this->data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
         return view('admin.dashbaord',$this->data);
     }
 
@@ -190,6 +201,19 @@ class DashboardController extends AdminBaseController
         return response()->json($res);
     }
     
+    public function viewjob()
+    {
+        $this->loadBaseData();
+        if(!$this->check_role()){
+            return redirect()->route('home');
+        };
 
+        $fetch = Jobs::join('companies', 'companies.id', '=', 'jobs.company_id')->join('countries','countries.id','=','jobs.country_id')->join('states','states.id','=','jobs.state_id')->join('cities','cities.id','=','jobs.city_id')
+        ->select(['jobs.*', 'companies.name as company_name', 'countries.name as country_name','states.name as state_name','cities.name as city_name'])->where('jobs.id',$id)->first();
+// $fetch = Oppertunities::Leftjoin('companies', 'companies.id', '=', 'oppertunities.company_id')
+        // ->get(['oppertunities.*', 'companies.name as company_name'])->where('id',$id)->first();
+$this->data['job'] = $fetch;
+return view('admin/jobs/view',$this->data);
+    }
 
 }

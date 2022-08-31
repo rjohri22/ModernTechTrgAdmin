@@ -5,7 +5,7 @@
 <div class="box box-primary container mt-2" style="background: white">
 
 	<div class="box-header">
-		<h3>Add Band</h3>
+		<h3>Add Profile</h3>
 	</div>
 	<div class="box-body">
 		
@@ -20,7 +20,7 @@
 					<input type="hidden" name="bend_type" id="bend_id" value="2">
 				@else
 				<div class="col-sm-4">
-					<label>Band Type</label>
+					<label>Profile Type</label>
 					<select class="form-control" name="bend_type" id="bend_type">
 						<option value="0">All</option>
 						<option value="1">Business Specific</option>
@@ -41,9 +41,9 @@
 			<div class="row">
 
 				<div class="col-sm-4">
-					<label>Report Band</label>
+					<label>Report Profile</label>
 					<select class="form-control" name="bend_report[]" multiple>
-						<option value="">Select Report Band</option>
+						<option value="">Select Report Profile</option>
 						 @foreach($bends as $b) 
 						 <option value="{{$b->id}}">{{$b->name}}</option>
 						 @endforeach					

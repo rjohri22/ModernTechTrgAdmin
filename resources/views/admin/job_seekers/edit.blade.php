@@ -88,7 +88,7 @@
 									<td><input id="address_2" type="text" class="form-control @error('address') is-invalid @enderror" name="address_2" value="{{$user->address_secondary}}" required autocomplete="address"></td>
 								</tr>
 								<tr>
-									<th>Bend</th>
+									<th>Profile</th>
 									<td>
 										<select class="form-control" name="bend" id="bend">
 											<option value="">Select Bend</option>

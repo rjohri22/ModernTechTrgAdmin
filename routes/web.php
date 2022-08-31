@@ -136,6 +136,20 @@ Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::cla
     Route::post('/states/update/{id}', [Admin\StatesController::class, 'update'])->name('admin.states_update');
     Route::get('/states/delete/{id}', [Admin\StatesController::class, 'delete'])->name('admin.states_delete');
 
+
+
+//countries
+Route::get('/countries', [Admin\CountryController::class, 'index'])->name('admin.countries');
+Route::get('/countries/add', [Admin\CountryController::class, 'add'])->name('admin.countries_add');
+Route::post('/countries/store', [Admin\CountryController::class, 'store'])->name('admin.countries_store');
+Route::get('/countries/edit/{id}', [Admin\CountryController::class, 'edit'])->name('admin.countries_edit');
+Route::post('/countries/update/{id}', [Admin\CountryController::class, 'update'])->name('admin.countries_update');
+Route::get('/countries/delete/{id}', [Admin\CountryController::class, 'delete'])->name('admin.countries_delete');
+
+
+
+
+
     Route::get('/cities', [Admin\CitiesController::class, 'index'])->name('admin.cities');
     Route::get('/cities/add', [Admin\CitiesController::class, 'add'])->name('admin.cities_add');
     Route::get('/cities/edit/{id}', [Admin\CitiesController::class, 'edit'])->name('admin.cities_edit');
@@ -151,6 +165,10 @@ Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::cla
     Route::post('/busniess/store', [Admin\BusniessController::class, 'store'])->name('admin.busniess_store');
     Route::post('/busniess/update/{id}', [Admin\BusniessController::class, 'update'])->name('admin.busniess_update');
     Route::get('/busniess/delete/{id}', [Admin\BusniessController::class, 'delete'])->name('admin.busniess_delete');
+
+    Route::post('/busniess/crop', [Admin\BusniessController::class, 'uploadCropImage'])->name('admin.crop');
+
+
 
     Route::get('/bends', [Admin\BendController::class, 'index'])->name('admin.bends');
     Route::get('/bend/add', [Admin\BendController::class, 'add'])->name('admin.bend_add');
@@ -196,6 +214,7 @@ Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::cla
     Route::post('/load_business_country', [Admin\DashboardController::class, 'load_business_country'])->name('admin.load_business_country');
     Route::post('/load_business_state', [Admin\DashboardController::class, 'load_business_state'])->name('admin.load_business_state');
     Route::post('/load_business_city', [Admin\DashboardController::class, 'load_business_city'])->name('admin.load_business_city');
+    Route::get('/jobs/viewjob', [Admin\DashboardController::class, 'viewjob'])->name('admin.viewjob');
 
     //rounds
     Route::post('/load_round', [Admin\DashboardController::class, 'load_round'])->name('admin.load_round');
@@ -220,11 +239,9 @@ Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::cla
 
     Route::get('/interview_objectives/questions/{id}', [Admin\InterviewObjectivesController::class, 'question'])->name('admin.question_interview_objectives');
 
-    //QUESTION BANK
-    //-------------------------------------------
 
 
-
+Route::get('/jobs/publish/{id}', [Admin\JobController::class, 'publish'])->name('admin.publish_jobs');
 
     Route::get('/question_banks', [Admin\QuestionBankController::class, 'index'])->name('admin.question_banks');
 
