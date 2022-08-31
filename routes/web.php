@@ -220,6 +220,25 @@ Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::cla
 
     Route::get('/interview_objectives/questions/{id}', [Admin\InterviewObjectivesController::class, 'question'])->name('admin.question_interview_objectives');
 
+    //QUESTION BANK
+    //-------------------------------------------
 
+
+
+
+    Route::get('/question_banks', [Admin\QuestionBankController::class, 'index'])->name('admin.question_banks');
+
+    Route::get('/question_bank/add', [Admin\QuestionBankController::class, 'add'])->name('admin.add_question_bank');
+    
+    Route::get('/question_bank/edit/{id}', [Admin\QuestionBankController::class, 'edit'])->name('admin.edit_question_bank');
+
+    // Route::get('/interview_objectives/view/{id}', [Admin\QuestionBankController::class, 'view'])->name('admin.view_interview_objectives');
+
+
+    Route::post('/question_bank/store_question_bank', [Admin\QuestionBankController::class, 'store'])->name('admin.store_question_bank');
+    
+    Route::post('/question_bank/update_question_bank/{id}', [Admin\QuestionBankController::class, 'update'])->name('admin.update_question_bank');
+    
+    Route::get('/question_bank/delete_question_bank/{id}', [Admin\QuestionBankController::class, 'delete'])->name('admin.delete_question_bank');
 });
 
