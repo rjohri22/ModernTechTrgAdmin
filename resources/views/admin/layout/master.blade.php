@@ -150,6 +150,11 @@
               <i class="fa fa-th"></i> <span>Dashbaord</span>
             </a>
           </li>
+          <li>
+            <a href="{{route('admin.question_banks')}}">
+              <i class="fa fa-th"></i> <span>Question Bank</span>
+            </a>
+          </li>
           @foreach($sidemenu as $sm)
             @if(count($sm->options) == 1)
               <li>
