@@ -529,7 +529,7 @@
 										<thead>
 											<tr>
 												<th>{{'Title'}}</th>
-												<th>{{'Profiecy'}}</th>
+												<th>{{'Profiency'}}</th>
 												<th>{{'Actions'}}</th>
 											</tr>
 										</thead>

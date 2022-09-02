@@ -32,9 +32,9 @@
 		      <th scope="row">{{$counter}}</th>
 		      <td class="oppertunity">{{$country->name}}</td>
 		      <td class="user_name">
-		      	@if($country->status == 1)
+		      	@if($country->active == 1)
 		      		<span class="label label-success">Active</span>
-		      	@elseif($country->status == 0)
+		      	@elseif($country->active == 0)
 		      		<span class="label label-danger">Inactive</span>
 		      	@else
 		      		<i>Not Specified</i>
