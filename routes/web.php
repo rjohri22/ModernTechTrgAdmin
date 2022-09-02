@@ -21,7 +21,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// Confilate Code Start
+Route::get('/index',function(){
+    return view('index');
+});
+
+Route::get('/jobSeeker',function(){
+    return view('jobSeeker');
+});
+
+
+//---------------------------
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Confilate Code End
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::post('/store_profile', [App\Http\Controllers\HomeController::class, 'store_profile'])->name('store_profile');
