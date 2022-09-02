@@ -46,8 +46,9 @@
 				</div>
 				<div class="col-sm-4">
 					<label>Bussiness Logo</label>
-					<input type="file" name="business_logo"  id="business_logo" class="form-control" value={{$busniess->business_logo}}>
-					<img src="  {{ url('public/images/logo/'.$busniess->business_logo) }}" width="50px" height="50px"/>
+
+					<input type="file" name="business_logo"  id="business_logo" class="form-control" value="{{$busniess->business_logo}}">
+					<img src="  {{ asset('public/images/logo/'.$busniess->business_logo) }}" width="50px" height="50px"/>
 				</div>
 
 				<div class="row">
