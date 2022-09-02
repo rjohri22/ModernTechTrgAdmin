@@ -46,7 +46,7 @@
 		      <td class="oppertunity">{{$b->address}}</td>
 			  <td class="oppertunity">{{$b->business_url}}</td>
 			  <td class="oppertunity">{{$b->summary}}</td>
-			  <td class="oppertunity"><img src="  {{ url('public/images/logo/'.$b->business_logo) }}" width="50px" height="50px"/></td>
+			  <td class="oppertunity"><img src="{{ asset('images/logo/'.$b->business_logo) }}" width="50px" height="50px"/></td>
 		      <td class="oppertunity">{{$b->description}}</td>
 		      <!-- <td class="oppertunity">{{$b->company_type}}</td> -->
 		      <td class="user_name">
