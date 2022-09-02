@@ -23,6 +23,7 @@
 						@endforeach
 					</select>
 				</div>
+				
 				<!-- <div class="col-sm-3">
 					<label>Min Salary</label>
 					<input type="number" name="min_salary" class="form-control">
@@ -77,7 +78,7 @@
 					<label>No Of Positions</label>
 					<input type="number" name="no_of_position" class="form-control" disabled>
 				</div> -->
-				<div class="row">
+				
 				<!-- <div class="col-sm-3">
 					<label>Urgent Hiring</label>
 					<select name="urgent_hiring" class="form-control">
@@ -114,7 +115,7 @@
 </textarea>
 				</div>
 </div> -->
-			</div>
+			
 			</div>
 			<br>
 			<!-- <div class="row">
@@ -124,28 +125,29 @@
 					</textarea>
 				</div>
 			</div> -->
-			<div class="row">
+			<!-- <div class="row"> -->
 				<div class="col-sm-12">
 					<label>Responsibilities</label>
 					<textarea type="text" name="Responsibilities" id="editor2" class="form-control editor1" rows="8" >
 					</textarea>
 				</div>
-			</div>
+			<!-- </div> -->
 			<br>
-			<div class="row">
+			<!-- <div class="row"> -->
 				<div class="col-sm-12">
 					<label>KPI </label>
 					<textarea class="form-control" id="editor3" name="summery" rows="8"></textarea>
 				</div>
 				
-			</div>
+			<!-- </div> -->
 			<br>
-			<div class="row">
+			<!-- <div class="row"> -->
 				<div class="col-sm-12">
 					<label>Eligibility Criteria</label>
 					<textarea class="form-control" name="description" id="editor4" rows="8"></textarea>
 				</div>
 			</div>
+
 			<br>
 			<div class="row">
 				<div class="col-sm-12">
