@@ -1,5 +1,22 @@
 @extends('layouts.app')
 @section('content')
+<style>
+	.bootstrap-tagsinput{
+		width:100%;
+	}
+
+	.bootstrap-tagsinput .tag {
+      margin-right: 2px;
+      color: white !important;
+      background-color: #22c5bc;
+      padding: 0.2rem;
+	  
+    }
+</style>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+
 <div class="container">
 	<div class="row justify-content-center">
 		<div class="col-md-12">
@@ -31,6 +48,30 @@
 											<span class="bs-stepper-label">{{('Work')}}</span>
 										</button>
 									</div>
+
+									<div class="line"></div>
+									<div class="step" data-target="#language-part">
+										<button type="button" class="step-trigger" role="tab" aria-controls="language-part" id="language-part-trigger">
+											<span class="bs-stepper-circle">4</span>
+											<span class="bs-stepper-label">{{('Language')}}</span>
+										</button>
+									</div>
+
+									<div class="line"></div>
+									<div class="step" data-target="#certificate-part">
+										<button type="button" class="step-trigger" role="tab" aria-controls="certificate-part" id="certificate-part-trigger">
+											<span class="bs-stepper-circle">4</span>
+											<span class="bs-stepper-label">{{('Certificate')}}</span>
+										</button>
+									</div>
+
+									<div class="line"></div>
+									<div class="step" data-target="#links-part">
+										<button type="button" class="step-trigger" role="tab" aria-controls="links-part" id="links-part-trigger">
+											<span class="bs-stepper-circle">4</span>
+											<span class="bs-stepper-label">{{('Social Link')}}</span>
+										</button>
+									</div>
 								</div>
 
 								<div class="bs-stepper-content">
@@ -44,12 +85,16 @@
 											<div class="row">
 												<div class="col-sm-4">
 													<div class="form-group">
+														<div class="image-placeholder">
+															<center>
+																@if ($user->profile_pic != null)
+																<img src="{{URL::asset('public/images/profile/'.$user->profile_pic)}}" style="width: 200px">
+																@endif
+															</center>
+														</div>
 														<label>{{('Profile Image')}}</label>
-														<img src="https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg" style="width: 100%">
-														<br>
-														<br>
 														<input type="file" name="profile_url" id="profile_image" class="form-control profile_image">
-														<input type="hidden" name="pre_profile_image" id="pre_profile_image">
+														<input type="hidden" name="pre_profile_image" id="pre_profile_image" value="{{$user->profile_pic}}">
 													</div>
 												</div>
 											</div>
@@ -90,19 +135,19 @@
 												<div class="col-sm-3">
 													<div class="form-group">
 														<label>{{'Country'}}</label>
-														<input type="text" name="country" id="country" class="form-control country" value="{{$user->country}}">
+														<input type="text" name="country" id="country" class="form-control country" value="{{($user->country) ? $user->country : $location->geoplugin_countryName}}">
 													</div>
 												</div>
 												<div class="col-sm-3">
 													<div class="form-group">
 														<label>{{'State'}}</label>
-														<input type="text" name="state" id="state" class="form-control city" value="{{$user->state}}">
+														<input type="text" name="state" id="state" class="form-control city" value="{{($user->state) ? $user->state : $location->geoplugin_region}}">
 													</div>
 												</div>
 												<div class="col-sm-3">
 													<div class="form-group">
 														<label>{{'City'}}</label>
-														<input type="text" name="city" id="city" class="form-control city" value="{{$user->city}}">
+														<input type="text" name="city" id="city" class="form-control city" value="{{($user->city) ? $user->city : $location->geoplugin_city}}">
 													</div>
 												</div>
 												<div class="col-sm-3">
@@ -139,7 +184,7 @@
 													</select>
 												</div>
 												<div class="col-sm-4">
-													<label>Desired Jop Title</label>
+													<label>Desired Job Title</label>
 													<input type="text" name="desired_job_title" id="desired_job_title" class="form-control" value="{{$user->desired_job_title}}">
 												</div>
 												<div class="col-sm-4">
@@ -166,15 +211,25 @@
 												</div>
 												<div class="col-sm-4">
 													<label>Resume Attachment</label>
-													<input type="file" name="resume_attachment" id="resume_attachment" class="form-control">
-													<input type="hidden" name="pre_resume_attachment" id="pre_resume_attachment" value="{{$user->resume_attachment}}">
+
+													<div class="input-group mb-3">
+													  <input type="file" name="resume_attachment" id="resume_attachment" class="form-control">
+													  <input type="hidden" name="pre_resume_attachment" id="pre_resume_attachment" value="{{$user->resume_attachment}}">
+														  <div class="input-group-append resume-placeholder">
+														  	@if ($user->resume_attachment != null)
+														    <a href="{{URL::asset('public/images/resume/'.$user->resume_attachment)}}" download><span class="input-group-text bg-primary" style="color: white">+</span></a>
+														    @endif
+														  </div>
+													</div>													
 												</div>
 											</div>
 											<br>
 											<div class="row">
 												<div class="col-sm-12">
 													<label>{{('Skill')}}</label>
-													<input type="text" name="skills" id="skills" class="form-control" value="{{$user->skills}}">
+													<input type="text" name="skills" data-role="tagsinput"  id="skills" class="form-control w-75" value="{{$user->skills}}" style="color:blue;">
+
+													<!-- <input type="text" name="skills" id="skills" class="form-control" value="{{$user->skills}}"> -->
 												</div>
 											</div>
 											<br>
@@ -211,7 +266,14 @@
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label>{{('Level')}}</label>
-															<input type="text" id="edu_level" class="form-control">
+															<select id="edu_level" class="form-control" >
+															<option value="" >Select</option>
+  															<option value="HSC">HSC</option>
+															<option value="SSC">SSC</option>
+															<option value="Bachelors">Bachelors</option>
+															<option value="Masters">Masters</option>
+															</select>
+															<!-- <input type="text" id="edu_level" class="form-control"> -->
 														</div>
 													</div>
 													<div class="col-sm-3">
@@ -222,14 +284,14 @@
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
-															<label>{{('Field Name')}}</label>
+															<label>{{('Course Specialization')}}</label>
 															<input type="text" id="edu_field" class="form-control">
 														</div>
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label>{{('Country')}}</label>
-															<input type="text" id="edu_country" class="form-control">
+															<input type="text" id="edu_country" class="form-control" value="{{$location->geoplugin_countryName}}">
 														</div>
 													</div>
 												</div>
@@ -238,13 +300,13 @@
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label>{{('State')}}</label>
-															<input type="text" id="edu_state" class="form-control">
+															<input type="text" id="edu_state" class="form-control" value="{{$location->geoplugin_region}}">
 														</div>
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label>{{('City')}}</label>
-															<input type="text" id="edu_city" class="form-control">
+															<input type="text" id="edu_city" class="form-control" value="{{$location->geoplugin_city}}">
 														</div>
 													</div>
 													<div class="col-sm-2">
@@ -271,7 +333,7 @@
 															<tr>
 																<th>{{('Level')}}</th>
 																<th>{{('Institude Name')}}</th>
-																<th>{{('Field Name')}}</th>
+																<th>{{('Course Specialization')}}</th>
 																<th>{{('Country')}}</th>
 																<th>{{('State')}}</th>
 																<th>{{('City')}}</th>
@@ -281,6 +343,10 @@
 															</tr>
 														</thead>
 														<tbody class="education_tbody">
+															@php
+															{{$counter = 0;}}
+															@endphp
+
 															@foreach($education as $edu)   
 																<tr class="row_{{$edu->id}}">
 																		<input type="hidden" name="insert_update[]" value="1">
@@ -294,7 +360,10 @@
 												 						<td><input type="text" class="form-control" name="to[]" value="{{$edu->period_to}}" readonly/></td>
 												 						<td><button class="btn btn-danger del-pre" data-id="{{$edu->id}}">X</button></td>
 												 					</tr>
-																@endforeach 
+												 					@php
+																	{{$counter = $edu->id+1;}}
+																	@endphp
+																@endforeach
 														</tbody>
 													</table>
 													<input type="hidden" name="del_id" value="" id="del_ids">
@@ -311,49 +380,320 @@
 										<div class="row">
 											<div class="col-sm-12">
 												<div class="row">
-													<div class="col-sm-5">
+													<div class="col-sm-3">
 														<div class="form-group">
 															<label>{{'Title'}}</label>
 															<input type="text" id="work_title" class="form-control">
-
 														</div>
 													</div>
-
 													<div class="col-sm-3">
 														<div class="form-group">
-															<label><?php echo ('User.start_date')?></label>
-															<input type="date" id="work_start_date" class="form-control">
+															<label>{{'Company'}}</label>
+															<input type="text" id="work_company" class="form-control">
 														</div>
 													</div>
-
-
 													<div class="col-sm-3">
 														<div class="form-group">
-															<label><?php echo ('User.end_date')?></label>
-															<input type="date" id="work_start_date" class="form-control">
-
+															<label>{{'From'}}</label>
+															<input type="date" id="work_from" class="form-control">
 														</div>
 													</div>
-													<div class="col-sm-1">
-														<button class="btn btn-primary" style="margin-top: 31px" id="work_add">Add</button>
+													<div class="col-sm-3">
+														<div class="form-group">
+															<label>{{'To'}}</label>
+															<input type="date" id="work_to" class="form-control">
+														</div>
 													</div>
 												</div>
+												<br>
+												<div class="row">
+													<div class="col-sm-4">
+														<div class="form-group">
+															<label>{{'Country'}}</label>
+															<input type="text" id="work_country" class="form-control" value="{{$location->geoplugin_countryName}}">
+														</div>
+													</div>
+													<div class="col-sm-4">
+														<div class="form-group">
+															<label>{{'State'}}</label>
+															<input type="text" id="work_state" class="form-control" value="{{$location->geoplugin_regionName}}">
+														</div>
+													</div>
+													<div class="col-sm-4">
+														<div class="form-group">
+															<label>{{'City'}}</label>
+															<input type="text" id="work_city" class="form-control" value="{{$location->geoplugin_city}}">
+														</div>
+													</div>
+												</div>
+												<br>
+												<div class="row">
+													<div class="col-sm-8">
+														<div class="form-group">
+															<label>{{'Description'}}</label>
+															<input type="text" id="work_description" class="form-control">
+														</div>
+													</div>
+													<div class="col-sm-4">
+														<button class="btn btn-primary" style="margin-top: 24px" id="work_add">Add</button>
+													</div>
+												</div>
+												<br>
+												<form action="#" method="post" id="work-frm">
+													@csrf
 												<table class="table table-bordered">
 													<thead>
 														<tr>
-															<th><?php echo ('User.title')?></th>
-															<th><?php echo ('User.start_date')?></th>
-															<th><?php echo ('User.end_date')?></th>
-															<th><?php echo ('User.actions')?></th>
+															<th>{{'Title'}}</th>
+															<th>{{'Company'}}</th>
+															<th>{{'Duration'}}</th>
+															<th>{{'Address'}}</th>
+															<th>{{'Description'}}</th>
+															<th>{{'Actions'}}</th>
 														</tr>
 													</thead>
 													<tbody class="work_tbody">
+														@php
+															{{$work_counter = 0;}}
+															@endphp
+
+															@foreach($works as $work)
+															<tr class="work_row_{{$work->id}}">
+											 					<input type="hidden" name="insert_update[]" value="1">
+										 						<td><input type="text" class="form-control" name="work_title[]" value="{{$work->title}}" readonly/></td>
+										 						<td><input type="text" class="form-control" name="work_company[]" value="{{$work->company}}" readonly/></td>
+										 						<input type="hidden" name="work_from[]" value="{{$work->period_from}}"/>
+										 						<input type="hidden" name="work_to[]" value="{{$work->period_to}}"/>
+										 						<td>{{$work->period_from}} - {{$work->period_to}}</td>
+										 						<input type="hidden" name="work_country[]" value="{{$work->country}}"/>
+										 						<input type="hidden" name="work_state[]" value="{{$work->state}}"/>
+										 						<input type="hidden" name="work_city[]" value="{{$work->city}}"/>
+										 						<td>{{$work->country}}, {{$work->state}}, {{$work->city}}</td>
+										 						<td><input type="text" name="work_description[]" class="form-control" value="{{$work->description}}" readonly/></td>
+										 						<td><button class="btn btn-danger work_del-pre" data-id="{{$work->id}}">X</button></td>
+										 					</tr>
+
+												 					@php
+																	{{$work_counter = $work->id+1;}}
+																	@endphp
+																@endforeach
 													</tbody>
 												</table>
+												<input type="hidden" name="work_del_id" value="" id="work_del_ids">
+											</form>
 											</div>
 										</div>
-										<button class="btn btn-primary" onclick="stepper.previous()"><?php echo ('User.prevoius')?></button>
-										<button type="submit" class="btn btn-primary step_ahead" data-step="4" id="step_4" onclick="stepper.next()"><?php echo ('User.complete')?></button>                            
+										<button class="btn btn-primary" onclick="stepper.previous()">{{'Previous'}}</button>
+										<button type="button" class="btn btn-primary" onclick="stepper.next()">{{'Next'}}</button>                            
+										<button type="submit" class="btn btn-primary" id="save_work">{{'Save'}}</button>                            
+									</div>
+
+									<div id="language-part" class="content" role="tabpanel" aria-labelledby="language-part-trigger">
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="row">
+													<div class="col-sm-4">
+														<div class="form-group">
+															<label>{{'Language'}}</label>
+															<input type="text" id="language_title" class="form-control">
+														</div>
+													</div>
+													<div class="col-sm-4">
+														<div class="form-group">
+															<label>{{'Profiency'}}</label>
+															<input type="text" id="language_profiency" class="form-control">
+														</div>
+													</div>
+													<div class="col-sm-4">
+														<button class="btn btn-primary" style="margin-top: 24px" id="language_add">Add</button>
+													</div>
+												</div>
+												<br>
+												<form action="#" method="post" id="language-frm">
+													@csrf
+												<table class="table table-bordered">
+													<thead>
+														<tr>
+															<th>{{'Title'}}</th>
+															<th>{{'Profiecy'}}</th>
+															<th>{{'Actions'}}</th>
+														</tr>
+													</thead>
+													<tbody class="language_tbody">
+														@php
+															{{$language_counter = 0;}}
+															@endphp
+
+															@foreach($language as $lang)
+															<tr class="language_row_{{$lang->id}}">
+											 					<input type="hidden" name="insert_update[]" value="1">
+										 						<td><input type="text" class="form-control" name="language_title[]" value="{{$lang->title}}" readonly/></td>
+										 						<td><input type="text" class="form-control" name="language_profiency[]" value="{{$lang->proficiency}}" readonly/></td>
+
+										 						<td><button class="btn btn-danger language_del-pre" data-id="{{$lang->id}}">X</button></td>
+										 					</tr>
+
+												 					@php
+																	{{$language_counter = $lang->id+1;}}
+																	@endphp
+																@endforeach
+													</tbody>
+												</table>
+												<input type="hidden" name="language_del_id" value="" id="language_del_ids">
+											</form>
+											</div>
+											</div>
+											<button class="btn btn-primary" onclick="stepper.previous()">{{'Previous'}}</button>
+											<button type="button" class="btn btn-primary" onclick="stepper.next()">{{'Next'}}</button>                            
+											<button type="submit" class="btn btn-primary" id="save_language">{{'Save'}}</button>  
+										</div>
+
+										<div id="certificate-part" class="content" role="tabpanel" aria-labelledby="certificate-part-trigger">
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="row">
+													<div class="col-sm-4">
+														<div class="form-group">
+															<label>{{'Title'}}</label>
+															<input type="text" id="certificate_title" class="form-control">
+														</div>
+													</div>
+													<div class="col-sm-4">
+														<div class="form-group">
+															<label>{{'Institude Name'}}</label>
+															<input type="text" id="certificate_institude" class="form-control">
+														</div>
+													</div>
+													<div class="col-sm-4">
+														<div class="form-group">
+															<label>{{'Description'}}</label>
+															<input type="text" id="certificate_description" class="form-control">
+														</div>
+													</div>
+												</div>
+												<br>
+												<div class="row">
+													<div class="col-sm-3">
+														<div class="form-group">
+															<label>{{'From'}}</label>
+															<input type="date" id="certificate_from" class="form-control">
+														</div>
+													</div>
+													<div class="col-sm-3">
+														<div class="form-group">
+															<label>{{'To'}}</label>
+															<input type="date" id="certificate_to" class="form-control">
+														</div>
+													</div>
+													<div class="col-sm-4">
+														<button class="btn btn-primary" style="margin-top: 24px" id="certificate_add">Add</button>
+													</div>
+												</div>
+												<br>
+												<form action="#" method="post" id="certificate-frm">
+													@csrf
+												<table class="table table-bordered">
+													<thead>
+														<tr>
+															<th>{{'Title'}}</th>
+															<th>{{'Institude'}}</th>
+															<th>{{'Description'}}</th>
+															<th>{{'From'}}</th>
+															<th>{{'To'}}</th>
+															<th>{{'Actions'}}</th>
+														</tr>
+													</thead>
+													<tbody class="certificate_tbody">
+														@php
+															{{$certificate_counter = 0;}}
+															@endphp
+
+															@foreach($certificate as $cert)
+															<tr class="certificate_row_{{$cert->id}}">
+											 					<input type="hidden" name="insert_update[]" value="1">
+										 						<td><input type="text" class="form-control" name="certificate_title[]" value="{{$cert->title}}" readonly/></td>
+										 						<td><input type="text" class="form-control" name="certificate_institude[]" value="{{$cert->institute_name}}" readonly/></td>
+										 						<td><input type="text" class="form-control" name="certificate_description[]" value="{{$cert->description}}" readonly/></td>
+										 						<td><input type="text" class="form-control" name="certificate_from[]" value="{{$cert->period_from}}" readonly/></td>
+										 						<td><input type="text" class="form-control" name="certificate_to[]" value="{{$cert->period_to}}" readonly/></td>
+
+										 						<td><button class="btn btn-danger certificate_del-pre" data-id="{{$cert->id}}">X</button></td>
+										 					</tr>
+
+												 					@php
+																	{{$certificate_counter = $cert->id+1;}}
+																	@endphp
+																@endforeach
+													</tbody>
+												</table>
+												<input type="hidden" name="certificate_del_id" value="" id="certificate_del_ids">
+											</form>
+											</div>
+											</div>
+											<button class="btn btn-primary" onclick="stepper.previous()">{{'Previous'}}</button>
+											<button type="button" class="btn btn-primary" onclick="stepper.next()">{{'Next'}}</button>                            
+											<button type="submit" class="btn btn-primary" id="save_certificate">{{'Save'}}</button>  
+										</div>
+
+										<div id="links-part" class="content" role="tabpanel" aria-labelledby="links-part-trigger">
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="row">
+													<div class="col-sm-4">
+														<div class="form-group">
+															<label>{{'Language'}}</label>
+															<input type="text" id="link_title" class="form-control">
+														</div>
+													</div>
+													<div class="col-sm-4">
+														<div class="form-group">
+															<label>{{'Link'}}</label>
+															<input type="text" id="link_link" class="form-control">
+														</div>
+													</div>
+													<div class="col-sm-4">
+														<button class="btn btn-primary" style="margin-top: 24px" id="link_add">Add</button>
+													</div>
+												</div>
+												<br>
+												<form action="#" method="post" id="link-frm">
+													@csrf
+												<table class="table table-bordered">
+													<thead>
+														<tr>
+															<th>{{'Title'}}</th>
+															<th>{{'Links'}}</th>
+															<th>{{'Actions'}}</th>
+														</tr>
+													</thead>
+													<tbody class="link_tbody">
+														@php
+															{{$links_counter = 0;}}
+															@endphp
+
+															@foreach($links as $link)
+															<tr class="link_row_{{$link->id}}">
+											 					<input type="hidden" name="insert_update[]" value="1">
+										 						<td><input type="text" class="form-control" name="link_title[]" value="{{$link->title}}" readonly/></td>
+										 						<td><input type="text" class="form-control" name="link_link[]" value="{{$link->link}}" readonly/></td>
+										 						<td><button class="btn btn-danger link_del-pre" data-id="{{$link->id}}">X</button></td>
+										 					</tr>
+
+												 					@php
+																	{{$links_counter = $link->id+1;}}
+																	@endphp
+																@endforeach
+													</tbody>
+												</table>
+												<input type="hidden" name="link_del_id" value="" id="link_del_ids">
+											</form>
+											</div>
+											</div>
+											<button class="btn btn-primary" onclick="stepper.previous()">{{'Previous'}}</button>
+											<button type="button" class="btn btn-primary" onclick="stepper.next()">{{'Next'}}</button>                            
+											<button type="submit" class="btn btn-primary" id="save_link">{{'Save'}}</button>  
+										</div>
+
 									</div>
 								</div>
 							</div>
@@ -389,6 +729,17 @@
 		        success:function(data){
 		        	var converted = JSON.parse(data);
 		        	if(converted.status == '1'){
+		        		var image = converted.data.profile_pic;
+		        		var resume = converted.data.resume_attachment;
+		        		var html = `<center><img src="{{URL::asset('public/images/profile')}}/${image}" style="width: 200px"></center>`;
+		        		
+		        		var html2 = `<a href="{{URL::asset('public/images/resume')}}/${resume}" download><span class="input-group-text bg-primary" style="color: white">+</span></a>`;
+		        		
+
+		        		$('.image-placeholder').html(html);
+		        		$('.resume-placeholder').html(html2);
+
+
 		        		stepper.next();
 		        	}else{
 		        		alert('Something Wents Wrong');
@@ -398,6 +749,13 @@
 		 			console.log('Submitted');
 		 		});
 
+		 		var work_counter = '{{$work_counter}}';
+		 		var language_counter = '{{$language_counter}}';
+		 		var certificate_counter = '{{$certificate_counter}}';
+		 		var links_counter = '{{$links_counter}}';
+
+
+		 		var counter = '{{$counter}}';
 		 		$('#educations_add').click(function(){
 		 			var level = $('#edu_level').val();
 		 			var institude = $('#edu_institude').val();
@@ -406,11 +764,11 @@
 		 			var state = $('#edu_state').val();
 		 			var city = $('#edu_city').val();
 		 			var from = $('#education_start_date').val();
-		 			var to = $('#education_end_start').val();
+		 			var to = $('#education_end_start').val();	
 		 			var html = '';
 		 			if(level != '' && institude != '' && field != '' && from != '' && to != ''){
 		 				html += `
-		 					<tr>
+		 					<tr class="row_${counter}">
 			 					<input type="hidden" name="insert_update[]" value="0">
 		 						<td><input type="text" class="form-control" name="level[]" value="${level}" readonly/></td>
 		 						<td><input type="text" class="form-control" name="institude[]" value="${institude}" readonly/></td>
@@ -420,10 +778,11 @@
 		 						<td><input type="text" class="form-control" name="city[]" value="${city}" readonly/></td>
 		 						<td><input type="text" class="form-control" name="from[]" value="${from}" readonly/></td>
 		 						<td><input type="text" class="form-control" name="to[]" value="${to}" readonly/></td>
-		 						<td><button class="btn btn-danger">X</button></td>
+		 						<td><button class="btn btn-danger del-post" data-id="${counter}">X</button></td>
 		 					</tr>
 		 				`;
 		 				$('.education_tbody').append(html);
+		 				counter++;
 		 			}
 		 		});
 
@@ -460,7 +819,276 @@
 		 			var new_del_ids = del_ids+','+edu_id;
 		 			$('#del_ids').val(new_del_ids);
 		 			$(`.row_${edu_id}`).remove();
-		 		})
+		 		});
+
+
+		 		$(document).on('click','.del-post',function(e){
+		 			e.preventDefault();
+		 			var edu_id = $(this).attr('data-id');
+		 			$(`.row_${edu_id}`).remove();
+		 		});
+
+		 		$('#work_add').click(function(){
+		 			var title = $('#work_title').val();
+		 			var company = $('#work_company').val();
+		 			var from = $('#work_from').val();
+		 			var to = $('#work_to').val();
+		 			var country = $('#work_country').val();
+		 			var state = $('#work_state').val();
+		 			var city = $('#work_city').val();
+		 			var description = $('#work_description').val();
+
+		 			var html = '';
+		 			if(title != '' && company != '' && from != '' && to != ''){
+		 				html += `
+		 					<tr class="work_row_${work_counter}">
+			 					<input type="hidden" name="insert_update[]" value="0">
+		 						<td><input type="text" class="form-control" name="work_title[]" value="${title}" readonly/></td>
+		 						<td><input type="text" class="form-control" name="work_company[]" value="${company}" readonly/></td>
+		 						<input type="hidden" name="work_from[]" value="${from}"/>
+		 						<input type="hidden" name="work_to[]" value="${to}"/>
+		 						<td>${from} - ${to}</td>
+		 						<input type="hidden" name="work_country[]" value="${country}"/>
+		 						<input type="hidden" name="work_state[]" value="${state}"/>
+		 						<input type="hidden" name="work_city[]" value="${city}"/>
+		 						<td>${country}, ${state}, ${city}</td>
+		 						<td><input type="text" name="work_description[]" class="form-control" value="${description}" readonly/></td>
+		 						<td><button class="btn btn-danger work_del-post" data-id="${work_counter}">X</button></td>
+		 					</tr>
+		 				`;
+		 				$('.work_tbody').append(html);
+		 				work_counter++;
+		 			}
+		 		});
+
+		 		$('.work_del-pre').click(function(e){
+		 			e.preventDefault();
+		 			var work_id = $(this).attr('data-id');
+		 			var del_ids = $('#work_del_ids').val();
+		 			var new_del_ids = del_ids+','+work_id;
+		 			$('#work_del_ids').val(new_del_ids);
+		 			$(`.work_row_${work_id}`).remove();
+		 		});
+
+		 		$(document).on('click','.work_del-post',function(e){
+		 			e.preventDefault();
+		 			var work_id = $(this).attr('data-id');
+		 			$(`.work_row_${work_id}`).remove();
+		 		});
+
+		 		$('#save_work').click(function(e){
+		 			e.preventDefault();
+		 			$('#work-frm').submit();
+		 		});
+
+		 		$('#work-frm').submit(function(e){
+					e.preventDefault();
+					var formData = new FormData(this);
+					$.ajax({
+		        type:'POST',
+		        url: '{{route("store_work")}}',
+		        data:formData,
+		        cache:false,
+		        contentType: false,
+		        processData: false,
+		        success:function(data){
+		        	var converted = JSON.parse(data);
+		        	if(converted.status == '1'){
+		        		stepper.next();
+		        	}else{
+		        		alert('Something Wents Wrong');
+		        	}
+		        }
+		      });
+		 		});
+
+		 		$('#save_language').click(function(e){
+		 			e.preventDefault();
+		 			$('#language-frm').submit();
+		 		});
+
+		 		$('#language-frm').submit(function(e){
+					e.preventDefault();
+					var formData = new FormData(this);
+					$.ajax({
+		        type:'POST',
+		        url: '{{route("store_language")}}',
+		        data:formData,
+		        cache:false,
+		        contentType: false,
+		        processData: false,
+		        success:function(data){
+		        	var converted = JSON.parse(data);
+		        	if(converted.status == '1'){
+		        		stepper.next();
+		        	}else{
+		        		alert('Something Wents Wrong');
+		        	}
+		        }
+		      });
+		 		});
+
+		 		$('#language_add').click(function(){
+		 			var title = $('#language_title').val();
+		 			var proficiency = $('#language_profiency').val();
+		 			var html = '';
+		 			if(title != '' && proficiency != ''){
+		 				html += `
+		 					<tr class="work_row_${language_counter}">
+			 					<input type="hidden" name="insert_update[]" value="0">
+		 						<td><input type="text" class="form-control" name="language_title[]" value="${title}" readonly/></td>
+		 						<td><input type="text" class="form-control" name="language_profiency[]" value="${proficiency}" readonly/></td>
+		 						<td><button class="btn btn-danger language_del-post" data-id="${language_counter}">X</button></td>
+		 					</tr>
+		 				`;
+		 				$('.language_tbody').append(html);
+		 				language_counter++;
+		 			}
+		 		});
+
+		 		$('.language_del-pre').click(function(e){
+		 			e.preventDefault();
+		 			var lang_id = $(this).attr('data-id');
+		 			var del_ids = $('#language_del_ids').val();
+		 			var new_del_ids = del_ids+','+lang_id;
+		 			$('#language_del_ids').val(new_del_ids);
+		 			$(`.language_row_${lang_id}`).remove();
+		 		});
+
+		 		$(document).on('click','.language_del-post',function(e){
+		 			e.preventDefault();
+		 			var lang_id = $(this).attr('data-id');
+		 			$(`.language_row_${lang_id}`).remove();
+		 		});
+
+
+
+
+		 		$('#save_certificate').click(function(e){
+		 			e.preventDefault();
+		 			$('#certificate-frm').submit();
+		 		});
+
+		 		$('#certificate-frm').submit(function(e){
+					e.preventDefault();
+					var formData = new FormData(this);
+					$.ajax({
+		        type:'POST',
+		        url: '{{route("store_certificate")}}',
+		        data:formData,
+		        cache:false,
+		        contentType: false,
+		        processData: false,
+		        success:function(data){
+		        	var converted = JSON.parse(data);
+		        	if(converted.status == '1'){
+		        		stepper.next();
+		        	}else{
+		        		alert('Something Wents Wrong');
+		        	}
+		        }
+		      });
+		 		});
+
+		 		$('#certificate_add').click(function(){
+		 			var title = $('#certificate_title').val();
+		 			var institude = $('#certificate_institude').val();
+		 			var description = $('#certificate_description').val();
+		 			var from = $('#certificate_from').val();
+		 			var to = $('#certificate_to').val();
+		 			var html = '';
+		 			if(title != '' && institude != '' && from != '' && to != ''){
+		 				html += `
+		 					<tr class="certificate_row_${certificate_counter}">
+			 					<input type="hidden" name="insert_update[]" value="0">
+			 					<td><input type="text" class="form-control" name="certificate_title[]" value="${title}" readonly/></td>
+		 						<td><input type="text" class="form-control" name="certificate_institude[]" value="${institude}" readonly/></td>
+		 						<td><input type="text" class="form-control" name="certificate_description[]" value="${description}" readonly/></td>
+		 						<td><input type="text" class="form-control" name="certificate_from[]" value="${from}" readonly/></td>
+		 						<td><input type="text" class="form-control" name="certificate_to[]" value="${to}" readonly/></td>
+		 						<td><button class="btn btn-danger certificate_del-post" data-id="${certificate_counter}">X</button></td>
+		 					</tr>
+		 				`;
+		 				$('.certificate_tbody').append(html);
+		 				certificate_counter++;
+		 			}
+		 		});
+
+		 		$('.certificate_del-pre').click(function(e){
+		 			e.preventDefault();
+		 			var cert_id = $(this).attr('data-id');
+		 			var del_ids = $('#certificate_del_ids').val();
+		 			var new_del_ids = del_ids+','+cert_id;
+		 			$('#certificate_del_ids').val(new_del_ids);
+		 			$(`.certificate_row_${cert_id}`).remove();
+		 		});
+
+		 		$(document).on('click','.certificate_del-post',function(e){
+		 			e.preventDefault();
+		 			var cert_id = $(this).attr('data-id');
+		 			$(`.certificate_row_${cert_id}`).remove();
+		 		});
+
+
+
+		 		$('#save_link').click(function(e){
+		 			e.preventDefault();
+		 			$('#link-frm').submit();
+		 		});
+
+		 		$('#link-frm').submit(function(e){
+					e.preventDefault();
+					var formData = new FormData(this);
+					$.ajax({
+		        type:'POST',
+		        url: '{{route("store_links")}}',
+		        data:formData,
+		        cache:false,
+		        contentType: false,
+		        processData: false,
+		        success:function(data){
+		        	var converted = JSON.parse(data);
+		        	if(converted.status == '1'){
+		        		stepper.next();
+		        	}else{
+		        		alert('Something Wents Wrong');
+		        	}
+		        }
+		      });
+		 		});
+
+		 		$('#link_add').click(function(){
+		 			var title = $('#link_title').val();
+		 			var link = $('#link_link').val();
+		 			var html = '';
+		 			if(title != '' && link != ''){
+		 				html += `
+		 					<tr class="link_row_${links_counter}">
+			 					<input type="hidden" name="insert_update[]" value="0">
+		 						<td><input type="text" class="form-control" name="link_title[]" value="${title}" readonly/></td>
+		 						<td><input type="text" class="form-control" name="link_link[]" value="${link}" readonly/></td>
+		 						<td><button class="btn btn-danger link_del-post" data-id="${links_counter}">X</button></td>
+		 					</tr>
+		 				`;
+		 				$('.link_tbody').append(html);
+		 				links_counter++;
+		 			}
+		 		});
+
+		 		$('.link_del-pre').click(function(e){
+		 			e.preventDefault();
+		 			var link_id = $(this).attr('data-id');
+		 			var del_ids = $('#link_del_ids').val();
+		 			var new_del_ids = del_ids+','+link_id;
+		 			$('#link_del_ids').val(new_del_ids);
+		 			$(`.link_row_${link_id}`).remove();
+		 		});
+
+		 		$(document).on('click','.link_del-post',function(e){
+		 			e.preventDefault();
+		 			var link_id = $(this).attr('data-id');
+		 			$(`.link_row_${link_id}`).remove();
+		 		});
 
 		 });
 	</script>

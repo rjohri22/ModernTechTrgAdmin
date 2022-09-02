@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/loginverification';
 
     /**
      * Create a new controller instance.
@@ -50,11 +50,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone' => ['required', 'numeric'],
-            'address' => ['required', 'string','max:255'],
+            // 'phone' => ['required', 'numeric'],
+            // 'address' => ['required', 'string','max:255'],
         ]);
     }
 
@@ -67,10 +68,13 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'name' => $data['first_name'],
             'email' => $data['email'],
-            'phone' => $data['phone'],
-            'address' => $data['address'],
+            'group_id' => 2,
+            // 'phone' => $data['phone'],
+            // 'address' => $data['address'],
             'password' => Hash::make($data['password']),
         ]);
     }
