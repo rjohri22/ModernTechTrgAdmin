@@ -46,6 +46,7 @@ class OppertunitiesController extends AdminBaseController
         $fetch = DB::table('oppertunities')
             ->select(DB::raw("oppertunities.*, pb.name as company_name"))
             ->leftJoin('companies as pb','pb.id','=','oppertunities.company_id');
+            
             // ->leftJoin('bends as fl','fl.id','=','oppertunities.modified_by');
             // ->where('fl.id',$login_bend_id)
         $this->data['children'] = [];
@@ -139,6 +140,8 @@ class OppertunitiesController extends AdminBaseController
         };
         $validated = $request->validate([
           //  'title' => 'required|max:255',
+          'bend_id' => 'required',
+
         ]);
         $user_id = Auth::user()->id;
         $update_arr = array(
@@ -181,6 +184,7 @@ class OppertunitiesController extends AdminBaseController
         };
         $validated = $request->validate([
            // 'title' => 'required|max:255',
+           'bend_id' => 'required',
         ]);
 
         $update_arr = array(

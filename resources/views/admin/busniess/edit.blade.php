@@ -1,7 +1,13 @@
 @extends('admin.layout.master')
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-
+<head>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+</head>
 <div class="box box-primary container mt-2" style="background: white">
 
 	<div class="box-header">
@@ -40,9 +46,21 @@
 				</div>
 				<div class="col-sm-4">
 					<label>Bussiness Logo</label>
-					<input type="file" name="business_logo" class="form-control" value="{{$busniess->business_logo}}">
+					<input type="file" name="business_logo"  id="business_logo" class="form-control" value="{{$busniess->business_logo}}">
 					<img src="  {{ url('public/images/logo/'.$busniess->business_logo) }}" width="50px" height="50px"/>
 				</div>
+
+				<div class="row">
+		<div class="col-sm-6 text-center">
+        <div id="upload-demo"></div>
+		<button class="btn btn-success btn-md upload-image" style="margin-top:2%">Cropping Image</button>
+        </div>
+		
+				<div class="col-sm-6">
+        <div id="preview-crop-image" style="background:#9d9d9d;width:200px;height:200px;border: 1px solid;" ></div>
+        </div>
+</div>
+
 				<!-- <div class="col-sm-4">
 					<label>Bussiness Logo</label>
 					<input type="file" name="business_logo" class="form-control" value="{{$busniess->business_url}}">
@@ -79,6 +97,7 @@
 			<br>
 			<div class="row">
 				<div class="col-sm-12">
+				<input type="hidden" name="edit_img_name" id="edit_img_name"/>
 					<button class="btn btn-primary" type="submit" style="float: right">Save</button>
 				</div>
 			</div>
@@ -139,4 +158,90 @@
 		}
 	});		
 </script>
+<script>
+	$.ajaxSetup({
+headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+}
+});
+var resize = $('#upload-demo').croppie({
+    enableExif: true,
+    enableOrientation: true,    
+    viewport: { // Default { width: 100, height: 100, type: 'square' } 
+        width: 150,
+        height: 150,
+        type: 'square' //square
+    },
+    boundary: {
+        width: 200,
+        height: 200
+    }
+});
+$('#business_logo').on('change', function () { 
+  var reader = new FileReader();
+    reader.onload = function (e) {
+      resize.croppie('bind',{
+        url: e.target.result
+      }).then(function(){
+        console.log('jQuery bind complete');
+      });
+    }
+    reader.readAsDataURL(this.files[0]);
+});
+$('.upload-image').on('click', function (ev) {
+	ev.preventDefault();
+  resize.croppie('result', {
+    type: 'canvas',
+    size: 'viewport'
+  }).then(function (img) {
+    $.ajax({
+	  url: "{{route('admin.crop')}}",
+      type: "POST",
+      data: {"business_logo":img},
+      success: function (data) {
+		var converted = JSON.parse(data);
+        console.log(converted.business_logo);
+		
+		$('#edit_img_name').val(converted.business_logo);
+        html = '<img src="' + img + '" style="position:relative;top:15%;left:10%;text-align:center;"/>';
+        $("#preview-crop-image").html(html);
+      }
+    });
+  });
+});
+
+
+
+
+
+// $('.upload-image').on('click', function (ev) {
+//             ev.preventDefault();
+//             // var no = $(this).attr('data-no');
+//              var image_1 = $(#business_logo).val();
+//             $image_crop.croppie('result', {
+//               type: 'canvas',
+//               size: 'viewport'
+//             }).then(function (response) {
+//               if(image_1 != ''){
+//                 $.ajax({
+//                   url: "{{route('admin.crop')}}",
+//                   type: "POST",
+//                   data: {"business_logo":response},
+//                   success: function (data) {
+//                     var converted = JSON.parse(data);
+//                     console.log(converted.image_name);
+
+//                     html = '<img src="' + response + '" />';
+                   
+//                   }
+//                 });
+//               }else{
+//                 alert('Image Is Required');
+//               }
+//             });
+//           }); 
+
+
+
+	</script>
 @endsection

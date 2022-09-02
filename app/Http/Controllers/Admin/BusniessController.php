@@ -115,21 +115,38 @@ class BusniessController extends AdminBaseController
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
+        
         $validated = $request->validate([
            
            'business_logo' => 'required|mimes:jpeg,png,jpg,gif,svg',
         ]);
-        // $resume_attachment_name = $request->input('pre_resume_attachment');
-        $resume_attachment_name = '';
+
+
+       
+        $edit_img_name = '';
         if($_FILES['business_logo']['size'] > 0){
-            $resume_attachment_name = time().'.'.$request->business_logo->extension();
-            $request->business_logo->move(public_path('images/logo'), $resume_attachment_name);
+            $edit_img_name = $request->edit_img_name;
+            // echo $edit_img_name;
+            // die();
+            rename(public_path('images/temp/'.$edit_img_name), public_path('images/logo/'.$edit_img_name));
         }
+     
+        //Location // Moving loation
+        // if($org_img_name != ''){
+        //  rename(public_path('images/temp/'.$org_img_name), public_path('images/temp/'.$org_img_name));
+        // }
+
+        // $resume_attachment_name = $request->input('pre_resume_attachment');
+        // $resume_attachment_name = '';
+        // if($_FILES['business_logo']['size'] > 0){
+        //     $resume_attachment_name = time().'.'.$request->business_logo->extension();
+           // $request->edit_img_name->move(public_path('images/logo'), $edit_img_name);
+        // }
         // if($request->hasFile('business_logo')) {
         //     $business_logo_pic = $request->file('business_logo');
         //     $filename = $business_logo_pic->extension();
         //     $business_logo_pic->move(public_path('images/logo'), $filename);
-        //     $request->business_logo_pic = $request->file('business_logo')->extension();
+        //    $request->business_logo_pic = $request->file('business_logo')->extension();
         // }
 
          $update_arr = array(
@@ -142,7 +159,7 @@ class BusniessController extends AdminBaseController
             'status'    => $request->input('status'),
             'business_url'    => $request->input('business_url'),
             'Summary'    => $request->input('Summary'),
-             'business_logo' =>  $resume_attachment_name, 
+            'business_logo' => $edit_img_name, 
         );
 
         $query  = Companies::where('id', $id)->update($update_arr);
