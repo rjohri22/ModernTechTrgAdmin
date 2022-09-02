@@ -194,6 +194,7 @@ Route::get('/countries/delete/{id}', [Admin\CountryController::class, 'delete'])
 
     Route::get('/jobs', [Admin\JobController::class, 'index'])->name('admin.jobs');
     Route::get('/assign_objective/{id}', [Admin\JobController::class, 'assign_objective'])->name('admin.assign_objective');
+    Route::get('/approve_hr/{id}', [Admin\JobController::class, 'approve_hr'])->name('admin.approve_hr');
     Route::get('/approved', [Admin\JobController::class, 'approved'])->name('admin.approved');
     Route::get('/jobs/add', [Admin\JobController::class, 'add'])->name('admin.add_job');
     Route::get('/jobs/edit/{id}', [Admin\JobController::class, 'edit'])->name('admin.edit_job');
@@ -205,6 +206,11 @@ Route::get('/countries/delete/{id}', [Admin\CountryController::class, 'delete'])
     Route::get('/jobs/job_approved_hr/{id}', [Admin\JobController::class, 'job_approved_hr'])->name('admin.job_approved_hr');
     Route::post('/jobs/load_country', [Admin\JobController::class, 'load_country'])->name('admin.load_country');
     Route::post('/jobs/load_states', [Admin\JobController::class, 'load_states'])->name('admin.load_states');
+    Route::post('/jobs/store_approv_hr/{id}', [Admin\JobController::class, 'store_approv_hr'])->name('admin.store_approv_hr');
+
+
+
+
 
     Route::get('/settings/emailsmtp', [Admin\SettingController::class, 'emailsmpt'])->name('admin.setting.emailsmtp');
     Route::post('/settings/emailsmtp/store_setting', [Admin\SettingController::class, 'store_setting'])->name('admin.store_setting');

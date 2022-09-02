@@ -107,7 +107,11 @@ use App\Models\Job_applications;
 		      		Approved By Hr
 		      		@else
 		      			@if($job->approved_manager != null)
-			      			<a class="btn btn-success" href="{{route('admin.assign_objective',$job->id)}}" data-toggle="modal" data-target="#myModal" >Approve</a>
+		      				
+		      				<button type="button" class="btn btn-sm btn-success" data-toggle="popover" data-placement="left" data-trigger="focus" title="Approval Need" data-html="true" data-content="<a href='{{route('admin.approve_hr',$job->id)}}' data-toggle='modal' data-target='#myModal' class='btn btn-success btn-sm'>Approved</a>&nbsp;<a class='btn btn-danger btn-sm'>Reject</a>">Change Status</button>
+
+
+			      			<!-- <a class="btn btn-success" href="{{route('admin.approve_hr',$job->id)}}" data-toggle="modal" data-target="#myModal" >Approve</a> -->
 				      		<!-- <a href="{{route('admin.job_approved_hr',$job->id)}}" class="btn btn-success">Approved</a> -->
 							
 			      		@else
