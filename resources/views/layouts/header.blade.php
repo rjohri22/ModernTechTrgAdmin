@@ -19,9 +19,9 @@
   <!-- <link rel="shortcut icon" href="../assets/images/favicon.png" /> -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-  <link href="{{ url('assets/css/demo/style.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ asset('assets/css/demo/style.css') }}" rel="stylesheet" type="text/css" />
 
-  <link href="{{ url('assets/images/slidebar/sidebar-bg.jpg') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ asset('assets/images/slidebar/sidebar-bg.jpg') }}" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
