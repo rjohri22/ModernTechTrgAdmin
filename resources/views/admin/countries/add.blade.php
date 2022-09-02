@@ -20,7 +20,7 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<label>Status</label>
-					<select class="form-control" name="statue">
+					<select class="form-control" name="active">
 						<option value="1">Active</option>
 						<option value="0">Inactive</option>
 					</select>

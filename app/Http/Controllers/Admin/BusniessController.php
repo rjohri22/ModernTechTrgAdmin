@@ -84,6 +84,7 @@ class BusniessController extends AdminBaseController
             'Summary'    => $request->input('Summary'),
             'description'    => $request->input('description'),
             'status'    => $request->input('status'),
+            'business_code'    => $request->input('business_code'),
             'business_logo' => $request->input('org_img_name'), 
         );
         
@@ -118,18 +119,24 @@ class BusniessController extends AdminBaseController
         
         $validated = $request->validate([
            
-           'business_logo' => 'required|mimes:jpeg,png,jpg,gif,svg',
+           //'business_logo' => 'required|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
 
        
-        $edit_img_name = '';
+        $edit_img_name = $request->input('pre_edit_img_name');
         if($_FILES['business_logo']['size'] > 0){
             $edit_img_name = $request->edit_img_name;
             // echo $edit_img_name;
             // die();
             rename(public_path('images/temp/'.$edit_img_name), public_path('images/logo/'.$edit_img_name));
+
         }
+      
+//    if($request->hasfile("select_file")){
+//             $org_img_name = $request->org_img_name; 
+//             $request->edit_img_name->move(public_path('images/logo'), $org_img_name);
+//         }
      
         //Location // Moving loation
         // if($org_img_name != ''){
@@ -159,7 +166,9 @@ class BusniessController extends AdminBaseController
             'status'    => $request->input('status'),
             'business_url'    => $request->input('business_url'),
             'Summary'    => $request->input('Summary'),
+            'business_code'    => $request->input('business_code'),
             'business_logo' => $edit_img_name, 
+            
         );
 
         $query  = Companies::where('id', $id)->update($update_arr);

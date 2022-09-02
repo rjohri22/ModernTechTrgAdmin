@@ -53,6 +53,7 @@
 					<input type="file" name="business_logo" id="business_logo" class="form-control">
 					
 				</div>
+				
 				<div class="row">
 		<div class="col-sm-6 text-center">
         <div id="upload-demo"></div>
@@ -66,6 +67,10 @@
 				<div class="col-sm-4">
 					<label>Business URL</label>
 					<input type="text" name="business_url" class="form-control">
+				</div>
+				<div class="col-sm-4">
+					<label>Business Code</label>
+					<input type="text" name="business_code" class="form-control">
 				</div>
 				
 				<!-- <div class="col-sm-4">

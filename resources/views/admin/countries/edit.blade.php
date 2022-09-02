@@ -19,10 +19,10 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-4">
-					<label>Statue</label>
+					<label>Status</label>
 					<select class="form-control" name="statue">
-						<option value="1" @if ($countries->status == 1) selected @endif >Active</option>
-						<option value="0" @if ($countries->status == 0) selected @endif >Inactive</option>
+						<option value="1" @if ($countries->active == 1) selected @endif >Active</option>
+						<option value="0" @if ($countries->active == 0) selected @endif >Inactive</option>
 					</select>
 				</div>
 			</div>

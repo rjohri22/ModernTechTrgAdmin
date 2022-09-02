@@ -46,7 +46,7 @@
 				</div>
 				<div class="col-sm-4">
 					<label>Bussiness Logo</label>
-					<input type="file" name="business_logo"  id="business_logo" class="form-control" value="{{$busniess->business_logo}}">
+					<input type="file" name="business_logo"  id="business_logo" class="form-control" value={{$busniess->business_logo}}>
 					<img src="  {{ url('public/images/logo/'.$busniess->business_logo) }}" width="50px" height="50px"/>
 				</div>
 
@@ -69,7 +69,10 @@
 					<label>Business URL</label>
 					<input type="text" name="business_url" class="form-control" value="{{$busniess->business_url}}">
 				</div>
-				
+				<div class="col-sm-4">
+					<label>Business Code</label>
+					<input type="text" name="business_code" class="form-control" value="{{$busniess->business_code}}">
+				</div>
 				<!-- <div class="col-sm-4">
 					<label>Decription</label>
 					<textarea type="textarea" name="address" class="form-control">
@@ -97,7 +100,9 @@
 			<br>
 			<div class="row">
 				<div class="col-sm-12">
-				<input type="hidden" name="edit_img_name" id="edit_img_name"/>
+				<input type="hidden" name="edit_img_name" id="edit_img_name" />
+				<input type="hidden" name="pre_edit_img_name" id="pre_edit_img_name" value={{$busniess->business_logo}}/>
+				
 					<button class="btn btn-primary" type="submit" style="float: right">Save</button>
 				</div>
 			</div>
