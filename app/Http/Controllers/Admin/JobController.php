@@ -104,6 +104,44 @@ class JobController extends AdminBaseController
         return view('admin/jobs/assign_test',$this->data);
     }
 
+    public function approve_hr($job_id)
+    {
+
+        $this->loadBaseData();
+        if(!$this->check_role()){
+            return redirect()->route('home');
+        };   
+        // $this->data['objectives'] = InterviewObjectives::get();
+        $this->data['job_id'] = $job_id;
+        return view('admin/jobs/approve_hr',$this->data);
+    }
+
+    public function store_approv_hr($job_id , Request $request){
+        $this->loadBaseData();
+        if(!$this->check_role()){
+            return redirect()->route('home');
+        };
+
+        $validated = $request->validate([
+            'work_type' => 'required|max:255',
+            'work_shift' => 'required|max:255',
+            'work_style' => 'required|max:255',
+            'hr_remark' => 'required|max:255',
+        ]);
+
+        $user_id = Auth::user()->id;
+        $update_arr = array(
+            'work_type'         => $request->input('work_type'),
+            'work_shift'       => $request->input('work_shift'),
+            'work_style'       => $request->input('work_style'),
+            'hr_remarks'       => $request->input('hr_remark'),
+            'approved_hr'     => $user_id,
+        );
+
+        $query  = jobs::where('id', $job_id)->update($update_arr);
+        return redirect()->route('admin.jobs')
+        ->with('success','Job Updated successfully.');
+    }
 
     public function add()
     {
