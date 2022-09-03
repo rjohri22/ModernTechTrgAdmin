@@ -1,4 +1,3 @@
-<meta name="csrf-token" content="{{ csrf_token() }}" />
 <div class="modal-dialog">
 	<form action="{{route('admin.store_approv_hr',$job_id)}}" method="post">
 		@csrf
@@ -58,7 +57,7 @@
 	</form>
 </div>
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+<!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" id="theme-styles">
 <script>
 $(document).ready(function(){
@@ -138,4 +137,4 @@ $('#objectives').change(function(){
 
 
 });
-</script>
+</script> -->

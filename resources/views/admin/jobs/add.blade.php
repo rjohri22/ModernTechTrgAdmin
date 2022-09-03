@@ -31,9 +31,8 @@
 							<label>Business</label>
 							<select class="form-control" name="company_id" id="company_id">
 								@foreach ($companies as $company)
-								<option value="{{ $company->id }}">{{ $company->name }}</option>
+								<option value="{{ $company->id }}" data-code="{{$company->business_code}}">{{ $company->name }}</option>
 								@endforeach
-								<option value="2">test</option>
 							</select>
 						</div>
 						<div class="col-sm-4">
@@ -41,7 +40,6 @@
 							<select class="form-control" name="country_id" id="country">
 								@foreach ($countries as $country)
 								<option value="{{ $country->id }}">{{ $country->name }}</option>
-
 								@endforeach
 							</select>
 						</div>
@@ -90,6 +88,7 @@
 					@endif
 					<div class="row">
 						<div class="col-sm-12">
+							<input type="hidden" name="job_unique_id" id="job_unique_id">
 							<button class="btn btn-primary" type="submit" style="float: right">Save</button>
 							<button class="btn btn-warning" type="submit" name="savedraft" value="1" style="float: right;margin-right: 6px;margin-bottom: 15px;" >Save Draft</button>
 						</div>
@@ -124,7 +123,13 @@
 <script>
 	$(document).ready(function(){
 
+		$('#company_id').change(function(){
+			var status = $('#company_id option:selected').attr('data-code');
+			console.log(status);
+			$('#job_unique_id').val(status);
+		});
 
+		$('#company_id').trigger('change');
 		$('#company_id').change(function(){
 			console.log('change company');
 			loadcountry();
@@ -156,9 +161,8 @@
 		$('#country').change(function(){
 			console.log('change country');
 			loadstate();
-			
-			
 		});
+
 		loadstate();
 		function loadstate(){
 			console.log('Load States');

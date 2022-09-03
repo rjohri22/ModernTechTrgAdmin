@@ -309,7 +309,26 @@
         </div>
         @endif
       @yield('content')
-      <div class="modal fade" id="myModal" role="dialog">
+
+      <div class="modal" tabindex="-1" id="myModal">
+        <!-- <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+      <!-- <div class="modal fade" id="myModal" role="dialog"> -->
       </div>
       <script src="{{ asset('assets/vendors/js/vendor.bundle.base.js') }}"></script>
       <!-- endinject -->
@@ -330,23 +349,29 @@
       <!-- endinject -->
       <!-- Custom js for this page-->
       <script type="text/javascript">
-        $(document).ready(function(){
-          console.log('asdasd');
-          $(document).on('click', '[data-toggle="modal"]', function(e){
-            e.preventDefault();
-            $.ajax({
-              url: $(this).attr("href"),
-              type: 'GET',
-              data: {},
-              success: function(data) {
-                $('#myModal').html(data);
-              }
-            });
-            $('#myModal').modal('show');
-            // $('#myModal').modal('show').find('.modal-body').load($(this).data("remote"));
-              // $($(this).data("target")+' .modal-body').load($(this).data("remote"));
-          });
-        });
+        // $(document).ready(function(){
+        //   console.log('asdasd');
+        //   $(document).on('click', '.load_m', function(e){
+        //     e.preventDefault();
+        //     var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
+        //       keyboard: false
+        //     });
+
+        //     // var url = $(this).attr("href");
+        //     // $('#myModal').load(url);
+        //     // $.ajax({
+        //     //   url: $(this).attr("href"),
+        //     //   type: 'GET',
+        //     //   data: {},
+        //     //   success: function(data) {
+        //     //     $('#myModal').html(data);
+        //     //   }
+        //     // });
+        //     myModal.show();
+        //     // $('#myModal').modal('show').find('.modal-body').load($(this).data("remote"));
+        //       // $($(this).data("target")+' .modal-body').load($(this).data("remote"));
+        //   });
+        // });
 
         var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="popover"]'))
         var options = {
