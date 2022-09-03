@@ -1,14 +1,14 @@
 @extends('admin.layout.master')
 @section('content')
+<div class="page-wrapper mdc-toolbar-fixed-adjust">
+	<main class="content-wrapper">
 
-<div class="box box-primary container mt-2" style="background: white">
-	<br>
-
-	<div class="box-header">
-		<h3>View Job Description</h3>
-	</div>
-	<div class="box-body">
-		<table class="table table-bordered">
+		<div class="mdc-card info-card info-card--success">
+			<div class="card-inner">
+				<h5>Veiw Job Description</h5>
+			</div>
+			<div class="card-body">
+				<table class="table table-bordered">
 			<tr>
 				<th style="width: 50%">Title</th>
 				<td style="width: 50%">{{$oppertunity->title}}</td>
@@ -104,11 +104,26 @@
 				<td>{{($oppertunity->status == 1) ? "Open" : "Closed"}}</td>
 			</tr>
 		</table>
+			</div>
+		</div>
+	</main>
+</div>
+
+
+<!-- 
+<div class="box box-primary container mt-2" style="background: white">
+	<br>
+
+	<div class="box-header">
+		<h3>View Job Description</h3>
+	</div>
+	<div class="box-body">
+		
 
 		<a href="{{route('admin.oppertunities')}}" class="btn btn-primary">Back to list</a>
 		
 	</div>
 </div>
-
+ -->
 
 @endsection

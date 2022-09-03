@@ -1,13 +1,17 @@
 @extends('admin.layout.master')
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-<div class="box box-primary container mt-2" style="background: white">
-	<div class="box-header">
-		<h3>Edit Job</h3>
-	</div>
-	<div class="box-body">
-		
-		<form action="{{route('admin.update_job',$job->id)}}" method="post">
+
+
+<div class="page-wrapper mdc-toolbar-fixed-adjust">
+	<main class="content-wrapper">
+
+		<div class="mdc-card info-card info-card--success">
+			<div class="card-inner">
+				<h5>Edit Job</h5>
+			</div>
+			<div class="card-body">
+				<form action="{{route('admin.update_job',$job->id)}}" method="post">
 			@csrf
 			<div class="row">
 				<div class="col-sm-3">
@@ -130,8 +134,21 @@
 				</div>
 			</div>
 		</form>
-	</div>
+			</div>
+		</div>
+	</main>
 </div>
+
+
+<!-- <div class="box box-primary container mt-2" style="background: white">
+	<div class="box-header">
+		<h3>Edit Job</h3>
+	</div>
+	<div class="box-body">
+		
+		
+	</div>
+</div> -->
 
 <script>
 	$(document).ready(function(){
