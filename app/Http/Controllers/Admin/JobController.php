@@ -62,7 +62,7 @@ class JobController extends AdminBaseController
             $childres[] = $this->data['login_details']->id;
             // dd($childres);
 
-            if($this->data['login_details']->name != 'HR Manager'){
+            if($this->data['login_details']->name != 'HR Manager' && $this->data['login_details']->name != 'Country Head' && $this->data['login_details']->name != 'HR Manager Head' ){
                 // dd($childres);
                 $fetch = $fetch->wherein('users.bend_id',$childres);
             }else{
@@ -77,6 +77,7 @@ class JobController extends AdminBaseController
         }
         
         $fetch = $fetch->where('jobs.is_deleted','=',0);
+
         $fetch = $fetch->get(['jobs.*', 'companies.name as company_name', 'countries.name as country_name','states.name as state_name','cities.name as city_name','users.first_name']);
         $this->data['jobs'] = $fetch;
 
@@ -98,7 +99,7 @@ class JobController extends AdminBaseController
         $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
-        };   
+        };
         $this->data['objectives'] = InterviewObjectives::get();
         $this->data['job_id'] = $job_id;
         return view('admin/jobs/assign_test',$this->data);
@@ -136,6 +137,65 @@ class JobController extends AdminBaseController
             'work_style'       => $request->input('work_style'),
             'hr_remarks'       => $request->input('hr_remark'),
             'approved_hr'     => $user_id,
+        );
+
+        $query  = jobs::where('id', $job_id)->update($update_arr);
+        return redirect()->route('admin.jobs')
+        ->with('success','Job Updated successfully.');
+    }
+
+
+    public function store_approv_country($job_id , Request $request){
+        $this->loadBaseData();
+        if(!$this->check_role()){
+            return redirect()->route('home');
+        };
+
+        $validated = $request->validate([
+            'min_salary' => 'required|max:255',
+            'max_salary' => 'required|max:255',
+            'wages' => 'required|max:255',
+            'compensation_mode' => 'required|max:255',
+        ]);
+
+        $user_id = Auth::user()->id;
+        $update_arr = array(
+            'min_salary'         => $request->input('min_salary'),
+            'max_salary'       => $request->input('max_salary'),
+            'salary_type'       => $request->input('wages'),
+            'compensation_mode'       => $request->input('compensation_mode'),
+            'country_head_approval'     => $user_id,
+        );
+
+        $query  = jobs::where('id', $job_id)->update($update_arr);
+        return redirect()->route('admin.jobs')
+        ->with('success','Job Updated successfully.');
+    }
+
+    public function store_approv_hr_head($job_id , Request $request){
+        $this->loadBaseData();
+        if(!$this->check_role()){
+            return redirect()->route('home');
+        };
+
+        $validated = $request->validate([
+            'round_1_question' => 'required|max:255',
+            'round_2_question' => 'required|max:255',
+            'round_3_question' => 'required|max:255',
+            'round_1_pass_mark' => 'required|max:255',
+            'round_2_pass_mark' => 'required|max:255',
+            'round_3_pass_mark' => 'required|max:255',
+        ]);
+
+        $user_id = Auth::user()->id;
+        $update_arr = array(
+            'round_1_question'         => $request->input('round_1_question'),
+            'round_2_question'       => $request->input('round_2_question'),
+            'round_3_question'       => $request->input('round_3_question'),
+            'round_1_pass_mark'       => $request->input('round_1_pass_mark'),
+            'round_2_pass_mark'     => $request->input('round_2_pass_mark'),
+            'round_3_pass_mark'     => $request->input('round_3_pass_mark'),
+            'hr_head_approval'     => $user_id,
         );
 
         $query  = jobs::where('id', $job_id)->update($update_arr);
@@ -239,6 +299,7 @@ class JobController extends AdminBaseController
         $oppertunity = Oppertunities::where('id',$job_descrtiption_id)->first();
         $update_arr = array(
            // 'title'         => $oppertunity->title,
+            'job_unique_id'       => "TRG-".$request->input('job_unique_id').'-'.date('HisY'),
             'band_id'       => $request->input('bend_id'),
             'company_id'    => $request->input('company_id'),
             'country_id'    => $request->input('country_id'),
