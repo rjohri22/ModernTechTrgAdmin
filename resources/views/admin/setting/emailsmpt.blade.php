@@ -3,13 +3,19 @@
 
 <div class="row">
 	<div class="col-sm-6">
-		<div class="box box-primary container mt-2" style="background: white">
-			<div class="box-header with-border">
-				<h3>Email SMTP Setting</h3>
-			</div>
-			<div class="box-body">
-				<div class="row">
-					<div class="col-sm-12">
+
+		<div class="page-wrapper mdc-toolbar-fixed-adjust">
+			<main class="content-wrapper">
+
+				<div class="mdc-card info-card info-card--success">
+					<div class="card-inner">
+						<div class="row">
+							<div class="col-sm-8">
+								<h5 class="card-title d-inline">Email SMTP Setting</h5><br>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
 						<form action="{{route('admin.store_setting')}}" method="post">
 							@csrf
 							<div class="row">
@@ -61,11 +67,48 @@
 						</form>
 					</div>
 				</div>
-			</div>
+			</main>
 		</div>
+		<!-- <div class="box box-primary container mt-2" style="background: white">
+			<div class="box-header with-border">
+				<h3>Email SMTP Setting</h3>
+			</div>
+			<div class="box-body">
+				<div class="row">
+					<div class="col-sm-12">
+						
+					</div>
+				</div>
+			</div>
+		</div> -->
 	</div>
+
 	<div class="col-sm-6">
-		<div class="box box-primary container mt-2" style="background: white">
+		<div class="page-wrapper mdc-toolbar-fixed-adjust">
+			<main class="content-wrapper">
+
+				<div class="mdc-card info-card info-card--success">
+					<div class="card-inner">
+						<div class="row">
+							<div class="col-sm-8">
+								<h5 class="card-title d-inline">Test Email</h5><br>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<form action="{{route('admin.test_email')}}" method="post">
+							@csrf
+							<label>Send Email To</label>
+							<input type="email" name="send_email" class="form-control">
+							<br>
+							<button class="btn btn-primary">Send Email</button>
+						</form>
+					</div>
+				</div>
+			</main>
+		</div>
+
+		<!-- <div class="box box-primary container mt-2" style="background: white">
 			<div class="box-header with-border">
 				<h3>Test Email</h3>
 			</div>
@@ -80,7 +123,7 @@
 					</form>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>
 

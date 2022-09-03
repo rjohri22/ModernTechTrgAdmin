@@ -7,95 +7,114 @@
 	</style>
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-<div class="box box-primary container mt-2" style="background: white">
+
+<div class="page-wrapper mdc-toolbar-fixed-adjust">
+	<main class="content-wrapper">
+
+		<div class="mdc-card info-card info-card--success">
+			<div class="card-inner">
+				<h5>Add Job</h5>
+			</div>
+			<div class="card-body">
+				<form action="{{route('admin.store_job')}}" method="post">
+					@csrf
+					<div class="row">
+						<div class="col-sm-4">
+							<label>Profile</label>
+							<select class="form-control" name="bend_id" id="bend_id">
+							
+								<option value="{{ $bend_details->id }}">{{ $bend_details->name }}</option>
+							
+							</select>
+						</div>
+						<div class="col-sm-4">
+							<label>Business</label>
+							<select class="form-control" name="company_id" id="company_id">
+								@foreach ($companies as $company)
+								<option value="{{ $company->id }}">{{ $company->name }}</option>
+								@endforeach
+								<option value="2">test</option>
+							</select>
+						</div>
+						<div class="col-sm-4">
+							<label>Country</label>
+							<select class="form-control" name="country_id" id="country">
+								@foreach ($countries as $country)
+								<option value="{{ $country->id }}">{{ $country->name }}</option>
+
+								@endforeach
+							</select>
+						</div>
+						<div class="col-sm-4">
+							<label>State</label>
+							<select class="form-control" name="state_id" id="state">
+							</select>
+						</div>
+						<div class="col-sm-4">
+							<label>City</label>
+							<select class="form-control" name="city_id" id="cities" >
+							</select>
+						</div>
+						
+						<!-- <div class="col-sm-4">
+							<label>Head Count</label>
+							<input type="number" name="no_of_positions" class="form-control">
+						</div> -->
+					</div>
+					<br>
+					@if($bend_details->level > 4)
+					<div class="row">
+						<div class="col-sm-3">
+							<label>Objective</label>
+							<select class="form-control" name="objective" id="objectives">
+								<option value=""> Select Objective</option>
+								@foreach($objectives as $o)
+								<option value="{{$o->id}}">{{$o->name}}</option>
+								@endforeach
+							</select>
+						</div>
+						<div class="col-sm-3">
+							<label>Round 1 Questions</label>
+							<input type="number" name="round_1" class="form-control"  id="round_1" data-total="">
+						</div>
+						<div class="col-sm-3">
+							<label>Round 2 Questions</label>
+							<input type="number" name="round_2" class="form-control" id="round_2" data-total="">
+						</div>
+						<div class="col-sm-3">
+							<label>Round 3 Questions</label>
+							<input type="number" name="round_3" class="form-control" id="round_3" data-total="">
+						</div>
+					</div>
+					<br>
+					@endif
+					<div class="row">
+						<div class="col-sm-12">
+							<button class="btn btn-primary" type="submit" style="float: right">Save</button>
+							<button class="btn btn-warning" type="submit" name="savedraft" value="1" style="float: right;margin-right: 6px;margin-bottom: 15px;" >Save Draft</button>
+						</div>
+					</div>
+					<br>
+				</form>
+			</div>
+		</div>
+	</main>
+</div>
+
+
+
+
+
+<!-- <div class="box box-primary container mt-2" style="background: white">
 
 	<div class="box-header">
 		<h3>Add Jobs</h3>
 	</div>
 	<div class="box-body">
 		
-		<form action="{{route('admin.store_job')}}" method="post">
-			@csrf
-			<div class="row">
-				<div class="col-sm-4">
-					<label>Profile</label>
-					<select class="form-control" name="bend_id" id="bend_id">
-					
-						<option value="{{ $bend_details->id }}">{{ $bend_details->name }}</option>
-					
-					</select>
-				</div>
-				<div class="col-sm-4">
-					<label>Business</label>
-					<select class="form-control" name="company_id" id="company_id">
-						@foreach ($companies as $company)
-						<option value="{{ $company->id }}">{{ $company->name }}</option>
-						@endforeach
-						<option value="2">test</option>
-					</select>
-				</div>
-				<div class="col-sm-4">
-					<label>Country</label>
-					<select class="form-control" name="country_id" id="country">
-						@foreach ($countries as $country)
-						<option value="{{ $country->id }}">{{ $country->name }}</option>
-
-						@endforeach
-					</select>
-				</div>
-				<div class="col-sm-4">
-					<label>State</label>
-					<select class="form-control" name="state_id" id="state">
-					</select>
-				</div>
-				<div class="col-sm-4">
-					<label>City</label>
-					<select class="form-control" name="city_id" id="cities" >
-					</select>
-				</div>
-				
-				<!-- <div class="col-sm-4">
-					<label>Head Count</label>
-					<input type="number" name="no_of_positions" class="form-control">
-				</div> -->
-			</div>
-			<br>
-			@if($bend_details->level > 4)
-			<div class="row">
-				<div class="col-sm-3">
-					<label>Objective</label>
-					<select class="form-control" name="objective" id="objectives">
-						<option value=""> Select Objective</option>
-						@foreach($objectives as $o)
-						<option value="{{$o->id}}">{{$o->name}}</option>
-						@endforeach
-					</select>
-				</div>
-				<div class="col-sm-3">
-					<label>Round 1 Questions</label>
-					<input type="number" name="round_1" class="form-control"  id="round_1" data-total="">
-				</div>
-				<div class="col-sm-3">
-					<label>Round 2 Questions</label>
-					<input type="number" name="round_2" class="form-control" id="round_2" data-total="">
-				</div>
-				<div class="col-sm-3">
-					<label>Round 3 Questions</label>
-					<input type="number" name="round_3" class="form-control" id="round_3" data-total="">
-				</div>
-			</div>
-			<br>
-			@endif
-			<div class="row">
-				<div class="col-sm-12">
-					<button class="btn btn-primary" type="submit" style="float: right">Save</button>
-					<button class="btn btn-warning" type="submit" name="savedraft" value="1" style="float: right;margin-right: 6px;margin-bottom: 15px;" >Save Draft</button>
-				</div>
-			</div>
-			<br>
-		</form>
+		
 	</div>
-</div>
+</div> -->
 
 
 @endsection

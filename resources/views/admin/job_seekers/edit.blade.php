@@ -4,27 +4,98 @@
 <section class="content">
 	<div class="row">
 		<div class="col-md-3">
-			<div class="box box-primary">
-				<div class="box-body box-profile">
+			
+			<div class="">
+				<main class="content-wrapper">
 
-					<img class="profile-user-img img-responsive img-circle" src="{{URL::asset('public/images/
+					<div class="mdc-card info-card info-card--success">
+						<div class="card-inner">
+							<div class="row">
+								<div class="col-sm-12">
+									<h5 class="card-title d-inline">Basic Profile</h5>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<img class="profile-user-img img-responsive img-circle" src="{{URL::asset('public/images/
 
-					profile/'.$user->profile_pic)}}" alt="User profile picture">
+								profile/'.$user->profile_pic)}}" alt="User profile picture">
 
-					<h3 class="profile-username text-center">{{$user->first_name}} {{$user->last_name}}</h3>
+								<h3 class="profile-username text-center">{{$user->first_name}} {{$user->last_name}}</h3>
 
-					<p class="text-muted text-center">{{$user->desired_job_title}}</p>
-				</div>
+								<p class="text-muted text-center">{{$user->desired_job_title}}</p>
+						</div>
+					</div>
+				</main>
 			</div>
-			<div class="box box-primary">
+
+			<br>
+			<div class="">
+				<main class="content-wrapper">
+
+					<div class="mdc-card info-card info-card--success">
+						<div class="card-inner">
+							<div class="row">
+								<div class="col-sm-12">
+									<h5 class="card-title d-inline">Change Profile Pic</h5>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<form action="{{route('admin.change_user_profile',$user->id)}}" method="post" enctype="multipart/form-data">
+								@csrf
+								<label>Change Profile Pic</label>
+								<input type="hidden" name="pre_profile_image" id="pre_profile_image" value="{{$user->profile_pic}}">
+								<input type="file" name="profile_url" class="form-control"><br>
+								<button class="btn btn-primary" type="submit">Save</button>
+							</form>
+						</div>
+					</div>
+				</main>
+			</div>
+
+			<br>
+			<div class="">
+				<main class="content-wrapper">
+
+					<div class="mdc-card info-card info-card--success">
+						<div class="card-inner">
+							<div class="row">
+								<div class="col-sm-12">
+									<h5 class="card-title d-inline">Change Password</h5>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<form action="{{route('admin.change_password',$user->id)}}" method="post" enctype="multipart/form-data">
+								@csrf
+								<label>New Password</label>
+								<input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+								<br>
+								<label>Confirm Password</label>
+								<input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+
+								<br>
+								<button class="btn btn-primary" type="submit">Change Password</button>
+							</form>
+						</div>
+					</div>
+				</main>
+			</div>
+
+			<!-- <div class="box box-primary">
 				<div class="box-body box-profile">
-					<form action="{{route('admin.change_user_profile',$user->id)}}" method="post" enctype="multipart/form-data">
-						@csrf
-						<label>Change Profile Pic</label>
-						<input type="hidden" name="pre_profile_image" id="pre_profile_image" value="{{$user->profile_pic}}">
-						<input type="file" name="profile_url" class="form-control"><br>
-						<button class="btn btn-primary" type="submit">Save</button>
-					</form>
+
+					
+				</div>
+			</div> -->
+
+
+
+
+			<!-- <div class="box box-primary">
+				<div class="box-body box-profile">
+					
 				</div>
 			</div>
 
@@ -33,20 +104,12 @@
 					<label>Change Password</label>
 				</div>
 				<div class="box-body box-profile">
-					<form action="{{route('admin.change_password',$user->id)}}" method="post" enctype="multipart/form-data">
-						@csrf
-						<label>New Password</label>
-						<input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-						<br>
-						<label>Confirm Password</label>
-						<input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-
-						<br>
-						<button class="btn btn-primary" type="submit">Change Password</button>
-					</form>
+					
 				</div>
-			</div>
+			</div> -->
 		</div>
+
+		
 		<div class="col-md-9">
 			<div class="nav-tabs-custom">
 				<ul class="nav nav-tabs">

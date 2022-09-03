@@ -27,19 +27,19 @@
       if (current === "") {
         //for root url
         if ($this.attr('href').indexOf("index.html") !== -1) {
-          $(this).addClass('active');
-          if ($(this).parents('.mdc-expansion-panel').length) {
-            $(this).closest('.mdc-expansion-panel').addClass('expanded');
-          }
+          // $(this).addClass('active');
+          // if ($(this).parents('.mdc-expansion-panel').length) {
+          //   $(this).closest('.mdc-expansion-panel').addClass('expanded');
+          // }
         }
       } else {
         //for other url
         if ($this.attr('href').indexOf(current) !== -1) {
-          $(this).addClass('active');
-          if ($(this).parents('.mdc-expansion-panel').length) {
-            $(this).closest('.mdc-expansion-panel').addClass('expanded'); 
-            $(this).closest('.mdc-expansion-panel').show();
-          }
+          // $(this).addClass('active');
+          // if ($(this).parents('.mdc-expansion-panel').length) {
+          //   $(this).closest('.mdc-expansion-panel').addClass('expanded'); 
+          //   $(this).closest('.mdc-expansion-panel').show();
+          // }
         }
       }
     });

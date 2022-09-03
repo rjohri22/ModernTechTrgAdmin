@@ -239,7 +239,7 @@ class JobController extends AdminBaseController
         $oppertunity = Oppertunities::where('id',$job_descrtiption_id)->first();
         $update_arr = array(
            // 'title'         => $oppertunity->title,
-            'bend_id'       => $request->input('bend_id'),
+            'band_id'       => $request->input('bend_id'),
             'company_id'    => $request->input('company_id'),
             'country_id'    => $request->input('country_id'),
             'state_id'      => $request->input('state_id'),
