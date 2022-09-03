@@ -18,7 +18,7 @@
 				<div class="col-sm-3">
 					<label>Profile</label>
 					<select name="bend_id" class="form-control">
-						<option value="">Select Bend</option>
+						<option value="">Select profile</option>
 						@foreach($bends as $bend)
 							@php
 							$selected = ($bend->id == $oppertunity->bend_id) ? 'selected' : '';
