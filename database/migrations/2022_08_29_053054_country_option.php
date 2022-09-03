@@ -14,7 +14,7 @@ class CountryOption extends Migration
     public function up()
     {
         $data=array(
-           'id' => '15',
+          
             'option_name' => 'Country',
             'option_slug' => 'countries',
             'module_id' => '2',

@@ -33,8 +33,9 @@
 		      <th scope="col" style="width: 10%">State</th>
 		      <th scope="col" style="width: 10%">City</th> -->
 		      <th scope="col" style="width: 10%">Address</th>
-			  <th scope="col" style="width: 10%">business URL</th>
-			  <th scope="col" style="width: 10%">summary</th>
+			  <th scope="col" style="width: 10%">Business URL</th>
+			  <th scope="col" style="width: 10%">Business Code</th>
+			  <th scope="col" style="width: 10%">Summary</th>
 			  <th scope="col" style="width: 10%">Bussines logo</th>
 		      <th scope="col" style="width: 10%">Description</th>
 		      <!-- <th scope="col" style="width: 10%">Business Type</th> -->
@@ -55,6 +56,7 @@
 		      <td class="oppertunity">{{$b->city}}</td> -->
 		      <td class="oppertunity">{{$b->address}}</td>
 			  <td class="oppertunity">{{$b->business_url}}</td>
+			  <td class="oppertunity">{{$b->business_code}}</td>
 			  <td class="oppertunity">{{$b->summary}}</td>
 			  <td class="oppertunity"><img src="{{ asset('images/logo/'.$b->business_logo) }}" width="50px" height="50px"/></td>
 		      <td class="oppertunity">{{$b->description}}</td>

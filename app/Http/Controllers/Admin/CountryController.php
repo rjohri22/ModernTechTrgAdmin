@@ -50,7 +50,7 @@ class CountryController extends AdminBaseController
 
         $insert_arr = array(
             'name'       => $request->input('name'),
-            'active'    => $request->input('statue')
+            'active'    => $request->input('active')
         );
 
         $query = Countries::insert($insert_arr);

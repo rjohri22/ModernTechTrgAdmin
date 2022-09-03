@@ -48,7 +48,7 @@
 				<div class="col-sm-4">
 					<label>Profile</label>
 					<select class="form-control" name="bend" id="bend">
-						<option value="">Select Band</option>
+						<option value="">Select Profile</option>
 						@foreach($bends as $bend)
 						<option value="{{$bend->id}}" data-type="{{$bend->band_type}}">{{$bend->name}}</option>
 						@endforeach
