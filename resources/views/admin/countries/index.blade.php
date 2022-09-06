@@ -25,6 +25,7 @@
 				    <tr>
 				      <th scope="col" style="width: 10%">#</th>
 				      <th scope="col" style="width: 40%">Name</th>
+				      <th scope="col" style="width: 20%">Code</th>
 				      <th scope="col" style="width: 10%">Status</th>
 				      <th scope="col" style="width: 10%">Actions</th>
 				    </tr>
@@ -36,8 +37,9 @@
 				    @foreach($countries as $country) 
 				    <tr>
 				      <th scope="row">{{$counter}}</th>
-				      <td class="oppertunity">{{$country->name}}</td>
-				      <td class="user_name">
+				      <td class="">{{$country->name}}</td>
+				      <td class="">{{$country->code}}</td>
+				      <td class="">
 				      	@if($country->status == 1)
 				      		<span class="label label-success">Active</span>
 				      	@elseif($country->status == 0)

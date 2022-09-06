@@ -20,12 +20,17 @@
 							<label>Name</label>
 							<input type="text" name="name" class="form-control">
 						</div>
+
+						<div class="col-sm-4">
+							<label>Code</label>
+							<input type="text" name="code" class="form-control">
+						</div>
 						
 					</div>
 					<div class="row">
 						<div class="col-sm-4">
 							<label>Status</label>
-							<select class="form-control" name="statue">
+							<select class="form-control" name="active">
 								<option value="1">Active</option>
 								<option value="0">Inactive</option>
 							</select>

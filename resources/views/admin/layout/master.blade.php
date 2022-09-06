@@ -308,6 +308,14 @@
             </div>
         </div>
         @endif
+
+         @if ($error_ = Session::get('error_'))
+        <div class="container">
+            <div class="alert alert-danger">
+                <p>{{ $error_ }}</p>
+            </div>
+        </div>
+        @endif
       @yield('content')
 
       <div class="modal" tabindex="-1" id="myModal">
@@ -346,6 +354,8 @@
       
       <script src="{{ asset('assets/adminpanel1/') }}/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
       <script src="{{ asset('assets/adminpanel1/') }}/plugins/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+      <script src="{{ asset('assets/adminpanel1/ckeditor') }}/ckeditor.js"></script>
+      
       <!-- endinject -->
       <!-- Custom js for this page-->
       <script type="text/javascript">
@@ -393,6 +403,40 @@
             'autoWidth'   : true
           })
         })
+
+
+         CKEDITOR.replace( 'editor1', { 
+    enterMode: CKEDITOR.ENTER_BR, 
+    on: {'instanceReady': function (evt) { evt.editor.execCommand('');}},
+    }); 
+    CKEDITOR.replace( 'editor2', { 
+    enterMode: CKEDITOR.ENTER_BR, 
+    on: {'instanceReady': function (evt) { evt.editor.execCommand('');}},
+    }); 
+    CKEDITOR.replace( 'editor3', { 
+    enterMode: CKEDITOR.ENTER_BR, 
+    on: {'instanceReady': function (evt) { evt.editor.execCommand('');}},
+    }); 
+    CKEDITOR.replace( 'editor4', { 
+    enterMode: CKEDITOR.ENTER_BR, 
+    on: {'instanceReady': function (evt) { evt.editor.execCommand('');}},
+    }); 
+    CKEDITOR.replace( 'Responsibilities', { 
+    enterMode: CKEDITOR.ENTER_BR, 
+    on: {'instanceReady': function (evt) { evt.editor.execCommand('');}},
+    }); 
+    CKEDITOR.replace( 'summery', { 
+    enterMode: CKEDITOR.ENTER_BR, 
+    on: {'instanceReady': function (evt) { evt.editor.execCommand('');}},
+    });
+    CKEDITOR.replace( 'description', { 
+    enterMode: CKEDITOR.ENTER_BR, 
+    on: {'instanceReady': function (evt) { evt.editor.execCommand('');}},
+    });
+    CKEDITOR.replace( 'profile', { 
+    enterMode: CKEDITOR.ENTER_BR, 
+    on: {'instanceReady': function (evt) { evt.editor.execCommand('');}},
+    });
       </script>
   @yield('footer')
 </body>
