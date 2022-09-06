@@ -62,7 +62,42 @@
 					<br>
 					@if($bend_details->level > 4)
 					<div class="row">
+						
 						<div class="col-sm-3">
+							<label>Work Type</label>
+							<select class="form-control" name="work_type" id="objectives">
+								<option value="">Select Work Type</option>
+								<option value="2">Full Time</option>
+								<option value="1">Part Time</option>
+							</select>
+						</div>
+
+						<div class="col-sm-3">
+							<label>Work Shift</label>
+							<select class="form-control" name="work_shift" id="objectives">
+								<option value="">Select Shift</option>
+								<option value="day">Day</option>
+								<option value="night">Night</option>
+							</select>
+						</div>
+
+						<div class="col-sm-3">
+							<label>Work Style</label>
+							<select class="form-control" name="work_style" id="objectives">
+								<option value="">Select Shift</option>
+								<option value="onsite">Onsite</option>
+								<option value="remote">Remote</option>
+								<option value="hybrid">Hybrid</option>
+							</select>
+						</div>
+
+						<div class="col-md-12">
+							<label>Remarks</label>
+							<textarea class="form-control" rows="5" name="hr_remark"></textarea>
+						</div>
+
+
+						<!-- <div class="col-sm-3">
 							<label>Objective</label>
 							<select class="form-control" name="objective" id="objectives">
 								<option value=""> Select Objective</option>
@@ -82,7 +117,7 @@
 						<div class="col-sm-3">
 							<label>Round 3 Questions</label>
 							<input type="number" name="round_3" class="form-control" id="round_3" data-total="">
-						</div>
+						</div> -->
 					</div>
 					<br>
 					@endif

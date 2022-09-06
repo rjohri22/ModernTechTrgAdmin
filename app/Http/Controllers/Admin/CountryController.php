@@ -46,10 +46,12 @@ class CountryController extends AdminBaseController
         };
         $validated = $request->validate([
             'name' => 'required|max:255',
+            'code' => 'required|max:255',
         ]);
 
         $insert_arr = array(
             'name'       => $request->input('name'),
+            'code'       => $request->input('code'),
             'active'    => $request->input('active')
         );
 
@@ -74,9 +76,15 @@ class CountryController extends AdminBaseController
             return redirect()->route('home');
         };
 
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'code' => 'required|max:255',
+        ]);
+
          $update_arr = array(
             'name'       => $request->input('name'),
-            'active'    => $request->input('statue')
+            'code'       => $request->input('code'),
+            'active'    => $request->input('active')
         );
 
         $query  = Countries::where('id', $id)->update($update_arr);

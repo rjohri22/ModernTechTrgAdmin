@@ -14,11 +14,19 @@
 				<form action="{{route('admin.update_job',$job->id)}}" method="post">
 			@csrf
 			<div class="row">
-				<div class="col-sm-3">
+				<!-- <div class="col-sm-3">
 					<label>Title</label>
 					<input type="text" name="title" class="form-control" value="{{$job->title}}">
+				</div> -->
+				<div class="col-sm-4">
+					<label>Profile</label>
+					<select class="form-control" name="bend_id" id="bend_id">
+					
+						<option value="{{ $bend_details->id }}">{{ $bend_details->name }}</option>
+					
+					</select>
 				</div>
-				<div class="col-sm-3">
+				<div class="col-sm-4">
 					<label>Company</label>
 					<select name="company_id" class="form-control">
 						<option value="">Select Company</option>
@@ -30,35 +38,38 @@
 						@endforeach
 					</select>
 				</div>
-				<div class="col-sm-3">
+				<div class="col-sm-4">
 					<label>Country</label>
 					<select class="form-control" name="country_id" id="country">
 						@foreach ($countries as $country)
-							<option value="{{ $country->id }}">{{ $country->name }}</option>
+							@php
+							$selected = ($country->id == $job->country_id) ? 'selected' : '';
+							@endphp
+							<option value="{{ $country->id }}" {{$selected}}>{{ $country->name }}</option>
 						@endforeach
 					</select>
 				</div>
-				<div class="col-sm-3">
+				<div class="col-sm-4">
 					<label>State</label>
 					<select class="form-control" name="state_id" id="state">
 					</select>
 				</div>
-				<div class="col-sm-3">
+				<div class="col-sm-4">
 					<label>City</label>
 					<select class="form-control" name="city_id" id="cities" >
 					</select>
 				</div>
-				<div class="col-sm-3">
+				<!-- <div class="col-sm-3">
 					<label>Min Salary</label>
 					<input type="number" name="min_salary" class="form-control" value="{{$job->min_salary}}">
 				</div>
 				<div class="col-sm-3">
 					<label>Max Salary</label>
 					<input type="number" name="max_salary" class="form-control" value="{{$job->max_salary}}">
-				</div>
+				</div> -->
 			</div>
 			<br>
-			<div class="row">
+			<!-- <div class="row">
 				<div class="col-sm-3">
 					<label>Salary Type</label>
 					<select name="salary_type" class="form-control">
@@ -90,8 +101,8 @@
 					<input type="date" name="expires_on" class="form-control" value="{{$job->expires_on}}">
 				</div>
 			</div>
-			<br>
-			<div class="row">
+			<br> -->
+			<!-- <div class="row">
 				<div class="col-sm-3">
 					<label>Head Count</label>
 					<input type="number" name="no_of_position" class="form-control" value="{{$job->no_of_positions}}">
@@ -103,7 +114,7 @@
 						<option value="1" {{($job->urgent_hiring == 1) ? 'selected' : ''}}>Yes</option>
 						<option value="0" {{($job->urgent_hiring == 0) ? 'selected' : ''}}>No</option>
 					</select>
-				</div>
+				</div> -->
 
 				<!-- <div class="col-sm-3">
 					<label>Status</label>
@@ -112,9 +123,9 @@
 						<option value="0" {{($job->status == 0) ? 'selected' : ''}}>Pending</option>
 					</select>
 				</div> -->
-			</div>
-			<br>
-			<div class="row">
+			<!-- </div>
+			<br> -->
+			<!-- <div class="row">
 				<div class="col-sm-12">
 					<label>Summery</label>
 					<textarea class="form-control" name="summery" rows="8">{{$job->summery}}</textarea>
@@ -127,7 +138,7 @@
 					<textarea class="form-control" name="description" rows="8">{{$job->description}}</textarea>
 				</div>
 			</div>
-			<br>
+			<br> -->
 			<div class="row">
 				<div class="col-sm-12">
 					<button class="btn btn-primary" type="submit" style="float: right">Edit Job Description</button>

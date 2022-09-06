@@ -19,12 +19,15 @@
 							<label>Name</label>
 							<input type="text" name="name" class="form-control" value="{{$countries->name}}" >
 						</div>
-						
+						<div class="col-sm-4">
+							<label>Code</label>
+							<input type="text" name="code" class="form-control" value="{{$countries->code}}">
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4">
 							<label>Statue</label>
-							<select class="form-control" name="statue">
+							<select class="form-control" name="active">
 								<option value="1" @if ($countries->status == 1) selected @endif >Active</option>
 								<option value="0" @if ($countries->status == 0) selected @endif >Inactive</option>
 							</select>
