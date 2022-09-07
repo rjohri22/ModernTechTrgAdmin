@@ -38,6 +38,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
+// Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::post('/store_profile', [App\Http\Controllers\HomeController::class, 'store_profile'])->name('store_profile');
 Route::post('/store_education', [App\Http\Controllers\HomeController::class, 'store_education'])->name('store_education');
 Route::post('/store_work', [App\Http\Controllers\HomeController::class, 'store_work'])->name('store_work');
@@ -49,6 +50,7 @@ Route::get('/apply_job/{id}', [App\Http\Controllers\HomeController::class, 'appl
 Route::post('/store_apply_job/{id}', [App\Http\Controllers\HomeController::class, 'store_apply_job'])->name('store_apply_job');
 Route::get('/my_jobs', [App\Http\Controllers\HomeController::class, 'myjobs'])->name('myjobs');
 Route::get('/thankyou', [App\Http\Controllers\HomeController::class, 'thankyou'])->name('thankyou');
+Route::get('/career', [App\Http\Controllers\FrontController::class, 'career'])->name('career');
 
 Route::prefix('admin')->group(function () {
     Route::get('/', [Admin\DashboardController::class, 'index']);

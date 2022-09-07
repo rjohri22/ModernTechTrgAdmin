@@ -27,6 +27,8 @@
   <link rel="stylesheet" href="{{ asset('assets/adminpanel1/') }}/plugins/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- datatable libraries: -->
   <link rel="stylesheet" href="{{ asset('assets/adminpanel1/') }}/bower_components/font-awesome/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="{{ asset('assets/css/') }}/bootstrap-tagsinput.css">
   <!-- <link rel="stylesheet" href="{{ asset('assets/adminpanel1/') }}/plugins/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
   <!-- <script src="{{ asset('assets/adminpanel1/') }}/bower_components/jquery/dist/jquery.min.js"></script> -->
   <!-- <script src="{{ asset('assets/adminpanel1/') }}/bower_components/jquery-ui/jquery-ui.min.js"></script> -->
@@ -355,6 +357,7 @@
       <script src="{{ asset('assets/adminpanel1/') }}/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
       <script src="{{ asset('assets/adminpanel1/') }}/plugins/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
       <script src="{{ asset('assets/adminpanel1/ckeditor') }}/ckeditor.js"></script>
+      <script src="{{ asset('assets/js') }}/bootstrap-tagsinput.js"></script>
       
       <!-- endinject -->
       <!-- Custom js for this page-->
