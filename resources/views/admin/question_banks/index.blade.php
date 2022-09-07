@@ -31,7 +31,7 @@
 				  	@foreach($questions as $k => $q)
 						<tr>
 							<td>{{$k+1}}</td>
-							<td>{{$q->title}}</td>
+							<td>{{$q->department_name}}</td>
 							<td>{{($q->question_type == 1) ? "Subjective" : "Objective" }}</td>
 							<td>{{$q->question}}</td>
 							<td>

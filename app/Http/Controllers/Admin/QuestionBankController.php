@@ -24,7 +24,7 @@ class QuestionBankController extends AdminBaseController
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $this->data['questions'] = QuestionBank::join('departments','departments.id','=','question_banks.department_id')->get();
+        $this->data['questions'] = QuestionBank::join('departments','departments.id','=','question_banks.department_id')->select(['departments.title as department_name','question_banks.*'])->get();
         return view('admin/question_banks/index',$this->data);
 
     }

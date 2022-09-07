@@ -7,7 +7,7 @@
         <div class="col-sm-8">
             <div class="card">
                 <div class="card-header">
-                    <h6>{{$oppertunity->title}}</h6>
+                    <h6>{{$oppertunity->bend_id}}</h6>
                 </div>
                 <div class="card-body">
                     <div class="summery">
