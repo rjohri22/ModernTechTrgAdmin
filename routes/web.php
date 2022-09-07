@@ -80,14 +80,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/job_seeker/edit/{id}', [Admin\JobSeekerController::class, 'edit'])->name('admin.edit_job_seeker');
     Route::get('/job_seeker/view/{id}', [Admin\JobSeekerController::class, 'view'])->name('admin.view_job_seeker');
     
-//profile
-Route::get('/profile/view', [Admin\ProfileController::class, 'view'])->name('admin.view_profile');
-Route::post('/profile/update_profile_resume/{id}', [Admin\ProfileController::class, 'update_profile_resume'])->name('admin.update_profile_resume');
-Route::post('/profile/store_profile_education/{id}', [Admin\ProfileController::class, 'store_profile_education'])->name('admin.store_profile_education');
-Route::post('/job_seeker/store_profile_experience/{id}', [Admin\ProfileController::class, 'store_profile_experience'])->name('admin.store_profile_experience');
-Route::post('/job_seeker/store_profile_certificate/{id}', [Admin\ProfileController::class, 'store_profile_certificate'])->name('admin.store_profile_certificate');
-Route::post('/job_seeker/store_profile_language/{id}', [Admin\ProfileController::class, 'store_profile_language'])->name('admin.store_profile_language');
-Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::class, 'store_profile_link'])->name('admin.store_profile_link');
+    //profile
+    Route::get('/profile/view', [Admin\ProfileController::class, 'view'])->name('admin.view_profile');
+    Route::post('/profile/update_profile_resume/{id}', [Admin\ProfileController::class, 'update_profile_resume'])->name('admin.update_profile_resume');
+    Route::post('/profile/store_profile_education/{id}', [Admin\ProfileController::class, 'store_profile_education'])->name('admin.store_profile_education');
+    Route::post('/job_seeker/store_profile_experience/{id}', [Admin\ProfileController::class, 'store_profile_experience'])->name('admin.store_profile_experience');
+    Route::post('/job_seeker/store_profile_certificate/{id}', [Admin\ProfileController::class, 'store_profile_certificate'])->name('admin.store_profile_certificate');
+    Route::post('/job_seeker/store_profile_language/{id}', [Admin\ProfileController::class, 'store_profile_language'])->name('admin.store_profile_language');
+    Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::class, 'store_profile_link'])->name('admin.store_profile_link');
 
 
     Route::post('/job_seeker/store_job_seeker', [Admin\JobSeekerController::class, 'store_job_seeker'])->name('admin.store_job_seeker');
@@ -152,13 +152,13 @@ Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::cla
 
 
 
-//countries
-Route::get('/countries', [Admin\CountryController::class, 'index'])->name('admin.countries');
-Route::get('/countries/add', [Admin\CountryController::class, 'add'])->name('admin.countries_add');
-Route::post('/countries/store', [Admin\CountryController::class, 'store'])->name('admin.countries_store');
-Route::get('/countries/edit/{id}', [Admin\CountryController::class, 'edit'])->name('admin.countries_edit');
-Route::post('/countries/update/{id}', [Admin\CountryController::class, 'update'])->name('admin.countries_update');
-Route::get('/countries/delete/{id}', [Admin\CountryController::class, 'delete'])->name('admin.countries_delete');
+    //countries
+    Route::get('/countries', [Admin\CountryController::class, 'index'])->name('admin.countries');
+    Route::get('/countries/add', [Admin\CountryController::class, 'add'])->name('admin.countries_add');
+    Route::post('/countries/store', [Admin\CountryController::class, 'store'])->name('admin.countries_store');
+    Route::get('/countries/edit/{id}', [Admin\CountryController::class, 'edit'])->name('admin.countries_edit');
+    Route::post('/countries/update/{id}', [Admin\CountryController::class, 'update'])->name('admin.countries_update');
+    Route::get('/countries/delete/{id}', [Admin\CountryController::class, 'delete'])->name('admin.countries_delete');
 
 
 
@@ -258,7 +258,7 @@ Route::get('/countries/delete/{id}', [Admin\CountryController::class, 'delete'])
     Route::post('/interview_objectives/update_objective/{id}', [Admin\InterviewObjectivesController::class, 'update'])->name('admin.update_interview_objectives');
     
     Route::get('/interview_objectives/delete_objective/{id}', [Admin\InterviewObjectivesController::class, 'delete'])->name('admin.delete_interview_objectives');
-//Questions
+    //Questions
     Route::get('/interview_objectives/list_question/{id}/{round}', [Admin\InterviewObjectivesController::class, 'list_question'])->name('admin.list_question');
    
     Route::post('/interview_objectives/store_question', [Admin\InterviewObjectivesController::class, 'store_question'])->name('admin.store_interview_question');
@@ -270,7 +270,7 @@ Route::get('/countries/delete/{id}', [Admin\CountryController::class, 'delete'])
 
 
 
-Route::get('/jobs/publish/{id}', [Admin\JobController::class, 'publish'])->name('admin.publish_jobs');
+    Route::get('/jobs/publish/{id}', [Admin\JobController::class, 'publish'])->name('admin.publish_jobs');
 
     Route::get('/question_banks', [Admin\QuestionBankController::class, 'index'])->name('admin.question_banks');
 
@@ -286,5 +286,14 @@ Route::get('/jobs/publish/{id}', [Admin\JobController::class, 'publish'])->name(
     Route::post('/question_bank/update_question_bank/{id}', [Admin\QuestionBankController::class, 'update'])->name('admin.update_question_bank');
     
     Route::get('/question_bank/delete_question_bank/{id}', [Admin\QuestionBankController::class, 'delete'])->name('admin.delete_question_bank');
+
+    // Interview Rounds
+    Route::get('/interview_rounds', [Admin\InterviewRoundsController::class, 'index'])->name('admin.interview_rounds');
+    Route::get('/interview_rounds/add', [Admin\InterviewRoundsController::class, 'add'])->name('admin.interview_rounds.add');
+    Route::post('/interview_rounds/store', [Admin\InterviewRoundsController::class, 'store'])->name('admin.interview_rounds.store');
+    Route::post('/interview_rounds/questions', [Admin\InterviewRoundsController::class, 'questions'])->name('admin.interview_rounds.questions');
+    Route::post('/interview_rounds/questions_update', [Admin\InterviewRoundsController::class, 'questions_update'])->name('admin.interview_rounds.questions_update');
+
+
 });
 
