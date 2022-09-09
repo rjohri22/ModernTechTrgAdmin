@@ -295,6 +295,10 @@ Route::prefix('admin')->group(function () {
     Route::post('/interview_rounds/store', [Admin\InterviewRoundsController::class, 'store'])->name('admin.interview_rounds.store');
     Route::post('/interview_rounds/questions', [Admin\InterviewRoundsController::class, 'questions'])->name('admin.interview_rounds.questions');
     Route::post('/interview_rounds/questions_update', [Admin\InterviewRoundsController::class, 'questions_update'])->name('admin.interview_rounds.questions_update');
+    Route::get('/interview_rounds/delete/{id}', [Admin\InterviewRoundsController::class, 'delete'])->name('admin.interview_rounds.delete');
+    Route::get('/interview_rounds/edit/{id}', [Admin\InterviewRoundsController::class, 'edit'])->name('admin.interview_rounds.edit');
+    Route::post('/interview_rounds/update', [Admin\InterviewRoundsController::class, 'update'])->name('admin.interview_rounds.update');
+    Route::get('/interview_rounds/questions_list/{id}', [Admin\InterviewRoundsController::class, 'questions_list'])->name('admin.interview_rounds.questions_list');
 
 
 });

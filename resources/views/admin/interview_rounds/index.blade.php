@@ -36,12 +36,13 @@
 
 							<tr>
 								<td>{{ $row->profile }}</td>
-								<td>{{ $row->interview_time }}</td>
+								<td>{{ $row->interview_time }} min</td>
 								<td>{{ $row->no_rounds }}</td>
 								<td>{{ $row->no_question }}</td>
 								<td>
-									<a href="#" class="btn btn-info btn-sm">Edit</a>
-									<button type="button" class="btn btn-sm btn-danger" data-toggle="popover" data-bs-placement="left" data-bs-trigger="focus" title="Delete Oppertunity" data-bs-html="true" data-bs-content="<b>Are You Sure ?</b><hr><a href='{{route('admin.bend_delete',$row->id)}}' class='btn btn-success btn-sm'>I am Sure</a>&nbsp;<a class='btn btn-danger btn-sm'>No</a>">Delete</button>
+									<a href="{{route('admin.interview_rounds.questions_list',$row->id)}}" class="btn btn-primary btn-sm">Questions</a>
+									<a href="{{route('admin.interview_rounds.edit',$row->id)}}" class="btn btn-info btn-sm">Edit</a>
+									<button type="button" class="btn btn-sm btn-danger" data-toggle="popover" data-bs-placement="left" data-bs-trigger="focus" title="Delete Oppertunity" data-bs-html="true" data-bs-content="<b>Are You Sure ?</b><hr><a href='{{route('admin.interview_rounds.delete',$row->id)}}' class='btn btn-success btn-sm'>I am Sure</a>&nbsp;<a class='btn btn-danger btn-sm'>No</a>">Delete</button>
 								</td>
 							</tr>
 						@endforeach
