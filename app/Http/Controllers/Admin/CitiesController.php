@@ -104,7 +104,12 @@ class CitiesController extends AdminBaseController
         $this->loadBaseData();
         $this->data['codestatus'] = true;
         $this->data['html'] = '';
-        $states = States::where('country_id',$request->id)->get();
+        if(is_array($request->id)){
+            $states = States::whereIn('country_id',$request->id)->get();
+        }
+        else{
+            $states = States::where('country_id',$request->id)->get();
+        }
         foreach($states as $state){
             $this->data['html'] .= "<option value='".$state->id."'>".$state->name."</option>";
         }
@@ -115,7 +120,12 @@ class CitiesController extends AdminBaseController
         $this->loadBaseData();
         $this->data['codestatus'] = true;
         $this->data['html'] = '';
-        $cities = Cities::where('state_id',$request->id)->get();
+        if(is_array($request->id)){
+            $cities = Cities::whereIn('state_id',$request->id)->get();
+        }
+        else{
+            $cities = Cities::where('state_id',$request->id)->get();
+        }
         foreach($cities as $city){
             $this->data['html'] .= "<option value='".$city->id."'>".$city->name."</option>";
         }
