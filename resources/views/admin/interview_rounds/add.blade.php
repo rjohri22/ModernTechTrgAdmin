@@ -30,7 +30,6 @@
                             <select class="form-control" name="profile">
                                 @foreach($bends as $bend)
                                     <option value="{{ $bend->id }}">{{ $bend->name }}</option>
-
                                 @endforeach
                             </select>
 						</div>	
