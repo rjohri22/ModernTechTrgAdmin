@@ -17,26 +17,26 @@
 			<div class="card-inner">
 				<div class="row">
 					<div class="col-sm-12">
-						<h5 class="card-title d-inline">Add Interview Round</h5>
+						<h5 class="card-title d-inline">Edit Interview Round</h5>
 					</div>
 				</div>
 			</div>
 			<div class="card-body">
-				<form action="{{route('admin.interview_rounds.store')}}" method="post">
+				<form action="{{route('admin.interview_rounds.update')}}" method="post">
 					@csrf
 					<div class="row">
 						<div class="col-md-6">
 							<label class="form-label">Profile</label>
                             <select class="form-control" name="profile">
                                 @foreach($bends as $bend)
-                                    <option value="{{ $bend->id }}">{{ $bend->name }}</option>
-
+                                    <option value="{{ $bend->id }}" @if($bend->id == $interviewrounds->profile_id ) selected @endif >{{ $bend->name }}</option>
                                 @endforeach
                             </select>
+                            <input type="hidden" name="id" value="{{ $interviewrounds->id }}" >
 						</div>	
                         <div class="col-md-6">
                             <label class="form-label">Interview Time</label>
-                            <input type="number" name="time" class="form-control" value="0">
+                            <input type="number" name="time" class="form-control" value="{{ $interviewrounds->interview_time }}">
                         </div>
 					</div>
                     <div class="row">
@@ -65,7 +65,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    @php
+                                        $sno = 0;
+                                    @endphp
+                                    @foreach($interviewroundquestions as $row)
+                                        @php
+                                            $sno++;
+                                        @endphp
+                                        <tr id='tr{{ $sno }}' >
+                                            <input type='hidden' name='round_id[]' value='{{ $row->round_id }}' >
+                                            <input type='hidden' name='round_questions[]' id='round_questions{{ $sno }}' value='[{{ $row->ids }}]' >
+                                            <td>{{ $row->round_name }}</td>
+                                            <td id='no_question{{ $sno }}' >{{ $row->count_questions }}</td>
+                                            <td>
+                                                <button type='button' class='btn btn-sm btn-primary roundEdit' data-rid='{{ $row->round_id }}' data-questions='[{{ $row->ids }}]' data-sno='{{ $sno }}'  data-bs-toggle='modal' data-bs-target='#questionsModal' >Edit</button>
+                                                <button type='button' class='btn btn-sm btn-danger roundDelete' data-sno='{{ $sno }}' >Remove</button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -169,6 +186,7 @@
             // console.log(sno);
             $('#tr'+sno).remove();
         });
+        
         
     });
 </script>
