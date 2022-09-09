@@ -436,10 +436,10 @@
     enterMode: CKEDITOR.ENTER_BR, 
     on: {'instanceReady': function (evt) { evt.editor.execCommand('');}},
     });
-    CKEDITOR.replace( 'profile', { 
-    enterMode: CKEDITOR.ENTER_BR, 
-    on: {'instanceReady': function (evt) { evt.editor.execCommand('');}},
-    });
+    // CKEDITOR.replace( 'profile', { 
+    // enterMode: CKEDITOR.ENTER_BR, 
+    // on: {'instanceReady': function (evt) { evt.editor.execCommand('');}},
+    // });
       </script>
   @yield('footer')
 </body>

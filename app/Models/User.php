@@ -42,7 +42,18 @@ class User extends Authenticatable
         'desired_salary',
         'desired_period',
         'desired_jobtype',
-        'resume_attachment'
+        'resume_attachment',
+        'country_code',
+        'occupation',
+        'curruntly_employeed',
+        'total_work_experience',
+        'last_job_title',
+        'last_job_company_name',
+        'last_job_company_duration',
+        'annual_inhand_salary',
+        'recent_industries',
+        'available_to_join',
+        'education',
     ];
 
     /**

@@ -414,8 +414,8 @@ class HomeController extends Controller
             // return redirect('/admin/dashboard');
         }
         else{
-             Session::put('admin_login', 2);
-            return redirect('/home');
+            Session::put('admin_login', 2);
+            return redirect('/career');
         }
     }
 

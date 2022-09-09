@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/loginverification';
+    protected $redirectTo = '\loginverification';
 
     /**
      * Create a new controller instance.
@@ -52,6 +52,17 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
+            'country' => ['required', 'string', 'max:255'],
+            'mobile' => ['required', 'string', 'max:255'],
+            'occupation' => ['required', 'string', 'max:255'],
+            'curruntly_employeed' => ['required', 'string', 'max:255'],
+            'total_work_experience' => ['required', 'string', 'max:255'],
+            'last_job_title' => ['required', 'string', 'max:255'],
+            'last_job_company' => ['required', 'string', 'max:255'],
+            'last_job_company_duration' => ['required', 'string', 'max:255'],
+            'annual_inhand_salary' => ['required', 'string', 'max:255'],
+            'available_to_join' => ['required', 'string', 'max:255'],
+            'education' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             // 'phone' => ['required', 'numeric'],
@@ -72,8 +83,19 @@ class RegisterController extends Controller
             'last_name' => $data['last_name'],
             'name' => $data['first_name'],
             'email' => $data['email'],
+            'country' => $data['country'],
+            'phone' => $data['mobile'],
+            // 'mobile' => $data['mobile'],
+            'occupation' => $data['occupation'],
+            'curruntly_employeed' => $data['curruntly_employeed'],
+            'total_work_experience' => $data['total_work_experience'],
+            'last_job_title' => $data['last_job_title'],
+            'last_job_company' => $data['last_job_company'],
+            'last_job_company_duration' => $data['last_job_company_duration'],
+            'annual_inhand_salary' => $data['annual_inhand_salary'],
+            'available_to_join' => $data['available_to_join'],
+            'education' => $data['education'],
             'group_id' => 2,
-            // 'phone' => $data['phone'],
             // 'address' => $data['address'],
             'password' => Hash::make($data['password']),
         ]);
