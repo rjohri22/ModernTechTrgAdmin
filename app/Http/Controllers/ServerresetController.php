@@ -22,8 +22,11 @@ class ServerresetController extends Controller
         echo 'Server Reset<br>';
         echo 'Run Migrate Command<br>';
         $migration = Artisan::call('migrate');
+        dump(  $migration);
         echo 'Run Optimize Command<br>';
         $optimize = Artisan::call('optimize');
+
+        dump( $optimize);
         
     }
 }
