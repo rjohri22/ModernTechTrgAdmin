@@ -303,6 +303,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/interview_rounds/edit/{id}', [Admin\InterviewRoundsController::class, 'edit'])->name('admin.interview_rounds.edit');
     Route::post('/interview_rounds/update', [Admin\InterviewRoundsController::class, 'update'])->name('admin.interview_rounds.update');
     Route::get('/interview_rounds/questions_list/{id}', [Admin\InterviewRoundsController::class, 'questions_list'])->name('admin.interview_rounds.questions_list');
+    // Rounds
+    Route::get('/rounds', [Admin\RoundsController::class, 'index'])->name('admin.rounds');
+    Route::get('/rounds/add', [Admin\RoundsController::class, 'add'])->name('admin.rounds.add');
+    Route::post('/rounds/store', [Admin\RoundsController::class, 'store'])->name('admin.rounds.store');
+    Route::post('/rounds/edit', [Admin\RoundsController::class, 'edit'])->name('admin.rounds.edit');
+    Route::post('/rounds/update', [Admin\RoundsController::class, 'update'])->name('admin.rounds.update');
+    Route::get('/rounds/delete/{id}', [Admin\RoundsController::class, 'delete'])->name('admin.rounds.delete');
+
 
 
 });
