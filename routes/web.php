@@ -15,9 +15,11 @@ use Illuminate\Support\Facades\Artisan;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get("/reset-server-routes",function(){
+Route::get("/reset-server",function(){
 
     Artisan::call('optimize');
+    Artisan::call('migrate');
+
 
 });
 
