@@ -42,10 +42,11 @@ Route::get('/jobSeeker',function(){
 
 //---------------------------
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 // Confilate Code End
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/server_reset', [App\Http\Controllers\ServerresetController::class, 'index'])->name('server_reset');
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 // Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::post('/store_profile', [App\Http\Controllers\HomeController::class, 'store_profile'])->name('store_profile');
