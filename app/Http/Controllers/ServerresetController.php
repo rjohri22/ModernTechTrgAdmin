@@ -20,11 +20,12 @@ class ServerresetController extends Controller
 {
     public function index(){
         echo 'Server Reset<br>';
-        echo 'Run Migrate Command<br>';
-        $migration = Artisan::call('migrate');
+ 
         dump(  $migration);
         echo 'Run Optimize Command<br>';
         $optimize = Artisan::call('optimize');
+        echo 'Run Migrate Command<br>';
+        $migration = Artisan::call('migrate');
 
         dump( $optimize);
         
