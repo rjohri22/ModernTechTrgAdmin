@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 use App\Http\Controllers\Admin;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,12 @@ use App\Http\Controllers\Admin;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get("/reset-server-routes",function(){
+
+    Artisan::call('optimize');
+
+});
+
 
 Route::get('/', function () {
     return view('auth/login');
