@@ -424,4 +424,18 @@ class HomeController extends Controller
         $data['jobs'] = Job_applications::where('jobseeker_id', $user_id)->get();
         return view('jobs/myjob',$data);
     }
+
+    public function apply_for_job(Request $request){
+        $user_id = Auth::user()->id;
+        $update_arr = array(
+            'oppertunity_id'           => $request->input('job_id'),
+            'jobseeker_id'             => $user_id,
+            'hod_id'                   => 0,
+        );
+
+        $query = Job_applications::create($update_arr);
+        $id = $query->id;
+
+        return redirect()->route('attempt_interview',$id);
+    }
 }

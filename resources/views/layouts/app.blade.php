@@ -16,6 +16,8 @@
     <!-- Google reCAPTCHA CDN -->
     <script type="text/javascript" async="" src="https://www.gstatic.com/recaptcha/releases/duyHVVR9Brf6N2GewjkPRfsA/recaptcha__en.js" crossorigin="anonymous" integrity="sha384-NmGDU4RScHC/45U4cyyPCHPJC0MIywNWLqZUS7uo6vvrB2L2PVol/SE6JmzfUyew"></script><script src="https://www.google.com/recaptcha/api.js" async="" defer="">
     </script>
+    <script src="{{ asset('assets/front_assets/js/jquery.js') }}"></script>
+    <script src="{{ asset('assets/front_assets/js/bootstrap.min.js') }}"></script>
 <body>
     <div class="page-wrapper">
         <div class="wrapper">
@@ -269,10 +271,8 @@
 
 <!--Scroll to top-->
 <div class="scroll-to-top scroll-to-target" data-target="html" style="display: block;"><span class="flaticon-right-arrow"></span></div>
-<script src="{{ asset('assets/front_assets/js/jquery.js') }}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('assets/front_assets/js/popper.min.js') }}"></script>
-<script src="{{ asset('assets/front_assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/front_assets/js/bootstrap-select.min.js') }}"></script>
 <script src="{{ asset('assets/front_assets/js/jquery.fancybox.js') }}"></script>
 <script src="{{ asset('assets/front_assets/js/isotope.js') }}"></script>
