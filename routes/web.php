@@ -61,9 +61,11 @@ Route::post('/store_apply_job/{id}', [App\Http\Controllers\HomeController::class
 Route::get('/my_jobs', [App\Http\Controllers\HomeController::class, 'myjobs'])->name('myjobs');
 Route::get('/thankyou', [App\Http\Controllers\HomeController::class, 'thankyou'])->name('thankyou');
 Route::get('/career', [App\Http\Controllers\FrontController::class, 'career'])->name('career');
-Route::post('/apply_for_job', [App\Http\Controllers\FrontController::class, 'apply_for_job'])->name('apply_for_job');
-Route::get('/attempt_interview', [App\Http\Controllers\FrontController::class, 'attempt_interview'])->name('attempt_interview');
-Route::post('/store_attempt_interview', [App\Http\Controllers\FrontController::class, 'store_attempt_interview'])->name('store_attempt_interview');
+Route::post('/apply_for_job', [App\Http\Controllers\HomeController::class, 'apply_for_job'])->name('apply_for_job');
+Route::get('/attempt_interview/{id}', [App\Http\Controllers\FrontController::class, 'attempt_interview'])->name('attempt_interview');
+
+
+Route::post('/store_attempt_interview/{id}', [App\Http\Controllers\FrontController::class, 'store_attempt_interview'])->name('store_attempt_interview');
 
 
 Route::prefix('admin')->group(function () {
