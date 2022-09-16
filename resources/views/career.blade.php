@@ -308,16 +308,23 @@
 			                  </tbody>
 			                </table>
 
+                            <form method="post" action="{{route('apply_for_job')}}">
 			                <center> 
-                                <form method="post" action="{{route('apply_for_job')}}" class="theme-btn btn-style-one">
                                     @csrf
+                                    <span><strong>Do You Want to Relocate ?</strong></span>
+                                    <input type="checkbox" name="reloaction" value="1" required="">
                                     <input type="hidden" name="job_id" value="{{$j->id}}">
-                                    <button type="submit" class="btn-title">Apply</button>
-                                </form>
+                                    <br>
+                                    <br>
+                                    <button type="submit" class="theme-btn btn-style-one">
+                                        <span class="btn-title">Apply</span>
+                                    </button>
+                                    <!-- <button type="submit" class="btn-title">Apply</button> -->
                                 <!-- <a href="{{route('apply_job',$j->id)}}" class="theme-btn btn-style-one">
                                     
 			                    </a> -->
 			                </center>
+                            </form>
 			            </div>
 
 			        </div><!-- modal-content -->

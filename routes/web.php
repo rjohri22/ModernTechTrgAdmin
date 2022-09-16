@@ -42,7 +42,9 @@ Route::get('/jobSeeker',function(){
 
 //---------------------------
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/', [App\Http\Controllers\FrontController::class, 'career'])->name('home');
+// Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 // Confilate Code End
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -323,6 +325,9 @@ Route::prefix('admin')->group(function () {
     Route::post('/rounds/update', [Admin\RoundsController::class, 'update'])->name('admin.rounds.update');
     Route::get('/rounds/delete/{id}', [Admin\RoundsController::class, 'delete'])->name('admin.rounds.delete');
 
+
+
+    Route::post('/load_interview_round', [Admin\DashboardController::class, 'load_interview_round'])->name('admin.load_interview_round');
 
 
 });

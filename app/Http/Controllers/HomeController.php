@@ -14,6 +14,7 @@ use App\Models\Admin\Jobs;
 use App\Models\Admin\Oppertunities;
 use Illuminate\Support\Facades\Auth;
 use Session;
+use Illuminate\Support\Facades\Crypt;
 
 class HomeController extends Controller
 {
@@ -384,8 +385,17 @@ class HomeController extends Controller
         return view('apply_job',$data);
     }
 
-    public function thankyou(){
-        return view('thankyou');
+    public function thankyou(Request $request){
+        // echo "asdsad";
+        // die();
+        $id = ($request->get('id')) ? $request->get('id') : null;
+        if($id != null){
+            $data['id'] = Crypt::decrypt($id);
+        }
+        else{
+            $data['id'] = null;
+        }
+        return view('thankyou',$data);
     }
 
     public function store_apply_job($id, Request $request){
@@ -429,6 +439,7 @@ class HomeController extends Controller
         $user_id = Auth::user()->id;
         $update_arr = array(
             'oppertunity_id'           => $request->input('job_id'),
+            'relocate'                 => $request->input('reloaction'),
             'jobseeker_id'             => $user_id,
             'hod_id'                   => 0,
         );
@@ -436,6 +447,7 @@ class HomeController extends Controller
         $query = Job_applications::create($update_arr);
         $id = $query->id;
 
-        return redirect()->route('attempt_interview',$id);
+        // return redirect()->route('attempt_interview',$id);
+        return redirect()->route('thankyou',['id' => Crypt::encrypt($id)]);
     }
 }

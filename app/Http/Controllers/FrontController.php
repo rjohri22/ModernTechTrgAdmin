@@ -118,5 +118,9 @@ class FrontController extends Controller
         // echo "<pre/>".print_r($data,1);
         // echo "<pre/>".print_r($_POST,1);
     }
+
+    // function thankyou(){
+    //     return view('thankyou',$data);   
+    // }
 }
 ?>

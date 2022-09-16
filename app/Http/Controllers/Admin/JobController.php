@@ -272,9 +272,11 @@ class JobController extends AdminBaseController
         if(!$this->check_role()){
             return redirect()->route('home');
         };
+        
         $user_id = Auth::user()->id;
         $user_details = User::where('id',$user_id)->first();
-        $bend_details = Bend::where('id',$user_details->bend_id)->first();
+        $my_bend = Bend::where('id',$user_details->bend_id)->first();
+        $bend_details = Bend::get();
         $this->data['job_descrtiption'] = Oppertunities::get();
         $this->data['objectives'] = InterviewObjectives::get();
         $this->data['companies'] = Companies::where('status','1')->get();
@@ -282,6 +284,7 @@ class JobController extends AdminBaseController
 
         // $this->data['countries'] = Countries::get();
         $this->data['bend_details'] = $bend_details;
+        $this->data['my_bend'] = $my_bend;
         return view('admin/jobs/add',$this->data);
     }
 

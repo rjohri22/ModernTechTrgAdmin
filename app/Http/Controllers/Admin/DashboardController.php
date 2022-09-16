@@ -18,6 +18,7 @@ use App\Models\Admin\States;
 use App\Models\Admin\Cities;
 use App\Models\Admin\Jobs;
 use App\Models\Admin\Question;
+use App\Models\Admin\InterviewRounds;
 
 
 class DashboardController extends AdminBaseController
@@ -214,6 +215,17 @@ class DashboardController extends AdminBaseController
         // ->get(['oppertunities.*', 'companies.name as company_name'])->where('id',$id)->first();
 $this->data['job'] = $fetch;
 return view('admin/jobs/view',$this->data);
+    }
+
+
+    function load_interview_round(Request $request ){
+        $this->loadBaseData();
+        $this->data['codestatus'] = false;
+        $states = InterviewRounds::where('profile_id',$request->bend_id)->count(); 
+        if($states > 0){
+            $this->data['codestatus'] = true;
+        }
+        return response()->json($this->data);
     }
 
 }
