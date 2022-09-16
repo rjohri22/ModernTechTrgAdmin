@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Admin\BusinessLocations;
 use App\Models\Admin\Companies;
 use App\Models\Admin\Countries;
+use App\Models\Admin\Cities;
 
 class BusinessLocationController extends AdminBaseController
 {
@@ -73,15 +74,21 @@ class BusinessLocationController extends AdminBaseController
             'city' => 'required',
         ]);
 
-        $insert_arr = array(
-            'company_id'       => $request->input('company_id'),
-            'country_id'       => $request->input('country_id'),
-            'state_id'    => $request->input('state_id'),
-            'city'    => $request->input('city'),
-            'status'    => $request->input('status'),
-        );
 
-        $query = BusinessLocations::insert($insert_arr);
+        $countries = $request->input('country_id');
+        $states = $request->input('state_id');
+        $cities = $request->input('city');
+        foreach($cities as $city){
+            $citydata = Cities::find($city);
+            $insert_arr = array(
+                'company_id'       => $request->input('company_id'),
+                'country_id'       => $citydata->country_id,
+                'state_id'    => $citydata->state_id,
+                'city'    => $city,
+                'status'    => $request->input('status'),
+            );
+            BusinessLocations::insert($insert_arr);
+        }
         return redirect()->route('admin.business_locations')
         ->with('success','Business Location created successfully.');
     }

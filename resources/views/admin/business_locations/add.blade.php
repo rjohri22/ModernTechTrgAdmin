@@ -26,7 +26,7 @@
 						</div>
 						<div class="col-sm-3">
 							<label>Country</label>
-							<select class="form-control" name="country_id" id="country">
+							<select class="form-control" name="country_id[]" id="country" multiple >
 								@foreach ($countries as $country)
 								<option value="{{ $country->id }}">{{ $country->name }}</option>
 
@@ -35,12 +35,12 @@
 						</div>
 						<div class="col-sm-3">
 							<label>State</label>
-							<select class="form-control" name="state_id" id="state">
+							<select class="form-control" name="state_id[]" id="state" multiple >
 							</select>
 						</div>
 						<div class="col-sm-3">
 							<label>City</label>
-							<select class="form-control" name="city" id="cities" >
+							<select class="form-control" name="city[]" id="cities" multiple >
 							</select>
 						</div>
 					</div>
