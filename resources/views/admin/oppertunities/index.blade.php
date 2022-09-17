@@ -63,7 +63,6 @@ use App\Models\Job_applications;
 		    <tr>
 		      <th scope="row">{{$counter}}</th>
 		      <!-- <td>{{$oppertunity->title}}</td> -->
-		      <!-- <td>{{$oppertunity->company_name}}</td> -->
 		      <!-- <td>{{($oppertunity->min_salary) ? $oppertunity->min_salary : 0}} To {{($oppertunity->max_salary) ? $oppertunity->max_salary : 0}}</td> -->
 		      <!-- <td>
 		      	@if($oppertunity->salary_type =='1')
@@ -79,7 +78,7 @@ use App\Models\Job_applications;
 			  <!-- <td>{{substr($oppertunity->daily_job,0,50)}}</td> -->
 			  <!-- <td>{{($oppertunity->team_engagement)}}</td> -->
 			  <!-- <td>{{($oppertunity->reporting)}}</td> -->
-			  <td class="text-center">{{($oppertunity->bend_id)}}</td>
+			  <td class="text-center">{{($oppertunity->bend_name)}}</td>
 			  <!-- <td>{{substr($oppertunity->Responsibilities,0,50)}}</td> -->
 		      <!-- <td>
 		      	@if($oppertunity->work_type =='1')

@@ -10,8 +10,8 @@
 			<div class="card-body">
 				<table class="table table-bordered">
 			<tr>
-				<th style="width: 50%">Title</th>
-				<td style="width: 50%">{{$oppertunity->title}}</td>
+				<th style="width: 50%">Profile</th>
+				<td style="width: 50%">{{$oppertunity->bend_name}}</td>
 			</tr>
 			<!-- <tr>
 				<th>Company</th>
@@ -21,14 +21,32 @@
 				<th>Daily Job</th>
 				<td>{{$oppertunity->daily_job}}</td>
 			</tr>
+
 			<tr>
+				<th>Responsibilities</th>
+				<td>{{$oppertunity->Responsibilities}}</td>
+			</tr>
+
+			<tr>
+				<th>KPI</th>
+				<td>{{$oppertunity->summery}}</td>
+			</tr>
+
+			
+			<tr>
+				<th>Eligibility Criteria</th>
+				<td>{{$oppertunity->description}}</td>
+			</tr>
+
+			
+			<!-- <tr>
 				<th>Team Engagement</th>
 				<td>{{$oppertunity->team_engagement}}</td>
 			</tr>
 			<tr>
 				<th>Reporting</th>
 				<td>{{$oppertunity->reporting}}</td>
-			</tr>
+			</tr> -->
 			<!-- <tr>
 				<th>Salary Type</th>
 				<td>
@@ -45,7 +63,7 @@
 
 				</td>
 			</tr> -->
-			<tr>
+			<!-- <tr>
 				<th>Job Type</th>
 				<td>
 					@if($oppertunity->job_type =='1')
@@ -58,8 +76,8 @@
 					 	<i>Not Specified</i>       
 					@endif
 				</td>
-			</tr>
-			<tr>
+			</tr> -->
+			<!-- <tr>
 				<th>Work Type</th>
 				<td>
 					@if($oppertunity->work_type =='1')
@@ -75,10 +93,7 @@
 				<th>Profile</th>
 				<td>{{$oppertunity->profile}}</td>
 			</tr>
-			<tr>
-				<th>Responsibilities</th>
-				<td>{{$oppertunity->Responsibilities}}</td>
-			</tr>
+			
 			<tr>
 				<th>Summery</th>
 				<td>{{$oppertunity->summery}}</td>
@@ -90,19 +105,19 @@
 			<tr>
 				<th>Expires on</th>
 				<td>{{$oppertunity->expires_on}}</td>
-			</tr>
+			</tr> -->
 			<!-- <tr>
 				<th>No Of Postions</th>
 				<td>{{$oppertunity->no_of_positions}}</td>
 			</tr> -->
-			<tr>
+			<!-- <tr>
 				<th>urgent Hiring</th>
 				<td>{{($oppertunity->urgent_hiring == 1) ? "Yes" : "No"}}</td>
 			</tr>
 			<tr>
 				<th>Status</th>
 				<td>{{($oppertunity->status == 1) ? "Open" : "Closed"}}</td>
-			</tr>
+			</tr> -->
 		</table>
 			</div>
 		</div>

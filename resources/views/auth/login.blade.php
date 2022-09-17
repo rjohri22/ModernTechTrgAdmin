@@ -1,13 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
+<section class="page-title" style="background-image: url(assets/images/breadcrum/about.png);">
+    <div class="auto-container">
+        <div class="content-box">
+            <div class="content-wrapper">
+                <div class="title">
+                    <h1>Login</h1>
+                </div>
+                <ul class="bread-crumb clearfix">
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="faq-section-five" style="background:#fff;">
+    <div class="auto-container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="contact-form-area p-5" style="background:#fff;">
                     <form method="POST" action="">
                         @csrf
 
@@ -56,6 +69,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
+                                <a href="{{route('register')}}" class="btn btn-primary">
+                                    {{ __('Register') }}
+                                </a>
 
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
@@ -69,5 +85,6 @@
             </div>
         </div>
     </div>
-</div>
+</section>
+
 @endsection

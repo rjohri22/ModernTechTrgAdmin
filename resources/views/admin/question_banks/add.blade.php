@@ -1,5 +1,18 @@
 @extends('admin.layout.master')
 @section('content')
+<style type="text/css">
+	.bootstrap-tagsinput .tag{
+		background: black;
+		color: white;
+		padding: 7px;
+		border: 7px;
+	}
+
+	.bootstrap-tagsinput{
+		display: block;
+		height: 40px;
+	}
+</style>
 <div class="page-wrapper mdc-toolbar-fixed-adjust">
 	<main class="content-wrapper">
 
@@ -42,7 +55,7 @@
 					<div class="row">
 						<div class="col-sm-3 option_a_area">
 							<label>Option A</label>
-							<input type="text" name="option_a" class="form-control">
+							<input type="text" id="subj" name="option_a" class="form-control">
 						</div>
 						<div class="col-sm-3 option_b_area">
 							<label>Option B</label>
@@ -96,12 +109,14 @@
 		$('#question_type').change(function(){
 			var question_type = $(this).val();
 			if(question_type == '1'){
+				$('#subj').tagsinput();
 				$('.option_b_area').hide();
 				$('.option_c_area').hide();
 				$('.option_d_area').hide();
 				$('.correct_ans').val('A');
 				$('.answer_area').hide();
 			}else{
+				$('#subj').tagsinput('destroy');
 				$('.option_b_area').show();
 				$('.option_c_area').show();
 				$('.option_d_area').show();

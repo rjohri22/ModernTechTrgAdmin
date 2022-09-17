@@ -1,0 +1,22 @@
+/* CUSTOM CSS 5-9-2022 START */
+.services-details{
+    min-height: 200px;
+}
+.services-details p{
+    word-wrap: break-word;
+}
+/* CUSTOM CSS 5-9-2022 END */
+
+/* CUSTOM CSS 6-9-2022 START */
+.thanks_to_login button{
+    font-size: 18px;
+    color: #fff;
+    width: 50%;
+    background: #000;
+    border: none;
+    padding: 14px 15px;
+    font-weight: 700;
+    transition: .3s ease;
+    -webkit-transition: .3s ease;
+}
+/* CUSTOM CSS 6-9-2022 END */

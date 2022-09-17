@@ -44,8 +44,8 @@ class OppertunitiesController extends AdminBaseController
         $this->data['login_details'] = $login_details = User::join('bends','bends.id','=','users.bend_id')->where('users.id',$user_id)->select(['users.id as user_id','bends.*'])->first();
         
         $fetch = DB::table('oppertunities')
-            ->select(DB::raw("oppertunities.*, pb.name as company_name"))
-            ->leftJoin('companies as pb','pb.id','=','oppertunities.company_id');
+            ->select(DB::raw("oppertunities.*, pb.name as bend_name"))
+            ->leftJoin('bends as pb','pb.id','=','oppertunities.bend_id');
             
             // ->leftJoin('bends as fl','fl.id','=','oppertunities.modified_by');
             // ->where('fl.id',$login_bend_id)
@@ -117,8 +117,8 @@ class OppertunitiesController extends AdminBaseController
         if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $fetch = Oppertunities::Leftjoin('companies', 'companies.id', '=', 'oppertunities.company_id')
-                ->get(['oppertunities.*', 'companies.name as company_name'])->where('id',$id)->first();
+        $fetch = Oppertunities::Leftjoin('bends', 'bends.id', '=', 'oppertunities.bend_id')
+                ->get(['oppertunities.*', 'bends.name as bend_name'])->where('id',$id)->first();
         $this->data['oppertunity'] = $fetch;
         return view('admin/oppertunities/view',$this->data);
     }
@@ -143,6 +143,11 @@ class OppertunitiesController extends AdminBaseController
           'bend_id' => 'required',
 
         ]);
+        $check = Oppertunities::where('bend_id',$request->input('bend_id'))->count();
+        if($check > 0){
+             return redirect()->route('admin.oppertunities')
+            ->with('error_','Bend Should Be Unique');
+        }
         $user_id = Auth::user()->id;
         $update_arr = array(
             // 'title'         => $request->input('title'),
@@ -159,7 +164,7 @@ class OppertunitiesController extends AdminBaseController
           //  'job_type'      => $request->input('job_type'),
             //'work_type'     => $request->input('work_type'),
             //'expires_on'    =>  $request->input('expires_on'),
-    // 'no_of_positions'    => $request->input('no_of_position'),
+            // 'no_of_positions'    => $request->input('no_of_position'),
            // 'urgent_hiring'     => $request->input('urgent_hiring'),
            // 'status'            => $request->input('status'),
             'summery'           => $request->input('summery'),

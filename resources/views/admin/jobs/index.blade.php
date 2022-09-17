@@ -84,9 +84,9 @@ use App\Models\Job_applications;
 											  approve
 											</button>
 
-											<button type="button" class="btn btn-primary btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hr_approval">
+											<!-- <button type="button" class="btn btn-primary btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hr_approval">
 											  Reject
-											</button>
+											</button> -->
 
 											<!-- <button type="button" class="btn btn-sm btn-success" data-toggle="popover" data-bs-placement="left" data-bs-trigger="focus" title="Approval Need" data-bs-html="true" data-bs-content="<a data-bs-toggle='modal' data-bs-target='#hr_approval' class='btn btn-success btn-sm load_m'>Approved</a>&nbsp;<a class='btn btn-danger btn-sm'>Reject</a>">Change Status</button> -->
 
@@ -115,10 +115,10 @@ use App\Models\Job_applications;
 											  approve
 											</button>
 
-											<button type="button" class="btn btn-primary btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hr_approval">
+											<!-- <button type="button" class="btn btn-primary btn-danger btn-sm">
 											  Reject
 											</button>
-
+ -->
 											<!-- 
 											<button type="button" class="btn btn-sm btn-success" data-toggle="popover" data-bs-placement="left" data-bs-trigger="focus" title="Approval Need" data-bs-html="true" data-bs-content="<a href='{{route('admin.approve_hr',$job->id)}}' data-bs-toggle='modal' data-bs-target='#myModal' class='btn btn-success btn-sm load_m'>Approved</a>&nbsp;<a class='btn btn-danger btn-sm'>Reject</a>">Change Status</button> -->
 										@else
@@ -146,9 +146,9 @@ use App\Models\Job_applications;
 												  Approve
 												</button>
 
-												<button type="button" class="btn btn-primary btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hr_approval">
+												<!-- <button type="button" class="btn btn-primary btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hr_approval">
 												  Reject
-												</button>
+												</button> -->
 
 												<!-- <button type="button" class="btn btn-sm btn-success" data-toggle="popover" data-bs-placement="left" data-bs-trigger="focus" title="Approval Need" data-bs-html="true" data-bs-content="<a href='{{route('admin.approve_hr',$job->id)}}' data-bs-toggle='modal' data-bs-target='#myModal' class='btn btn-success btn-sm load_m'>Approved</a>&nbsp;<a class='btn btn-danger btn-sm'>Reject</a>">Change Status</button> -->
 											@else
@@ -158,7 +158,11 @@ use App\Models\Job_applications;
 									</td>
 								@else
 									<td>
-										Pending
+										@if($job->hr_head_approval != null)
+											Approved
+										@else
+											Pending
+										@endif
 									</td>
 								@endif
 
@@ -307,7 +311,7 @@ use App\Models\Job_applications;
 							<option value="">Select Compensation Mode</option>
 							<option value="solely_salary">Solely Salary</option>
 							<option value="base_commission">Base+Commission</option>
-							<option value="Commission">Commission Only</option>
+							<option value="commission">Commission Only</option>
 						</select>
 					</div>
 				</div>

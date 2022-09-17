@@ -4,13 +4,10 @@
 	.sweet-warning{
 		background-color: blue;
 	}
-	</style>
+</style>
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-
-
 <div class="page-wrapper mdc-toolbar-fixed-adjust">
 	<main class="content-wrapper">
-
 		<div class="mdc-card info-card info-card--success">
 			<div class="card-inner">
 				<h5>Add Job</h5>
@@ -22,9 +19,10 @@
 						<div class="col-sm-4">
 							<label>Profile</label>
 							<select class="form-control" name="bend_id" id="bend_id">
-							
-								<option value="{{ $bend_details->id }}">{{ $bend_details->name }}</option>
-							
+								@foreach($bend_details as $b)
+								<option value="{{ $b->id }}">{{ $b->name }}</option>
+								@endforeach
+
 							</select>
 						</div>
 						<div class="col-sm-4">
@@ -60,9 +58,44 @@
 						</div> -->
 					</div>
 					<br>
-					@if($bend_details->level > 4)
+					@if($my_bend->level > 4)
 					<div class="row">
+						
 						<div class="col-sm-3">
+							<label>Work Type</label>
+							<select class="form-control" name="work_type" id="objectives">
+								<option value="">Select Work Type</option>
+								<option value="2">Full Time</option>
+								<option value="1">Part Time</option>
+							</select>
+						</div>
+
+						<div class="col-sm-3">
+							<label>Work Shift</label>
+							<select class="form-control" name="work_shift" id="objectives">
+								<option value="">Select Shift</option>
+								<option value="day">Day</option>
+								<option value="night">Night</option>
+							</select>
+						</div>
+
+						<div class="col-sm-3">
+							<label>Work Style</label>
+							<select class="form-control" name="work_style" id="objectives">
+								<option value="">Select Shift</option>
+								<option value="onsite">Onsite</option>
+								<option value="remote">Remote</option>
+								<option value="hybrid">Hybrid</option>
+							</select>
+						</div>
+
+						<div class="col-md-12">
+							<label>Remarks</label>
+							<textarea class="form-control" rows="5" name="hr_remark"></textarea>
+						</div>
+
+
+						<!-- <div class="col-sm-3">
 							<label>Objective</label>
 							<select class="form-control" name="objective" id="objectives">
 								<option value=""> Select Objective</option>
@@ -82,15 +115,23 @@
 						<div class="col-sm-3">
 							<label>Round 3 Questions</label>
 							<input type="number" name="round_3" class="form-control" id="round_3" data-total="">
-						</div>
+						</div> -->
 					</div>
 					<br>
 					@endif
 					<div class="row">
+						<div class="col-sm-12" id="warning_msg">
+							<div class="alert alert-warning">
+								<strong>Warning ! </strong>
+								<br>
+								<p>Interview Round Has Not Been Created For this Profile</p>
+								<a href="{{route('admin.interview_rounds')}}" class="btn btn-warning">Create Round</a>
+							</div>
+						</div>
 						<div class="col-sm-12">
 							<input type="hidden" name="job_unique_id" id="job_unique_id">
-							<button class="btn btn-primary" type="submit" style="float: right">Save</button>
-							<button class="btn btn-warning" type="submit" name="savedraft" value="1" style="float: right;margin-right: 6px;margin-bottom: 15px;" >Save Draft</button>
+							<button class="btn btn-primary" type="submit" style="float: right" id="save_btn">Save</button>
+							<button class="btn btn-warning" type="submit" name="savedraft" id="save_btn_dr" value="1" style="float: right;margin-right: 6px;margin-bottom: 15px;" >Save Draft</button>
 						</div>
 					</div>
 					<br>
@@ -99,42 +140,47 @@
 		</div>
 	</main>
 </div>
-
-
-
-
-
-<!-- <div class="box box-primary container mt-2" style="background: white">
-
-	<div class="box-header">
-		<h3>Add Jobs</h3>
-	</div>
-	<div class="box-body">
-		
-		
-	</div>
-</div> -->
-
-
 @endsection
-
-
 @section('footer')
 <script>
 	$(document).ready(function(){
+		$('#warning_msg').hide();
+		$('#bend_id').change(function(){
+			var bend_id = $(this).val();
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				url: "{{route('admin.load_interview_round')}}",
+				type: 'POST',
+				data: {bend_id:bend_id},
+				success: function(data) {
+					if(data.codestatus == true){
+						$('#warning_msg').hide();
+						$('#save_btn').attr('disabled',false);
+						$('#save_btn_dr').attr('disabled',false);
+					}else{
+						$('#warning_msg').show();
+						$('#save_btn').attr('disabled',true);
+						$('#save_btn_dr').attr('disabled',true);
+					}
+					console.log(data);
+					// $('#country').html(data.html);
+					// loadstate();
+				}
+			});
+		});
 
 		$('#company_id').change(function(){
 			var status = $('#company_id option:selected').attr('data-code');
 			console.log(status);
 			$('#job_unique_id').val(status);
 		});
-
 		$('#company_id').trigger('change');
 		$('#company_id').change(function(){
 			console.log('change company');
 			loadcountry();
 		});
-
 		loadcountry();
 		function loadcountry(){
 			console.log('Load country');
@@ -151,12 +197,7 @@
 					loadstate();
 				}
 			});
-
 		}
-
-
-
-
 
 		$('#country').change(function(){
 			console.log('change country');
@@ -180,20 +221,14 @@
 					loadcity();
 				}
 			});
-
 		}
-
-
-
-
-
-
 
 		$('#state').change(function(){
 			console.log('change state');
 			loadcity();
 		});
 		loadcity();
+
 		function loadcity(){
 			console.log('Load City');
 			var id = $('#state').val();
@@ -208,97 +243,7 @@
 					$('#cities').html(data.html);
 				}
 			});
-
 		}
-
-
-
-
-
-
 	});		
 </script>
 @endsection
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
-
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" id="theme-styles">
-<script>
-$(document).ready(function(){
-	
-	
-$('#round_1').on('keyup', function(e){
-	var this_val = parseInt($(this).val());
-	var this_attr = parseInt($(this).attr('data-total'));
-	if(this_val > this_attr){
-     swal.fire(`You cant enter more than ${this_attr} as input in round 1`);
-	 $("#round_1").val(this_attr);
-	}	
-	
-});
-$('#round_2').on('keyup', function(e){
-	var this_val = parseInt($(this).val());
-	var this_attr = parseInt($(this).attr('data-total'));
-	if(this_val > this_attr){
-     swal.fire(`You cant enter more than ${this_attr} as input in round 2`);
-	 $("#round_2").val(this_attr);
-	}	
-
-	// if(this.value > 30){
- //       swal.fire('You cant enter more than 30 as input in round 2');
-	//    $("#round_2").val('30');
-	// }
-});
-$('#round_3').on('keyup', function(e){
-	var this_val = parseInt($(this).val());
-	var this_attr = parseInt($(this).attr('data-total'));
-	if(this_val > this_attr){
-     swal.fire(`You cant enter more than ${this_attr} as input in round 3`);
-	 $("#round_3").val(this_attr);
-	}	
-	// if(this.value > 35){
- //       swal.fire('You cant enter more than 35 as input in round 3');
- //       $("#round_3").val('35');
-	// }
-});
-
-
-
-$('#objectives').change(function(){
-			console.log('change round numbers');
-			loadround();
-		});
-		loadround();
-		function loadround(){
-			console.log('Load Rounds');
-			var id = $('#objectives').val();
-			// var id = $('#round_2').val();
-			// var id = $('#round_3').val();
-			$.ajax({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				},
-				url: "{{route('admin.load_round')}}",
-				type: 'POST',
-				data: {id:id},
-				success: function(data) {
-					if(data.codestatus){
-						var question = data.data;
-						$('#round_1').attr('data-total',question.round_1);
-						$('#round_2').attr('data-total',question.round_2);
-						$('#round_3').attr('data-total',question.round_3);
-					}
-					// $('#round_1').html(data.html);
-					// loadcity();
-				}
-			});
-
-		}
-
-
-
-
-
-
-});
-</script>

@@ -14,6 +14,7 @@ use App\Models\Admin\Jobs;
 use App\Models\Admin\Oppertunities;
 use Illuminate\Support\Facades\Auth;
 use Session;
+use Illuminate\Support\Facades\Crypt;
 
 class HomeController extends Controller
 {
@@ -72,7 +73,8 @@ class HomeController extends Controller
         }
 
         $data['profile_completion'] = ($filled_modules/$total_modules)*100;
-        $data['Jobs'] = Jobs::get();
+        $data['Jobs'] = Jobs::where('hr_head_approval','>','0')->get();
+        // dd($data['Jobs']);
         $data['products'] = Job_applications::where('jobseeker_id', $user_id)->pluck('oppertunity_id')->toArray();
         // echo "Basic Information -->".$basic_information;
         // echo "Basic education -->".$education;
@@ -83,6 +85,21 @@ class HomeController extends Controller
         // die();
         return view('home',$data);
     }
+
+    // public function profile(){
+    //     $user_id = Auth::user()->id;
+    //     $data['user'] = User::where('id', $user_id)->first();
+    //     $data['education'] = Employee_educations::where('user_id', $user_id)->get();
+    //     $data['works'] = Employee_works::where('user_id', $user_id)->get();
+    //     $data['language'] = Employee_languages::where('user_id', $user_id)->get();
+    //     $data['certificate'] = Employee_cirtificates::where('user_id', $user_id)->get();
+    //     $data['links'] = Employee_sociallinks::where('user_id', $user_id)->get();
+
+    //     $ip = $_SERVER['REMOTE_ADDR'];
+    //     // $ip = '39.48.206.112';
+    //     $data['location'] = json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+    //     return view('auth/profile',$data);
+    // }
 
     public function profile(){
         $user_id = Auth::user()->id;
@@ -96,7 +113,7 @@ class HomeController extends Controller
         $ip = $_SERVER['REMOTE_ADDR'];
         // $ip = '39.48.206.112';
         $data['location'] = json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-        return view('auth/profile',$data);
+        return view('auth/profile_new',$data);
     }
 
     public function store_profile(Request $request){
@@ -364,12 +381,21 @@ class HomeController extends Controller
     public function apply_job($id){
         $user_id = Auth::user()->id;
         $data['products'] = Job_applications::where('jobseeker_id', $user_id)->pluck('oppertunity_id')->toArray();
-        $data['oppertunity'] = Oppertunities::where('id', $id)->first();
+        $data['oppertunity'] = Jobs::where('id', $id)->first();
         return view('apply_job',$data);
     }
 
-    public function thankyou(){
-        return view('thankyou');
+    public function thankyou(Request $request){
+        // echo "asdsad";
+        // die();
+        $id = ($request->get('id')) ? $request->get('id') : null;
+        if($id != null){
+            $data['id'] = Crypt::decrypt($id);
+        }
+        else{
+            $data['id'] = null;
+        }
+        return view('thankyou',$data);
     }
 
     public function store_apply_job($id, Request $request){
@@ -398,8 +424,8 @@ class HomeController extends Controller
             // return redirect('/admin/dashboard');
         }
         else{
-             Session::put('admin_login', 2);
-            return redirect('/home');
+            Session::put('admin_login', 2);
+            return redirect('/career');
         }
     }
 
@@ -407,5 +433,21 @@ class HomeController extends Controller
         $user_id = Auth::user()->id;
         $data['jobs'] = Job_applications::where('jobseeker_id', $user_id)->get();
         return view('jobs/myjob',$data);
+    }
+
+    public function apply_for_job(Request $request){
+        $user_id = Auth::user()->id;
+        $update_arr = array(
+            'oppertunity_id'           => $request->input('job_id'),
+            'relocate'                 => $request->input('reloaction'),
+            'jobseeker_id'             => $user_id,
+            'hod_id'                   => 0,
+        );
+
+        $query = Job_applications::create($update_arr);
+        $id = $query->id;
+
+        // return redirect()->route('attempt_interview',$id);
+        return redirect()->route('thankyou',['id' => Crypt::encrypt($id)]);
     }
 }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 use App\Http\Controllers\Admin;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,14 @@ use App\Http\Controllers\Admin;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get("/reset-server",function(){
+
+    Artisan::call('optimize');
+    Artisan::call('migrate');
+
+
+});
+
 
 Route::get('/', function () {
     return view('auth/login');
@@ -33,12 +42,15 @@ Route::get('/jobSeeker',function(){
 
 //---------------------------
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/', [App\Http\Controllers\FrontController::class, 'career'])->name('home');
+// Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 // Confilate Code End
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/server_reset', [App\Http\Controllers\ServerresetController::class, 'index'])->name('server_reset');
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
+// Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::post('/store_profile', [App\Http\Controllers\HomeController::class, 'store_profile'])->name('store_profile');
 Route::post('/store_education', [App\Http\Controllers\HomeController::class, 'store_education'])->name('store_education');
 Route::post('/store_work', [App\Http\Controllers\HomeController::class, 'store_work'])->name('store_work');
@@ -50,6 +62,13 @@ Route::get('/apply_job/{id}', [App\Http\Controllers\HomeController::class, 'appl
 Route::post('/store_apply_job/{id}', [App\Http\Controllers\HomeController::class, 'store_apply_job'])->name('store_apply_job');
 Route::get('/my_jobs', [App\Http\Controllers\HomeController::class, 'myjobs'])->name('myjobs');
 Route::get('/thankyou', [App\Http\Controllers\HomeController::class, 'thankyou'])->name('thankyou');
+Route::get('/career', [App\Http\Controllers\FrontController::class, 'career'])->name('career');
+Route::post('/apply_for_job', [App\Http\Controllers\HomeController::class, 'apply_for_job'])->name('apply_for_job');
+Route::get('/attempt_interview/{id}', [App\Http\Controllers\FrontController::class, 'attempt_interview'])->name('attempt_interview');
+
+
+Route::post('/store_attempt_interview/{id}', [App\Http\Controllers\FrontController::class, 'store_attempt_interview'])->name('store_attempt_interview');
+
 
 Route::prefix('admin')->group(function () {
     Route::get('/', [Admin\DashboardController::class, 'index']);
@@ -306,6 +325,9 @@ Route::prefix('admin')->group(function () {
     Route::post('/rounds/update', [Admin\RoundsController::class, 'update'])->name('admin.rounds.update');
     Route::get('/rounds/delete/{id}', [Admin\RoundsController::class, 'delete'])->name('admin.rounds.delete');
 
+
+
+    Route::post('/load_interview_round', [Admin\DashboardController::class, 'load_interview_round'])->name('admin.load_interview_round');
 
 
 });

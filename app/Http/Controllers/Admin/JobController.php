@@ -177,7 +177,6 @@ class JobController extends AdminBaseController
         if(!$this->check_role()){
             return redirect()->route('home');
         };
-
         $validated = $request->validate([
             'round_1_question' => 'required|max:255',
             'round_2_question' => 'required|max:255',
@@ -187,6 +186,69 @@ class JobController extends AdminBaseController
             'round_3_pass_mark' => 'required|max:255',
         ]);
 
+        $oppertunity_id = 'A-O-';
+        $query  = jobs::where('id', $job_id)->first();
+        if($query->compensation_mode == 'base_commission'){
+            $oppertunity_id .= 'B-';
+        }
+        if($query->compensation_mode == 'solely_salary'){
+            $oppertunity_id .= 'S-';
+
+        }
+        if($query->compensation_mode == 'commission'){
+            $oppertunity_id .= 'C-';
+        }
+
+        $create_date = date('Y-m-d',strtotime($query->created_at));
+        $month = date('m',strtotime($create_date));
+        $year = date('Y',strtotime($create_date));
+        if($month == '04'){ // APRIL
+            $oppertunity_id .= 'Q1-A1-';   
+        }
+        else if($month == '05'){ // MAY
+            $oppertunity_id .= 'Q1-A2-';   
+        }
+        else if($month == '06'){ // JUNE
+            $oppertunity_id .= 'Q1-A3-';   
+        }
+        else if($month == '07'){ //JULY
+            $oppertunity_id .= 'Q2-B1-';   
+        }
+        else if($month == '08'){ //AUGEST
+            $oppertunity_id .= 'Q2-B2-';   
+        }
+        else if($month == '09'){ //SEPTEMBER
+            $oppertunity_id .= 'Q2-B3-';   
+        }
+
+        else if($month == '10'){ //OCToBER
+            $oppertunity_id .= 'Q3-C1-';   
+        }
+
+        else if($month == '11'){ //NOVEMBER
+            $oppertunity_id .= 'Q3-C2-';   
+        }
+        else if($month == '12'){ //DECEMBER
+            $oppertunity_id .= 'Q3-C3-';   
+        }
+        else if($month == '01'){ //NOVEMBER
+            $oppertunity_id .= 'Q4-D1-';   
+        }
+        else if($month == '02'){ //NOVEMBER
+            $oppertunity_id .= 'Q4-D2-';   
+        }
+        else if($month == '03'){ //NOVEMBER
+            $oppertunity_id .= 'Q4-D3-';   
+        }
+
+        $oppertunity_id .= $year;
+        // echo $oppertunity_id;
+        // echo "<br>";
+        // echo $create_date;
+        // echo "<br>";
+        // echo $month;
+
+        // dd($query);
         $user_id = Auth::user()->id;
         $update_arr = array(
             'round_1_question'         => $request->input('round_1_question'),
@@ -196,6 +258,7 @@ class JobController extends AdminBaseController
             'round_2_pass_mark'     => $request->input('round_2_pass_mark'),
             'round_3_pass_mark'     => $request->input('round_3_pass_mark'),
             'hr_head_approval'     => $user_id,
+            'oppertunity_id'     => $oppertunity_id,
         );
 
         $query  = jobs::where('id', $job_id)->update($update_arr);
@@ -209,9 +272,11 @@ class JobController extends AdminBaseController
         if(!$this->check_role()){
             return redirect()->route('home');
         };
+        
         $user_id = Auth::user()->id;
         $user_details = User::where('id',$user_id)->first();
-        $bend_details = Bend::where('id',$user_details->bend_id)->first();
+        $my_bend = Bend::where('id',$user_details->bend_id)->first();
+        $bend_details = Bend::get();
         $this->data['job_descrtiption'] = Oppertunities::get();
         $this->data['objectives'] = InterviewObjectives::get();
         $this->data['companies'] = Companies::where('status','1')->get();
@@ -219,6 +284,7 @@ class JobController extends AdminBaseController
 
         // $this->data['countries'] = Countries::get();
         $this->data['bend_details'] = $bend_details;
+        $this->data['my_bend'] = $my_bend;
         return view('admin/jobs/add',$this->data);
     }
 
@@ -252,8 +318,13 @@ class JobController extends AdminBaseController
         $this->data['countries'] = Countries::get();
         $this->data['job'] = jobs::where('id',$id)->first();
         if($this->data['job']->approved_hr == null){
+            $user_id = Auth::user()->id;
+            $user_details = User::where('id',$user_id)->first();
+            $bend_details = Bend::where('id',$user_details->bend_id)->first();
             $this->data['companies'] = Companies::where('status','1')->get();
             $this->data['oppertunity'] = Oppertunities::where('id', $id)->first();
+            $this->data['countries'] = Countries::get();
+            $this->data['bend_details'] = $bend_details;
             return view('admin/jobs/edit',$this->data);
         }
         else{
@@ -296,7 +367,9 @@ class JobController extends AdminBaseController
         $level = $bend_details->level;
         $job_descrtiption_id = $request->input('jd');
 
-        $oppertunity = Oppertunities::where('id',$job_descrtiption_id)->first();
+        // $oppertunity = Oppertunities::where('id',$job_descrtiption_id)->first();
+        $oppertunity = Oppertunities::where('bend_id',$request->input('bend_id'))->first();
+
         $update_arr = array(
            // 'title'         => $oppertunity->title,
             'job_unique_id'       => "TRG-".$request->input('job_unique_id').'-'.date('HisY'),
@@ -305,7 +378,9 @@ class JobController extends AdminBaseController
             'country_id'    => $request->input('country_id'),
             'state_id'      => $request->input('state_id'),
             'city_id'       => $request->input('city_id'),
-           // 'no_of_positions' => $request->input('no_of_positions'),
+            'created_at'    => date('Y-m-d H:i:s'),
+            'updated_at'    => date('Y-m-d H:i:s'),
+            // 'no_of_positions' => $request->input('no_of_positions'),
             // 'min_salary'    => $oppertunity->min_salary,
             // 'max_salary'    => $oppertunity->max_salary,
             // 'salary_type'   => $oppertunity->salary_type,
@@ -315,18 +390,24 @@ class JobController extends AdminBaseController
       // 'no_of_positions'  => $oppertunity->no_of_positions,
             // 'urgent_hiring' => $oppertunity->urgent_hiring,
             // 'status'        => 0,
-            // 'summery'       => $oppertunity->summery,
-            // 'description'   => $oppertunity->description,
+            'summery'       => $oppertunity->summery,
+            'description'   => $oppertunity->description,
+            'daily_job'   => $oppertunity->daily_job,
+            'responsibilities'   => $oppertunity->Responsibilities,
             'modified_by'   => $user_id,
         );
         
         if($level > 4){
             $update_arr['approved_manager'] =  $user_id;
             $update_arr['approved_hr'] =  $user_id;
-            $update_arr['objective_id'] =  $request->input('objective');
-            $update_arr['round_1_question'] =  $request->input('round_1');
-            $update_arr['round_2_question'] =  $request->input('round_2');
-            $update_arr['round_3_question'] =  $request->input('round_3');
+            $update_arr['work_shift'] =  $request->input('work_shift');
+            $update_arr['work_style'] =  $request->input('work_style');
+            $update_arr['work_type'] =  $request->input('work_type');
+            $update_arr['hr_remarks'] =  $request->input('hr_remark');
+            // $update_arr['objective_id'] =  $request->input('objective');
+            // $update_arr['round_1_question'] =  $request->input('round_1');
+            // $update_arr['round_2_question'] =  $request->input('round_2');
+            // $update_arr['round_3_question'] =  $request->input('round_3');
         }
         if(isset($request->savedraft)){
             $update_arr['is_draft'] = 1;
@@ -354,7 +435,12 @@ class JobController extends AdminBaseController
             return redirect()->route('home');
         };
         $validated = $request->validate([
-            'title' => 'required|max:255',
+           // 'jd' => 'required',
+            'company_id' => 'required',
+            'country_id' => 'required',
+            'state_id' => 'required',
+            'city_id' => 'required',
+           // 'no_of_positions' => 'required',
         ]);
 
         $update_arr = array(
@@ -374,6 +460,7 @@ class JobController extends AdminBaseController
             // 'status'            => $request->input('status'),
             'summery'           => $request->input('summery'),
             'description'       => $request->input('description'),
+            'updated_at'    => date('Y-m-d H:i:s'),
         );
 
         $query  = jobs::where('id', $id)->update($update_arr);
