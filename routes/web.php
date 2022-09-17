@@ -47,7 +47,7 @@ Route::get('/', [App\Http\Controllers\FrontController::class, 'career'])->name('
 
 // Confilate Code End
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/server_reset', [App\Http\Controllers\ServerresetController::class, 'index'])->name('server_reset');
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 // Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
