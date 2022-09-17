@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Modern Technology</title>
+  <title>TRG Portal</title>
   <!-- plugins:css -->
   <!-- <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css"> -->
@@ -31,7 +31,7 @@
     <aside class="mdc-drawer mdc-drawer--dismissible mdc-drawer--open">
       <div class="mdc-drawer__header">
         <a href="index.html" class="brand-logo">
-       Modern
+       TRG Portal
         </a>
       </div>
       <div class="mdc-drawer__content">

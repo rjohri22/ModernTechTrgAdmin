@@ -86,7 +86,7 @@
     <aside class="mdc-drawer mdc-drawer--dismissible mdc-drawer--open">
       <div class="mdc-drawer__header">
         <a href="{{route('dashboard')}}" class="brand-logo">
-       Modern
+       TRG Portal
         </a>
       </div>
       <div class="mdc-drawer__content">
@@ -150,7 +150,7 @@
           
             <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button sidebar-toggler">menu</button>
             <a href="{{route('dashboard')}}">
-            <span class="mdc-top-app-bar__title">Modern Technology</span>
+            <span class="mdc-top-app-bar__title">TRG Portal</span>
 </a>
           </div>
           <div class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end mdc-top-app-bar__section-right">

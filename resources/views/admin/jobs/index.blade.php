@@ -28,7 +28,7 @@ use App\Models\Job_applications;
 							<tr>
 								<th scope="col">#</th>
 								<th scope="col">Job Id</th>
-								<th scope="col">Oppertinity Id</th>
+								<th scope="col">Opportunity Id</th>
 								<th scope="col">Profile</th>
 								<th scope="col">Business</th>
 								<th scope="col">Country</th>
