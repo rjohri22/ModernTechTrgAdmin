@@ -45,6 +45,11 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{route('myjobs')}}" class="">
+                               My Jobs
+                            </a>
+                        </li>
+                        <li>
                             <a href="#" class="">
                                 About Us
                             </a>
