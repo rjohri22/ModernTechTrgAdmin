@@ -3,6 +3,7 @@
 @php
 use App\Models\Job_applications;
 @endphp
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <div class="page-wrapper mdc-toolbar-fixed-adjust">
 	<main class="content-wrapper">
 
@@ -142,7 +143,7 @@ use App\Models\Job_applications;
 											Approved
 										@else
 											@if($job->country_head_approval != null)
-												<button type="button" class="btn btn-primary btn-success btn-sm hr_head_app_btn" data-bs-toggle="modal" data-bs-target="#hr_head_approval" data-action="{{route('admin.store_approv_hr_head',$job->id)}}">
+												<button type="button" class="btn btn-primary btn-success btn-sm hr_head_app_btn" data-action="{{route('admin.store_approv_hr_head',$job->id)}}" data-bend="{{$job->band_id}}">
 												  Approve
 												</button>
 
@@ -181,6 +182,8 @@ use App\Models\Job_applications;
 							@php
 							{{$counter++;}}
 							@endphp
+
+
 							@endforeach
 						</tbody>
 					</table>
@@ -338,8 +341,8 @@ use App\Models\Job_applications;
 			<h4 class="modal-title">HR Head APPROVAL</h4>
 		</div>
 		<div class="modal-body">
-				<div class="row">
-					<table class="table table-bordered">
+				<div class="row" id="hr_head_app">
+					<table class="table table-bordered" id="hr_head_app">
 						<tr>
 							<th rowspan="2">ROUND 1</th>
 							<th>No Of Question</th>
@@ -403,8 +406,45 @@ use App\Models\Job_applications;
 
 		$('.hr_head_app_btn').click(function(){
 			var action = $(this).attr('data-action');
+			var bend_id = $(this).attr('data-bend');
 			console.log(action);
-			$('#hr_head_from').attr('action',action);
+			console.log(bend_id);
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				url: "{{route('admin.load_interview_round_for_hr')}}",
+				type: 'POST',
+				data: {bend_id:bend_id},
+				success: function(data) {
+					console.log(data);
+					if(data.codestatus == true){
+						var html = '';
+						for(var i=0; i < data.data.length;  i++){
+							html += `
+								<table class="table table-bordered">
+									<tr>
+										<th rowspan="2">${data.data[i].name}</th>
+										<th>No Of Question</th>
+										<th>Passing Marks</th>
+									</tr>
+									<tr>
+										<input type="hidden" name="round_id[]" value="${data.data[i].round_id}"/>
+										<td><input type="number" name="round_1_question[]" class="form-control"></td>
+										<td><input type="number" name="round_1_pass_mark[]" class="form-control"></td>
+									</tr>
+								</table>
+							`;
+						}
+
+
+						$('#hr_head_app').html(html);
+						$('#hr_head_from').attr('action',action);
+						$('#hr_head_approval').modal('show');
+					}else{
+					}
+				}
+			});
 		});
 	});
 </script>

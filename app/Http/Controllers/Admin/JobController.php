@@ -14,6 +14,9 @@ use App\Models\Admin\Companies;
 use App\Models\Admin\Countries;
 use App\Models\Admin\BusinessLocations;
 use App\Models\Admin\InterviewObjectives;
+use App\Models\Admin\InterviewRoundQuestions;
+use App\Models\Admin\InterviewRounds;
+use App\Models\Admin\JobInterviews;
 use Illuminate\Support\Facades\Auth;
 
 class JobController extends AdminBaseController
@@ -178,12 +181,9 @@ class JobController extends AdminBaseController
             return redirect()->route('home');
         };
         $validated = $request->validate([
+            'round_id' => 'required|max:255',
             'round_1_question' => 'required|max:255',
-            'round_2_question' => 'required|max:255',
-            'round_3_question' => 'required|max:255',
             'round_1_pass_mark' => 'required|max:255',
-            'round_2_pass_mark' => 'required|max:255',
-            'round_3_pass_mark' => 'required|max:255',
         ]);
 
         $oppertunity_id = 'A-O-';
@@ -240,23 +240,28 @@ class JobController extends AdminBaseController
         else if($month == '03'){ //NOVEMBER
             $oppertunity_id .= 'Q4-D3-';   
         }
-
         $oppertunity_id .= $year;
-        // echo $oppertunity_id;
-        // echo "<br>";
-        // echo $create_date;
-        // echo "<br>";
-        // echo $month;
-
-        // dd($query);
         $user_id = Auth::user()->id;
+        $int_rou = array();
+        for($i = 0; $i < count($request->input('round_id')) ; $i++){
+            $int_rou[] = array(
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+                'job_id' => $job_id,
+                'round_id' => $request->input('round_id')[$i],
+                'passing_marks' => $request->input('round_1_pass_mark')[$i],
+                'total_questions' => $request->input('round_1_pass_mark')[$i],
+            );
+        }
+
+        $store = JobInterviews::insert($int_rou);
         $update_arr = array(
-            'round_1_question'         => $request->input('round_1_question'),
-            'round_2_question'       => $request->input('round_2_question'),
-            'round_3_question'       => $request->input('round_3_question'),
-            'round_1_pass_mark'       => $request->input('round_1_pass_mark'),
-            'round_2_pass_mark'     => $request->input('round_2_pass_mark'),
-            'round_3_pass_mark'     => $request->input('round_3_pass_mark'),
+            // 'round_1_question'         => $request->input('round_1_question'),
+            // 'round_2_question'       => $request->input('round_2_question'),
+            // 'round_3_question'       => $request->input('round_3_question'),
+            // 'round_1_pass_mark'       => $request->input('round_1_pass_mark'),
+            // 'round_2_pass_mark'     => $request->input('round_2_pass_mark'),
+            // 'round_3_pass_mark'     => $request->input('round_3_pass_mark'),
             'hr_head_approval'     => $user_id,
             'oppertunity_id'     => $oppertunity_id,
         );
@@ -363,9 +368,14 @@ class JobController extends AdminBaseController
         $level = $bend_details->level;
         $job_descrtiption_id = $request->input('jd');
 
+
         // $oppertunity = Oppertunities::where('id',$job_descrtiption_id)->first();
         $oppertunity = Oppertunities::where('bend_id',$request->input('bend_id'))->first();
-
+        $oppertunity_count = Oppertunities::where('bend_id',$request->input('bend_id'))->count();
+        if($oppertunity_count == 0){
+            return redirect()->route('admin.jobs')
+        ->with('error_','Job Application For This Profile is not Created');
+        }
         $update_arr = array(
            // 'title'         => $oppertunity->title,
             'job_unique_id'       => "TRG-".$request->input('job_unique_id').'-'.date('HisY'),
@@ -551,6 +561,18 @@ class JobController extends AdminBaseController
         foreach($states as $state){
             $this->data['html'] .= "<option value='".$state->id."'>".$state->name."</option>";
         }
+        return response()->json($this->data);
+
+    }
+
+
+    public function load_interview_round_for_hr(Request $request){
+        $this->loadBaseData();
+        $this->data['codestatus'] = true;
+        $bend_id = $request->bend_id;
+        $interview_round = InterviewRounds::where('profile_id',$bend_id)->first();
+        $interview_round_question = InterviewRoundQuestions::join('rounds','rounds.id','=','interview_round_questions.round_id')->where('interview_round_questions.interview_round_id',$interview_round->id)->groupBy('interview_round_questions.round_id')->get();
+        $this->data['data'] = $interview_round_question;
         return response()->json($this->data);
 
     }

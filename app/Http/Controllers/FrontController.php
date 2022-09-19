@@ -17,6 +17,7 @@ use App\Models\Admin\InterviewRounds;
 use App\Models\Admin\InterviewRoundQuestions;
 use App\Models\Admin\Bends;
 use App\Models\Question_attempts;
+use App\Models\Admin\JobInterviews;
 use Session;
 
 class FrontController extends Controller
@@ -54,6 +55,12 @@ class FrontController extends Controller
         $Job_application = Job_applications::where('id',$job_id)->first();
         $oppertunity = Jobs::where('id',$Job_application->oppertunity_id)->first();
         // $band_details = Bends::where('id',$oppertunity->band_id);
+        // $interview_round = InterviewRounds::where('profile_id',$oppertunity->band_id)->first();
+        $job_seeker_round = JobInterviews::where('job_id',$oppertunity->id)->get()->toArray();
+        
+        // $round_passing_mark = $job_seeker_round[$Job_application->round_attempted]['passing_marks'];
+        $total_question = $job_seeker_round[$Job_application->round_attempted]['total_questions'];
+
         $data['interview_round'] = $interview_round = InterviewRounds::where('profile_id',$oppertunity->band_id)->first();
 
         $rounds = InterviewRoundQuestions::where('interview_round_id',$interview_round->id)->groupBy('round_id')->get()->pluck('round_id')->toArray();
@@ -67,7 +74,7 @@ class FrontController extends Controller
         if($Job_application->round_attempted > $total_round-1){
              return redirect()->route('thankyou');
         }
-        $data['questions'] = InterviewRoundQuestions::where('interview_round_id',$interview_round->id)->where('round_id',$rounds[$Job_application->round_attempted])->get();
+        $data['questions'] = InterviewRoundQuestions::where('interview_round_id',$interview_round->id)->where('round_id',$rounds[$Job_application->round_attempted])->limit($total_question)->get();
 
         $data['job_id'] = $job_id;
         $data['duration'] = $duration[$Job_application->round_attempted];
@@ -79,10 +86,21 @@ class FrontController extends Controller
         $oppertunity = Jobs::where('id',$Job_application->oppertunity_id)->first();
         $interview_round = InterviewRounds::where('profile_id',$oppertunity->band_id)->first();
         $rounds = InterviewRoundQuestions::where('interview_round_id',$interview_round->id)->groupBy('round_id')->get()->pluck('round_id')->toArray();
+        
+
+        $job_seeker_round = JobInterviews::where('job_id',$oppertunity->id)->get()->toArray();
+
+
 
         $question = InterviewRoundQuestions::where('interview_round_id',$interview_round->id)->where('round_id',$rounds[$Job_application->round_attempted])->get(); 
         $data = array();
         $user_id = Auth::user()->id;
+
+        $round_passing_mark = $job_seeker_round[$Job_application->round_attempted]['passing_marks'];
+        
+        // dd($round_passing_mark);
+
+        $obtained = 0;
         foreach($question as $k => $q){
             $data[$k] = array(
                 'user_id' => $user_id,
@@ -99,22 +117,57 @@ class FrontController extends Controller
                 'correct_answer' => $q->correct_answer,
                 'mark' => $q->marks
             );
+
             if($request->input('question_id')[$k] == $q->id){
                 $data[$k]['user_answer'] = $request->input('correc_ans')[$k];
+                if($q->question_type == '1'){
+                    if($request->input('correc_ans')[$k] == $q->option_a){
+                        $obtained = $obtained+ $q->marks;
+                    }
+                }else{
+                    if($request->input('correc_ans')[$k] == $q->correct_answer){
+                        $obtained = $obtained+ $q->marks;
+                    }
+                }
+                // else{
+                //     $obtained = $obtained - $q->marks;
+                // }
             }else{
                 $data[$k]['user_answer'] = '';
+                // $obtained = $obtained - $q->marks;
             }
 
         }
 
-        $round_attempted = $Job_application->round_attempted+1;
-        $update = array(
-            'round_attempted' =>$round_attempted
-        );
-        $update_q = Job_applications::where('id',$Job_application->id)->update($update);
-         $query = Question_attempts::insert($data);
-        return redirect()->route('attempt_interview',$id)
-        ->with('success','success');
+        if($obtained >= $round_passing_mark){
+            $round_attempted = $Job_application->round_attempted+1;
+            $update = array(
+                'round_attempted' =>$round_attempted
+            );
+            $update_q = Job_applications::where('id',$Job_application->id)->update($update);
+        }
+        $query = Question_attempts::insert($data);
+
+         if($obtained >= $round_passing_mark){
+            $html = "<strong>Congratulation!</strong><br>
+                    <strong>You Have Passed The Round</strong><br>
+                    <a href='".route('attempt_interview',$id)."' class='btn btn-primary text-white'>Start Next Round</a><br>
+                    ";
+            return redirect()->route('thankyou')
+            ->with('message',$html);
+            // return redirect()->route('attempt_interview',$id)
+            // ->with('success','success');
+         }else{
+            $html = "<strong>Sorry!</strong><br>
+                    <strong>You Didnot Passed The Round</strong><br>
+                    <a href='".route('career')."' class='btn btn-danger text-white'>Return To Career Page</a><br>
+                    ";
+            return redirect()->route('thankyou')
+            ->with('message',$html);
+            // return redirect()->route('attempt_interview',$id)
+            // ->with('error_','error_');
+
+         }
         // echo "<pre/>".print_r($data,1);
         // echo "<pre/>".print_r($_POST,1);
     }

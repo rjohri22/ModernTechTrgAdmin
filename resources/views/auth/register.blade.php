@@ -37,7 +37,7 @@ $countries = Countries::get();
                             </div>
                         </div>
                         @endif
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" id="reg_form">
                          @csrf
                         <div class="row">
                             <div class="col-sm-12">
@@ -246,7 +246,7 @@ $countries = Countries::get();
                         <br>
                         <div class="row">
                             <div class="col-sm-12">
-                                <input type="submit" class="btn btn-primary" name="submit">
+                                <input type="submit" class="btn btn-primary" id="submit_form" name="submit">
                             </div>
                         </div>
                     </form>
@@ -256,4 +256,33 @@ $countries = Countries::get();
         </div>
     </div>
 </section>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        // $('#reg_form').submit(function(e){
+        $('#submit_form').click(function(e){
+            e.preventDefault();
+            // $('#reg_form').submit();
+            var annual_inhand_salary = ($('#annual_inhand_salary').val()) ? $('#annual_inhand_salary').val() : 0;
+            // // if (confirm(`Your Annual Inhand Salary Is <br> ${annual_inhand_salary} <br> do you want to Contineu`) == true) {
+            // //   $('#reg_form').submit();
+            // // }
+            Swal.fire({
+                  title: `Your Annual Inhand Salary Is <br> ${annual_inhand_salary} <br> do you want to Contineu`,
+                  showDenyButton: true,
+                  confirmButtonText: 'Yes',
+                  denyButtonText: `No`,
+                }).then((result) => {
+                  /* Read more about isConfirmed, isDenied below */
+                  if (result.isConfirmed) {
+                    console.log('adsad');
+                    document.getElementById("reg_form").submit();
+                    // $('#reg_form').submit();
+                  }
+                })
+        })
+    });
+</script>
 @endsection
