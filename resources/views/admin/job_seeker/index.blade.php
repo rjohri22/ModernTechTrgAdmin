@@ -16,7 +16,6 @@
 						<h5 class="card-title d-inline">Job Seeker</h5>
 					</div>
 					<div class="col-sm-4">
-						<!-- <a href="{{route('admin.add_job_seeker')}}" class="btn btn-primary" style="float: right">Add Job Seeker</a> -->
 					</div>
 				</div>
 			</div>

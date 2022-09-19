@@ -45,7 +45,7 @@ class JobSeekerController extends AdminBaseController {
         $this->data['job_seeks'] = $fetch;
         return view('admin/job_seeker/index',$this->data);
     }
-    public function view(){
+    public function view($id){
         $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');

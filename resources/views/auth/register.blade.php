@@ -262,27 +262,27 @@ $countries = Countries::get();
     $(document).ready(function(){
 
         // $('#reg_form').submit(function(e){
-        $('#submit_form').click(function(e){
-            e.preventDefault();
-            // $('#reg_form').submit();
-            var annual_inhand_salary = ($('#annual_inhand_salary').val()) ? $('#annual_inhand_salary').val() : 0;
-            // // if (confirm(`Your Annual Inhand Salary Is <br> ${annual_inhand_salary} <br> do you want to Contineu`) == true) {
-            // //   $('#reg_form').submit();
-            // // }
-            Swal.fire({
-                  title: `Your Annual Inhand Salary Is <br> ${annual_inhand_salary} <br> do you want to Contineu`,
-                  showDenyButton: true,
-                  confirmButtonText: 'Yes',
-                  denyButtonText: `No`,
-                }).then((result) => {
-                  /* Read more about isConfirmed, isDenied below */
-                  if (result.isConfirmed) {
-                    console.log('adsad');
-                    document.getElementById("reg_form").submit();
-                    // $('#reg_form').submit();
-                  }
-                })
-        })
+        // $('#submit_form').click(function(e){
+        //     e.preventDefault();
+        //     // $('#reg_form').submit();
+        //     var annual_inhand_salary = ($('#annual_inhand_salary').val()) ? $('#annual_inhand_salary').val() : 0;
+        //     // // if (confirm(`Your Annual Inhand Salary Is <br> ${annual_inhand_salary} <br> do you want to Contineu`) == true) {
+        //     // //   $('#reg_form').submit();
+        //     // // }
+        //     Swal.fire({
+        //           title: `Your Annual Inhand Salary Is <br> ${annual_inhand_salary} <br> do you want to Contineu`,
+        //           showDenyButton: true,
+        //           confirmButtonText: 'Yes',
+        //           denyButtonText: `No`,
+        //         }).then((result) => {
+        //           /* Read more about isConfirmed, isDenied below */
+        //           if (result.isConfirmed) {
+        //             console.log('adsad');
+        //             document.getElementById("reg_form").submit();
+        //             // $('#reg_form').submit();
+        //           }
+        //         })
+        // })
     });
 </script>
 @endsection
