@@ -12,7 +12,7 @@
 				</div>
 			</div>
 			<div class="card-body">
-				<form action="{{ route('admin.store_job_seeker') }}" method="post">
+				<form action="{{ route('admin.store_employee') }}" method="post">
 			@csrf
 			<div class="row">
 				<div class="col-sm-3">

@@ -52,7 +52,7 @@
 				
 				<div class="row">
 					<div class="col-sm-6 text-center">
-						<button class="btn btn-success btn-md upload-image" style="margin-top:2%">Cropping Image</button>
+						<button class="btn btn-success btn-md upload-image" style="margin-top:2%">Crop Below Image</button>
 						<br>
 						<br>
 						<div id="upload-demo"></div>

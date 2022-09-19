@@ -270,14 +270,12 @@ class JobController extends AdminBaseController
         return redirect()->route('admin.jobs')
         ->with('success','Job Updated successfully.');
     }
-
     public function add()
     {
         $this->loadBaseData();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
-        
         $user_id = Auth::user()->id;
         $user_details = User::where('id',$user_id)->first();
         $my_bend = Bend::where('id',$user_details->bend_id)->first();
@@ -285,15 +283,15 @@ class JobController extends AdminBaseController
         $this->data['job_descrtiption'] = Oppertunities::get();
         $this->data['objectives'] = InterviewObjectives::get();
         $this->data['companies'] = Companies::where('status','1')->get();
+        $this->data['countryhead'] = Bend::where('name','Country Head')->first();
         $this->data['countries'] = Countries::get();
+        $this->data['user_details'] = $user_details;
 
         // $this->data['countries'] = Countries::get();
         $this->data['bend_details'] = $bend_details;
         $this->data['my_bend'] = $my_bend;
         return view('admin/jobs/add',$this->data);
     }
-
-
     public function getcountry()
     {
         $this->loadBaseData();
@@ -308,12 +306,6 @@ class JobController extends AdminBaseController
         // $this->data['countries'] = Countries::get();
         return view('admin/jobs/add',$this->data);
     }
-
-
-
-
-
-
     public function edit($id)
     {
         $this->loadBaseData();
@@ -326,10 +318,13 @@ class JobController extends AdminBaseController
             $user_id = Auth::user()->id;
             $user_details = User::where('id',$user_id)->first();
             $bend_details = Bend::where('id',$user_details->bend_id)->first();
+            $my_bend = Bend::where('id',$user_details->bend_id)->first();
             $this->data['companies'] = Companies::where('status','1')->get();
             $this->data['oppertunity'] = Oppertunities::where('id', $id)->first();
             $this->data['countries'] = Countries::get();
             $this->data['bend_details'] = $bend_details;
+            $this->data['countryhead'] = Bend::where('name','Country Head')->first();
+            $this->data['my_bend'] = $my_bend;
             return view('admin/jobs/edit',$this->data);
         }
         else{
@@ -369,6 +364,7 @@ class JobController extends AdminBaseController
         $user_id = Auth::user()->id;
         $user_details = User::where('id',$user_id)->first();
         $bend_details = Bend::where('id',$user_details->bend_id)->first();
+        $countryhead = Bend::where('name','Country Head')->first();
         $level = $bend_details->level;
         $job_descrtiption_id = $request->input('jd');
 
@@ -391,21 +387,24 @@ class JobController extends AdminBaseController
             'created_at'    => date('Y-m-d H:i:s'),
             'updated_at'    => date('Y-m-d H:i:s'),
             // 'no_of_positions' => $request->input('no_of_positions'),
-            // 'min_salary'    => $oppertunity->min_salary,
-            // 'max_salary'    => $oppertunity->max_salary,
-            // 'salary_type'   => $oppertunity->salary_type,
            // 'job_type'      => $oppertunity->job_type,
             // 'work_type'     => $oppertunity->work_type,
             // 'expires_on'    => $oppertunity->expires_on,
       // 'no_of_positions'  => $oppertunity->no_of_positions,
             // 'urgent_hiring' => $oppertunity->urgent_hiring,
             // 'status'        => 0,
-            'summery'       => ($oppertunity->summery) ? $oppertunity->summery : "",
-            'description'   => ($oppertunity->description) ? $oppertunity->description : "",
-            'daily_job'   => ($oppertunity->daily_job) ? $oppertunity->daily_job : "",
-            'responsibilities'   => ($oppertunity->Responsibilities) ? $oppertunity->Responsibilities : "",
+            'summery'       => (isset($oppertunity->summery)) ? $oppertunity->summery : "",
+            'description'   => (isset($oppertunity->description)) ? $oppertunity->description : "",
+            'daily_job'   => (isset($oppertunity->daily_job)) ? $oppertunity->daily_job : "",
+            'responsibilities'   => (isset($oppertunity->Responsibilities)) ? $oppertunity->Responsibilities : "",
             'modified_by'   => $user_id,
         );
+        if($bend_details->level >= $countryhead->level){
+            $update_arr['min_salary'] = $request->input('min_salary');
+            $update_arr['max_salary'] = $request->input('max_salary');
+            $update_arr['salary_type'] = $request->input('wages');
+            $update_arr['compensation_mode'] = $request->input('compensation_mode');
+        }
         
         if($level > 4){
             $update_arr['approved_manager'] =  $user_id;
@@ -426,7 +425,6 @@ class JobController extends AdminBaseController
         return redirect()->route('admin.jobs')
         ->with('success','Job created successfully.');
     }
-
     public function publish($id)
     {
         $this->loadBaseData();
@@ -441,6 +439,8 @@ class JobController extends AdminBaseController
     public function update($id, Request $request)
     {
         $this->loadBaseData();
+        $bend_details = Bend::where('id',$user_details->bend_id)->first();
+        $countryhead = Bend::where('name','Country Head')->first();
         if(!$this->check_role()){
             return redirect()->route('home');
         };
@@ -459,9 +459,6 @@ class JobController extends AdminBaseController
             'country_id'       => $request->input('country_id'),
             'state_id'       => $request->input('state_id'),
             'city_id'       => $request->input('city_id'),
-            'min_salary'    => $request->input('min_salary'),
-            'max_salary'    => $request->input('max_salary'),
-            'salary_type'   => $request->input('salary_type'),
             'job_type'   => $request->input('job_type'),
             'work_type'   => $request->input('work_type'),
             'expires_on'    => $request->input('expires_on'),
@@ -472,6 +469,12 @@ class JobController extends AdminBaseController
             'description'       => $request->input('description'),
             'updated_at'    => date('Y-m-d H:i:s'),
         );
+        if($bend_details->level >= $countryhead->level){
+            $update_arr['min_salary'] = $request->input('min_salary');
+            $update_arr['max_salary'] = $request->input('max_salary');
+            $update_arr['salary_type'] = $request->input('wages');
+            $update_arr['compensation_mode'] = $request->input('compensation_mode');
+        }
 
         $query  = jobs::where('id', $id)->update($update_arr);
         return redirect()->route('admin.jobs')

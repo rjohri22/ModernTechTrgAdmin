@@ -279,7 +279,7 @@
                 </a>
               </li>     
               <li>
-                <a href="{{route('admin.job_seeker')}}">
+                <a href="{{route('admin.employee')}}">
                   <i class="fa fa-circle-o"></i> <span>Employees</span>
                 </a>
               </li>

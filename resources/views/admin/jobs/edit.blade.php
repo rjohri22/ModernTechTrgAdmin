@@ -59,15 +59,37 @@
 					<select class="form-control" name="city_id" id="cities" >
 					</select>
 				</div>
-				<!-- <div class="col-sm-3">
-					<label>Min Salary</label>
-					<input type="number" name="min_salary" class="form-control" value="{{$job->min_salary}}">
-				</div>
-				<div class="col-sm-3">
-					<label>Max Salary</label>
-					<input type="number" name="max_salary" class="form-control" value="{{$job->max_salary}}">
-				</div> -->
 			</div>
+			@if($my_bend->level >= $countryhead->level):
+				<div class="row">
+					<div class="col-md-3">
+						<label>Min Salary</label>
+						<input type="number" name="min_salary" class="form-control" value="{{ $job->min_salary }}" >
+					</div>
+
+					<div class="col-md-3">
+						<label>Max Salary</label>
+						<input type="number" name="max_salary" class="form-control" value="{{ $job->max_salary }}" >
+					</div>
+					<div class="col-md-3">
+						<label>Wages</label>
+						<select class="form-control" name="wages" id="wages">
+							<option value="">Select Wages</option>
+							<option value="monthly" {{ $job->salary_type == "monthly" ? 'selected' : '' }} >Monthly</option>
+							<option value="anually" {{ $job->salary_type == "anually" ? 'selected' : '' }} >Anually</option>
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label>Compensation Mode</label>
+						<select class="form-control" name="compensation_mode" id="compensation_mode">
+							<option value="">Select Compensation Mode</option>
+							<option value="solely_salary" {{ $job->compensation_mode == "solely_salary" ? 'selected' : '' }} >Solely Salary</option>
+							<option value="base_commission" {{ $job->compensation_mode == "base_commission" ? 'selected' : '' }} >Base+Commission</option>
+							<option value="commission" {{ $job->compensation_mode == "commission" ? 'selected' : '' }} >Commission Only</option>
+						</select>
+					</div>
+				</div>
+			@endif
 			<br>
 			<!-- <div class="row">
 				<div class="col-sm-3">

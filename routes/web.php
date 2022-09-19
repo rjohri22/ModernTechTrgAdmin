@@ -37,7 +37,9 @@ Route::get('/', [App\Http\Controllers\FrontController::class, 'career'])->name('
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Confilate Code End
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/server_reset', [App\Http\Controllers\ServerresetController::class, 'index'])->name('server_reset');
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 // Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::post('/store_profile', [App\Http\Controllers\HomeController::class, 'store_profile'])->name('store_profile');
@@ -84,42 +86,46 @@ Route::prefix('admin')->group(function () {
     Route::get('/job_applications/delete_application/{id}', [Admin\JobapplicationsController::class, 'delete_application'])->name('admin.delete_application');
 
 
-    Route::get('/job_seeker', [Admin\JobSeekerController::class, 'index'])->name('admin.job_seeker');
-    Route::get('/job_seeker/add', [Admin\JobSeekerController::class, 'add'])->name('admin.add_job_seeker');
-    Route::get('/job_seeker/edit/{id}', [Admin\JobSeekerController::class, 'edit'])->name('admin.edit_job_seeker');
-    Route::get('/job_seeker/view/{id}', [Admin\JobSeekerController::class, 'view'])->name('admin.view_job_seeker');
+    Route::get('/job_seeker', [Admin\JobseekerController::class, 'index'])->name('admin.job_seeker');
+    Route::get('/job_seeker/view/{id}', [Admin\JobseekerController::class, 'view'])->name('admin.view_job_seeker');
+    Route::get('/job_seeker/delete_job_seeker/{id}', [Admin\JobseekerController::class, 'delete_job_seeker'])->name('admin.delete_job_seeker');
+    
+    Route::get('/employees', [Admin\EmployeesController::class, 'index'])->name('admin.employees');
+    Route::get('/employees/add', [Admin\EmployeesController::class, 'add'])->name('admin.add_employee');
+    Route::get('/employees/edit/{id}', [Admin\EmployeesController::class, 'edit'])->name('admin.edit_employee');
+    Route::get('/employees/view/{id}', [Admin\EmployeesController::class, 'view'])->name('admin.view_employee');
     
     //profile
     Route::get('/profile/view', [Admin\ProfileController::class, 'view'])->name('admin.view_profile');
     Route::post('/profile/update_profile_resume/{id}', [Admin\ProfileController::class, 'update_profile_resume'])->name('admin.update_profile_resume');
     Route::post('/profile/store_profile_education/{id}', [Admin\ProfileController::class, 'store_profile_education'])->name('admin.store_profile_education');
-    Route::post('/job_seeker/store_profile_experience/{id}', [Admin\ProfileController::class, 'store_profile_experience'])->name('admin.store_profile_experience');
-    Route::post('/job_seeker/store_profile_certificate/{id}', [Admin\ProfileController::class, 'store_profile_certificate'])->name('admin.store_profile_certificate');
-    Route::post('/job_seeker/store_profile_language/{id}', [Admin\ProfileController::class, 'store_profile_language'])->name('admin.store_profile_language');
-    Route::post('/job_seeker/store_profile_link/{id}', [Admin\ProfileController::class, 'store_profile_link'])->name('admin.store_profile_link');
+    Route::post('/employees/store_profile_experience/{id}', [Admin\ProfileController::class, 'store_profile_experience'])->name('admin.store_profile_experience');
+    Route::post('/employees/store_profile_certificate/{id}', [Admin\ProfileController::class, 'store_profile_certificate'])->name('admin.store_profile_certificate');
+    Route::post('/employees/store_profile_language/{id}', [Admin\ProfileController::class, 'store_profile_language'])->name('admin.store_profile_language');
+    Route::post('/employees/store_profile_link/{id}', [Admin\ProfileController::class, 'store_profile_link'])->name('admin.store_profile_link');
 
 
-    Route::post('/job_seeker/store_job_seeker', [Admin\JobSeekerController::class, 'store_job_seeker'])->name('admin.store_job_seeker');
+    Route::post('/employees/store_employee', [Admin\EmployeesController::class, 'store_employee'])->name('admin.store_employee');
 
-    Route::post('/job_seeker/update_job_seeker/{id}', [Admin\JobSeekerController::class, 'update_job_seeker'])->name('admin.update_job_seeker');
+    Route::post('/employees/update_employee/{id}', [Admin\EmployeesController::class, 'update_employee'])->name('admin.update_employee');
 
-    Route::post('/job_seeker/update_user_resume/{id}', [Admin\JobSeekerController::class, 'update_user_resume'])->name('admin.update_user_resume');
+    Route::post('/employees/update_user_resume/{id}', [Admin\EmployeesController::class, 'update_user_resume'])->name('admin.update_user_resume');
 
-    Route::post('/job_seeker/store_user_education/{id}', [Admin\JobSeekerController::class, 'store_user_education'])->name('admin.store_user_education');
+    Route::post('/employees/store_user_education/{id}', [Admin\EmployeesController::class, 'store_user_education'])->name('admin.store_user_education');
 
-    Route::post('/job_seeker/store_user_experience/{id}', [Admin\JobSeekerController::class, 'store_user_experience'])->name('admin.store_user_experience');
+    Route::post('/employees/store_user_experience/{id}', [Admin\EmployeesController::class, 'store_user_experience'])->name('admin.store_user_experience');
 
-    Route::post('/job_seeker/store_user_certificate/{id}', [Admin\JobSeekerController::class, 'store_user_certificate'])->name('admin.store_user_certificate');
+    Route::post('/employees/store_user_certificate/{id}', [Admin\EmployeesController::class, 'store_user_certificate'])->name('admin.store_user_certificate');
 
-    Route::post('/job_seeker/store_user_language/{id}', [Admin\JobSeekerController::class, 'store_user_language'])->name('admin.store_user_language');
+    Route::post('/employees/store_user_language/{id}', [Admin\EmployeesController::class, 'store_user_language'])->name('admin.store_user_language');
 
-    Route::post('/job_seeker/store_user_link/{id}', [Admin\JobSeekerController::class, 'store_user_link'])->name('admin.store_user_link');
+    Route::post('/employees/store_user_link/{id}', [Admin\EmployeesController::class, 'store_user_link'])->name('admin.store_user_link');
 
-    Route::post('/job_seeker/change_user_profile/{id}', [Admin\JobSeekerController::class, 'change_user_profile'])->name('admin.change_user_profile');
+    Route::post('/employees/change_user_profile/{id}', [Admin\EmployeesController::class, 'change_user_profile'])->name('admin.change_user_profile');
     
-    Route::post('/job_seeker/change_password/{id}', [Admin\JobSeekerController::class, 'change_password'])->name('admin.change_password');
+    Route::post('/employees/change_password/{id}', [Admin\EmployeesController::class, 'change_password'])->name('admin.change_password');
     
-    Route::get('/job_seeker/delete_job_seeker/{id}', [Admin\JobSeekerController::class, 'delete_job_seeker'])->name('admin.delete_job_seeker');
+    Route::get('/employees/delete_employee/{id}', [Admin\EmployeesController::class, 'delete_employee'])->name('admin.delete_employee');
 
     
     Route::get('/interview', [Admin\InterviewController::class, 'index'])->name('admin.interview');
