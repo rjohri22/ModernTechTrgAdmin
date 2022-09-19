@@ -93,31 +93,38 @@
 							<label>Remarks</label>
 							<textarea class="form-control" rows="5" name="hr_remark"></textarea>
 						</div>
-
-
-						<!-- <div class="col-sm-3">
-							<label>Objective</label>
-							<select class="form-control" name="objective" id="objectives">
-								<option value=""> Select Objective</option>
-								@foreach($objectives as $o)
-								<option value="{{$o->id}}">{{$o->name}}</option>
-								@endforeach
-							</select>
-						</div>
-						<div class="col-sm-3">
-							<label>Round 1 Questions</label>
-							<input type="number" name="round_1" class="form-control"  id="round_1" data-total="">
-						</div>
-						<div class="col-sm-3">
-							<label>Round 2 Questions</label>
-							<input type="number" name="round_2" class="form-control" id="round_2" data-total="">
-						</div>
-						<div class="col-sm-3">
-							<label>Round 3 Questions</label>
-							<input type="number" name="round_3" class="form-control" id="round_3" data-total="">
-						</div> -->
 					</div>
 					<br>
+					@endif
+					@if($my_bend->level >= $countryhead->level):
+						<div class="row">
+							<div class="col-md-3">
+								<label>Min Salary</label>
+								<input type="number" name="min_salary" class="form-control">
+							</div>
+	
+							<div class="col-md-3">
+								<label>Max Salary</label>
+								<input type="number" name="max_salary" class="form-control">
+							</div>
+							<div class="col-md-3">
+								<label>Wages</label>
+								<select class="form-control" name="wages" id="wages">
+									<option value="">Select Wages</option>
+									<option value="monthly">Monthly</option>
+									<option value="anually">Anually</option>
+								</select>
+							</div>
+							<div class="col-md-3">
+								<label>Compensation Mode</label>
+								<select class="form-control" name="compensation_mode" id="compensation_mode">
+									<option value="">Select Compensation Mode</option>
+									<option value="solely_salary">Solely Salary</option>
+									<option value="base_commission">Base+Commission</option>
+									<option value="commission">Commission Only</option>
+								</select>
+							</div>
+						</div>
 					@endif
 					<div class="row">
 						<div class="col-sm-12" id="warning_msg">

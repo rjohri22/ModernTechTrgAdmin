@@ -22,7 +22,7 @@ class UpdateBends extends Migration
 
 
          $data = array(
-            'name' => 'HRManager',
+            'name' => 'HR Manager',
             'band_type' => '0',
             'level' => '6',
             'status' => '1',

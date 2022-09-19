@@ -123,7 +123,7 @@
 				</ul>
 				<div class="tab-content">
 					<div class="active tab-pane" id="profile">
-						<form action="{{route('admin.update_job_seeker',$user->id)}}" method="post">
+						<form action="{{route('admin.update_employee',$user->id)}}" method="post">
 							@csrf
 							<table class="table table-bordered">
 								<tr>
