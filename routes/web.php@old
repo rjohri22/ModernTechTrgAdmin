@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 use App\Http\Controllers\Admin;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,14 @@ use App\Http\Controllers\Admin;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get("/reset-server",function(){
+
+    Artisan::call('optimize');
+    Artisan::call('migrate');
+
+
+});
+
 
 Route::get('/', function () {
     return view('auth/login');
@@ -35,9 +44,11 @@ Route::get('/jobSeeker',function(){
 
 Route::get('/', [App\Http\Controllers\FrontController::class, 'career'])->name('home');
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 // Confilate Code End
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/server_reset', [App\Http\Controllers\ServerresetController::class, 'index'])->name('server_reset');
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 // Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::post('/store_profile', [App\Http\Controllers\HomeController::class, 'store_profile'])->name('store_profile');
@@ -306,12 +317,17 @@ Route::prefix('admin')->group(function () {
     Route::get('/interview_rounds/edit/{id}', [Admin\InterviewRoundsController::class, 'edit'])->name('admin.interview_rounds.edit');
     Route::post('/interview_rounds/update', [Admin\InterviewRoundsController::class, 'update'])->name('admin.interview_rounds.update');
     Route::get('/interview_rounds/questions_list/{id}', [Admin\InterviewRoundsController::class, 'questions_list'])->name('admin.interview_rounds.questions_list');
+    // Rounds
+    Route::get('/rounds', [Admin\RoundsController::class, 'index'])->name('admin.rounds');
+    Route::get('/rounds/add', [Admin\RoundsController::class, 'add'])->name('admin.rounds.add');
+    Route::post('/rounds/store', [Admin\RoundsController::class, 'store'])->name('admin.rounds.store');
+    Route::post('/rounds/edit', [Admin\RoundsController::class, 'edit'])->name('admin.rounds.edit');
+    Route::post('/rounds/update', [Admin\RoundsController::class, 'update'])->name('admin.rounds.update');
+    Route::get('/rounds/delete/{id}', [Admin\RoundsController::class, 'delete'])->name('admin.rounds.delete');
+
 
 
     Route::post('/load_interview_round', [Admin\DashboardController::class, 'load_interview_round'])->name('admin.load_interview_round');
-
-
-    Route::post('/load_interview_round_for_hr', [Admin\JobController::class, 'load_interview_round_for_hr'])->name('admin.load_interview_round_for_hr');
 
 
 });

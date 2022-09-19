@@ -29,9 +29,12 @@
                     <hr>
                     <a href="{{route('attempt_interview',$id)}}" class="btn btn-primary btn-sm">Start Your Interview</a>
                     @else
-                    <strong>Thankyou!</strong><br>
+                    @if ($message = Session::get('message'))
+                        <?php echo $message; ?>
+                    @endif
+                   <!--  <strong>Thankyou!</strong><br>
                     <strong>We Will Contact You Shortly</strong>
-                    <br>
+                    <br> -->
                     @endif
                 </div>
             </div>
