@@ -36,6 +36,7 @@ class FrontController extends Controller
 
     public function career(){
         $over_all = array();
+        $user_id = Auth::user()->id;
         $jobs = Jobs::join('bends','bends.id','=','jobs.band_id')->join('countries','countries.id','=','jobs.country_id')->select(['jobs.*','countries.name as country','bends.name as band_name'])->where('jobs.hr_head_approval','>','0')->get();
         foreach($jobs as $j){
             $interview_round = InterviewRounds::where('profile_id',$j->band_id)->first();
@@ -48,6 +49,7 @@ class FrontController extends Controller
 
         // dd($over_all);
         $data['Jobs'] = $over_all;
+        $data['products'] = Job_applications::where('jobseeker_id', $user_id)->pluck('oppertunity_id')->toArray();
         return view('career',$data);   
     }
 

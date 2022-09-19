@@ -12,6 +12,8 @@ use App\Models\Employee_sociallinks;
 use App\Models\Job_applications;
 use App\Models\Admin\Jobs;
 use App\Models\Admin\Oppertunities;
+use App\Models\Admin\InterviewRounds;
+use App\Models\Admin\InterviewRoundQuestions;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use Illuminate\Support\Facades\Crypt;
@@ -431,7 +433,18 @@ class HomeController extends Controller
 
     public function myjobs(){
         $user_id = Auth::user()->id;
-        $data['jobs'] = Job_applications::where('jobseeker_id', $user_id)->get();
+        $jobs = Job_applications::join('jobs','jobs.id','=','job_applications.oppertunity_id')->join('bends','bends.id','=','jobs.band_id')->join('countries','countries.id','=','jobs.country_id')->select(['jobs.*','countries.name as country','bends.name as band_name'])->where('job_applications.jobseeker_id','=',$user_id)->get();
+
+        $over_all = array();
+        foreach($jobs as $j){
+            $interview_round = InterviewRounds::where('profile_id',$j->band_id)->first();
+            
+            $interview_round_question = InterviewRoundQuestions::join('rounds','rounds.id','=','interview_round_questions.round_id')->where('interview_round_questions.interview_round_id',$interview_round->id)->groupBy('interview_round_questions.round_id')->pluck('rounds.name')->toArray();
+            // dd($interview_round_question);
+            $j->rounds = $interview_round_question;
+            $over_all[] = $j;
+        }
+        $data['jobs'] = $over_all;
         return view('jobs/myjob',$data);
     }
 

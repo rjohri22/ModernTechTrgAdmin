@@ -307,24 +307,31 @@
 			                    </tr> -->
 			                  </tbody>
 			                </table>
-
-                            <form method="post" action="{{route('apply_for_job')}}">
-			                <center> 
-                                    @csrf
-                                    <span><strong>Do You Want to Relocate ?</strong></span>
-                                    <input type="checkbox" name="reloaction" value="1" required="">
-                                    <input type="hidden" name="job_id" value="{{$j->id}}">
-                                    <br>
-                                    <br>
+                            @if(in_array($j->id, $products))
+                                <center>
                                     <button type="submit" class="theme-btn btn-style-one">
-                                        <span class="btn-title">Apply</span>
+                                        <span class="btn-title">You Have Already Applied for This Job</span>
                                     </button>
-                                    <!-- <button type="submit" class="btn-title">Apply</button> -->
-                                <!-- <a href="{{route('apply_job',$j->id)}}" class="theme-btn btn-style-one">
-                                    
-			                    </a> -->
-			                </center>
-                            </form>
+                                </center>
+                            @else
+                                <form method="post" action="{{route('apply_for_job')}}">
+                                    <center> 
+                                            @csrf
+                                            <span><strong>Do You Want to Relocate ?</strong></span>
+                                            <input type="checkbox" name="reloaction" value="1" required="">
+                                            <input type="hidden" name="job_id" value="{{$j->id}}">
+                                            <br>
+                                            <br>
+                                            <button type="submit" class="theme-btn btn-style-one">
+                                                <span class="btn-title">Apply</span>
+                                            </button>
+                                            <!-- <button type="submit" class="btn-title">Apply</button> -->
+                                        <!-- <a href="{{route('apply_job',$j->id)}}" class="theme-btn btn-style-one">
+                                            
+                                        </a> -->
+                                    </center>
+                                    </form>
+                            @endif
 			            </div>
 
 			        </div><!-- modal-content -->
