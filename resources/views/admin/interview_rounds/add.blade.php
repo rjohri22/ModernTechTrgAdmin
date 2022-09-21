@@ -30,13 +30,14 @@
                             <select class="form-control" name="profile">
                                 @foreach($bends as $bend)
                                     <option value="{{ $bend->id }}">{{ $bend->name }}</option>
+
                                 @endforeach
                             </select>
 						</div>	
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <label class="form-label">Interview Time</label>
                             <input type="number" name="time" class="form-control" value="0">
-                        </div>
+                        </div> -->
 					</div>
                     <div class="row">
                         <div class="col-md-6">
@@ -48,7 +49,7 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <br>
+                            <div style="margin-top: 35px;" ></div>
                             <input type="button" value="Fatch Questions" class="btn btn-sm btn-primary"  id="fatchQuestions" data-bs-toggle="modal" data-bs-target="#questionsModal">
                         </div>
                     </div>
@@ -60,6 +61,8 @@
                                     <tr>
                                         <th style="text-align:left" >Round</th>
                                         <th style="width:150px">No of Questions</th>
+                                        <th style="width:150px">Time (Minutes)</th>
+                                        <th style="width:350px">Disclaimer</th>
                                         <th style="width:150px"></th>
                                     </tr>
                                 </thead>
@@ -125,6 +128,8 @@
                 html += "<input type='hidden' name='round_questions[]' id='round_questions"+sno+"' value='"+ids+"' >";
                 html += "<td>"+round_name+"</td>";
                 html += "<td id='no_question"+sno+"' >"+noofquestion+"</td>";
+                html += "<td><input type='number' value='0' name='round_time[]' class='form-control' ></td>";
+                html += "<td><textarea name='round_disclaimer[]' class='form-control' ></textarea></td>";
                 html += "<td>";
                     html += "<button type='button' class='btn btn-sm btn-primary roundEdit' data-rid='"+round_id+"' data-questions='"+ids+"' data-sno='"+sno+"'  data-bs-toggle='modal' data-bs-target='#questionsModal' >Edit</button>";
                     html += "<button type='button' class='btn btn-sm btn-danger roundDelete' data-sno='"+sno+"' >Remove</button>";
