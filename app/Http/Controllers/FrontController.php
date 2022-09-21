@@ -71,11 +71,14 @@ class FrontController extends Controller
         // $round_passing_mark = $job_seeker_round[$Job_application->round_attempted]['passing_marks'];
         $total_question = $job_seeker_round[$Job_application->round_attempted]['total_questions'];
 
+
         $data['interview_round'] = $interview_round = InterviewRounds::where('profile_id',$oppertunity->band_id)->first();
 
         $rounds = InterviewRoundQuestions::where('interview_round_id',$interview_round->id)->groupBy('round_id')->get()->pluck('round_id')->toArray();
 
-        $duration = InterviewRoundQuestions::where('interview_round_id',$interview_round->id)->groupBy('round_id')->get()->pluck('duration')->toArray();
+        $duration = InterviewRoundQuestions::where('interview_round_id',$interview_round->id)->groupBy('round_id')->get()->pluck('interview_time')->toArray();
+
+        $disclaimer = InterviewRoundQuestions::where('interview_round_id',$interview_round->id)->groupBy('round_id')->get()->pluck('disclaimer')->toArray();
 
         // dd($duration);
         $total_round = count($rounds);
@@ -88,6 +91,7 @@ class FrontController extends Controller
 
         $data['job_id'] = $job_id;
         $data['duration'] = $duration[$Job_application->round_attempted];
+        $data['disclaimer'] = $disclaimer[$Job_application->round_attempted];
         return view('attempt_interview',$data); 
     }
 
@@ -96,13 +100,10 @@ class FrontController extends Controller
         $oppertunity = Jobs::where('id',$Job_application->oppertunity_id)->first();
         $interview_round = InterviewRounds::where('profile_id',$oppertunity->band_id)->first();
         $rounds = InterviewRoundQuestions::where('interview_round_id',$interview_round->id)->groupBy('round_id')->get()->pluck('round_id')->toArray();
-        
-
         $job_seeker_round = JobInterviews::where('job_id',$oppertunity->id)->get()->toArray();
-
-
-
+        
         $question = InterviewRoundQuestions::where('interview_round_id',$interview_round->id)->where('round_id',$rounds[$Job_application->round_attempted])->get(); 
+
         $data = array();
         $user_id = Auth::user()->id;
 
@@ -112,6 +113,10 @@ class FrontController extends Controller
 
         $obtained = 0;
         foreach($question as $k => $q){
+
+
+
+
             $data[$k] = array(
                 'user_id' => $user_id,
                 'job_id' => $id,
@@ -127,15 +132,14 @@ class FrontController extends Controller
                 'correct_answer' => $q->correct_answer,
                 'mark' => $q->marks
             );
-
             if($request->input('question_id')[$k] == $q->id){
-                $data[$k]['user_answer'] = $request->input('correc_ans')[$k];
+                $data[$k]['user_answer'] = $request->input("correc_ans_".$q->id);
                 if($q->question_type == '1'){
                     if($request->input('correc_ans')[$k] == $q->option_a){
                         $obtained = $obtained+ $q->marks;
                     }
                 }else{
-                    if($request->input('correc_ans')[$k] == $q->correct_answer){
+                    if($request->input("correc_ans_".$q->id) == $q->correct_answer){
                         $obtained = $obtained+ $q->marks;
                     }
                 }
@@ -148,7 +152,7 @@ class FrontController extends Controller
             }
 
         }
-
+        
         if($obtained >= $round_passing_mark){
             $round_attempted = $Job_application->round_attempted+1;
             $update = array(
