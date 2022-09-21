@@ -75,15 +75,15 @@ Route::prefix('admin')->group(function () {
     Route::get('/oppertunities/delete_oppertunity/{id}', [Admin\OppertunitiesController::class, 'delete_oppertunity'])->name('admin.delete_oppertunity');
 
 
-    Route::get('/job_applications/{status}', [Admin\JobapplicationsController::class, 'index'])->name('admin.job_applications');
-    Route::get('/job_applications/add', [Admin\JobapplicationsController::class, 'add'])->name('admin.add_job_applications');
-    Route::get('/job_applications/edit/{id}', [Admin\JobapplicationsController::class, 'edit'])->name('admin.edit_job_applications');
-    Route::get('/job_applications/view/{id}', [Admin\JobapplicationsController::class, 'view'])->name('admin.view_job_applications');
+    // Route::get('/job_applications/{status}', [Admin\JobapplicationsController::class, 'index'])->name('admin.job_applications');
+    // Route::get('/job_applications/add', [Admin\JobapplicationsController::class, 'add'])->name('admin.add_job_applications');
+    // Route::get('/job_applications/edit/{id}', [Admin\JobapplicationsController::class, 'edit'])->name('admin.edit_job_applications');
+    // Route::get('/job_applications/view/{id}', [Admin\JobapplicationsController::class, 'view'])->name('admin.view_job_applications');
     
-    Route::post('/job_applications/store_application', [Admin\JobapplicationsController::class, 'store_application'])->name('admin.store_application');
-    Route::post('/job_applications/update_application/{id}', [Admin\JobapplicationsController::class, 'update_application'])->name('admin.update_application');
+    // Route::post('/job_applications/store_application', [Admin\JobapplicationsController::class, 'store_application'])->name('admin.store_application');
+    // Route::post('/job_applications/update_application/{id}', [Admin\JobapplicationsController::class, 'update_application'])->name('admin.update_application');
     
-    Route::get('/job_applications/delete_application/{id}', [Admin\JobapplicationsController::class, 'delete_application'])->name('admin.delete_application');
+    // Route::get('/job_applications/delete_application/{id}', [Admin\JobapplicationsController::class, 'delete_application'])->name('admin.delete_application');
 
 
     Route::get('/job_seeker', [Admin\JobseekerController::class, 'index'])->name('admin.job_seeker');
@@ -312,6 +312,18 @@ Route::prefix('admin')->group(function () {
     Route::get('/interview_rounds/edit/{id}', [Admin\InterviewRoundsController::class, 'edit'])->name('admin.interview_rounds.edit');
     Route::post('/interview_rounds/update', [Admin\InterviewRoundsController::class, 'update'])->name('admin.interview_rounds.update');
     Route::get('/interview_rounds/questions_list/{id}', [Admin\InterviewRoundsController::class, 'questions_list'])->name('admin.interview_rounds.questions_list');
+    // Rounds
+    Route::get('/rounds', [Admin\RoundsController::class, 'index'])->name('admin.rounds');
+    Route::get('/rounds/add', [Admin\RoundsController::class, 'add'])->name('admin.rounds.add');
+    Route::post('/rounds/store', [Admin\RoundsController::class, 'store'])->name('admin.rounds.store');
+    Route::post('/rounds/edit', [Admin\RoundsController::class, 'edit'])->name('admin.rounds.edit');
+    Route::post('/rounds/update', [Admin\RoundsController::class, 'update'])->name('admin.rounds.update');
+    Route::get('/rounds/delete/{id}', [Admin\RoundsController::class, 'delete'])->name('admin.rounds.delete');
+    // Job Applications
+    Route::get('jobapplications',[Admin\JobapplicationsController::class,'index'])->name('admin.jobapplications');
+    Route::get('jobapplications/view/{id}',[Admin\JobapplicationsController::class,'view'])->name('admin.jobapplications.view');
+    Route::get('jobapplications/edit',[Admin\JobapplicationsController::class,'view'])->name('admin.jobapplications.edit');
+    Route::get('jobapplications/delete',[Admin\JobapplicationsController::class,'view'])->name('admin.jobapplications.delete');
 
 
     Route::post('/load_interview_round', [Admin\DashboardController::class, 'load_interview_round'])->name('admin.load_interview_round');
