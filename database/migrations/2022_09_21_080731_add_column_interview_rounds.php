@@ -16,7 +16,7 @@ class AddColumnInterviewRounds extends Migration
         Schema::table('interview_rounds', function (Blueprint $table) {
             $table->string('disclaimer',1000)->nullable();
         });
-
+    }
     /**
      * Reverse the migrations.
      *
