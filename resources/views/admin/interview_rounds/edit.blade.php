@@ -34,10 +34,6 @@
                             </select>
                             <input type="hidden" name="id" value="{{ $interviewrounds->id }}" >
 						</div>	
-                        <div class="col-md-6">
-                            <label class="form-label">Interview Time</label>
-                            <input type="number" name="time" class="form-control" value="{{ $interviewrounds->interview_time }}">
-                        </div>
 					</div>
                     <div class="row">
                         <div class="col-md-6">
@@ -49,7 +45,7 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <br>
+                            <div style="margin-top: 35px;" ></div>
                             <input type="button" value="Fatch Questions" class="btn btn-sm btn-primary"  id="fatchQuestions" data-bs-toggle="modal" data-bs-target="#questionsModal">
                         </div>
                     </div>
@@ -61,6 +57,8 @@
                                     <tr>
                                         <th style="text-align:left" >Round</th>
                                         <th style="width:150px">No of Questions</th>
+                                        <th style="width:150px">Time (Minutes)</th>
+                                        <th style="width:350px">Disclaimer</th>
                                         <th style="width:150px"></th>
                                     </tr>
                                 </thead>
@@ -77,6 +75,8 @@
                                             <input type='hidden' name='round_questions[]' id='round_questions{{ $sno }}' value='[{{ $row->ids }}]' >
                                             <td>{{ $row->round_name }}</td>
                                             <td id='no_question{{ $sno }}' >{{ $row->count_questions }}</td>
+                                            <td><input type='number' value='{{ $row->interview_time }}' name='round_time[]' class='form-control' ></td>
+                                            <td><textarea name='round_disclaimer[]' class='form-control' >{{ $row->disclaimer }}</textarea></td>
                                             <td>
                                                 <button type='button' class='btn btn-sm btn-primary roundEdit' data-rid='{{ $row->round_id }}' data-questions='[{{ $row->ids }}]' data-sno='{{ $sno }}'  data-bs-toggle='modal' data-bs-target='#questionsModal' >Edit</button>
                                                 <button type='button' class='btn btn-sm btn-danger roundDelete' data-sno='{{ $sno }}' >Remove</button>
@@ -143,6 +143,8 @@
                 html += "<input type='hidden' name='round_questions[]' id='round_questions"+sno+"' value='"+ids+"' >";
                 html += "<td>"+round_name+"</td>";
                 html += "<td id='no_question"+sno+"' >"+noofquestion+"</td>";
+                html += "<td><input type='number' value='0' name='round_time[]' class='form-control' ></td>";
+                html += "<td><textarea name='round_disclaimer[]' class='form-control' ></textarea></td>";
                 html += "<td>";
                     html += "<button type='button' class='btn btn-sm btn-primary roundEdit' data-rid='"+round_id+"' data-questions='"+ids+"' data-sno='"+sno+"'  data-bs-toggle='modal' data-bs-target='#questionsModal' >Edit</button>";
                     html += "<button type='button' class='btn btn-sm btn-danger roundDelete' data-sno='"+sno+"' >Remove</button>";
