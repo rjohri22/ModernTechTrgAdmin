@@ -335,5 +335,12 @@ Route::prefix('admin')->group(function () {
     Route::post('/load_interview_round_for_hr', [Admin\JobController::class, 'load_interview_round_for_hr'])->name('admin.load_interview_round_for_hr');
 
 
+    Route::get('/calendar',[Admin\CalendarController::class,'index'])->name('admin.calendar');
+    Route::get('/load_task',[Admin\CalendarController::class,'load_task'])->name('admin.load_task');
+    Route::post('/store_data',[Admin\CalendarController::class,'store_data'])->name('admin.calender.store_data');
+    Route::post('/update_data',[Admin\CalendarController::class,'update_data'])->name('admin.calender.update_data');
+    Route::get('/delete_task',[Admin\CalendarController::class,'delete_task'])->name('admin.calender.delete_task');
+
+
 });
 
