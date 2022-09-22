@@ -58,6 +58,7 @@
                                         <th style="text-align:left" >Round</th>
                                         <th style="width:150px">No of Questions</th>
                                         <th style="width:150px">Time (Minutes)</th>
+                                        <th style="width:150px">Total Marks</th>
                                         <th style="width:350px">Disclaimer</th>
                                         <th style="width:150px"></th>
                                     </tr>
@@ -76,6 +77,7 @@
                                             <td>{{ $row->round_name }}</td>
                                             <td id='no_question{{ $sno }}' >{{ $row->count_questions }}</td>
                                             <td><input type='number' value='{{ $row->interview_time }}' name='round_time[]' class='form-control' ></td>
+                                            <td><input type='number' value='{{ $row->total_marks }}' name='round_marks[]' class='form-control' ></td>
                                             <td><textarea name='round_disclaimer[]' class='form-control' >{{ $row->disclaimer }}</textarea></td>
                                             <td>
                                                 <button type='button' class='btn btn-sm btn-primary roundEdit' data-rid='{{ $row->round_id }}' data-questions='[{{ $row->ids }}]' data-sno='{{ $sno }}'  data-bs-toggle='modal' data-bs-target='#questionsModal' >Edit</button>

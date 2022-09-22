@@ -69,6 +69,7 @@ class InterviewRoundsController extends AdminBaseController
         $rounds = $request->round_id;
         $round_questions = $request->round_questions;
         $round_time = $request->round_time;
+        $round_marks = $request->round_marks;
         $round_disclaimer = $request->round_disclaimer;
         $interview_round = new InterviewRounds;
         $interview_round->profile_id = $request->profile;
@@ -76,6 +77,8 @@ class InterviewRoundsController extends AdminBaseController
         foreach($rounds as $key => $round){
             $qs = json_decode($round_questions[$key]);
             $time = json_decode($round_time[$key]);
+            $marks = json_decode($round_marks[$key]);
+            $single_mark = $marks/count($qs);
             $disclaimer = json_decode($round_disclaimer[$key]);
             foreach($qs as $q){
                 $ques_data = QuestionBank::where('id',$q)->get();
@@ -91,7 +94,7 @@ class InterviewRoundsController extends AdminBaseController
                 $InterviewRoundQuestions->option_c = $ques_data[0]->option_c;
                 $InterviewRoundQuestions->option_d = $ques_data[0]->option_d;
                 $InterviewRoundQuestions->correct_answer = $ques_data[0]->correct_answer;
-                $InterviewRoundQuestions->marks = $ques_data[0]->marks;
+                $InterviewRoundQuestions->marks = $single_mark;
                 $InterviewRoundQuestions->interview_time = $time;
                 $InterviewRoundQuestions->disclaimer = $disclaimer;
                 $InterviewRoundQuestions->save();
@@ -150,6 +153,7 @@ class InterviewRoundsController extends AdminBaseController
                 interview_round_questions.disclaimer,
                 rounds.name as round_name,
                 COUNT(interview_round_questions.question_id) as count_questions,
+                SUM(interview_round_questions.marks) as total_marks,
                 group_concat(interview_round_questions.question_id) as ids
             '))
             ->leftJoin('rounds', 'rounds.id', '=', 'interview_round_questions.round_id')
@@ -172,6 +176,7 @@ class InterviewRoundsController extends AdminBaseController
         $rounds = $request->round_id;
         $round_questions = $request->round_questions;
         $round_time = $request->round_time;
+        $round_marks = $request->round_marks;
         $round_disclaimer = $request->round_disclaimer;
         $interview_round = InterviewRounds::find($id);
         $interview_round->profile_id = $request->profile;
@@ -180,6 +185,8 @@ class InterviewRoundsController extends AdminBaseController
         foreach($rounds as $key => $round){
             $qs = json_decode($round_questions[$key]);
             $time = $round_time[$key];
+            $marks = json_decode($round_marks[$key]);
+            $single_mark = $marks/count($qs);
             $disclaimer = $round_disclaimer[$key];
             foreach($qs as $q){
                 $ques_data = QuestionBank::where('id',$q)->get();
@@ -195,7 +202,7 @@ class InterviewRoundsController extends AdminBaseController
                 $InterviewRoundQuestions->option_c = $ques_data[0]->option_c;
                 $InterviewRoundQuestions->option_d = $ques_data[0]->option_d;
                 $InterviewRoundQuestions->correct_answer = $ques_data[0]->correct_answer;
-                $InterviewRoundQuestions->marks = $ques_data[0]->marks;
+                $InterviewRoundQuestions->marks = $single_mark;
                 $InterviewRoundQuestions->interview_time = $time;
                 $InterviewRoundQuestions->disclaimer = $disclaimer;
                 $InterviewRoundQuestions->save();
