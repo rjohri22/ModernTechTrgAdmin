@@ -325,8 +325,8 @@ Route::prefix('admin')->group(function () {
     // Job Applications
     Route::get('jobapplications',[Admin\JobapplicationsController::class,'index'])->name('admin.jobapplications');
     Route::get('jobapplications/view/{id}',[Admin\JobapplicationsController::class,'view'])->name('admin.jobapplications.view');
-    Route::get('jobapplications/edit',[Admin\JobapplicationsController::class,'view'])->name('admin.jobapplications.edit');
-    Route::get('jobapplications/delete',[Admin\JobapplicationsController::class,'view'])->name('admin.jobapplications.delete');
+    Route::post('jobapplications/attemquestion',[Admin\JobapplicationsController::class,'attemquestion'])->name('admin.jobapplications.attemquestion');
+    Route::post('jobapplications/assign',[Admin\JobapplicationsController::class,'assign'])->name('admin.jobapplications.assign');
 
 
     Route::post('/load_interview_round', [Admin\DashboardController::class, 'load_interview_round'])->name('admin.load_interview_round');

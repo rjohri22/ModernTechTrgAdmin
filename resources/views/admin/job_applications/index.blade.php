@@ -1,18 +1,24 @@
 @extends('admin.layout.master')
 @section('content')
 
+<form action="{{route('admin.jobapplications.assign')}}" method="post">
+@csrf
 <div class="box box-primary container mt-2" style="background: white">
 	<div class="box-header">
 		<h3>Job Applications</h3>
+		<button type="button" class="btn btn-primary" data-bs-toggle='modal' data-bs-target='#assign_interviewer' style="float: right">Assign Interviewer</button>
 	</div>
 	<div class="box-body">
 		<table class="table table-sm">
 		  <thead>
 		    <tr>
+				<td></td>
 				<th scope="col">#</th>
 				<th scope="col">Job</th>
 				<th scope="col">Job Seeker</th>
 				<th scope="col">Apply Date</th>
+				<th scope="col">Interviewer</th>
+				<th scope="col">Status</th>
 				<th scope="col">Actions</th>
 		    </tr>
 		  </thead>
@@ -22,14 +28,17 @@
 			@endphp
 		    @foreach($applicatoins as $ja) 
 		    <tr>
+				<td>
+					<input type="checkbox" name="ja[]" value="{{$ja->id}}">
+				</td>
 				<td>{{ $counter }}</td>
 				<td>{{ $ja->profile_name }}</td>
-				<td>{{ $ja->first_name." ".$ja->last_name }}</td>
+				<td>{{ $ja->job_seeker }}</td>
 				<td>{{ $ja->created_at->format('d-m-Y') }}</td>
+				<td>{{ $ja->interviewer == "" ? "Not Assign" : $ja->interviewer }}</td>
+				<td>{{ $ja->status }}</td>
 				<td>
 					<a href="{{route('admin.jobapplications.view',$ja->id)}}" class="btn btn-primary btn-sm">View</a>
-					<!-- <a href="{{route('admin.jobapplications.edit',$ja->id)}}" class="btn btn-info btn-sm">Edit</a> -->
-					<!-- <button type="button" class="btn btn-sm btn-danger" data-toggle="popover" data-placement="left" data-trigger="focus" title="Delete Oppertunity" data-html="true" data-content="<b>Are You Sure ?</b><hr><a href='{{route('admin.jobapplications.delete',$ja->id)}}' class='btn btn-success btn-sm'>I am Sure</a>&nbsp;<a class='btn btn-danger btn-sm'>No</a>">Delete</button> -->
 				</td>
 		    </tr>
 		    @php
@@ -40,6 +49,29 @@
 		</table>
 	</div>
 </div>
+<div class="modal fade" id="assign_interviewer" tabindex="-1" aria-labelledby="questionsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+        	<div class="modal-header">
+	        <h5 class="modal-title">Assign Interviewer</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+        	<label>Select Interviewer</label>
+        	<select class="form-control" name="emp_id">
+        		@foreach($employeess as $emp)
+        			<option value="{{$emp->id}}">{{$emp->name}}</option>
+        		@endforeach
+        	</select>
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="submit" class="btn btn-primary">Submit</button>
+	      </div>
+
+        </div>
+    </div>
+</div>
+</form>
 
 <script type="text/javascript">
 	$(document).ready(function(){

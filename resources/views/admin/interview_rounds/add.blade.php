@@ -62,6 +62,7 @@
                                         <th style="text-align:left" >Round</th>
                                         <th style="width:150px">No of Questions</th>
                                         <th style="width:150px">Time (Minutes)</th>
+                                        <th style="width:150px">Total Marks</th>
                                         <th style="width:350px">Disclaimer</th>
                                         <th style="width:150px"></th>
                                     </tr>
@@ -129,6 +130,7 @@
                 html += "<td>"+round_name+"</td>";
                 html += "<td id='no_question"+sno+"' >"+noofquestion+"</td>";
                 html += "<td><input type='number' value='0' name='round_time[]' class='form-control' ></td>";
+                html += "<td><input type='number' value='0' name='round_marks[]' class='form-control' ></td>";
                 html += "<td><textarea name='round_disclaimer[]' class='form-control' ></textarea></td>";
                 html += "<td>";
                     html += "<button type='button' class='btn btn-sm btn-primary roundEdit' data-rid='"+round_id+"' data-questions='"+ids+"' data-sno='"+sno+"'  data-bs-toggle='modal' data-bs-target='#questionsModal' >Edit</button>";

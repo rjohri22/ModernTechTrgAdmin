@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 use App\Models\Job_applications;
 use App\Models\Admin\Companies;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Admin\Bend;
+use App\Models\Admin\Jobs;
+use App\Models\User;
+use App\Models\Question_attempts;
+use App\Models\Admin\InterviewRounds;
+use App\Models\Admin\InterviewRoundQuestions;
 
 class JobapplicationsController extends AdminBaseController
 {
@@ -32,30 +38,100 @@ class JobapplicationsController extends AdminBaseController
         if(!$this->check_role()){
             return redirect()->route('home');
         };
-
-        // $fetch = Job_applications::join('oppertunities', 'oppertunities.id', '=', 'job_applications.oppertunity_id')
-        //         ->join('users','users.id','=','job_applications.jobseeker_id')
-        //         ->get(['job_applications.*', 'users.name as user_name','oppertunities.title as oppertunity']);
-
-
+        $this->data['userbend'] = Bend::where('id',$this->data['userdata']->bend_id)->first();
         $fetch = Job_applications::selectRaw('
-                        job_applications.id,
-                        bends.name as profile_name,
-                        users.first_name,
-                        job_applications.created_at
-                    ')
-                    ->join('jobs', 'jobs.id', '=', 'job_applications.oppertunity_id')
-                    ->join('users','users.id','=','job_applications.jobseeker_id')
-                    ->join('bends','bends.id','=','jobs.band_id')
-                    ->get();
-
+            job_applications.id,
+            bends.name as profile_name,
+            CONCAT(users.first_name,users.last_name) as job_seeker,
+            job_applications.created_at,
+            CONCAT(inter.first_name,inter.last_name) interviewer,
+            IF(job_applications.status = 0, "Pending", IF(job_applications.status = 1,"Job Taking",IF(job_applications.status = 2,"Interview",IF(job_applications.status = 3,"Hired","Rejected")))) as status
+        ');
+        $fetch = $fetch->join('jobs', 'jobs.id', '=', 'job_applications.oppertunity_id');
+        $fetch = $fetch->join('users','users.id','=','job_applications.jobseeker_id');
+        $fetch = $fetch->LeftJoin('users as inter','inter.id','=','job_applications.interviewer_id');
+        if($this->data['userbend']->level < 10){
+            $fetch = $fetch->join('job_status_updates', 'job_status_updates.jb_id', '=', 'job_applications.jobseeker_id');
+        }
+        $fetch = $fetch->join('bends','bends.id','=','jobs.band_id');
+        if($this->data['userbend']->level < 10){
+            $fetch = $fetch->where('job_status_updates.emp_id',$this->data['userdata']->id);
+        }
+        $fetch = $fetch->get();
         $this->data['applicatoins'] = $fetch;
+        $this->data['employeess'] = User::where('group_id',1)->get();
         return view('admin/job_applications/index',$this->data);
 
     }
-    public function view($id){}
-    public function edit(){}
-    public function delete(){}
+    public function view($id){
+        $this->loadBaseData();
+        if(!$this->check_role()){
+            return redirect()->route('home');
+        };
+        $this->data['jobapplication'] = Job_applications::where('id',$id)->first();
+        $this->data['job'] = Jobs::selectRaw('
+            jobs.*,
+            countries.name as country,
+            states.name as state,
+            cities.name as city,
+            bends.name as profile,
+            companies.name as company
+        ')
+        ->LeftJoin('companies','companies.id','=','jobs.company_id')
+        ->LeftJoin('countries','countries.id','=','jobs.country_id')
+        ->LeftJoin('states','states.id','=','jobs.state_id')
+        ->LeftJoin('cities','cities.id','=','jobs.city_id')
+        ->LeftJoin('bends','bends.id','=','jobs.band_id')
+        ->where('jobs.id',$this->data['jobapplication']->oppertunity_id)
+        ->first();
+
+        $this->data['jobseeker'] = User::where('id',$this->data['jobapplication']->jobseeker_id)->first();
+        $this->data['rounds'] = Question_attempts::selectRaw('
+                                        question_attempts.round_id,
+                                        rounds.name,
+                                        COUNT(question_attempts.question) as no_o_questions,
+                                        SUM(CASE WHEN question_attempts.status != 0 THEN 1 ELSE 0 END) as attem_questions,
+                                        SUM(question_attempts.mark) as total_marks,
+                                        IFNULL((
+                                            SELECT ji.passing_marks 
+                                            FROM job_interviews AS ji 
+                                            WHERE 
+                                                ji.job_id =  '.$this->data['jobapplication']->oppertunity_id.' AND
+                                                ji.round_id =  question_attempts.round_id
+                                        ),0) as passing_marks,
+                                        SUM(CASE WHEN question_attempts.status = 2 THEN question_attempts.mark ELSE 0 END) as obtain_marks
+                                    ')
+                                    ->LeftJoin('rounds','rounds.id','=','question_attempts.round_id')
+                                    ->where('job_id',$this->data['jobapplication']->id)
+                                    ->groupBy('question_attempts.round_id')
+                                    ->get();
+        $this->data['interviewer'] = User::where('id',$this->data['jobapplication']->interviewer_id)->first();
+        return view('admin/job_applications/view',$this->data);
+    }
+    public function attemquestion(Request $request){
+        $this->data['questions'] = Question_attempts::where('job_id',$request->jaid)
+                                        ->where('round_id',$request->rid)
+                                        ->where('user_id',$request->uid)
+                                        ->get();
+        return view('admin/job_applications/attem_questions',$this->data);
+    }
+    public function assign(Request $request){
+        $jas = $request->ja;
+        $emp_id = $request->emp_id;
+        foreach($jas as $ja){
+            $jobapplication = Job_applications::find($ja);
+            $jobapplication->interviewer_id = $emp_id;
+            $jobapplication->save();
+        }
+        if(count($jas) == 0){
+            return redirect()->route('admin.jobapplications')->with('error_','Please Select Job Applications');
+        }else{
+            return redirect()->route('admin.jobapplications')->with('success','Assigned Successfully.');
+        }
+
+
+
+    }
 
     
 
