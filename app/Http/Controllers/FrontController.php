@@ -18,6 +18,8 @@ use App\Models\Admin\InterviewRoundQuestions;
 use App\Models\Admin\Bends;
 use App\Models\Question_attempts;
 use App\Models\Admin\JobInterviews;
+use App\Models\GeneralModal;
+use App\Models\Admin\JobStatusUpdates;
 use Session;
 
 class FrontController extends Controller
@@ -69,7 +71,7 @@ class FrontController extends Controller
         $job_seeker_round = JobInterviews::where('job_id',$oppertunity->id)->get()->toArray();
         
         // $round_passing_mark = $job_seeker_round[$Job_application->round_attempted]['passing_marks'];
-        $total_question = $job_seeker_round[$Job_application->round_attempted]['total_questions'];
+        
 
 
         $data['interview_round'] = $interview_round = InterviewRounds::where('profile_id',$oppertunity->band_id)->first();
@@ -84,9 +86,30 @@ class FrontController extends Controller
         $total_round = count($rounds);
         // dd($total_round);
         // dd($Job_application->round_attempted); 
+        
         if($Job_application->round_attempted > $total_round-1){
-             return redirect()->route('thankyou');
+            $user_id = Auth::user()->id;
+            $jsu = JobStatusUpdates::Leftjoin('users as u','u.id','=','job_status_updates.emp_id')->where('job_status_updates.jb_id',$user_id)->get(['job_status_updates.*','u.email as emp_email']);
+
+            $user_details = User::where('id',$user_id)->first();
+            
+            $subject = "A Job Seeker Named ".$user_details->name." Has Cleared All The Round";
+            $message = "Dear Consultant! This Email is To Notify You That The Job seeker named ".$user_details->name." Which Is Assigned to You has Cleared All The Round Now You Can Assign interview To it";
+            
+            foreach($jsu as $p){
+                GeneralModal::send_email($p->emp_email,$subject,$message);
+            }
+
+            $html = "<strong>Congratulation!</strong><br>
+                    <strong>You Have Passed All the Round</strong><br>
+                    <p>We Will Contact you Shortly</p><br>
+                    <a href='".route('career')."' class='btn btn-success text-white'>Return To Career Page</a><br>
+                    ";
+            return redirect()->route('thankyou')
+            ->with('message',$html);
         }
+
+        $total_question = $job_seeker_round[$Job_application->round_attempted]['total_questions'];
         $data['questions'] = InterviewRoundQuestions::where('interview_round_id',$interview_round->id)->where('round_id',$rounds[$Job_application->round_attempted])->limit($total_question)->get();
 
         $data['job_id'] = $job_id;
@@ -185,6 +208,8 @@ class FrontController extends Controller
         // echo "<pre/>".print_r($data,1);
         // echo "<pre/>".print_r($_POST,1);
     }
+
+
 
     // function thankyou(){
     //     return view('thankyou',$data);   

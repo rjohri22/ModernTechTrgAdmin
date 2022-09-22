@@ -29,6 +29,8 @@
   <link rel="stylesheet" href="{{ asset('assets/adminpanel1/') }}/bower_components/font-awesome/css/font-awesome.min.css">
 
   <link rel="stylesheet" href="{{ asset('assets/css/') }}/bootstrap-tagsinput.css">
+  <link href="{{ asset('assets/plugins/full_calender/main.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ asset('assets/plugins/full_calender/grid_main.css') }}" rel="stylesheet" type="text/css" />
   <!-- <link rel="stylesheet" href="{{ asset('assets/adminpanel1/') }}/plugins/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
   <!-- <script src="{{ asset('assets/adminpanel1/') }}/bower_components/jquery/dist/jquery.min.js"></script> -->
   <!-- <script src="{{ asset('assets/adminpanel1/') }}/bower_components/jquery-ui/jquery-ui.min.js"></script> -->
