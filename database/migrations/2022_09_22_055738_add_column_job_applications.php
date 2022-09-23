@@ -13,7 +13,7 @@ class AddColumnJobApplications extends Migration
      */
     public function up()
     {
-        Schema::table('job_applications', function (Blueprint $table) {
+        Schema::table('question_attempts', function (Blueprint $table) {
             $table->integer('interviewer_id',false, true)->nullable();
         });
     }
@@ -25,8 +25,8 @@ class AddColumnJobApplications extends Migration
      */
     public function down()
     {
-        Schema::table('job_applications', function($table) {
-            $table->dropColumn('interviewer_id');
+        Schema::table('question_attempts', function($table) {
+            $table->dropColumn('interviewer_id',false, true)->nullable();
         });
     }
 }
