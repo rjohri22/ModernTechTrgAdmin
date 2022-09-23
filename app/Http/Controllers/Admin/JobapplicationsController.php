@@ -100,7 +100,7 @@ class JobapplicationsController extends AdminBaseController
                                                 ji.job_id =  '.$this->data['jobapplication']->oppertunity_id.' AND
                                                 ji.round_id =  question_attempts.round_id
                                         ),0) as passing_marks,
-                                        SUM(CASE WHEN question_attempts.status = 2 THEN question_attempts.mark ELSE 0 END) as obtain_marks
+                                        SUM(CASE WHEN question_attempts.status = 1 THEN question_attempts.mark ELSE 0 END) as obtain_marks
                                     ')
                                     ->LeftJoin('rounds','rounds.id','=','question_attempts.round_id')
                                     ->where('job_id',$this->data['jobapplication']->id)

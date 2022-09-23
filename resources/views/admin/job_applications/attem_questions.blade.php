@@ -30,9 +30,9 @@
                             <td>{{ $question->user_answer}}</td>
                             <td>
                                 @if($question->status == 1)
-                                    Wrrong
-                                @elseif ($question->status == 2)
                                     Correct
+                                @elseif ($question->status == 2)
+                                    Wrong
                                 @else
                                     No Attempt
                                 @endif
