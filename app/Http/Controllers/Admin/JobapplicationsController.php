@@ -107,6 +107,8 @@ class JobapplicationsController extends AdminBaseController
                                     ->groupBy('question_attempts.round_id')
                                     ->get();
         $this->data['interviewer'] = User::where('id',$this->data['jobapplication']->interviewer_id)->first();
+        // print_r($this->data['jobapplication']);
+        // exit();
         return view('admin/job_applications/view',$this->data);
     }
     public function attemquestion(Request $request){

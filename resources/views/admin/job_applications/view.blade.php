@@ -23,7 +23,7 @@
 	</div>
 	<div class="card-body">
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<table class="table table-bordered jp_detail">
 					<tr>
 						<th colspan="2" style="text-align:center" >Job Seeker Detail</th>
@@ -68,9 +68,24 @@
 						<th>Available To Koin</th>
 						<td>{{ $jobseeker->available_to_join }}</td>
 					</tr>
+					@if(isset($interviewer->id))
+						<tr>
+							<th>Interviewer Name</th>
+							<td>{{ $interviewer->first_name." ".$interviewer->last_name }}</td>
+						</tr>
+						@php
+							$dates = explode(',',$jobapplication->js_interview_datetime)
+						@endphp
+						@foreach($dates as $key => $d)
+							<tr>
+								<th>Interview Date {{ $key+1 }}</th>
+								<td>{{ $d }}</td>
+							</tr>
+						@endforeach
+					@endif
 				</table>
 			</div>
-			<div class="col-md-9">
+			<div class="col-md-8">
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
 					<li class="nav-item" role="presentation">
 						<button class="nav-link active" id="job-tab" data-bs-toggle="tab" data-bs-target="#job" type="button" role="tab" aria-controls="home" aria-selected="true">Job Detail</button>
