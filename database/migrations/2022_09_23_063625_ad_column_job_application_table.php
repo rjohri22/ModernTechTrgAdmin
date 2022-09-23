@@ -13,7 +13,7 @@ class AdColumnJobApplicationTable extends Migration
      */
     public function up()
     {
-        Schema::table('job_applications', function (Blueprint $table) {
+        Schema::table('question_attempts', function (Blueprint $table) {
             $table->integer('status',false, true)->default(0);
         });
     }
@@ -25,7 +25,7 @@ class AdColumnJobApplicationTable extends Migration
      */
     public function down()
     {
-        Schema::table('job_applications', function ($table) {
+        Schema::table('question_attempts', function ($table) {
             $table->dropColumn('status');
         });
     }
