@@ -26,20 +26,16 @@
             		<div class="card-header">
             			<h4>Selected Dates</h4>
             		</div>
-            		<div class="card-body">
-            			<div class="" style="background: lightgrey; padding: 16px">
-            				<div class="row">
-            					<div class="col-sm-9">
-		            				<strong>22-09-2022</strong>
-		            				<br>
-		            				<strong>3:30</strong>
-            					</div>
-            					<div class="col-sm-3">
-            						<button class="btn btn-danger">X</button>
-            					</div>
-            				</div>
-            			</div>
+					<form action="{{ route('submit_calender') }}" method="post">
+					@csrf
+					<input type="hidden" name="id" value="{{ $job_id }}">
+					<input type="hidden" name="interviwe_id" value="{{ $interviewr_id }}">
+            		<div class="card-body selectDate">
             		</div>
+					<div class="card-footer">
+						<button class="btn btn-success" type="submit">Submit</button>
+					</div>
+					</form>
             	</div>
             </div>
         </div>
@@ -78,60 +74,41 @@
 			}
 		},
 		select: function(arg) {
-			// formModal.show({
-			// 	start_date:moment(arg.start).format('YYYY-MM-DD'),
-			// 	end_date:moment(arg.end).format('YYYY-MM-DD'),
-			// });
-			// var start_date = arg.startStr.format('YYYY-MM-DD');
 			console.log(arg.startStr);
-			// $('#date_sel').val(arg.startStr);
-			// $('#time').val('');
-			// $('#time').val('');
-			// $('#title').val('');
-			// $('#message').val('');
-			// $('#del_task').hide();
-			// $('#add-task_from').attr('action','<?php echo route('admin.calender.store_data')?>');
-			// $('#task_modal').modal('show');
 		},
 		eventClick:function (info) {
-			// var form = Object.assign({},info.event.extendedProps);
-			// // form.start_date = moment(info.event.start).format('YYYY-MM-DD');
-			// // form.end_date = moment(info.event.start).format('YYYY-MM-DD');
-			// form.id = info.event.id;
-			// form.title = info.event.title;
-			// form.message = info.event.description;
-			// console.log(info.event.start);
-			// var formattedDate = new Date(info.event.start);
-			// var d = formattedDate.getDate();
-			// var m =  formattedDate.getMonth();
-			// m += 1;  // JavaScript months are 0-11
-			// var y = formattedDate.getFullYear();
-			// if (d < 10) {
-		 //        d = "0" + d;
-		 //    }
-		 //    if (m < 10) {
-		 //        m = "0" + m;
-		 //    }
-			// var date = (y + "-" + m + "-" + d);
-			// $('#date_sel').val(date);
-			// $('#time').val(form.time);
-			// $('#title').val(form.title);
-			// $('#message').val(form.description);
-			// $('#task_id').val(form.id);
-			// $('#del_task').show();
-			// $('#add-task_from').attr('action','<?php echo route('admin.calender.update_data')?>');
-			// $('#task_modal').modal('show');
-			// formModal.show(form);
+			var len=$(".selectDate > div").length;
+			console.log(len);
+			if(len < 3){
+				var d = new Date(info.event.start);
+				var curr_date = d.getDate();
+				var curr_month = d.getMonth();
+				var curr_year = d.getFullYear();
+				newDate = curr_year+"-"+curr_month+"-"+curr_date;
+				var html = '';
+				html += '<div class="dateslist" style="background: lightgrey; padding: 16px">';
+					html += '<input type="hidden" name="sdate[]" value="'+newDate+'" >';
+					html += '<input type="hidden" name="stime[]" value="'+info.event.extendedProps.time+'" >';
+					html += '<div class="row">';
+						html += '<div class="col-sm-9">';
+							html += '<strong>'+newDate+'</strong>';
+							html += '<br>';
+							html += '<strong>'+info.event.extendedProps.time+'</strong>';
+						html += '</div>';
+						html += '<div class="col-sm-3">';
+							html += '<button class="btn btn-danger deleteDate">X</button>';
+						html += '</div>';
+					html += '</div>';
+				html += '</div>';
+				$('.selectDate').append(html);
+			}
+			else{
+				alert("You can select only 3 dates");
+			}
+
 		},
 		eventRender: function (info) {
-			console.log(info.event.extendedProps);
-			// $(info.el).prepend( "<div class='ibox-tools'><a style='background-color: red; color:white; margin-right: 10px; padding:0px 6px' class='pull-left'><i class='fa fa-times closeon'></i></a></div>" );
 			$(info.el).find('.fc-title').html(`(${info.event.extendedProps.time}) - ${info.event.title}`);
-
-			// $(info.el).find(".closeon").on('click', function() {
-   //          	$('#calendar').fullCalendar('removeEvents',event._id);
-	  //           console.log('delete');
-   //          });
 		}
 	});
 	calendar.render();
@@ -141,6 +118,10 @@
 		var task_id = $('#task_id').val();
 		var url = '<?php echo route('admin.calender.delete_task')?>?id='+task_id;
 		window.location.href = url;
+	});
+	$('.selectDate').on('click','.deleteDate',function(){
+		console.log('delete');
+		$(this).closest('.dateslist').remove();
 	});
 </script>
 @endsection
