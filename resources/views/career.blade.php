@@ -314,7 +314,7 @@
                                     </button>
                                 </center>
                                 @if($interviewer[$k] != null)
-                                    <a href="{{route('jb_calender',$interviewer[$k])}}" class="btn btn-primary">Select Dates</a>
+                                    <a href="{{route('jb_calender',['id' => $interviewer[$k],'jid'=>$j->id])}}" class="btn btn-primary">Select Dates</a>
                                 @endif
                             @else
                                 <form method="post" action="{{route('apply_for_job')}}">

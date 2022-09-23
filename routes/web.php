@@ -54,10 +54,11 @@ Route::post('/store_apply_job/{id}', [App\Http\Controllers\HomeController::class
 Route::get('/my_jobs', [App\Http\Controllers\HomeController::class, 'myjobs'])->name('myjobs');
 Route::get('/thankyou', [App\Http\Controllers\HomeController::class, 'thankyou'])->name('thankyou');
 Route::get('/career', [App\Http\Controllers\FrontController::class, 'career'])->name('career');
-Route::get('/calender/{id}', [App\Http\Controllers\FrontController::class, 'jb_calender'])->name('jb_calender');
+Route::get('/calender/{id}/{jid}', [App\Http\Controllers\FrontController::class, 'jb_calender'])->name('jb_calender');
 Route::get('/load_dates', [App\Http\Controllers\FrontController::class, 'load_dates'])->name('load_dates');
 Route::post('/apply_for_job', [App\Http\Controllers\HomeController::class, 'apply_for_job'])->name('apply_for_job');
 Route::get('/attempt_interview/{id}', [App\Http\Controllers\FrontController::class, 'attempt_interview'])->name('attempt_interview');
+Route::post('/submit_calender', [App\Http\Controllers\FrontController::class, 'submit_calender'])->name('submit_calender');
 
 
 Route::post('/store_attempt_interview/{id}', [App\Http\Controllers\FrontController::class, 'store_attempt_interview'])->name('store_attempt_interview');

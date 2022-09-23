@@ -160,67 +160,67 @@ class FrontController extends Controller
     }
 
 
-    function jb_calender($interview_id){
+    function jb_calender($interview_id,$job_id){
+        $data['job_id'] = $job_id;
         $data['interviewr_id'] = $interview_id;
         return view('calendar',$data);   
     }
 
     function load_dates(Request $request){
-        $start = $request->get('start');
-        $end = $request->get('end');
+        $start = date("Y-m-d", strtotime($request->get('start')));
+        $end = date("Y-m-d", strtotime($request->get('end')));
         $user_id = $request->get('id');
-        // $tasks = Calenders::where('emp_id',$user_id)->where('date','>=',$start)->where('date','<',$end)->toSql();
-        $date_arr = $this->createDateRangeArray(date('Y-m-d',strtotime($start)), date('Y-m-d',strtotime($end)));
-        // echo "<pre/>".print_r($date_arr,1);
-        // die();
         $final_arr = array();
-        foreach($date_arr as $k => $d){
-            $start_time = strtotime('08:30');
-            for($i=0; $i < 17; $i++){
-                $start_time_2 = date('H:i',strtotime('+30 minutes',$start_time)); 
-                $start_time = strtotime($start_time_2);
-                $tasks = Calenders::where('emp_id','=',$user_id)->where('date',$d)->where('time',$start_time_2)->count();
-                // echo $tasks;
-                if($tasks == 0){
-                    $final_arr[$i]['date'] = $d;
-                    $final_arr[$i]['time'] = $start_time_2;
-                    $final_arr[$i]['title'] = 'free';
+        $stop = 0;
+        while($start!=$end){
+            $stop++;
+            $start = date('Y-m-d', strtotime($start . ' +1 day'));
+            $starttime = "08:30";
+            for($i=1;$i<=17;$i++){
+                $starttime = date('H:i', strtotime($starttime . ' +30 minutes'));
+                $checktime = Calenders::where('date',$start)->where('time',$starttime)->first();
+                if(!isset($checktime->id)){
+                    $tempdata['date'] = $start;
+                    $tempdata['time'] = $starttime;
+                    $tempdata['title'] = 'Free';
+                    $final_arr[] = $tempdata;
                 }
             }
+
         }
-        // echo "<pre/>".print_r($final_arr,1);
-        // die();
         return response()->json($final_arr);
     }
-
-
-    function createDateRangeArray($strDateFrom,$strDateTo)
-    {
-        // takes two dates formatted as YYYY-MM-DD and creates an
-        // inclusive array of the dates between the from and to dates.
-
-        // could test validity of dates here but I'm already doing
-        // that in the main script
-
-        $aryRange = [];
-
-        $iDateFrom = mktime(1, 0, 0, substr($strDateFrom, 5, 2), substr($strDateFrom, 8, 2), substr($strDateFrom, 0, 4));
-        $iDateTo = mktime(1, 0, 0, substr($strDateTo, 5, 2), substr($strDateTo, 8, 2), substr($strDateTo, 0, 4));
-
-        if ($iDateTo >= $iDateFrom) {
-            array_push($aryRange, date('Y-m-d', $iDateFrom)); // first entry
-            while ($iDateFrom<$iDateTo) {
-                $iDateFrom += 86400; // add 24 hours
-                array_push($aryRange, date('Y-m-d', $iDateFrom));
+    public function submit_calender(Request $request){
+        $id = $request->id;
+        $user_id = Auth::user()->id;
+        $interviwe_id = $request->interviwe_id;
+        $sdate = $request->sdate == "" ? array() : $request->sdate;
+        $stime = $request->stime;
+        $inteviewer_date = "";
+        $inteviewer_date_email = "<ol>";
+        
+        foreach($sdate as $key => $val){
+            if($key > 0){
+                $inteviewer_date .= ",";
             }
+            $inteviewer_date .= $sdate[$key]." ".$stime[$key];
+            $inteviewer_date_email .= "<li>".$sdate[$key]." ".$stime[$key]."</li>";
         }
-        return $aryRange;
+        $inteviewer_date_email .= "</ol>";
+        if($inteviewer_date != ""){
+            Job_applications::where('jobseeker_id', $user_id)
+                ->where('oppertunity_id', $id)
+                ->update(['js_interview_datetime' => $inteviewer_date,'status' => 2]);
+            $interviewer = User::where('id',$interviwe_id)->first();
+            $subject = "Job Seeker Date Selected for Interview";
+            $message = "Dear Interviewer! Job Seeker Selected Date is:<br>".$inteviewer_date_email;
+            GeneralModal::send_email($interviewer->email,$subject,$message);
+            return redirect()->route('career')->with('success','Submit Successfully');
+        }
+        else{
+            return redirect()->route('jb_calender',['id' => $interviwe_id,'jid'=>$id])->with('error_','Please Select Interviwe Date');
+        }
+
     }
-
-
-
-    // function thankyou(){
-    //     return view('thankyou',$data);   
-    // }
 }
 ?>
