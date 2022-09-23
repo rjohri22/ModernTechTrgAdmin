@@ -113,7 +113,7 @@ class FrontController extends Controller
             if($request->input('question_id')[$k] == $q->id){
                 $data['user_answer'] = $request->input("correc_ans_".$q->id);
                 if($q->question_type == '1'){
-                    if($request->input('correc_ans')[$k] == $q->option_a){
+                    if($request->input("correc_ans_".$q->id) == $q->option_a){
                         $data['status'] = '1';
                         $obtained = $obtained+ $q->mark;
                     }else{

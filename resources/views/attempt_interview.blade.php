@@ -30,7 +30,7 @@
 						</tr>
 						@if($q->question_type == 1)
 						<tr>
-							<td colspan="2"><input type="text" name="correc_ans[]" class="form-control" placeholder="your answer"></td>
+							<td colspan="2"><input type="text" name="correc_ans_{{$q->id}}" class="form-control" placeholder="your answer"></td>
 						</tr>
 						@else
 						<tr>
