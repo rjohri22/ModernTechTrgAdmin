@@ -26,7 +26,7 @@ class AddColumnJobApplications extends Migration
     public function down()
     {
         Schema::table('job_applications', function($table) {
-            $table->dropColumn('interviewer_id',false, true)->nullable();
+            $table->dropColumn('interviewer_id');
         });
     }
 }
