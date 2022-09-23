@@ -154,7 +154,7 @@
 <section class="career-section">
     <div class="auto-container">
         <div class="row">
-            @foreach($Jobs as $j)
+            @foreach($Jobs as $k => $j)
             <div class="career-block col-lg-4 col-md-6">
                 <div class="inner-box">
                     <div class="time">{{str_replace('_',' ',$j->compensation_mode)}}</div>
@@ -313,6 +313,9 @@
                                         <span class="btn-title">You Have Already Applied for This Job</span>
                                     </button>
                                 </center>
+                                @if($interviewer[$k] != null)
+                                    <a href="{{route('jb_calender',$interviewer[$k])}}" class="btn btn-primary">Select Dates</a>
+                                @endif
                             @else
                                 <form method="post" action="{{route('apply_for_job')}}">
                                     <center> 

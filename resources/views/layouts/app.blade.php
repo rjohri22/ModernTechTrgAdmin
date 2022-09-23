@@ -18,6 +18,8 @@
     </script>
     <script src="{{ asset('assets/front_assets/js/jquery.js') }}"></script>
     <script src="{{ asset('assets/front_assets/js/bootstrap.min.js') }}"></script>
+     <link href="{{ asset('assets/plugins/full_calender/main.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ asset('assets/plugins/full_calender/grid_main.css') }}" rel="stylesheet" type="text/css" />
 <body>
     <div class="page-wrapper">
         <div class="wrapper">
