@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\GeneralModal;
 use App\Http\Controllers\Admin\AdminBaseController;
 use Illuminate\Http\Request;
 use App\Models\Job_applications;
@@ -118,10 +119,26 @@ class JobapplicationsController extends AdminBaseController
     public function assign(Request $request){
         $jas = $request->ja;
         $emp_id = $request->emp_id;
+        $interviewer = User::where('id',$emp_id)->first();
+        $jobseekers = array();
         foreach($jas as $ja){
             $jobapplication = Job_applications::find($ja);
             $jobapplication->interviewer_id = $emp_id;
             $jobapplication->save();
+            $jobseeker = User::where('id',$jobapplication->jobseeker_id)->first();
+            $jobseekers[] = $jobseeker;
+            $subject = "Interview Assigned";
+            $message = "Dear Jobseeker! This Email is To Notify You That The Interviewer named ".$interviewer->name." Which Is Assigned. Please confirm your interview <a href='".url('calender/'.$emp_id)."'>Click Herer</>";
+            GeneralModal::send_email($jobseeker->email,$subject,$message);
+        }
+        if(count($jobseekers) > 0){
+            $subject = "Job Seeker Assigned";
+            $message = "Dear Interviewer! This Email is To Notify You That The Job Seeker Is Assigned.<ol>";
+            foreach($jobseekers as $jk){
+                $message .= "<li>".$jk->name."</li>";
+            }
+            $message .= "</ol>";
+            GeneralModal::send_email($interviewer->email,$subject,$message);
         }
         if(count($jas) == 0){
             return redirect()->route('admin.jobapplications')->with('error_','Please Select Job Applications');
