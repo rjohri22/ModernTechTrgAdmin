@@ -14,6 +14,8 @@ use App\Models\Admin\Jobs;
 use App\Models\Admin\Oppertunities;
 use App\Models\Admin\InterviewRounds;
 use App\Models\Admin\InterviewRoundQuestions;
+use App\Models\Question_attempts;
+use App\Models\Admin\JobInterviews;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use Illuminate\Support\Facades\Crypt;
@@ -456,10 +458,41 @@ class HomeController extends Controller
             'jobseeker_id'             => $user_id,
             'hod_id'                   => 0,
         );
+        $oppertunity = Jobs::where('id',$request->input('job_id'))->first();
+        $interview_round = InterviewRounds::where('profile_id',$oppertunity->band_id)->first();
+
+        $job_seeker_round = JobInterviews::where('job_id',$oppertunity->id)->get()->toArray();
+        
+
 
         $query = Job_applications::create($update_arr);
         $id = $query->id;
 
+        $Job_application = Job_applications::where('id',$id)->first();
+        $total_question = $job_seeker_round[$Job_application->round_attempted]['total_questions'];
+        $question = InterviewRoundQuestions::where('interview_round_id',$interview_round->id)->limit($total_question)->inRandomOrder()->get();
+
+         $data = array();
+        foreach($question as $k => $q){
+
+            $data[$k] = array(
+                'user_id' => $user_id,
+                'job_id' => $id,
+                'round_id' => $q->round_id,
+                'duration' => $q->interview_time,
+                'department_id' => $q->department_id,
+                'question' => $q->question,
+                'question_type' => $q->question_type,
+                'option_a' => $q->option_a,
+                'option_b' => $q->option_b,
+                'option_c' => $q->option_c,
+                'option_d' => $q->option_d,
+                'correct_answer' => $q->correct_answer,
+                'mark' => $q->marks
+            );
+        }
+
+        $query = Question_attempts::insert($data);
         // return redirect()->route('attempt_interview',$id);
         return redirect()->route('thankyou',['id' => Crypt::encrypt($id)]);
     }
