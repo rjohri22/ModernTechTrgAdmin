@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-md-6">
                             <div style="margin-top: 35px;" ></div>
-                            <input type="button" value="Fatch Questions" class="btn btn-sm btn-primary"  id="fatchQuestions" data-bs-toggle="modal" data-bs-target="#questionsModal">
+                            <input type="button" value="Fetch Questions" class="btn btn-sm btn-primary"  id="fatchQuestions" data-bs-toggle="modal" data-bs-target="#questionsModal">
                         </div>
                     </div>
 					<br>

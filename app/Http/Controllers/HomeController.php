@@ -488,7 +488,7 @@ class HomeController extends Controller
                 'option_c' => $q->option_c,
                 'option_d' => $q->option_d,
                 'correct_answer' => $q->correct_answer,
-                'mark' => $q->marks
+                'mark' => $q->marks,
                 'disclaimer' => $q->disclaimer
             );
         }

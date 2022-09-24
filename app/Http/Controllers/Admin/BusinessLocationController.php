@@ -42,8 +42,8 @@ class BusinessLocationController extends AdminBaseController
             return redirect()->route('home');
         };
 
-        $this->data['companies'] = Companies::get();
-        $this->data['countries'] = Countries::get();
+        $this->data['companies'] = Companies::orderby('name','asc')->get();
+        $this->data['countries'] = Countries::orderby('name','asc')->get();
         // $this->data['countries'] = Countries::get();
         return view('admin/business_locations/add',$this->data);
     }

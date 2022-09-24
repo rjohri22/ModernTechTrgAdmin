@@ -37,9 +37,9 @@ class CitiesController extends AdminBaseController
             return redirect()->route('home');
         };
         
-        $this->data['countries'] = Countries::where('active','=','1')->get();
+        $this->data['countries'] = Countries::where('active','=','1')->orderby('name','asc')->get();
 
-        $this->data['states'] = States::where('status','=','1')->get();
+        $this->data['states'] = States::where('status','=','1')->orderby('name','asc')->get();
         return view('admin/cities/add',$this->data);
     }
 
