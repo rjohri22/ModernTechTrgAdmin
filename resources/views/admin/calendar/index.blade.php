@@ -23,7 +23,9 @@
 		@csrf
 	<div class="modal-content">
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
 			<h4 class="modal-title">Add Task</h4>
 		</div>
 		<div class="modal-body">
@@ -79,7 +81,7 @@
 			<button id="del_task" class="btn btn-danger">Delete Task</button>
 			<input type="hidden" name="task_id" id="task_id">
 			<input type="submit" class="btn btn-primary" name="save" value="Save">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
 		</div>
 	</div>
 	</form>
@@ -182,6 +184,11 @@
 		var task_id = $('#task_id').val();
 		var url = '<?php echo route('admin.calender.delete_task')?>?id='+task_id;
 		window.location.href = url;
+	});
+
+
+	$('.close').click(function(){
+		$('#task_modal').modal('hide');
 	});
 </script>
 @endsection
