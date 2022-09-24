@@ -70,7 +70,7 @@ class CalendarController extends AdminBaseController
 
         $q = Calenders::where('id',$task_id)->update($data);
         if($q){
-         return redirect()->route('admin.calendar')->with('success','Task created successfully.');
+         return redirect()->route('admin.calendar')->with('success','Task Updated successfully.');
         }else{
          return redirect()->route('admin.calendar')->with('error_','Opps Somthing Wents Wrong.');
         }

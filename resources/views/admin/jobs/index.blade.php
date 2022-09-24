@@ -52,7 +52,7 @@ use App\Models\Job_applications;
 								<th scope="row">{{$counter}}</th>
 								<td>{{$job->job_unique_id}}</td>
 								<td>{{($job->oppertunity_id) ? $job->oppertunity_id: "-"}}</td>
-								<td>{{$job->bend_id}}</td>
+								<td>{{$job->bend_name}}</td>
 								<td>{{$job->company_name}}</td>
 								<td>{{$job->country_name}}</td>
 								<td>{{$job->state_name}}</td>

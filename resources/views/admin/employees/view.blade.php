@@ -1,57 +1,71 @@
 @extends('admin.layout.master')
 @section('content')
 
-<section class="content">
-  <div class="row">
-    <div class="col-md-3">
-      <div class="box box-primary">
-        <div class="box-body box-profile">
-          <img class="profile-user-img img-responsive img-circle" src="{{URL::asset('public/images/profile/'.$user->profile_pic)}}" alt="User profile picture">
 
-          <h3 class="profile-username text-center">{{$user->first_name}} {{$user->last_name}}</h3>
+<div class="card container mt-2" style="background: white">
+  <br>
 
-          <p class="text-muted text-center">{{$user->desired_job_title}}</p>
-
-          <!-- <ul class="list-group list-group-unbordered">
-            <li class="list-group-item">
-              <b>Total Applied Job</b> <a class="pull-right">1,322</a>
-            </li>
-          </ul> -->
-        </div>
-      </div>
-      <div class="box box-primary">
-        <div class="box-header with-border">
-          <h3 class="box-title">About Me</h3>
-        </div>
-        <div class="box-body">
-          <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-          <p class="text-muted">{{$user->country}}, {{$user->state}}, {{$user->city}}</p>
-          <hr>
-          <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
-          <p>
-            @php
+  <div class="card-header">
+    <h3>Employee</h3>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-4">
+        <table class="table table-bordered jp_detail">
+          <tr>
+            <th colspan="2" style="text-align:center" >Details</th>
+          </tr>
+          <tr>
+            <th>Full Name</th>
+            <td>{{$user->first_name}} {{$user->last_name}}</td>
+          </tr>
+          <tr>
+            <th>Job title</th>
+            <td>{{$user->desired_job_title}}</td>
+          </tr>
+          <tr>
+            <th>Location</th>
+            <td>{{$user->country}}, {{$user->state}}, {{$user->city}}</td>
+          </tr>
+          <tr>
+            <th>Skills</th>
+            <td>
+              @php
               $skills = explode(',',$user->skills);
             @endphp
             @foreach($skills as $skill)
               <span class="label label-primary">{{$skill}}</span>
             @endforeach
-          </p>
-        </div>
+            </td>
+          </tr>
+        </table>
       </div>
-    </div>
-    <div class="col-md-9">
-      <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-          <li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
-          <li><a href="#resume" data-toggle="tab">Resume Info</a></li>
-          <li><a href="#education" data-toggle="tab">Education</a></li>
-          <li><a href="#experience" data-toggle="tab">Experienced</a></li>
-          <li><a href="#certificate" data-toggle="tab">Certificates</a></li>
-          <li><a href="#language" data-toggle="tab">Language</a></li>
-          <li><a href="#link" data-toggle="tab">Links</a></li>
+      <div class="col-md-8">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="home" aria-selected="true">Profile</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="resume-tab" data-bs-toggle="tab" data-bs-target="#resume" type="button" role="tab" aria-controls="home" aria-selected="true">Resume Info</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="education-tab" data-bs-toggle="tab" data-bs-target="#education" type="button" role="tab" aria-controls="home" aria-selected="true">Education</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="experience-tab" data-bs-toggle="tab" data-bs-target="#experience" type="button" role="tab" aria-controls="home" aria-selected="true">Experience</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="certificate-tab" data-bs-toggle="tab" data-bs-target="#certificate" type="button" role="tab" aria-controls="home" aria-selected="true">Certificate</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="language-tab" data-bs-toggle="tab" data-bs-target="#language" type="button" role="tab" aria-controls="home" aria-selected="true">Language</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="link-tab" data-bs-toggle="tab" data-bs-target="#link" type="button" role="tab" aria-controls="home" aria-selected="true">Link</button>
+          </li>
         </ul>
-        <div class="tab-content">
-          <div class="active tab-pane" id="profile">
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <table class="table table-bordered">
               <tr>
                 <th>First Name</th>
@@ -91,8 +105,8 @@
               </tr>
             </table>
           </div>
-
-          <div class="tab-pane" id="resume">
+          
+          <div class="tab-pane fade" id="resume" role="tabpanel" aria-labelledby="resume-tab">
             <table class="table table-bordered">
               <tr>
                 <th style="width: 30%">Headline</th>
@@ -128,26 +142,26 @@
               </tr>
             </table>
           </div>
-          <div class="tab-pane" id="education">
-            <ul class="timeline timeline-inverse">
-              @foreach($education as $edu)
-              <li>
-                <div class="timeline-item">
-                  <h3 class="timeline-header"><a href="#">{{$edu->institute_name}}</a></h3>
-                  <div class="timeline-body">
-                    <b>{{$edu->field_name}} ({{$edu->level}})</b><br>
-                    <b>{{$edu->city}}, {{$edu->state}}, {{$edu->country}}</b><br>
-                    <b>{{date('d-M-Y',strtotime($edu->period_from))}} - {{date('d-M-Y',strtotime($edu->period_to))}}</b><br>
+
+          <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="education-tab">
+              <ul class="timeline timeline-inverse">
+                @foreach($education as $edu)
+                <li>
+                  <div class="timeline-item">
+                    <h3 class="timeline-header"><a href="#">{{$edu->institute_name}}</a></h3>
+                    <div class="timeline-body">
+                      <b>{{$edu->field_name}} ({{$edu->level}})</b><br>
+                      <b>{{$edu->city}}, {{$edu->state}}, {{$edu->country}}</b><br>
+                      <b>{{date('d-M-Y',strtotime($edu->period_from))}} - {{date('d-M-Y',strtotime($edu->period_to))}}</b><br>
+                    </div>
                   </div>
-                </div>
-              </li>
-              @endforeach
-            </ul>
+                </li>
+                @endforeach
+              </ul>
           </div>
 
-          <div class="tab-pane" id="experience">
-            <ul class="timeline timeline-inverse">
-              @foreach($works as $work)
+          <div class="tab-pane fade" id="experience" role="tabpanel" aria-labelledby="experience-tab">
+               @foreach($works as $work)
               <li>
                 <div class="timeline-item">
                   <h3 class="timeline-header"><a href="#">{{$work->title}}</a></h3>
@@ -161,12 +175,10 @@
                 </div>
               </li>
               @endforeach
-            </ul>
           </div>
 
-          <div class="tab-pane" id="certificate">
-             <ul class="timeline timeline-inverse">
-              @foreach($certificate as $cert)
+          <div class="tab-pane fade" id="certificate" role="tabpanel" aria-labelledby="certificate-tab">
+               @foreach($certificate as $cert)
               <li>
                 <div class="timeline-item">
                   <h3 class="timeline-header"><a href="#">{{$cert->title}}</a></h3>
@@ -179,12 +191,10 @@
                 </div>
               </li>
               @endforeach
-            </ul>
           </div>
 
-          <div class="tab-pane" id="language">
-            <ul class="timeline timeline-inverse">
-              @foreach($language as $lang)
+          <div class="tab-pane fade" id="language" role="tabpanel" aria-labelledby="language-tab">
+            @foreach($language as $lang)
               <li>
                 <div class="timeline-item">
                   <div class="timeline-body">
@@ -194,12 +204,10 @@
                 </div>
               </li>
               @endforeach
-            </ul>
           </div>
 
-          <div class="tab-pane" id="link">
-            <ul class="timeline timeline-inverse">
-              @foreach($links as $link)
+          <div class="tab-pane fade" id="link" role="tabpanel" aria-labelledby="link-tab">
+            @foreach($links as $link)
               <li>
                 <div class="timeline-item">
                   <div class="timeline-body">
@@ -209,11 +217,10 @@
                 </div>
               </li>
               @endforeach
-            </ul>
           </div>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
 @endsection

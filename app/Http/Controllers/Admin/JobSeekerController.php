@@ -70,7 +70,7 @@ class JobSeekerController extends AdminBaseController {
         };
         User::where('id',$id)->delete(); 
         return redirect()->route('admin.job_seeker')
-            ->with('success','User Deleted Successfully.');
+            ->with('success','Job Seeker Deleted Successfully.');
     }
 
     public function assign_job_status_update(Request $request){

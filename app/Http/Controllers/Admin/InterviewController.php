@@ -104,7 +104,7 @@ class InterviewController extends AdminBaseController
 
         $query = Job_applications::insert($update_arr);
         return redirect()->route('admin.interview')
-        ->with('success','oppertunity created successfully.');
+        ->with('success','Interview created successfully.');
     }
 
     public function update_interview($id, Request $request)
@@ -125,7 +125,7 @@ class InterviewController extends AdminBaseController
 
         $query  = Job_applications::where('id', $id)->update($update_arr);
         return redirect()->route('admin.interview')
-        ->with('success','oppertunity Updated successfully.');
+        ->with('success','Interview Updated successfully.');
     }
 
     public function delete_interview($id){
@@ -135,6 +135,6 @@ class InterviewController extends AdminBaseController
         };
         Job_applications::where('id',$id)->delete(); 
         return redirect()->route('admin.interview')
-        ->with('success','Oppertunity Deleted successfully.');
+        ->with('success','Interview Deleted successfully.');
     }
 }

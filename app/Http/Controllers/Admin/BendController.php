@@ -170,7 +170,7 @@ class BendController extends AdminBaseController
             BendAssign::insert($assign_arr);
         }
         return redirect()->route('admin.bends')
-        ->with('success','Bend created successfully.');
+        ->with('success','Profile created successfully.');
     }
 
     public function update($id, Request $request){
@@ -206,7 +206,7 @@ class BendController extends AdminBaseController
             BendAssign::insert($assign_arr);
         }
         return redirect()->route('admin.bends')
-        ->with('success','Bend Updated successfully.');
+        ->with('success','Profile Updated successfully.');
     }
 
     public function delete($id){
@@ -216,7 +216,7 @@ class BendController extends AdminBaseController
         };
         Bend::where('id',$id)->delete(); 
         return redirect()->route('admin.bends')
-        ->with('success','Bend Deleted successfully.');
+        ->with('success','Profile Deleted successfully.');
     }
 
 }

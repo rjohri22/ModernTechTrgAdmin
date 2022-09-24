@@ -89,7 +89,7 @@ class CountryController extends AdminBaseController
 
         $query  = Countries::where('id', $id)->update($update_arr);
         return redirect()->route('admin.countries')
-        ->with('success','Countries Updated successfully.');
+        ->with('success','Country Updated successfully.');
     }
 
     public function delete($id){

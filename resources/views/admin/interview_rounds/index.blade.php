@@ -24,7 +24,7 @@
 					<thead>
 						<tr>
 							<th scope="col" style="width: 20%">Profile</th>
-							<th scope="col" style="width: 20%">Interview Time</th>
+							<!-- <th scope="col" style="width: 20%">Interview Time</th> -->
 							<th scope="col" style="width: 20%">No of Rounds</th>
 							<th scope="col" style="width: 20%">No of Questions</th>
 							<th scope="col" style="width: 20%">Actions</th>
@@ -36,7 +36,7 @@
 
 							<tr>
 								<td>{{ $row->profile }}</td>
-								<td>{{ $row->interview_time }} min</td>
+								<!-- <td>{{ $row->interview_time }} min</td> -->
 								<td>{{ $row->no_rounds }}</td>
 								<td>{{ $row->no_question }}</td>
 								<td>

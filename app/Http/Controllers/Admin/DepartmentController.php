@@ -63,7 +63,7 @@ class DepartmentController extends AdminBaseController
 
         $query = Departments::insert($insert_arr);
         return redirect()->route('admin.departments')
-        ->with('success','Designation created successfully.');
+        ->with('success','Department created successfully.');
     }
 
     public function update($id, Request $request){
@@ -81,7 +81,7 @@ class DepartmentController extends AdminBaseController
 
         $query  = Departments::where('id', $id)->update($update_arr);
         return redirect()->route('admin.departments')
-        ->with('success','Designation Updated successfully.');
+        ->with('success','Department Updated successfully.');
     }
 
     public function delete($id){
@@ -91,7 +91,7 @@ class DepartmentController extends AdminBaseController
         };
         Departments::where('id',$id)->delete(); 
         return redirect()->route('admin.departments')
-        ->with('success','Designation Deleted successfully.');
+        ->with('success','Department Deleted successfully.');
     }
 
 }

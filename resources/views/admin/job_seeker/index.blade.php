@@ -32,8 +32,6 @@
 		      <th scope="col">Email</th>
 		      <th scope="col">Phone</th>
 		      <th scope="col">Address</th>
-		      <th scope="col">profile</th>
-		      <th scope="col">Country</th>
 		      <th scope="col">Job status</th>
 		      <th scope="col">Actions</th>
 		    </tr>
@@ -52,8 +50,6 @@
 		      <td>{{$job_seek->email}}</td>
 		      <td>{{$job_seek->phone}}</td>
 		      <td>{{$job_seek->address_primary}}</td>
-		      <td>{{$job_seek->bend_name}}</td>
-		      <td>{{$job_seek->country_name}}</td>
 		      <td>{{$job_seek->jbu_name}}</td>
 		      <td>
 		      	<a href="{{route('admin.view_job_seeker',$job_seek->id)}}" class="btn btn-primary btn-sm">View</a>

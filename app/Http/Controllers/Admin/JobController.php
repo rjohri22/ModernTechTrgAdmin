@@ -47,10 +47,11 @@ class JobController extends AdminBaseController
 
         $user_id = Auth::user()->id;
         $fetch = Jobs::join('companies', 'companies.id', '=', 'jobs.company_id')
-        ->join('countries','countries.id','=','jobs.country_id')
-        ->join('states','states.id','=','jobs.state_id')
-        ->join('cities','cities.id','=','jobs.city_id')
-        ->join('users','users.id','=','jobs.modified_by');
+        ->Leftjoin('countries','countries.id','=','jobs.country_id')
+        ->Leftjoin('states','states.id','=','jobs.state_id')
+        ->Leftjoin('cities','cities.id','=','jobs.city_id')
+        ->Leftjoin('bends','bends.id','=','jobs.band_id')
+        ->Leftjoin('users','users.id','=','jobs.modified_by');
 
         
         $this->data['master_bend'] = true;
@@ -65,7 +66,7 @@ class JobController extends AdminBaseController
             $childres[] = $this->data['login_details']->id;
             // dd($childres);
 
-            if($this->data['login_details']->name != 'HR Manager' && $this->data['login_details']->name != 'Country Head' && $this->data['login_details']->name != 'HR Manager Head' ){
+            if($this->data['login_details']->name != 'HR Manager' && $this->data['login_details']->name != 'Country Head' && $this->data['login_details']->name != 'HR Manager Head' && $this->data['login_details']->name != 'GROUP CEO' ){
                 // dd($childres);
                 $fetch = $fetch->wherein('users.bend_id',$childres);
             }else{
@@ -81,7 +82,7 @@ class JobController extends AdminBaseController
         
         $fetch = $fetch->where('jobs.is_deleted','=',0);
 
-        $fetch = $fetch->get(['jobs.*', 'companies.name as company_name', 'countries.name as country_name','states.name as state_name','cities.name as city_name','users.first_name']);
+        $fetch = $fetch->get(['jobs.*', 'companies.name as company_name', 'countries.name as country_name','states.name as state_name','cities.name as city_name','users.first_name','bends.name as bend_name']);
         $this->data['jobs'] = $fetch;
 
         // dd($mas_ben);
@@ -250,7 +251,7 @@ class JobController extends AdminBaseController
                 'job_id' => $job_id,
                 'round_id' => $request->input('round_id')[$i],
                 'passing_marks' => $request->input('round_1_pass_mark')[$i],
-                'total_questions' => $request->input('round_1_pass_mark')[$i],
+                'total_questions' => $request->input('round_1_question')[$i],
             );
         }
 
@@ -341,9 +342,12 @@ class JobController extends AdminBaseController
 
         $fetch = Jobs::join('companies', 'companies.id', '=', 'jobs.company_id')->join('countries','countries.id','=','jobs.country_id')->join('states','states.id','=','jobs.state_id')->join('cities','cities.id','=','jobs.city_id')
                 ->select(['jobs.*', 'companies.name as company_name', 'countries.name as country_name','states.name as state_name','cities.name as city_name'])->where('jobs.id',$id)->first();
+
+        $round_detial = JobInterviews::join('rounds','rounds.id','=','job_interviews.round_id')->where('job_interviews.job_id',$id)->select(['job_interviews.*','rounds.name as round_name'])->get();
         // $fetch = Oppertunities::Leftjoin('companies', 'companies.id', '=', 'oppertunities.company_id')
                 // ->get(['oppertunities.*', 'companies.name as company_name'])->where('id',$id)->first();
         $this->data['job'] = $fetch;
+        $this->data['rounds'] = $round_detial;
         return view('admin/jobs/view',$this->data);
     }
 
@@ -400,6 +404,7 @@ class JobController extends AdminBaseController
             'modified_by'   => $user_id,
         );
         if($bend_details->level >= $countryhead->level){
+            $update_arr['country_head_approval'] = $user_id;
             $update_arr['min_salary'] = $request->input('min_salary');
             $update_arr['max_salary'] = $request->input('max_salary');
             $update_arr['salary_type'] = $request->input('wages');
@@ -431,7 +436,7 @@ class JobController extends AdminBaseController
         $update_arr['is_draft'] = 0;
         $query  = Jobs::where('id', $id)->update($update_arr);
         return redirect()->route('admin.jobs')
-        ->with('success','Jobs Updated successfully.');
+        ->with('success','Jobs Publish successfully.');
 
     }
 
@@ -610,9 +615,12 @@ public function approved()
         }
     }
     
+    // $fetch = $fetch->where('jobs.approved_manager','!=',null);
+    // $fetch = $fetch->where('jobs.approved_hr','!=',null);
+    $fetch = $fetch->where('jobs.hr_head_approval','!=',null);
+    
     $fetch = $fetch->where('jobs.is_deleted','=',0);
-    $fetch = $fetch->where('jobs.approved_manager','!=',null);
-    $fetch = $fetch->where('jobs.approved_hr','!=',null);
+    
     $fetch = $fetch->get(['jobs.*', 'companies.name as company_name', 'countries.name as country_name','states.name as state_name','cities.name as city_name','users.first_name']);
     $this->data['jobs'] = $fetch;
 

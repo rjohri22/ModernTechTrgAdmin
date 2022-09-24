@@ -115,7 +115,7 @@ class EmployeesController extends AdminBaseController {
         );
         $query = User::insert($update_arr);
         return redirect()->route('admin.employees')
-            ->with('success','oppertunity created successfully.');
+            ->with('success','Employee created successfully.');
     }
     public function update_employee($id, Request $request){
         $this->loadBaseData();
@@ -144,7 +144,7 @@ class EmployeesController extends AdminBaseController {
         );
         $query  = User::where('id', $id)->update($update_arr);
         return redirect()->route('admin.employees')
-            ->with('success','oppertunity Updated successfully.');
+            ->with('success','Employee Updated successfully.');
     }
     public function update_user_resume($id, Request $request){
         $this->loadBaseData();
@@ -168,7 +168,7 @@ class EmployeesController extends AdminBaseController {
         );
         $query  = User::where('id', $id)->update($update_arr);
         return redirect()->route('admin.employees')
-            ->with('success','oppertunity Updated successfully.');
+            ->with('success','Employee Resume Updated successfully.');
     }
     public function store_user_education($user_id, Request $request){ 
         $this->loadBaseData();
@@ -206,7 +206,7 @@ class EmployeesController extends AdminBaseController {
             $query = Employee_educations::insert($this->data);
             if($query){
                 return redirect()->route('admin.employees')
-                    ->with('success','oppertunity Updated successfully.');
+                    ->with('success','Employee Eductaion Updated successfully.');
             }
             else{
                 return redirect()->route('admin.employees')
@@ -254,7 +254,7 @@ class EmployeesController extends AdminBaseController {
             $query = Employee_works::insert($this->data);
             if($query){
                 return redirect()->route('admin.employees')
-                    ->with('success','oppertunity Updated successfully.');
+                    ->with('success','Employee Experience Updated successfully.');
             }
             else{
                 return redirect()->route('admin.employees')
@@ -299,7 +299,7 @@ class EmployeesController extends AdminBaseController {
             $query = Employee_cirtificates::insert($this->data);
             if($query){
                 return redirect()->route('admin.employees')
-                    ->with('success','oppertunity Updated successfully.');
+                    ->with('success','Employee Certificate Updated successfully.');
             }
             else{
                 return redirect()->route('admin.employees')
@@ -341,7 +341,7 @@ class EmployeesController extends AdminBaseController {
             $query = Employee_languages::insert($this->data);
             if($query){
                 return redirect()->route('admin.employees')
-                    ->with('success','oppertunity Updated successfully.');
+                    ->with('success','Employee Language Updated successfully.');
             }
             else{
                 return redirect()->route('admin.employees')
@@ -383,7 +383,7 @@ class EmployeesController extends AdminBaseController {
             $query = Employee_sociallinks::insert($this->data);
             if($query){
                 return redirect()->route('admin.employees')
-                    ->with('success','oppertunity Updated successfully.');
+                    ->with('success','Employee Links Updated successfully.');
             }
             else{
                 return redirect()->route('admin.employees')
@@ -408,7 +408,7 @@ class EmployeesController extends AdminBaseController {
         $query  = User::where('id', $user_id)->update($update_arr);
         if($query){
             return redirect()->route('admin.employees')
-                ->with('success','oppertunity Updated successfully.');
+                ->with('success','Employee Profiles Changed.');
         }
         else{
             return redirect()->route('admin.employees')
@@ -425,7 +425,7 @@ class EmployeesController extends AdminBaseController {
         );
         $query  = User::where('id', $user_id)->update($update_arr);
         return redirect()->route('admin.employees')
-            ->with('success','oppertunity Updated successfully.');
+            ->with('success','Employee Password Changed successfully.');
     }
     public function delete_employee($id){
         $this->loadBaseData();
@@ -434,6 +434,6 @@ class EmployeesController extends AdminBaseController {
         };
         User::where('id',$id)->delete(); 
         return redirect()->route('admin.employees')
-            ->with('success','User Deleted Successfully.');
+            ->with('success','Employee Deleted Successfully.');
     }
 }
