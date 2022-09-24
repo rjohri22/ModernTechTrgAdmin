@@ -20,93 +20,39 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="contact-form-area" style="background:#fff;">
-                    <form method="post" action="#" class="contact-form">
+                    <form method="get" action="{{ route('career') }}" class="contact-form">
                         <div class="row">
                             <div class="col-md-3 form-group">
                                 <label>Keywords</label>
-                                <input type="text" name="" placeholder="Search Here" required="">
+                                <input type="text" name="keyword" value="{{ $skeyword }}" placeholder="Search Here" >
                             </div>
 
                             <div class="col-md-3 form-group">
-                                <label>Role</label>
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>All</option>
-                                    <option>Category Manager</option>
-                                    <option>Community Manager</option>
-                                    <option>Sales Manager</option>
-                                    <option>Logistics Manager</option>
+                                <label>Profile</label>
+                                <select class="form-control" name="profile" id="exampleFormControlSelect1">
+                                    <option value="" >All</option>
+                                    @foreach($profiles as $profile)
+                                        <option value="{{ $profile->id }}" @if($sprofile == $profile->id) selected @endif >{{ $profile->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-3 form-group">
                                 <label>Business</label>
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>All</option>
-                                    <option>Raichand Management</option>
-                                    <option>Raichand Trading</option>
-                                    <option>Raichand Investments</option>
-                                    <option>Raichand Merchandise</option>
-                                    <option>Raichand Hospitality</option>
-                                    <option>Raichand Entertainment</option>
-                                    <option>Raichand Foundation</option>
-                                    <option>Raichand Healthcare</option>
-                                    <option>Raichand School of Arts</option>
-                                    <option>Raichand Publishers</option>
+                                <select class="form-control" name="business"  id="exampleFormControlSelect1">
+                                    <option value="" >All</option>
+                                    @foreach($companies as $company)
+                                        <option value="{{ $company->id }}" @if($sbusiness == $company->id) selected @endif  >{{ $company->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
                             <div class="col-md-3 form-group">
                                 <label>Country</label>
                                 <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>All</option>
-                                    <option>Australia</option>
-                                    <option>Bahrain</option>
-                                    <option>Bangladesh</option>
-                                    <option>Belgium</option>
-                                    <option>Bulgaria</option>
-                                    <option>Canada</option>
-                                    <option>China - Taiwan, HongKong, Macao</option>
-                                    <option>Croatia</option>
-                                    <option>Cyprus</option>
-                                    <option>Czech Republic (Czechia)</option>
-                                    <option>Denmark</option>
-                                    <option>Finland</option>
-                                    <option>France </option>
-                                    <option>Germany</option>
-                                    <option>Greece</option>
-                                    <option>Hungary</option>
-                                    <option>India</option>
-                                    <option>Indonesia</option>
-                                    <option>Ireland</option>
-                                    <option>Italy</option>
-                                    <option>Japan</option>
-                                    <option>Kuwait</option>
-                                    <option>Malaysia</option>
-                                    <option>Maldives</option>
-                                    <option>Nepal</option>
-                                    <option>Netherlands</option>
-                                    <option>New Zealand</option>
-                                    <option>Norway</option>
-                                    <option>Pakistan</option>
-                                    <option>Philippines</option>
-                                    <option>Poland</option>
-                                    <option>Portugal</option>
-                                    <option>Qatar</option>
-                                    <option>Romania</option>
-                                    <option>Russia</option>
-                                    <option>Saudi Arabia</option>
-                                    <option>Serbia</option>
-                                    <option>Singapore</option>
-                                    <option>South Korea</option>
-                                    <option>Spain</option>
-                                    <option>Srilanka</option>
-                                    <option>Sweden</option>
-                                    <option>Switzerland</option>
-                                    <option>Thailand</option>
-                                    <option>Turkey</option>
-                                    <option>United Arab Emirates</option>
-                                    <option>United Kingdom </option>
-                                    <option>United States</option>
-                                    <option>Vietnam</option>
+                                    <option value="" >All</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{ $country->id }}" @if($scountry == $country->id) selected @endif >{{ $country->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-3 form-group">
@@ -165,7 +111,7 @@
                     </a>
                     <ul class="list">
                         <li><a href="#"><i class="flaticon-clock-2"></i>Location: {{$j->country}}</a></li>
-                        <li><a href="#"><i class="flaticon-money"></i>Applicant: 7</a></li>
+                        <li><a href="#"><i class="flaticon-money"></i>Applicant: ???</a></li>
                         @php
                         	$date = date('Y-m-d');
                         	$job_created = date('Y-m-d',strtotime($j->created_at));
@@ -290,8 +236,8 @@
                                 @foreach($j->rounds as $round)
                                 <tr>
                                   <td colspan="2">{{$round}}</td>
-                                  <td></td>
-                                  <td></td>
+                                  <td>??</td>
+                                  <td>??</td>
                                 </tr>
                                 @endforeach
 			                    
