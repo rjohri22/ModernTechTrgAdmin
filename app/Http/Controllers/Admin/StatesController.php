@@ -36,7 +36,7 @@ class StatesController extends AdminBaseController
             return redirect()->route('home');
         };
         
-        $this->data['countries'] = Countries::get();
+        $this->data['countries'] = Countries::where('active','=',1)->get();
         return view('admin/states/add',$this->data);
     }
 
@@ -45,7 +45,8 @@ class StatesController extends AdminBaseController
     	if(!$this->check_role()){
             return redirect()->route('home');
         };
-        $this->data['countries'] = Countries::get();
+        $this->data['countries'] = Countries::where('active','=',1)->get();
+        // $this->data['countries'] = Countries::get();
         $this->data['state'] = States::where('id',$id)->first();
         return view('admin/states/edit',$this->data);
     }

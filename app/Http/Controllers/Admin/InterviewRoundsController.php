@@ -71,6 +71,10 @@ class InterviewRoundsController extends AdminBaseController
         $round_time = $request->round_time;
         $round_marks = $request->round_marks;
         $round_disclaimer = $request->round_disclaimer;
+        $q = InterviewRounds::where('profile_id',$request->profile)->count();
+        if($q > 0){
+            return redirect()->route('admin.interview_rounds')->with('error_','Interview Round Already Exist');;
+        }
         $interview_round = new InterviewRounds;
         $interview_round->profile_id = $request->profile;
         $interview_round->save();
@@ -79,7 +83,7 @@ class InterviewRoundsController extends AdminBaseController
             $time = json_decode($round_time[$key]);
             $marks = json_decode($round_marks[$key]);
             $single_mark = $marks/count($qs);
-            $disclaimer = json_decode($round_disclaimer[$key]);
+            $disclaimer = $round_disclaimer[$key];
             foreach($qs as $q){
                 $ques_data = QuestionBank::where('id',$q)->get();
                 $InterviewRoundQuestions = new InterviewRoundQuestions;

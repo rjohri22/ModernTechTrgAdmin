@@ -128,7 +128,7 @@ class OppertunitiesController extends AdminBaseController
         $update_arr['is_draft'] = 0;
         $query  = Oppertunities::where('id', $id)->update($update_arr);
         return redirect()->route('admin.oppertunities')
-        ->with('success','oppertunity Updated successfully.');
+        ->with('success','Job Description Updated successfully.');
 
     }
 
@@ -146,7 +146,7 @@ class OppertunitiesController extends AdminBaseController
         $check = Oppertunities::where('bend_id',$request->input('bend_id'))->count();
         if($check > 0){
              return redirect()->route('admin.oppertunities')
-            ->with('error_','Bend Should Be Unique');
+            ->with('error_','Job Description Should Be Unique');
         }
         $user_id = Auth::user()->id;
         $update_arr = array(
@@ -178,7 +178,7 @@ class OppertunitiesController extends AdminBaseController
         }
         $query = Oppertunities::insert($update_arr);
         return redirect()->route('admin.oppertunities')
-        ->with('success','oppertunity created successfully.');
+        ->with('success','Job Description created successfully.');
     }
 
     public function update_oppertunity($id, Request $request)
@@ -216,7 +216,7 @@ class OppertunitiesController extends AdminBaseController
 
         $query  = Oppertunities::where('id', $id)->update($update_arr);
         return redirect()->route('admin.oppertunities')
-        ->with('success','oppertunity Updated successfully.');
+        ->with('success','Job Description Updated successfully.');
     }
 
     public function delete_oppertunity($id){
@@ -226,6 +226,6 @@ class OppertunitiesController extends AdminBaseController
         };
         Oppertunities::where('id',$id)->delete(); 
         return redirect()->route('admin.oppertunities')
-        ->with('success','Oppertunity Deleted successfully.');
+        ->with('success','Job Description Deleted successfully.');
     }
 }

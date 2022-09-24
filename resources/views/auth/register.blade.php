@@ -235,7 +235,7 @@ $countries = Countries::get();
                         <br>
                         <div class="row">
                              <div class="col-sm-4">
-                                <label>Uplaod Resumr</label>
+                                <label>Uplaod Resume</label>
                                 <input type="file" name="resume" class="form-control">
                             </div>
                              <div class="col-sm-4">

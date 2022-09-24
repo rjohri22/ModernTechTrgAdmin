@@ -57,7 +57,7 @@ class SettingController extends AdminBaseController
 
         $query  = settings::where('id', 1)->update($update_arr);
         return redirect()->route('admin.setting.emailsmtp')
-        ->with('success','oppertunity created successfully.');
+        ->with('success','Setting Updated successfully.');
     }
 
     public function test_email(Request $request){

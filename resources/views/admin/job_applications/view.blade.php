@@ -65,7 +65,7 @@
 						<td>{{ $jobseeker->annual_inhand_salary }}</td>
 					</tr>
 					<tr>
-						<th>Available To Koin</th>
+						<th>Available To Join</th>
 						<td>{{ $jobseeker->available_to_join }}</td>
 					</tr>
 					@if(isset($interviewer->id))

@@ -48,7 +48,7 @@ class FrontController extends Controller
             
             $user_id = Auth::user()->id;
         }
-        $jobs = Jobs::join('bends','bends.id','=','jobs.band_id')->join('countries','countries.id','=','jobs.country_id')->select(['jobs.*','countries.name as country','bends.name as band_name'])->where('jobs.hr_head_approval','>','0')->get();
+        $jobs = Jobs::join('bends','bends.id','=','jobs.band_id')->join('countries','countries.id','=','jobs.country_id')->select(['jobs.*','countries.name as country','bends.name as band_name'])->where('jobs.hr_head_approval','>','0')->where('jobs.is_deleted','=','0')->get();
         foreach($jobs as $j){
             $interview_round = InterviewRounds::where('profile_id',$j->band_id)->first();
             

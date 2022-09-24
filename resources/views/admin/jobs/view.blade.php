@@ -180,20 +180,17 @@
 								<th>Status</th>
 								<td>{{($job->hr_head_approval != null) ? "Approved" : "Pending"}}</td>
 							</tr>
-							<tr>
-								<th>Round 1 Question / Total Marks</th>
-								<td>{{$job->round_1_question}} / {{$job->round_1_pass_mark}}</td>
-							</tr>
-
-							<tr>
-								<th>Round 2 Question / Total Marks</th>
-								<td>{{$job->round_2_question}} / {{$job->round_2_pass_mark}}</td>
-							</tr>
-
-							<tr>
-								<th>Round 3 Question / Total Marks</th>
-								<td>{{$job->round_3_question}} / {{$job->round_3_pass_mark}}</td>
-							</tr>
+							@foreach($rounds as $r)
+								<tr >
+									<td colspan="2" class="text-center bg-info">
+										{{$r->round_name}}
+									</td>
+								</tr>
+								<tr>
+									<th>Total Question : {{$r->total_questions}}</th>
+									<td>Passing Marks : {{$r->passing_marks}}</td>
+								</tr>
+							@endforeach
 						</table>
 					</div>
 				</div>

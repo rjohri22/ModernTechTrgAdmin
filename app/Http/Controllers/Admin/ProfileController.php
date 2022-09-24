@@ -68,7 +68,7 @@ class ProfileController extends AdminBaseController
 
         $query  = User::where('id', $id)->update($update_arr);
         return redirect()->route('admin.view_profile')
-        ->with('success','oppertunity Updated successfully.');
+        ->with('success','Profile Updated successfully.');
     }
 
     public function store_profile_education($user_id, Request $request){ 
@@ -107,7 +107,7 @@ class ProfileController extends AdminBaseController
         $query = Employee_educations::insert($this->data);
         if($query){
             return redirect()->route('admin.view_profile')
-            ->with('success','oppertunity Updated successfully.');
+            ->with('success','Profile Updated successfully.');
         }else{
             return redirect()->route('admin.view_profile')
             ->with('error','Opps Something Went Wrong.');
@@ -156,7 +156,7 @@ public function store_profile_experience($user_id, Request $request){
     $query = Employee_works::insert($this->data);
     if($query){
         return redirect()->route('admin.view_profile')
-        ->with('success','oppertunity Updated successfully.');
+        ->with('success','Profile Updated successfully.');
     }else{
        return redirect()->route('admin.view_profile')
        ->with('error','Opps Something Went Wrong.');
@@ -202,7 +202,7 @@ public function store_profile_certificate($user_id, Request $request){
     $query = Employee_cirtificates::insert($this->data);
     if($query){
         return redirect()->route('admin.view_profile')
-        ->with('success','oppertunity Updated successfully.');
+        ->with('success','Profile Updated successfully.');
     }else{
         return redirect()->route('admin.view_profile')
         ->with('error','Opps Something Went Wrong.');
@@ -248,7 +248,7 @@ public function store_profile_language($user_id, Request $request){
     $query = Employee_languages::insert($this->data);
     if($query){
      return redirect()->route('admin.view_profile')
-     ->with('success','oppertunity Updated successfully.');
+     ->with('success','Profile Updated successfully.');
  }else{
     return redirect()->route('admin.view_profile')
     ->with('error','Opps Something Went Wrong.');
@@ -290,7 +290,7 @@ public function store_profile_link($user_id, Request $request){
     $query = Employee_sociallinks::insert($this->data);
     if($query){
         return redirect()->route('admin.view_profile')
-        ->with('success','oppertunity Updated successfully.');
+        ->with('success','Profile Updated successfully.');
     }else{
         return redirect()->route('admin.view_profile')
         ->with('error','Opps Something Went Wrong.');
