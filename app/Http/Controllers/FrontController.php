@@ -15,7 +15,9 @@ use App\Models\Admin\Oppertunities;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin\InterviewRounds;
 use App\Models\Admin\InterviewRoundQuestions;
-use App\Models\Admin\Bends;
+use App\Models\Admin\Bend;
+use App\Models\Admin\Countries;
+use App\Models\Admin\Companies;
 use App\Models\Question_attempts;
 use App\Models\Admin\JobInterviews;
 use App\Models\GeneralModal;
@@ -37,7 +39,7 @@ class FrontController extends Controller
     }
 
 
-    public function career(){
+    public function career(Request $request){
         $over_all = array();
         if(!Auth::check()) 
         {
@@ -48,7 +50,30 @@ class FrontController extends Controller
             
             $user_id = Auth::user()->id;
         }
-        $jobs = Jobs::join('bends','bends.id','=','jobs.band_id')->join('countries','countries.id','=','jobs.country_id')->select(['jobs.*','countries.name as country','bends.name as band_name'])->where('jobs.hr_head_approval','>','0')->where('jobs.is_deleted','=','0')->get();
+        $data['sprofile']= $request->profile;
+        $data['skeyword']= $request->keyword;
+        $data['sbusiness']= $request->business;
+        $data['scountry']= $request->country;
+        $jobs = Jobs::join('bends','bends.id','=','jobs.band_id');
+        $jobs = $jobs->join('countries','countries.id','=','jobs.country_id');
+        $jobs = $jobs->select(['jobs.*','countries.name as country','bends.name as band_name']);
+        $jobs = $jobs->where('jobs.hr_head_approval','>','0');
+        if(isset($request->keyword)){
+            $jobs = $jobs->where('jobs.summery','like','%'.$request->keyword.'%');
+        }
+        if(isset($request->profile)){
+            $jobs = $jobs->where('jobs.band_id','=',$request->profile);
+        }
+        if(isset($request->business)){
+            $jobs = $jobs->where('jobs.company_id','=',$request->business);
+        }
+        if(isset($request->country)){
+            $jobs = $jobs->where('jobs.country_id','=',$request->country);
+        }
+        $jobs = $jobs->where('jobs.is_deleted','=','0')->get();
+        $data['profiles'] = Bend::where('status','=','1')->get();
+        $data['countries'] = Countries::where('active','=','1')->get();
+        $data['companies'] = Companies::where('status','=','1')->get();
         foreach($jobs as $j){
             $interview_round = InterviewRounds::where('profile_id',$j->band_id)->first();
             
