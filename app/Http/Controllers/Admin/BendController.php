@@ -128,10 +128,10 @@ class BendController extends AdminBaseController
                 $this->data['special_view'] = 1;
                 $this->data['all_bend'] = Bend::where('band_type','2')->get();
             }else{
-                $this->data['all_bend'] = Bend::get();
+                $this->data['all_bend'] = Bend::where('id','!=',$id)->get();
             }
         }else{
-            $this->data['all_bend'] = Bend::get();
+            $this->data['all_bend'] = Bend::where('id','!=',$id)->get();
         }
         $this->data['bend'] = Bend::where('id',$id)->first();
         $this->data['bend_assign'] = BendAssign::where('child_id',$id)->pluck('parent_id')->toArray();
