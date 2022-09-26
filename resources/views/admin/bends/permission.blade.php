@@ -3,7 +3,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <style>
   .table label {
-    float:left;
+    /*float:left;*/
     margin-right: 10px;
   }
 </style>
@@ -34,7 +34,7 @@
         <table class="table">
       <thead>
         <tr>
-          <th>Module Name</th>
+          <th class="text-left">Module Name</th>
           <th>Permission name</th>
           <th><label ><input type="checkbox" class="check_all" data-class="index" ></label> Index</th>
           <th><label><input type="checkbox" class="check_all" data-class="view" ></label> View</th>
@@ -50,7 +50,7 @@
         @endphp
         <tr class="row_{{$module_name}} all_class">
           <th>{{ $p->module_name }}</th>
-          <td><label ><input type="checkbox" class="check_all" data-class="{{ $p->option_slug }}" style="text-align: right"></label> {{ $p->option_name }}</td>
+          <td> {{ $p->option_name }} &nbsp;<label ><input type="checkbox" class="check_all" data-class="{{ $p->option_slug }}" style="text-align: right"></label></td>
           <td><label ><input type="checkbox" name="{{ $p->option_slug.'_index' }}" @if($p->_index) checked @endif class="index {{ $p->option_slug }}"></label></td>
           <td><label ><input type="checkbox" name="{{ $p->option_slug.'_view' }}" @if($p->_view) checked @endif class="view  {{ $p->option_slug }}"></label></td>
           <td><label ><input type="checkbox" name="{{ $p->option_slug.'_add' }}" @if($p->_add) checked @endif class="add  {{ $p->option_slug }}"></label></td>
