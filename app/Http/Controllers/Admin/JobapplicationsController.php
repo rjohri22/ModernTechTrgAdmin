@@ -124,13 +124,13 @@ class JobapplicationsController extends AdminBaseController
         $interviewer = User::where('id',$emp_id)->first();
         $jobseekers = array();
         foreach($jas as $ja){
-            $jobapplication = Job_applications::find($ja);
+            $jobapplication = Job_applications::find($s);
             $jobapplication->interviewer_id = $emp_id;
             $jobapplication->save();
             $jobseeker = User::where('id',$jobapplication->jobseeker_id)->first();
             $jobseekers[] = $jobseeker;
             $subject = "Interview Assigned";
-            $message = "Dear Jobseeker! This Email is To Notify You That The Interviewer named ".$interviewer->name." Which Is Assigned. Please confirm your interview <a href='".url('calender/'.$emp_id)."'>Click Herer</>";
+            $message = "Dear Jobseeker! This Email is To Notify You That The Interviewer named ".$interviewer->name." Which Is Assigned. Please confirm your interview <a href='".url('calender/'.$emp_id.'/'.$jobapplication->id)."'>Click Herer</>";
             GeneralModal::send_email($jobseeker->email,$subject,$message);
         }
         if(count($jobseekers) > 0){

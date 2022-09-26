@@ -197,22 +197,31 @@ class FrontController extends Controller
         $user_id = $request->get('id');
         $final_arr = array();
         $stop = 0;
+        $date = date('Y-m-d');
+        // if($start >= $date){
         while($start!=$end){
-            $stop++;
-            $start = date('Y-m-d', strtotime($start . ' +1 day'));
-            $starttime = "08:30";
-            for($i=1;$i<=17;$i++){
-                $starttime = date('H:i', strtotime($starttime . ' +30 minutes'));
-                $checktime = Calenders::where('date',$start)->where('time',$starttime)->first();
-                if(!isset($checktime->id)){
-                    $tempdata['date'] = $start;
-                    $tempdata['time'] = $starttime;
-                    $tempdata['title'] = 'Free';
-                    $final_arr[] = $tempdata;
-                }
-            }
+            // echo $start;
+                // if(strtotime($date) >= strtotime($start)){
+                    $stop++;
+                    $start = date('Y-m-d', strtotime($start . ' +1 day'));
+                    $starttime = "08:30";
+                    for($i=1;$i<=17;$i++){
+                        $starttime = date('H:i', strtotime($starttime . ' +30 minutes'));
+                        $checktime = Calenders::where('date','>=','CURDATE()')->where('date',$start)->where('time',$starttime)->first();
+                        // echo $checktime;
+                        if($start >= $date){
+                            if(!isset($checktime->id)){
+                                $tempdata['date'] = $start;
+                                $tempdata['time'] = $starttime;
+                                $tempdata['title'] = 'Free';
+                                $final_arr[] = $tempdata;
+                            }
+                        }
+                    }
+                // }
 
         }
+        // }
         return response()->json($final_arr);
     }
     public function submit_calender(Request $request){

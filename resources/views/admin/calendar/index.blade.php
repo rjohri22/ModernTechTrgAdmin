@@ -93,6 +93,15 @@
 <script src="{{ asset('assets/plugins/full_calender/intrac_main.js') }}"></script>
 <script src="{{ asset('assets/plugins/full_calender/daygridmain.js') }}"></script>
 <script>
+
+	function parseDate(s) {
+	  var b = s.split(/\D/);
+	  return new Date(b[2], --b[0], b[1]);
+	}
+
+	var today = new Date();
+	today.setHours(0,0,0,0);
+	
 	var calendarEl,calendar,lastId,formModal;
 	calendarEl = document.getElementById('dates-calendar');
 	if(calendar){
@@ -113,6 +122,7 @@
 				id:1,
 			}
 		},
+		weekends : false,
 		loading:function (isLoading) {
 			if(!isLoading){
 				$(calendarEl).removeClass('loading');
@@ -121,12 +131,23 @@
 			}
 		},
 		select: function(arg) {
-			// formModal.show({
-			// 	start_date:moment(arg.start).format('YYYY-MM-DD'),
-			// 	end_date:moment(arg.end).format('YYYY-MM-DD'),
-			// });
-			// var start_date = arg.startStr.format('YYYY-MM-DD');
-			console.log(arg.startStr);
+
+			var startDate = arg.startStr;
+			// console.log(startDate);
+
+
+			// var startDate = new Date(startDate);
+			// var endDate = new Date();
+			startDate = new Date(startDate);
+			startDate.setHours(0,0,0,0);
+			console.log(startDate);
+			console.log(today);
+
+			if (startDate < today) {
+				alert('Cant Add event Past Dates');
+				return false;
+			}
+			
 			$('#date_sel').val(arg.startStr);
 			$('#time').val('');
 			$('#time').val('');
