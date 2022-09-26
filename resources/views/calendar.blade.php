@@ -1,5 +1,16 @@
 @extends('layouts.app')
 @section('content')
+
+<style type="text/css">
+	.fc-title{
+		color: white;
+		font-weight: 600;
+	}
+
+	.fc-header .fc-title{
+		color: black;
+	}
+</style>
 <section class="page-title" style="background-image: url(assets/images/breadcrum/about.png);">
     <div class="auto-container">
         <div class="content-box">
@@ -66,6 +77,7 @@
 				id:'<?php echo $interviewr_id;?>',
 			}
 		},
+		weekends : false,
 		loading:function (isLoading) {
 			if(!isLoading){
 				$(calendarEl).removeClass('loading');
