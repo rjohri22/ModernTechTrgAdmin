@@ -94,6 +94,7 @@ class FrontController extends Controller
         $Job_application = Job_applications::where('id',$job_id)->first();
         $oppertunity = Jobs::where('id',$Job_application->oppertunity_id)->first();
         $job_seeker_round = JobInterviews::where('job_id',$oppertunity->id)->get()->toArray();
+
         $data['interview_round'] = $interview_round = Question_attempts::where('job_id',$job_id)->first();
         $rounds = Question_attempts::where('job_id',$job_id)->groupBy('round_id')->get()->pluck('round_id')->toArray();
         $duration = Question_attempts::where('job_id',$job_id)->groupBy('round_id')->get()->pluck('duration')->toArray();
@@ -117,10 +118,20 @@ class FrontController extends Controller
             ->with('message',$html);
         }
         $total_question = $job_seeker_round[$Job_application->round_attempted]['total_questions'];
-        $data['questions'] = Question_attempts::where('job_id',$job_id)->where('round_id',$rounds[$Job_application->round_attempted])->limit($total_question)->get();
+        // echo $total_question;
+        $data['subjective'] = Question_attempts::where('job_id',$job_id)->where('round_id',$rounds[$Job_application->round_attempted])->where('question_type','1')->get(); 
+
+        $data['questions'] = Question_attempts::where('job_id',$job_id)->where('round_id',$rounds[$Job_application->round_attempted])->where('question_type','0')->limit($total_question)->get();
+        
+
+        // $merges_question = array_merge($data['subjective'], $data['questions']);
+        // dd($merges_question);
+        
+
         $data['job_id'] = $job_id;
         $data['duration'] = $duration[$Job_application->round_attempted];
         $data['disclaimer'] = $disclaimer[$Job_application->round_attempted];
+        $data['passing_mark'] = $job_seeker_round[$Job_application->round_attempted]['passing_marks'];
         return view('attempt_interview',$data); 
     }
 
@@ -129,36 +140,67 @@ class FrontController extends Controller
         $oppertunity = Jobs::where('id',$Job_application->oppertunity_id)->first();
         $rounds = Question_attempts::where('job_id',$id)->groupBy('round_id')->get()->pluck('round_id')->toArray();
         $job_seeker_round = JobInterviews::where('job_id',$oppertunity->id)->get()->toArray();
-        $question = Question_attempts::where('job_id',$id)->where('round_id',$rounds[$Job_application->round_attempted])->get(); 
+        $question = Question_attempts::where('job_id',$id)->where('round_id',$rounds[$Job_application->round_attempted])->orderBy('question_type')->get(); 
+        // dd($question);
         $data = array();
         $user_id = Auth::user()->id;
         $round_passing_mark = $job_seeker_round[$Job_application->round_attempted]['passing_marks'];
         $obtained = 0;
-        foreach($question as $k => $q){
-            if($request->input('question_id')[$k] == $q->id){
-                $data['user_answer'] = $request->input("correc_ans_".$q->id);
-                if($q->question_type == '1'){
-                    if($request->input("correc_ans_".$q->id) == $q->option_a){
-                        $data['status'] = '1';
-                        $obtained = $obtained+ $q->mark;
-                    }else{
-                        $data['status'] = '2';
-                    }
+        // echo "<pre/>".print_r($request->input('question_id'),1);
+        // die();
+        for($i=0; $i < count($request->input('question_id')); $i++){
+            $question_id = $request->input('question_id')[$i];
+            $question_detail = Question_attempts::where('id',$question_id)->first();
+            if($question_detail->question_type == '1'){
+                if($request->input("correc_ans_".$question_detail->id) == $question_detail->option_a){
+                    $data['status'] = '1';
+                    $obtained = $obtained+ $question_detail->mark;
                 }else{
-                    if($request->input("correc_ans_".$q->id) == $q->correct_answer){
-                        $obtained = $obtained+ $q->mark;
-                        $data['status'] = '1';
-                    }else{
-
-                        $data['status'] = '2';
-                    }
+                    $data['status'] = '2';
                 }
             }else{
-                $data['user_answer'] = '';
-                $data['status'] = '0';
+                if($request->input("correc_ans_".$question_detail->id) == $question_detail->correct_answer){
+                    $obtained = $obtained+ $question_detail->mark;
+                    $data['status'] = '1';
+                }else{
+                    $data['status'] = '2';
+                }
             }
-            $query = Question_attempts::where('id',$q->id)->update($data);
+            $query = Question_attempts::where('id',$question_detail->id)->update($data);
         }
+        // foreach($question as $k => $q){
+        //     // echo $request->input("correc_ans_".$q->id)."<br>";
+        //     // echo $request->input('question_id')[$k].'------>'.$q->id."<br>";
+        //     if($request->input('question_id')[$k] == $q->id){
+        //         $data['user_answer'] = $request->input("correc_ans_".$q->id);
+        //         if($q->question_type == '1'){
+        //             if($request->input("correc_ans_".$q->id) == $q->option_a){
+        //                 $data['status'] = '1';
+        //                 $obtained = $obtained+ $q->mark;
+        //             }else{
+        //                 $data['status'] = '2';
+        //             }
+        //         }else{
+        //             if($request->input("correc_ans_".$q->id) == $q->correct_answer){
+        //                 $obtained = $obtained+ $q->mark;
+        //                 $data['status'] = '1';
+        //             }else{
+
+        //                 $data['status'] = '2';
+        //             }
+        //         }
+        //     // }else{
+        //     //     $data['user_answer'] = '';
+        //     //     $data['status'] = '0';
+        //     // }
+        //     $query = Question_attempts::where('id',$q->id)->update($data);
+        // }
+
+        // echo $round_passing_mark;
+        // echo "<br>";
+        // echo $obtained;
+        // die();
+
         if($obtained >= $round_passing_mark){
             $round_attempted = $Job_application->round_attempted+1;
             $update = array(

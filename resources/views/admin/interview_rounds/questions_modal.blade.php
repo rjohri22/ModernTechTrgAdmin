@@ -35,10 +35,11 @@
                     @foreach($questions as $question)
                         <tr class="departmenttr{{ $question->department_id }}">
                             <td>
-                                <input class="form-check-input questCheckbox" type="checkbox"  name="selectQes[]" id="selectQes{{ $question->id}}" value="{{ $question->id}}">
+                                <input class="form-check-input questCheckbox" type="checkbox"  name="selectQes[]" id="selectQes{{ $question->id}}" value="{{ $question->id}}" data-type="{{$question->question_type}}">
+                                <input class="qes_type" type="hidden" name="ques_type[]" id="qes_type{{ $question->id}}" value="{{$question->question_type}}">
                             </td>
                             <td>{{ $question->question}}</td>
-                            <td>{{ $question->question_type == 0 ? "Objecytive" : "Subjective" }}</td>
+                            <td>{{ $question->question_type == 0 ? "Objective" : "Subjective" }}</td>
                         </tr>
 
                     @endforeach

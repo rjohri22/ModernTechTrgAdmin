@@ -458,7 +458,9 @@ class HomeController extends Controller
             'jobseeker_id'             => $user_id,
             'hod_id'                   => 0,
         );
+
         $oppertunity = Jobs::where('id',$request->input('job_id'))->first();
+        
         $interview_round = InterviewRounds::where('profile_id',$oppertunity->band_id)->first();
 
         $job_seeker_round = JobInterviews::where('job_id',$oppertunity->id)->get()->toArray();
@@ -469,8 +471,10 @@ class HomeController extends Controller
         $id = $query->id;
 
         $Job_application = Job_applications::where('id',$id)->first();
+        
         $total_question = $job_seeker_round[$Job_application->round_attempted]['total_questions'];
-        $question = InterviewRoundQuestions::where('interview_round_id',$interview_round->id)->limit($total_question)->inRandomOrder()->get();
+
+        $question = InterviewRoundQuestions::where('interview_round_id',$interview_round->id)->get();
 
          $data = array();
         foreach($question as $k => $q){
