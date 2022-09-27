@@ -405,7 +405,7 @@ class JobController extends AdminBaseController
             'modified_by'   => $user_id,
         );
 
-        if($level > 4){
+        if($level >= 4){
             $update_arr['approved_manager'] =  $user_id;
             $update_arr['approved_hr'] =  $user_id;
             $update_arr['work_shift'] =  $request->input('work_shift');
