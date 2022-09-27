@@ -39,7 +39,7 @@
                                 @if(in_array($question->id,$selectQuestion))
                                     checked
                                 @endif
-                                 name="selectQes[]" id="selectQes{{ $question->id}}" value="{{ $question->id}}">
+                                 name="selectQes[]" id="selectQes{{ $question->id}}" value="{{ $question->id}}" data-type="{{$question->question_type}}">
                             </td>
                             <td>{{ $question->question}}</td>
                             <td>{{ $question->question_type == 0 ? "Objecytive" : "Subjective" }}</td>

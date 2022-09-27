@@ -23,10 +23,27 @@
 					@csrf
 					<table class="table">
 						<input type="hidden" name="total_question" value={{count($questions)}}>
+						
+						@foreach($subjective as $s => $q)
+							<input type="hidden" name="question_id[]" value={{$q->id}}>
+							<tr>
+								<th colspan="2">{{$s+1}}. {{$q->question}}</th>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="text" name="correc_ans_{{$q->id}}" class="form-control" placeholder="your answer"></td>
+							</tr>
+						@endforeach
+
+
+						
+						@php
+							$total_marks = 0;
+						@endphp
+
 						@foreach($questions as $k => $q)
 						<input type="hidden" name="question_id[]" value={{$q->id}}>
 						<tr>
-							<th colspan="2">{{$k+1}}. {{$q->question}}</th>
+							<th colspan="2">{{$k+1}}. {{$q->question}} <span style="float: right">{{$q->mark}} marks</span></th>
 						</tr>
 						@if($q->question_type == 1)
 						<tr>
@@ -54,6 +71,9 @@
 							</td>
 						</tr>
 						@endif
+						@php
+							$total_marks = $total_marks+$q->mark;
+						@endphp
 						@endforeach
 					</table>
 					<button type="submit" class="btn btn-primary">Submit</button>
@@ -83,7 +103,17 @@
 							<span style="font-size: 20px">Sec</span>
 						</div>
 					</div>
-				</div>			
+				</div>	
+				<div class="row">
+					<div class="col-sm-12">
+						<h3>Total Marks : {{$total_marks}}</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<h3>Passing Marks : {{$passing_mark}}</h3>
+					</div>
+				</div>		
 			</div>
 		</div>
 	</div>

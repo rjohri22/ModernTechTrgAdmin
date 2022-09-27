@@ -369,6 +369,7 @@ class JobController extends AdminBaseController
         $user_details = User::where('id',$user_id)->first();
         $bend_details = Bend::where('id',$user_details->bend_id)->first();
         $countryhead = Bend::where('name','Country Head')->first();
+        
         $level = $bend_details->level;
         $job_descrtiption_id = $request->input('jd');
 
@@ -403,14 +404,7 @@ class JobController extends AdminBaseController
             'responsibilities'   => (isset($oppertunity->Responsibilities)) ? $oppertunity->Responsibilities : "",
             'modified_by'   => $user_id,
         );
-        if($bend_details->level >= $countryhead->level){
-            $update_arr['country_head_approval'] = $user_id;
-            $update_arr['min_salary'] = $request->input('min_salary');
-            $update_arr['max_salary'] = $request->input('max_salary');
-            $update_arr['salary_type'] = $request->input('wages');
-            $update_arr['compensation_mode'] = $request->input('compensation_mode');
-        }
-        
+
         if($level > 4){
             $update_arr['approved_manager'] =  $user_id;
             $update_arr['approved_hr'] =  $user_id;
@@ -423,6 +417,15 @@ class JobController extends AdminBaseController
             // $update_arr['round_2_question'] =  $request->input('round_2');
             // $update_arr['round_3_question'] =  $request->input('round_3');
         }
+        
+        if($bend_details->level >= $countryhead->level){
+            $update_arr['country_head_approval'] = $user_id;
+            $update_arr['min_salary'] = $request->input('min_salary');
+            $update_arr['max_salary'] = $request->input('max_salary');
+            $update_arr['salary_type'] = $request->input('wages');
+            $update_arr['compensation_mode'] = $request->input('compensation_mode');
+        }
+        
         if(isset($request->savedraft)){
             $update_arr['is_draft'] = 1;
         }

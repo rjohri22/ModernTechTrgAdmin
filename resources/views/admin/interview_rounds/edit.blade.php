@@ -75,7 +75,7 @@
                                             <input type='hidden' name='round_id[]' value='{{ $row->round_id }}' >
                                             <input type='hidden' name='round_questions[]' id='round_questions{{ $sno }}' value='[{{ $row->ids }}]' >
                                             <td>{{ $row->round_name }}</td>
-                                            <td id='no_question{{ $sno }}' >{{ $row->count_questions }}</td>
+                                            <td id='no_question{{ $sno }}' >Objective : {{ $row->objective }} <br> Subjective : {{ $row->subjective }}</td>
                                             <td><input type='number' value='{{ $row->interview_time }}' name='round_time[]' class='form-control' ></td>
                                             <td><input type='number' value='{{ $row->total_marks }}' name='round_marks[]' class='form-control' ></td>
                                             <td><textarea name='round_disclaimer[]' class='form-control' >{{ $row->disclaimer }}</textarea></td>
@@ -131,21 +131,35 @@
             var round_id = $('#round').val();
             var round_name = $('#round option:selected').data('name');
             var ids = [];
+            var type = [];
             $('.questCheckbox:checkbox:checked').each(function () {
                 var assignid = (this.checked ? $(this).val() : "");
                 ids.push(assignid);
             });
-            console.log(ids);
+
+            $('.questCheckbox:checkbox:checked').each(function () {
+                var assigntype = $(this).attr('data-type');
+                if(assigntype == '0'){
+                    type.push(assigntype);
+                }
+            });
+            // console.log(ids);
             var noofquestion = ids.length;
+
+            var all_objective_ques = type.length;
+            var all_subjective_ques = noofquestion - type.length;
+
             ids = JSON.stringify(ids);
-            console.log(ids);
+            type = JSON.stringify(type);
             
             html += "<tr id='tr"+sno+"' >";
                 html += "<input type='hidden' name='round_id[]' value='"+round_id+"' >";
                 html += "<input type='hidden' name='round_questions[]' id='round_questions"+sno+"' value='"+ids+"' >";
+                html += "<input type='hidden' name='round_type[]' id='round_type"+sno+"' value='"+type+"' >";
                 html += "<td>"+round_name+"</td>";
-                html += "<td id='no_question"+sno+"' >"+noofquestion+"</td>";
+                html += "<td id='no_question"+sno+"' >Objectives : "+all_objective_ques+" <br> Subjectives : "+all_subjective_ques+"</td>";
                 html += "<td><input type='number' value='0' name='round_time[]' class='form-control' ></td>";
+                html += "<td><input type='number' value='0' name='round_marks[]' class='form-control' ></td>";
                 html += "<td><textarea name='round_disclaimer[]' class='form-control' ></textarea></td>";
                 html += "<td>";
                     html += "<button type='button' class='btn btn-sm btn-primary roundEdit' data-rid='"+round_id+"' data-questions='"+ids+"' data-sno='"+sno+"'  data-bs-toggle='modal' data-bs-target='#questionsModal' >Edit</button>";
