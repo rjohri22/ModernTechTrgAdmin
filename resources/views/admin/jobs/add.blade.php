@@ -58,7 +58,7 @@
 						</div> -->
 					</div>
 					<br>
-					@if($my_bend->level > 4)
+					@if($my_bend->level >= 4)
 					<div class="row">
 						
 						<div class="col-sm-3">
