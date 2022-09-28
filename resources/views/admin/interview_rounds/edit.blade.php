@@ -69,11 +69,20 @@
                                     @endphp
                                     @foreach($interviewroundquestions as $row)
                                         @php
+                                            $final_type = [];
+                                            $types = explode(',',$row->types);
+                                            foreach($types as $ty){
+                                                if($ty == 0){
+                                                    $final_type[] = $ty;
+                                                }
+                                            }
+                                            $final_type = implode(',',$final_type);
                                             $sno++;
                                         @endphp
                                         <tr id='tr{{ $sno }}' >
                                             <input type='hidden' name='round_id[]' value='{{ $row->round_id }}' >
                                             <input type='hidden' name='round_questions[]' id='round_questions{{ $sno }}' value='[{{ $row->ids }}]' >
+                                            <input type='hidden' name='round_type[]' id='round_type{{$sno}}' value='[{{$final_type}}]' >
                                             <td>{{ $row->round_name }}</td>
                                             <td id='no_question{{ $sno }}' >Objective : {{ $row->objective }} <br> Subjective : {{ $row->subjective }}</td>
                                             <td><input type='number' value='{{ $row->interview_time }}' name='round_time[]' class='form-control' ></td>

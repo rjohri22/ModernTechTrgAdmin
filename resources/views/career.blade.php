@@ -259,7 +259,7 @@
                                         <span class="btn-title">You Have Already Applied for This Job</span>
                                     </button>
                                 </center>
-                                @if($interviewer[$k] != null)
+                                @if(isset($interviewer[$k]) && $interviewer[$k] != null)
                                     <a href="{{route('jb_calender',['id' => $interviewer[$k],'jid'=>$j->id])}}" class="btn btn-primary">Select Dates</a>
                                 @endif
                             @else
