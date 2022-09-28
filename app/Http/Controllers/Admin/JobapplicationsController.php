@@ -119,12 +119,13 @@ class JobapplicationsController extends AdminBaseController
         return view('admin/job_applications/attem_questions',$this->data);
     }
     public function assign(Request $request){
+ 
         $jas = $request->ja;
         $emp_id = $request->emp_id;
         $interviewer = User::where('id',$emp_id)->first();
         $jobseekers = array();
         foreach($jas as $ja){
-            $jobapplication = Job_applications::find($s);
+            $jobapplication = Job_applications::find($ja);
             $jobapplication->interviewer_id = $emp_id;
             $jobapplication->save();
             $jobseeker = User::where('id',$jobapplication->jobseeker_id)->first();
