@@ -162,7 +162,8 @@ class InterviewRoundsController extends AdminBaseController
                 (SELECT COUNT(a.question_id) FROM interview_round_questions AS a WHERE a.interview_round_id = interview_round_questions.interview_round_id AND a.round_id = interview_round_questions.round_id AND a.question_type = 1) AS subjective,
                 COUNT(interview_round_questions.question_id) as count_questions,
                 SUM(interview_round_questions.marks) as total_marks,
-                group_concat(interview_round_questions.question_id) as ids
+                group_concat(interview_round_questions.question_id) as ids,
+                group_concat(interview_round_questions.question_type) as types
             '))
             ->leftJoin('rounds', 'rounds.id', '=', 'interview_round_questions.round_id')
             ->where('interview_round_questions.interview_round_id',$id)
@@ -183,6 +184,7 @@ class InterviewRoundsController extends AdminBaseController
         $id = $request->id;
         $rounds = $request->round_id;
         $round_questions = $request->round_questions;
+        $round_questions_type = $request->round_type;
         $round_time = $request->round_time;
         $round_marks = $request->round_marks;
         $round_disclaimer = $request->round_disclaimer;
@@ -192,9 +194,11 @@ class InterviewRoundsController extends AdminBaseController
         InterviewRoundQuestions::where('interview_round_id',$id)->delete(); 
         foreach($rounds as $key => $round){
             $qs = json_decode($round_questions[$key]);
+            $qs_type = json_decode($round_questions_type[$key]);
             $time = $round_time[$key];
             $marks = json_decode($round_marks[$key]);
-            $single_mark = $marks/count($qs);
+            // $single_mark = $marks/count($qs);
+            $single_mark = $marks/count($qs_type);
             $disclaimer = $round_disclaimer[$key];
             foreach($qs as $q){
                 $ques_data = QuestionBank::where('id',$q)->get();
@@ -210,7 +214,7 @@ class InterviewRoundsController extends AdminBaseController
                 $InterviewRoundQuestions->option_c = $ques_data[0]->option_c;
                 $InterviewRoundQuestions->option_d = $ques_data[0]->option_d;
                 $InterviewRoundQuestions->correct_answer = $ques_data[0]->correct_answer;
-                $InterviewRoundQuestions->marks = $single_mark;
+                $InterviewRoundQuestions->marks = ($ques_data[0]->question_type == 0) ? $single_mark : 0;
                 $InterviewRoundQuestions->interview_time = $time;
                 $InterviewRoundQuestions->disclaimer = $disclaimer;
                 $InterviewRoundQuestions->save();
