@@ -130,17 +130,24 @@ class JobapplicationsController extends AdminBaseController
             $jobapplication->save();
             $jobseeker = User::where('id',$jobapplication->jobseeker_id)->first();
             $jobseekers[] = $jobseeker;
-            $subject = "Interview Assigned";
-            $message = "Dear Jobseeker! This Email is To Notify You That The Interviewer named ".$interviewer->name." Which Is Assigned. Please confirm your interview <a href='".url('calender/'.$emp_id.'/'.$jobapplication->id)."'>Click Herer</>";
+            $subject = "Interview Assigned to you";
+            $message = "<p style='text-align:left;'>Dear Jobseeker,</p>
+            <p style='text-align:justify'>
+            This Email is To Notify You That The Interviewer named ".$interviewer->name." Which Is Assigned. Please confirm your interview <a href='".url('calender/'.$emp_id.'/'.$jobapplication->id)."'>Click Here<a/> for selecting interiew dates</p>";
             GeneralModal::send_email($jobseeker->email,$subject,$message);
         }
         if(count($jobseekers) > 0){
             $subject = "Job Seeker Assigned";
-            $message = "Dear Interviewer! This Email is To Notify You That The Job Seeker Is Assigned.<ol>";
+            $message = "<p style='text-align:left;'>Dear Interviewer!</p> 
+            <p style='text-align:justify;'>
+            This Email is To Notify You That The Job Seeker Is Assigned.
+            <ol>";
             foreach($jobseekers as $jk){
                 $message .= "<li>".$jk->name."</li>";
             }
-            $message .= "</ol>";
+            $message .= "</ol>
+            </p>
+            ";
             GeneralModal::send_email($interviewer->email,$subject,$message);
         }
         if(count($jas) == 0){

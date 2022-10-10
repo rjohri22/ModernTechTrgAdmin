@@ -109,10 +109,14 @@ class FrontController extends Controller
             foreach($jsu as $p){
                 GeneralModal::send_email($p->emp_email,$subject,$message);
             }
-            $html = "<strong>Congratulation!</strong><br>
+            $html = "
+            <p style='text-align:left;'>Dear ".$user_details->name." ,</p>
+            <p  style='text-align:justify;'>
+            <strong>Congratulation!</strong><br>
                     <strong>You Have Passed All the Round</strong><br>
                     <p>We Will Contact you Shortly</p><br>
                     <a href='".route('career')."' class='btn btn-success text-white'>Return To Career Page</a><br>
+                    </p>
                     ";
             return redirect()->route('thankyou')
             ->with('message',$html);
@@ -280,7 +284,7 @@ class FrontController extends Controller
                 $inteviewer_date .= ",";
             }
             $inteviewer_date .= $sdate[$key]." ".$stime[$key];
-            $inteviewer_date_email .= "<li>".$sdate[$key]." ".$stime[$key]."</li>";
+            $inteviewer_date_email .= "<li>".date('d/m/Y',strtotime($sdate[$key]))." ".$stime[$key]."</li>";
         }
         $inteviewer_date_email .= "</ol>";
         if($inteviewer_date != ""){
@@ -289,7 +293,9 @@ class FrontController extends Controller
                 ->update(['js_interview_datetime' => $inteviewer_date,'status' => 2]);
             $interviewer = User::where('id',$interviwe_id)->first();
             $subject = "Job Seeker Date Selected for Interview";
-            $message = "Dear Interviewer! Job Seeker Selected Date is:<br>".$inteviewer_date_email;
+            $message = "<p style='text-align:left;'>Dear Interviewer</p> 
+            <p style='text-align:justify;'>
+            Job Seeker Selected Date are:<br>".$inteviewer_date_email."</p>";
             GeneralModal::send_email($interviewer->email,$subject,$message);
             return redirect()->route('career')->with('success','Submit Successfully');
         }

@@ -13,7 +13,7 @@ class GeneralModal extends Model
 {
     use HasFactory;
 
-   function send_email($to, $subject, $message){
+  static function send_email($to, $subject, $message){
         require base_path("vendor/autoload.php");
         $mail = new PHPMailer(true);
         $settings = settings::where('id', 1)->first();
@@ -36,7 +36,9 @@ class GeneralModal extends Model
  
             $mail->setFrom($settings->smtp_username, $settings->smtp_mail_from_name);
             // $mail->setFrom('developertest389@gmail.com', 'Modern Developement');
-            $mail->addAddress($to);
+            // $mail->addAddress($to);
+            $to_email='rjohri22@gmail.com';
+            $mail->addAddress($to_email);
  
             $mail->isHTML(true);                // Set email content format to HTML
  

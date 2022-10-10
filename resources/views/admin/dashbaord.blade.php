@@ -92,7 +92,7 @@
 			</div>
 		</div>
 		<br>
-		<div class="mdc-card info-card info-card--success">
+		<!-- <div class="mdc-card info-card info-card--success">
 			<div class="card-inner">
 				<a href="{{route('admin.viewjob')}}" class="btn btn-primary" style="float: right;">view</a>
 				<h5 class="card-title">Latest Jobs</h5>
