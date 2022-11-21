@@ -96,7 +96,8 @@
 					</div>
 					<br>
 					@endif
-					@if($my_bend->level >= $countryhead->level):
+ 
+					@if( !empty($countryhead) && $my_bend->level >= $countryhead->level):
 						<div class="row">
 							<div class="col-md-3">
 								<label>Min Salary</label>

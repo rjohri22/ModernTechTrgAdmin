@@ -89,13 +89,11 @@ Route::prefix('admin')->group(function () {
     // Route::get('/job_applications/delete_application/{id}', [Admin\JobapplicationsController::class, 'delete_application'])->name('admin.delete_application');
 
 
-    Route::get('/job_seeker', [Admin\JobseekerController::class, 'index'])->name('admin.job_seeker');
-    Route::get('/job_seeker/view/{id}', [Admin\JobseekerController::class, 'view'])->name('admin.view_job_seeker');
-    Route::get('/job_seeker/delete_job_seeker/{id}', [Admin\JobseekerController::class, 'delete_job_seeker'])->name('admin.delete_job_seeker');
-    Route::post('/job_seeker/assign_job_status_update', [Admin\JobseekerController::class, 'assign_job_status_update'])->name('admin.assign_jbs');
-
-
-    
+    Route::get('/job_seeker', [Admin\JobSeekerController::class, 'index'])->name('admin.job_seeker');
+    Route::get('/job_seeker/view/{id}', [Admin\JobSeekerController::class, 'view'])->name('admin.view_job_seeker');
+    Route::get('/job_seeker/delete_job_seeker/{id}', [Admin\JobSeekerController::class, 'delete_job_seeker'])->name('admin.delete_job_seeker');
+    Route::post('/job_seeker/assign_job_status_update', [Admin\JobSeekerController::class, 'assign_job_status_update'])->name('admin.assign_jbs');
+ 
     Route::get('/employees', [Admin\EmployeesController::class, 'index'])->name('admin.employees');
     Route::get('/employees/add', [Admin\EmployeesController::class, 'add'])->name('admin.add_employee');
     Route::get('/employees/edit/{id}', [Admin\EmployeesController::class, 'edit'])->name('admin.edit_employee');

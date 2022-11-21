@@ -120,7 +120,7 @@ class JobapplicationsController extends AdminBaseController
     }
     public function assign(Request $request){
  
-        $jas = $request->ja;
+        $jas = (isset($request->ja)?$request->ja:array());
         $emp_id = $request->emp_id;
         $interviewer = User::where('id',$emp_id)->first();
         $jobseekers = array();
