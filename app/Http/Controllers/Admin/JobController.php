@@ -417,8 +417,8 @@ class JobController extends AdminBaseController
             // $update_arr['round_2_question'] =  $request->input('round_2');
             // $update_arr['round_3_question'] =  $request->input('round_3');
         }
-        
-        if($bend_details->level >= $countryhead->level){
+ 
+        if($bend_details->level >= 4){
             $update_arr['country_head_approval'] = $user_id;
             $update_arr['min_salary'] = $request->input('min_salary');
             $update_arr['max_salary'] = $request->input('max_salary');
